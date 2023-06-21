@@ -4,16 +4,10 @@ import Profile from "./components/Profile";
 import sushi from "./assets/temp_pfp/sushi.jpg";
 import boba from "./assets/temp_pfp/boba.jpg";
 import avocado from "./assets/temp_pfp/avocado.jpg";
+import ProfileGrid from "./components/ProfileGrid";
 
 function App() {
-  const profiles = [sushi, avocado, boba]; // Test profiles
-
-  let gridCols = profiles.length; // Number of columns in the grid
-  if (gridCols < 1) {
-    gridCols = 1; // Minimum of 1 column
-  } else if (gridCols > 3) {
-    gridCols = 3; // Maximum of 3 columns
-  }
+  const profiles = [sushi, avocado, boba]; // Add more profiles if needed
 
   return (
     <div className="h-screen w-screen bg-gradient-to-b from-slate-50 to-rose-50 font-thin font-inter">
@@ -31,11 +25,7 @@ function App() {
           <p className="text-3xl">Sessions completed today:</p>
           <span className="text-3xl">2</span>
         </div>
-        <div className={`grid grid-cols-${gridCols} gap-4 pt-10`}>
-          {profiles.map((profile, index) => (
-            <Profile key={index} pfp={profile} />
-          ))}
-        </div>
+        <ProfileGrid profiles={profiles} />
       </div>
     </div>
   );
