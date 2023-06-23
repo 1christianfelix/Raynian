@@ -35,7 +35,7 @@ const Timer = () => {
   }, [countdown]);
 
   return (
-    <div className="flex flex-row relative">
+    <div className="font-inter flex flex-row relative">
       <p className="text-[128px] leading-tight">
         {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}:
         {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}
@@ -45,8 +45,8 @@ const Timer = () => {
           className="mx-[5px]"
           onClick={() =>
             setCountdown({
-              hours: 1,
-              minutes: 0,
+              hours: 0,
+              minutes: 60,
               seconds: 0,
             })
           }
@@ -58,7 +58,7 @@ const Timer = () => {
           onClick={() =>
             setCountdown({
               hours: 0,
-              minutes: 60,
+              minutes: 0,
               seconds: 0,
             })
           }
