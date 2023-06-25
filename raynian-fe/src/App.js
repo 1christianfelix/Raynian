@@ -2,6 +2,7 @@ import thick_logo from "./assets/thick_logo.svg";
 import { FaCog } from "react-icons/fa";
 import Profile from "./components/Profile";
 import { ModalProvider } from "./context/ModalContext";
+import { DarkLightProvider } from "./context/DarkLightContext";
 import sushi from "./assets/temp_pfp/sushi.jpg";
 import boba from "./assets/temp_pfp/boba.jpg";
 import avocado from "./assets/temp_pfp/avocado.jpg";
@@ -15,21 +16,22 @@ function App() {
   const profiles = [sushi, avocado, boba]; // Add more profiles if needed
 
   return (
-    <ModalProvider>
-      <div className="h-screen w-screen bg-gradient-to-b from-slate-50 to-rose-50 font-thin">
-        <Nav />
-        <ProfilePage />
-        {/* <div className="h-[60%] flex items-center justify-center flex-col">
-        <div className="text-center ">
-        <p className="text-3xl">You're doing great!</p>
-        <Timer />
-        <p className="text-3xl">Sessions completed today:</p>
-        <span className="text-3xl">2</span>
+    <DarkLightProvider>
+      <ModalProvider>
+        <div className="h-screen w-screen bg-gradient-to-b from-slate-50 to-rose-50 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
+          <Nav />
+          <div className="h-[60%] flex items-center justify-center flex-col">
+            <div className="text-center ">
+              <p className="text-3xl">You're doing great!</p>
+              <Timer />
+              <p className="text-3xl">Sessions completed today:</p>
+              <span className="text-3xl">2</span>
+            </div>
+            <ProfileGrid profiles={profiles} />
           </div>
-          <ProfileGrid profiles={profiles} />
-        </div> */}
-      </div>
-    </ModalProvider>
+        </div>
+      </ModalProvider>
+    </DarkLightProvider>
   );
 }
 
