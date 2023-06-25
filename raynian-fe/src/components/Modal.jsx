@@ -13,23 +13,23 @@ export default function Modal(props) {
   if (props?.type === "dropdown") {
     content = (
       <div
-        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-black dark:text-white`}
+        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-slate-900 dark:text-white`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="py-[5px] px-[20px] rounded-t-2xl hover:bg-gray-200"
+          className="py-[5px] px-[20px] rounded-t-2xl hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleModal}
         >
           Profile
         </button>
         <button
-          className="py-[5px] px-[20px] hover:bg-gray-200"
+          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleModal}
         >
           Settings
         </button>
         <button
-          className="py-[5px] px-[20px] hover:bg-gray-200"
+          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleModal}
         >
           Stats
@@ -43,7 +43,7 @@ export default function Modal(props) {
           />
           <label
             for="check"
-            className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-slate-700 rounded-2xl"
+            className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-slate-700 rounded-2xl cursor-pointer"
           >
             <FaRegMoon className=" text-yellow-400 dark:text-yellow-400" />
             <BsFillBrightnessHighFill className=" text-yellow-400 dark:text-yellow-400" />
