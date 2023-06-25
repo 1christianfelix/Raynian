@@ -31,17 +31,8 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  stats: {
-    points: {
-      type: Number,
-      default: 0,
-    },
-    studyTime: {
-      type: Number,
-      default: 0,
-    },
-  },
-  friends: [mongoose.SchemaTypes.ObjectId],
+  stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
+  friends: [mongoose.Schema.Types.ObjectId],
 });
 
 module.exports = mongoose.model("User", userSchema);
