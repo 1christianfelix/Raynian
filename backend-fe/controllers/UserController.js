@@ -18,7 +18,7 @@ const getuser = async (req, res) => {
     return res.status(404).json({ error: "user does not exist" });
   }
 
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("stats");
 
   if (!user) {
     return res.status(404).json({ error: "No such user" });

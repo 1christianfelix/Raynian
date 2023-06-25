@@ -5,7 +5,10 @@ const {
   createuser,
 } = require("../controllers/UserController");
 
-const { getuserstats } = require("../controllers/StatsController");
+const {
+  getuserstats,
+  updateuserstats,
+} = require("../controllers/StatsController");
 
 const router = express.Router();
 
@@ -19,6 +22,8 @@ router.post("/", createuser);
 
 // GET user stats
 router.get("/:id/stats", getuserstats);
+
+router.put("/:id/stats", updateuserstats);
 
 // UPDATE a new user
 
