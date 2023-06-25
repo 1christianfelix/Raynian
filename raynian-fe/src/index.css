@@ -34,3 +34,12 @@
   /* border-radius: 1rem;
   border: 1px solid black; */
 }
+
+.mode-checkbox:checked + .mode-label .mode-ball {
+  transform: translateX(34px);
+}
+
+/* .dark {
+  background: linear-gradient(to bottom, #2c2c2c 0%, #9b1b30 100%);
+  color: white;
+} */

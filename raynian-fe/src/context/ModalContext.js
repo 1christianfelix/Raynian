@@ -6,7 +6,6 @@ export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
-    console.log("A");
     setIsModalOpen(!isModalOpen);
   };
 
