@@ -35,7 +35,7 @@ export default function Timer() {
   }, [countdown]);
 
   return (
-    <div className="font-inter flex flex-row relative">
+    <div className="font-inter flex flex-row justify-center relative">
       <p className="text-[128px] leading-tight">
         {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}:
         {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}

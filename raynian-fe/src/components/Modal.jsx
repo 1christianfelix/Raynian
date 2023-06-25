@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ModalContext } from "../context/ModalContext";
 import { DarkLightContext } from "../context/DarkLightContext";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
+import { BsFillBrightnessHighFill } from "react-icons/bs";
 
 export default function Modal(props) {
   const { isModalOpen, toggleModal } = useContext(ModalContext);
@@ -16,19 +17,19 @@ export default function Modal(props) {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="py-[5px] px-[20px] rounded-t-2xl hover:bg-violet-600"
+          className="py-[5px] px-[20px] rounded-t-2xl hover:bg-gray-200"
           onClick={toggleModal}
         >
           Profile
         </button>
         <button
-          className="py-[5px] px-[20px] hover:bg-violet-600"
+          className="py-[5px] px-[20px] hover:bg-gray-200"
           onClick={toggleModal}
         >
           Settings
         </button>
         <button
-          className="py-[5px] px-[20px] hover:bg-violet-600"
+          className="py-[5px] px-[20px] hover:bg-gray-200"
           onClick={toggleModal}
         >
           Stats
@@ -42,11 +43,11 @@ export default function Modal(props) {
           />
           <label
             for="check"
-            className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-violet-600 rounded-2xl"
+            className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-slate-700 rounded-2xl"
           >
-            <h1>a</h1>
-            <h2>b</h2>
-            <div className="mode-ball absolute bg-white top-[2px] left-[2px] w-[22px] h-[22px] rounded-full translate-x-0 transition-transform duration-200 ease-linear"></div>
+            <FaRegMoon className=" text-yellow-400 dark:text-yellow-400" />
+            <BsFillBrightnessHighFill className=" text-yellow-400 dark:text-yellow-400" />
+            <div className="mode-ball absolute bg-white top-[2px] left-[2px] w-[22px] h-[22px] rounded-full translate-x-0 transition-transform duration-150 ease-linear"></div>
           </label>
         </div>
       </div>
