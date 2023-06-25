@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const Timer = () => {
+export default function Timer() {
   const [countdown, setCountdown] = useState({
     hours: 0,
     minutes: 0,
@@ -55,19 +55,17 @@ const Timer = () => {
         </div>
         <div
           className="mx-[5px]"
-          onClick={() =>
+          onClick={() => {
             setCountdown({
               hours: 0,
               minutes: 0,
               seconds: 0,
-            })
-          }
+            });
+          }}
         >
           stop
         </div>
       </div>
     </div>
   );
-};
-
-export default Timer;
+}
