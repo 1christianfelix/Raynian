@@ -5,18 +5,14 @@ import { FaRegMoon, FaRegSun } from "react-icons/fa";
 
 export default function Modal(props) {
   const { isModalOpen, toggleModal } = useContext(ModalContext);
-  const { isDark, toggleDark } = useContext(DarkLightContext);
+  const { toggleDark } = useContext(DarkLightContext);
   let content = null;
   if (!isModalOpen) return null;
 
   if (props?.type === "dropdown") {
     content = (
       <div
-        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 ${
-          props.width ? `w-${props.width}` : `w-[]`
-        }
-        ${isDark ? "dark:" : "bg-white"}
-        `}
+        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-black dark:text-white`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
