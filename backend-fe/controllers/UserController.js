@@ -43,7 +43,9 @@ const createuser = async (req, res) => {
     user.stats = stats._id;
     await user.save();
 
-    res.status(200).json(user);
+    const newuser = await User.findById(user._id).populate("stats"); // replace 'stats' with the document referenced by 'stats'
+
+    res.status(200).json(newuser);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
