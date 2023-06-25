@@ -20,7 +20,8 @@ function App() {
       <ModalProvider>
         <div className="h-screen w-screen bg-gradient-to-b from-slate-50 to-rose-50 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
           <Nav />
-          <div className="h-[60%] flex items-center justify-center flex-col">
+          <ProfilePage />
+          {/* <div className="h-[60%] flex items-center justify-center flex-col">
             <div className="text-center ">
               <p className="text-3xl">You're doing great!</p>
               <Timer />
@@ -28,7 +29,7 @@ function App() {
               <span className="text-3xl">2</span>
             </div>
             <ProfileGrid profiles={profiles} />
-          </div>
+          </div> */}
         </div>
       </ModalProvider>
     </DarkLightProvider>

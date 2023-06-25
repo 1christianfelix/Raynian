@@ -18,7 +18,7 @@ export default function Nav() {
           />
           <p className="text-3xl">raynian</p>
         </div>
-        <div className="relative">
+        <div className="relative cursor-pointer">
           <FaRegGrinTongue size={50} onClick={toggleModal} />
           <Modal type={"dropdown"} />
         </div>
