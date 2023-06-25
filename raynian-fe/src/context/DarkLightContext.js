@@ -3,15 +3,15 @@ import React, { createContext, useEffect, useState } from "react";
 export const DarkLightContext = createContext();
 
 export const DarkLightProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const toggleDark = () => {
-    console.log(isDark);
-    setIsDark(!isDark);
+    console.log(theme);
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   useEffect(() => {
-    if (isDark) {
+    if (theme === "dark") {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
     } else {
@@ -19,10 +19,10 @@ export const DarkLightProvider = ({ children }) => {
       localStorage.setItem("theme", "light");
     }
     console.log("AAA");
-  }, [isDark]);
+  }, [theme]);
 
   return (
-    <DarkLightContext.Provider value={{ isDark, toggleDark }}>
+    <DarkLightContext.Provider value={{ theme, toggleDark }}>
       {children}
     </DarkLightContext.Provider>
   );

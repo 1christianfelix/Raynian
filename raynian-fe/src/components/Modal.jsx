@@ -6,14 +6,14 @@ import { BsFillBrightnessHighFill } from "react-icons/bs";
 
 export default function Modal(props) {
   const { isModalOpen, toggleModal } = useContext(ModalContext);
-  const { toggleDark } = useContext(DarkLightContext);
+  const { theme, toggleDark } = useContext(DarkLightContext);
   let content = null;
   if (!isModalOpen) return null;
 
   if (props?.type === "dropdown") {
     content = (
       <div
-        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-slate-900 dark:text-white`}
+        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-slate-900 dark:text-white transition`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -40,6 +40,7 @@ export default function Modal(props) {
             id="check"
             className="mode-checkbox opacity-0 absolute"
             onChange={toggleDark}
+            checked={theme === "dark"}
           />
           <label
             for="check"
@@ -55,7 +56,10 @@ export default function Modal(props) {
   }
 
   return (
-    <div className={`${props.type}-modal-container`} onClick={toggleModal}>
+    <div
+      className={`${props.type}-modal-container transition-all duration-100`}
+      onClick={toggleModal}
+    >
       {content}
     </div>
   );
