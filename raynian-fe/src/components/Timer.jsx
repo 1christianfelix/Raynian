@@ -55,13 +55,13 @@ export default function Timer() {
         </div>
         <div
           className="mx-[5px]"
-          onClick={() =>
+          onClick={() => {
             setCountdown({
               hours: 0,
               minutes: 0,
               seconds: 0,
-            })
-          }
+            });
+          }}
         >
           stop
         </div>
