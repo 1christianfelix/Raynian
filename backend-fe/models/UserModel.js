@@ -34,7 +34,7 @@ const userSchema = new Schema({
   stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
   friends: [mongoose.Schema.Types.ObjectId],
   labels: [{ type: String, lowercase: true }],
-  tasks: [mongoose.Schema.Types.ObjectId],
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
 
 module.exports = mongoose.model("User", userSchema);
