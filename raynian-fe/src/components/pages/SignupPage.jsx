@@ -3,9 +3,12 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 function SignupPage() {
 
     const [togglePassword, setTogglePassword] = useState('password')
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const handleTogglePassword = () => {
-
         if (togglePassword === 'password') setTogglePassword('text')
         else setTogglePassword('password')
     }
@@ -18,15 +21,19 @@ function SignupPage() {
         <div className="mb-[50px]">
           <input
             type="text"
+            value={username}
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="mb-[50px]">
           <input
             type="email"
+            value={email}
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -34,19 +41,23 @@ function SignupPage() {
         <div className="mb-[50px] flex ml-[-6px]">
           <input
             type={togglePassword}
+            value={password}
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           {
             togglePassword === 'text' ? <FaEyeSlash className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/> :
             <FaEye className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/>
           }
         </div>
-        <div className="mb-[10px] flex ml-[-6px]">
+        <div className="mb-[10px] flex]">
           <input
             type={togglePassword}
+            value={confirmPassword}
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Confirm Password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
 
