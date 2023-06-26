@@ -70,7 +70,7 @@ function LoginPage() {
                           Login
                         </button>
                         </div>
-                        <div className="flex justify-center">
+                        <div className="grid place-content-center">
                           <p>Don't have an account?</p>
                           <p className="ml-[10px]">Create an account</p>
                         </div>
