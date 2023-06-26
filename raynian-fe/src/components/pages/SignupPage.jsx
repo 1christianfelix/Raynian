@@ -22,7 +22,7 @@ function SignupPage() {
           <input
             type="text"
             value={username}
-            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
+            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none bg-none"
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -31,7 +31,7 @@ function SignupPage() {
           <input
             type="email"
             value={email}
-            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
+            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none bg-none"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -42,7 +42,7 @@ function SignupPage() {
           <input
             type={togglePassword}
             value={password}
-            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
+            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none bg-none"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -55,7 +55,7 @@ function SignupPage() {
           <input
             type={togglePassword}
             value={confirmPassword}
-            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
+            className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none bg-none"
             placeholder="Confirm Password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
