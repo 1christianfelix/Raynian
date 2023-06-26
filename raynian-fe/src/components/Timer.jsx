@@ -34,13 +34,13 @@ export default function Timer() {
         <div className="mx-[5px] my-[5px]" onClick={pauseTimer}>
           <PiPauseLight
             size={20}
-            className="timer-button text-slate-700 cursor-pointer"
+            className="timer-button text-slate-700 cursor-pointer dark:text-white"
           />
         </div>
         <div className="mx-[5px] my-[5px]" onClick={pauseTimer}>
           <IoSettingsOutline
             size={20}
-            className="timer-button text-slate-700 cursor-pointer"
+            className="timer-button text-slate-700 cursor-pointer dark:text-white"
           />
         </div>
       </div>
