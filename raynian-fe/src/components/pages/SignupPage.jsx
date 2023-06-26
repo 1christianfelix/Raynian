@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 function SignupPage() {
   const [togglePassword, setTogglePassword] = useState("password");
   const [username, setUsername] = useState("");
@@ -13,15 +14,18 @@ function SignupPage() {
   };
 
   return (
-    <div className="w-full flex flex-row mt-[20px]">
+    <div className="w-full flex flex-row">
       <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[64px] mb-[30px]">Sign Up</h1>
+              <h1 className="text-[64px] mb-[30px] font-normal">Sign Up</h1>
+
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
+
+                    {/* Form */}
                     <form type="submit">
                       <div className="w-full mb-[30px]">
                         <input
@@ -65,7 +69,7 @@ function SignupPage() {
                           />
                         )}
                       </div>
-                      <div className="w-full mb-[30px]">
+                      <div className="w-full mb-[20px]">
                         <input
                           type={togglePassword}
                           value={confirmPassword}
@@ -74,38 +78,38 @@ function SignupPage() {
                           onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                       </div>
-                      {/* Check boxes */}
-                      <div className="w-full">
-                        <div
-                          className="mb-[5px] mt-[10px] flex w-full"
-                          style={{justifyContent: 'space-between'}}
-                        >
-                          <div>
-                            <div>
-                              <input type="checkbox" />
-                              <span className="ml-[5px]">
-                                Terms of Agreement
-                              </span>
-                            </div>
-                            <div>
-                              <input type="checkbox" />
-                              <span className="ml-[5px]">
-                                Subscribe to newsletter
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <p>Already have an account?</p>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div className="flex justify-center mt-[10px]">
-                        <button className="bg-slate-300 w-full h-[40px] rounded-[4px]">
+                      <div className="flex justify-center mt-[15px]">
+                        <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[5px]">
                           Sign up
                         </button>
                       </div>
+                      <div
+                        className="flex"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p>Already have an account?</p>
+                      </div>
                     </form>
+
+                    <div className="text-center border-b border-black leading-[0.1em] mt-[20px] mb-[20px] bg-inherit"><span style={{background: "#ffe4e6 var(--tw-gradient-to-position)"}} className="pl-[10px] pr-[10px]">or</span></div>
+
+                    <div className="flex mt-[20px] text-[14px]" style={{justifyContent: 'space-between'}}>
+                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                        {" "}
+                        <div className="flex justify-center items-center">
+                          <FcGoogle className="mr-[5px] text-[16px]"/>
+                          <p className="font-normal">Continue with Google</p>
+                        </div>
+                      </button>
+                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                        {" "}
+                        <div className="flex justify-center items-center">
+                          <FaApple className="mr-[5px] text-[16px]"/>
+                          <p className="font-normal">Continue with Apple</p>
+                        </div>
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>
