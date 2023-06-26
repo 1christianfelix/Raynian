@@ -1,38 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { TimerContext } from "../context/TimerContext";
 
 export default function Timer() {
-  const [countdown, setCountdown] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  useEffect(() => {
-    let timerID = setInterval(() => {
-      if (
-        countdown.hours === 0 &&
-        countdown.minutes === 0 &&
-        countdown.seconds === 0
-      )
-        clearInterval(timerID);
-      else if (countdown.minutes === 0 && countdown.seconds === 0)
-        setCountdown({ hours: countdown.hours - 1, minutes: 59, seconds: 59 });
-      else if (countdown.seconds === 0)
-        setCountdown({
-          hours: countdown.hours,
-          minutes: countdown.minutes - 1,
-          seconds: 59,
-        });
-      else
-        setCountdown({
-          hours: countdown.hours,
-          minutes: countdown.minutes,
-          seconds: countdown.seconds - 1,
-        });
-    }, 1000);
-    return () => clearInterval(timerID);
-  }, [countdown]);
+  const { countdown, startTimer, stopTimer } = useContext(TimerContext);
 
   return (
     <div className="font-inter flex flex-row justify-center relative">
@@ -41,28 +12,10 @@ export default function Timer() {
         {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}
       </p>
       <div className="flex flex-col justify-center absolute bottom-[60px] right-[-50px]">
-        <div
-          className="mx-[5px]"
-          onClick={() =>
-            setCountdown({
-              hours: 0,
-              minutes: 60,
-              seconds: 0,
-            })
-          }
-        >
+        <div className="mx-[5px]" onClick={startTimer}>
           start
         </div>
-        <div
-          className="mx-[5px]"
-          onClick={() => {
-            setCountdown({
-              hours: 0,
-              minutes: 0,
-              seconds: 0,
-            });
-          }}
-        >
+        <div className="mx-[5px]" onClick={stopTimer}>
           stop
         </div>
       </div>
