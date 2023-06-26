@@ -24,7 +24,7 @@ function SignupPage() {
         </div>
         <div className="mb-[50px]">
           <input
-            type="text"
+            type="email"
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Email"
           />
@@ -48,10 +48,6 @@ function SignupPage() {
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Confirm Password"
           />
-          {
-            togglePassword === 'text' ? <FaEyeSlash className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/> :
-            <FaEye className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/>
-          }
         </div>
 
         <div className="">
