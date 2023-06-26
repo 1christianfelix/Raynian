@@ -31,7 +31,7 @@ function LoginPage() {
                           onChange={(e) => setUsernameEmail(e.target.value)}
                         />
                       </div>
-                      <div className="w-full mb-[30px] flex">
+                      <div className="w-full mb-[20px] flex">
                         <input
                           type={togglePassword}
                           placeholder="Password"
