@@ -9,12 +9,16 @@ export const TimerProvider = ({ children }) => {
     seconds: 0,
   });
 
+  const [isRunning, setIsRunning] = useState(false);
+
   const startTimer = () => {
-    setCountdown({
-      hours: 0,
-      minutes: 60,
-      seconds: 0,
-    });
+    if (!isRunning) {
+      setCountdown((prevCountdown) => ({
+        ...prevCountdown,
+        minutes: prevCountdown.minutes ? prevCountdown.minutes : 60,
+      }));
+      setIsRunning(true);
+    }
   };
 
   const stopTimer = () => {
@@ -23,36 +27,50 @@ export const TimerProvider = ({ children }) => {
       minutes: 0,
       seconds: 0,
     });
+    setIsRunning(false);
+  };
+
+  const pauseTimer = () => {
+    setIsRunning(false);
   };
 
   useEffect(() => {
-    let timerID = setInterval(() => {
-      if (
-        countdown.hours === 0 &&
-        countdown.minutes === 0 &&
-        countdown.seconds === 0
-      )
-        clearInterval(timerID);
-      else if (countdown.minutes === 0 && countdown.seconds === 0)
-        setCountdown({ hours: countdown.hours - 1, minutes: 59, seconds: 59 });
-      else if (countdown.seconds === 0)
-        setCountdown({
-          hours: countdown.hours,
-          minutes: countdown.minutes - 1,
-          seconds: 59,
-        });
-      else
-        setCountdown({
-          hours: countdown.hours,
-          minutes: countdown.minutes,
-          seconds: countdown.seconds - 1,
-        });
-    }, 1000);
+    let timerID = null;
+    if (isRunning) {
+      timerID = setInterval(() => {
+        if (
+          countdown.hours === 0 &&
+          countdown.minutes === 0 &&
+          countdown.seconds === 0
+        )
+          clearInterval(timerID);
+        else if (countdown.minutes === 0 && countdown.seconds === 0)
+          setCountdown({
+            hours: countdown.hours - 1,
+            minutes: 59,
+            seconds: 59,
+          });
+        else if (countdown.seconds === 0)
+          setCountdown({
+            hours: countdown.hours,
+            minutes: countdown.minutes - 1,
+            seconds: 59,
+          });
+        else
+          setCountdown({
+            hours: countdown.hours,
+            minutes: countdown.minutes,
+            seconds: countdown.seconds - 1,
+          });
+      }, 1000);
+    }
     return () => clearInterval(timerID);
-  }, [countdown]);
+  }, [countdown, isRunning]);
 
   return (
-    <TimerContext.Provider value={{ countdown, startTimer, stopTimer }}>
+    <TimerContext.Provider
+      value={{ countdown, startTimer, stopTimer, pauseTimer }}
+    >
       {children}
     </TimerContext.Provider>
   );
