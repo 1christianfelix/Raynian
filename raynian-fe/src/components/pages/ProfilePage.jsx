@@ -4,7 +4,6 @@ function ProfilePage() {
       <div className="mx-40">
         <div className="flex mb-5 mt-10">
           <img
-
             className="w-[140px] h-[140px] rounded-xl bg-gray-300"
           />
           <div className="pl-4">

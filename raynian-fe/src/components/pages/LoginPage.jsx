@@ -1,4 +1,14 @@
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
+
 function LoginPage() {
+
+  const [togglePassword, setTogglePassword] = useState('password')
+
+    const handleTogglePassword = () => {
+        if (togglePassword === 'password') setTogglePassword('text')
+        else setTogglePassword('password')
+    }
 
   return (
     <div className="w-screen mt-[80px]">
@@ -13,12 +23,16 @@ function LoginPage() {
           />
         </div>
         {/* Password Section */}
-        <div className="mb-[10px]">
+        <div className="mb-[10px] flex ml-[-6px]">
           <input
-            type="text"
+            type={togglePassword}
             className="bg-inherit border-b-[1px] border-black w-[400px] focus:outline-none"
             placeholder="Password"
           />
+          {
+            togglePassword === 'text' ? <FaEyeSlash className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/> :
+            <FaEye className="ml-[-25px] cursor-pointer" size={20} id="togglePassword" onClick={() => handleTogglePassword()}/>
+          }
         </div>
       <div>
         {/* Save Password Checkbox */}

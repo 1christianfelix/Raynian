@@ -8,6 +8,7 @@ import boba from "./assets/temp_pfp/boba.jpg";
 import avocado from "./assets/temp_pfp/avocado.jpg";
 import ProfileGrid from "./components/ProfileGrid";
 import LoginPage from "./components/pages/LoginPage";
+import SignupPage from "./components/pages/SignupPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import Nav from "./components/navigation/Nav";
 import Timer from "./components/Timer";
@@ -21,7 +22,8 @@ function App() {
       <ModalProvider>
         <div className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
           <Nav />
-          <LoginPage />
+          <SignupPage />
+          {/* <LoginPage/> */}
           {/* <div className="h-[60%] flex items-center justify-center flex-col">
             <div className="text-center ">
               <p className="text-3xl">You're doing great!</p>
