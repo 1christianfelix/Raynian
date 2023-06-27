@@ -5,20 +5,30 @@ const ProfileGrid = ({ profiles }) => {
   const [gridCols, setGridCols] = useState("");
 
   useEffect(() => {
-    let cols = profiles.length;
-
-    if (cols < 1) {
-      cols = 1; // Minimum of 1 column
-    } else if (cols > 3) {
-      cols = 3; // Maximum of 3 columns
+    let state = "";
+    switch (profiles.length) {
+      case 1:
+        state = "grid-cols-1";
+        break;
+      case 2:
+        state = "grid-cols-2";
+        break;
+      case 3:
+        state = "grid-cols-3";
+        break;
+      case 4:
+        state = "grid-cols-4";
+        break;
+      case 5:
+        state = "grid-cols-5";
+        break;
+      default:
+        state = "grid-cols-5"; // Default value if profile length is greater than 5
+        break;
     }
 
-    setGridCols(cols);
+    setGridCols(state);
   }, [profiles]);
-
-  useEffect(() => {
-    setGridCols(`grid-cols-${profiles.length}`); // Trigger state update after initial rendering
-  }, []);
 
   return (
     <>
