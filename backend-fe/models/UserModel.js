@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const Schema = mongoose.Schema;
 
@@ -9,6 +10,7 @@ const userSchema = new Schema({
     lowercase: true,
     required: true,
     unique: true,
+    maxlength: 20,
   },
   email: {
     type: String,
@@ -40,6 +42,31 @@ const userSchema = new Schema({
 
 // static signup method
 userSchema.statics.signup = async function (email, username, password) {
+  // validation
+  if (!email || !username || !password) {
+    throw Error("All fields must be filled");
+  }
+
+  if (!validator.isEmail(email)) {
+    throw Error("Not a valid email");
+  }
+
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Password is not strong enough");
+  }
+
+  if (username.length > 20) {
+    throw Error("Username exceeds the maximum length of 20 characters");
+  }
+
+  const alphanumericOptions = {
+    ignore: "-._", // Ignore characters "-", ".", and "_"
+  };
+
+  if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
+    throw Error("Username must be alphanumeric (allowing '-', '.', and '_')");
+  }
+
   const emailExists = await this.findOne({ email });
   const usernameExists = await this.findOne({ username });
   if (emailExists || usernameExists) {
