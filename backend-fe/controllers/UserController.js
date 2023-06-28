@@ -27,13 +27,13 @@ const getuser = async (req, res) => {
   res.status(200).json(user);
 };
 
-// create new user
-const createuser = async (req, res) => {
+// signup
+const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
   // add doc to db
   try {
-    const user = await User.create({ username, email, password });
+    const user = await User.signup(email, username, password);
 
     // Create the stats object and link it to the user
     const stats = new Stats({ user: user._id });
@@ -51,6 +51,11 @@ const createuser = async (req, res) => {
   }
 };
 
+// login
+const login = async (req, res) => {
+  res.json({ msg: "logged in" });
+};
+
 // delete a user
 
 // update a user
@@ -58,5 +63,6 @@ const createuser = async (req, res) => {
 module.exports = {
   getuser,
   getusers,
-  createuser,
+  signup,
+  login,
 };
