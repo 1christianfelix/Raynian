@@ -60,7 +60,16 @@ const signup = async (req, res) => {
 
 // login
 const login = async (req, res) => {
-  res.json({ msg: "logged in" });
+  const { email = null, username = null, password = null } = req.body;
+  try {
+    const user = await User.login(email, username, password);
+
+    const token = createToken(user._id);
+
+    res.status(200).json({ user, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // delete a user
