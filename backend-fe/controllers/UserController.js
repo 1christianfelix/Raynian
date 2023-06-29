@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "7d" });
 };
 
 // get all users
@@ -51,7 +51,12 @@ const signup = async (req, res) => {
     await user.save();
 
     const newuser = await User.findById(user._id).populate("stats"); // replace 'stats' with the document referenced by 'stats'
-
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({ newuser, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -66,13 +71,31 @@ const login = async (req, res) => {
 
     const token = createToken(user._id);
 
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// delete a user
+// logout
+const logout = async (req, res) => {
+  const { email = null, username = null, password = null } = req.body;
+  try {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+    res.status(200).json({ msg: "logged out" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 // update a user
 
@@ -81,4 +104,5 @@ module.exports = {
   getusers,
   signup,
   login,
+  logout,
 };
