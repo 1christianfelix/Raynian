@@ -16,8 +16,8 @@ function App() {
         <div className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
           <Nav />
 
-          {/* <Dashboard /> */}
           <Routes>
+            <Route path="/" element={<Dashboard />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignupPage />}></Route>
           </Routes>
