@@ -1,7 +1,7 @@
 import React from "react";
 import { TimerProvider } from "../../context/TimerContext";
-import Timer from "../Timer";
-import ProfileGrid from "../ProfileGrid";
+import Timer from "../util/Timer";
+import ProfileGrid from "../util/ProfileGrid";
 import sushi from "../../assets/temp_pfp/sushi.jpg";
 import boba from "../../assets/temp_pfp/boba.jpg";
 import avocado from "../../assets/temp_pfp/avocado.jpg";
