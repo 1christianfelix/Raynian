@@ -56,7 +56,10 @@ function LoginPage() {
                         )}
                       </div>
                       <div className="w-full ">
-                        <div className="flex space-x-reverse mb-[10px]" style={{justifyContent: 'space-between'}}>
+                        <div
+                          className="flex space-x-reverse mb-[10px]"
+                          style={{ justifyContent: "space-between" }}
+                        >
                           <div>
                             <input type="checkbox" className=""></input>
                             <span className="ml-[5px]">Save Password</span>
@@ -66,9 +69,9 @@ function LoginPage() {
                           </div>
                         </div>
                         <div>
-                        <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[10px]">
-                          Login
-                        </button>
+                          <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[10px]">
+                            Login
+                          </button>
                         </div>
                         <div className="grid place-content-center">
                           <p>Don't have an account?</p>

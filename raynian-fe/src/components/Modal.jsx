@@ -13,7 +13,7 @@ export default function Modal(props) {
   if (props?.type === "dropdown") {
     content = (
       <div
-        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-2xl  outline outline-1 dark:bg-slate-900 dark:text-white transition`}
+        className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}
         onClick={(e) => e.stopPropagation()}
       >
         <button

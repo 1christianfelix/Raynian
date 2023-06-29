@@ -19,12 +19,11 @@ function SignupPage() {
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[64px] mb-[30px] font-normal">Sign Up</h1>
+              <h1 className="text-[64px] mb-[30px]">Sign Up</h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-
                     {/* Form */}
                     <form type="submit">
                       <div className="w-full mb-[30px]">
@@ -91,25 +90,36 @@ function SignupPage() {
                       </div>
                     </form>
 
-                    <div className="text-center border-b border-black leading-[0.1em] mt-[20px] mb-[20px] bg-inherit"><span style={{background: "#ffe4e6 var(--tw-gradient-to-position)"}} className="pl-[10px] pr-[10px]">or</span></div>
+                    <div className="text-center border-b border-black leading-[0.1em] mt-[20px] mb-[20px] bg-inherit">
+                      <span
+                        style={{
+                          background: "#ffe4e6 var(--tw-gradient-to-position)",
+                        }}
+                        className="pl-[10px] pr-[10px]"
+                      >
+                        or
+                      </span>
+                    </div>
 
-                    <div className="flex mt-[20px] text-[14px]" style={{justifyContent: 'space-between'}}>
+                    <div
+                      className="flex mt-[20px] text-[14px]"
+                      style={{ justifyContent: "space-between" }}
+                    >
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
                         <div className="flex justify-center items-center">
-                          <FcGoogle className="mr-[5px] text-[16px]"/>
+                          <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Google</p>
                         </div>
                       </button>
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
                         <div className="flex justify-center items-center">
-                          <FaApple className="mr-[5px] text-[16px]"/>
+                          <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Apple</p>
                         </div>
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>
