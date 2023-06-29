@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useSignupMutation } from "../../slices/usersApiSlice";
+import { setCredentials } from "../../slices/authSlice";
 import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 function SignupPage() {
@@ -8,9 +12,38 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [signup, { isLoading }] = useSignupMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  });
+
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
     else setTogglePassword("password");
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(username, email, password);
+    try {
+      const res = await signup({
+        email,
+        username,
+        password,
+      }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -25,7 +58,7 @@ function SignupPage() {
                 <div className="flex w-full flex-col">
                   <div>
                     {/* Form */}
-                    <form type="submit">
+                    <form onClick={submitHandler}>
                       <div className="w-full mb-[30px]">
                         <input
                           type="text"
@@ -78,7 +111,10 @@ function SignupPage() {
                         />
                       </div>
                       <div className="flex justify-center mt-[15px]">
-                        <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[5px]">
+                        <button
+                          className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-500 disabled:text-white"
+                          disabled={password !== confirmPassword}
+                        >
                           Sign up
                         </button>
                       </div>

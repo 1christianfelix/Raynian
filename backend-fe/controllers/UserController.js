@@ -89,7 +89,7 @@ const logout = async (req, res) => {
       httpOnly: true,
       expires: new Date(0),
     });
-    res.status(200).json({ msg: "logged out" });
+    res.status(200).json({});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
