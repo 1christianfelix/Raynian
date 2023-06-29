@@ -16,14 +16,12 @@ const getusers = async (req, res) => {
 
 // get a single user
 const getuser = async (req, res) => {
-  const { id } = req.params;
+  const { user } = req.params;
 
   // checking if the id being passed is a valid MongoDB type id
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "user does not exist" });
   }
-
-  const user = await User.findById(id).populate("stats");
 
   if (!user) {
     return res.status(404).json({ error: "No such user" });
