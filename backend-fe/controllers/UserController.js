@@ -47,15 +47,15 @@ const signup = async (req, res) => {
     // Update the user's stats reference
     user.stats = stats._id;
     await user.save();
+    await user.populate("stats");
 
-    const newuser = await User.findById(user._id).populate("stats"); // replace 'stats' with the document referenced by 'stats'
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
-    res.status(200).json({ newuser, token });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -89,7 +89,7 @@ const logout = async (req, res) => {
       httpOnly: true,
       expires: new Date(0),
     });
-    res.status(200).json({ msg: "logged out" });
+    res.status(200).json({});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

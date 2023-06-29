@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { TimerContext } from "../context/TimerContext";
+import { TimerContext } from "../../context/TimerContext";
 import {
   IoPlayOutline,
   IoStopOutline,

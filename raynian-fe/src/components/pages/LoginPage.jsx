@@ -1,14 +1,45 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../../slices/usersApiSlice";
+import { setCredentials } from "../../slices/authSlice";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
-  const [usernameEmail, setUsernameEmail] = useState("");
+  const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  });
 
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
     else setTogglePassword("password");
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const username = user.includes("@") ? null : user;
+    const email = user.includes("@") ? user : null;
+    console.log(username, email, password);
+    try {
+      const res = await login({ username, email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -21,14 +52,14 @@ function LoginPage() {
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    <form type="submit">
+                    <form onSubmit={submitHandler}>
                       <div className="w-full mb-[30px]">
                         <input
                           type="text"
-                          value={usernameEmail}
-                          placeholder="Username"
+                          value={user}
+                          placeholder="Username or Email"
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
-                          onChange={(e) => setUsernameEmail(e.target.value)}
+                          onChange={(e) => setUser(e.target.value)}
                         />
                       </div>
                       <div className="w-full mb-[20px] flex">
@@ -56,7 +87,10 @@ function LoginPage() {
                         )}
                       </div>
                       <div className="w-full ">
-                        <div className="flex space-x-reverse mb-[10px]" style={{justifyContent: 'space-between'}}>
+                        <div
+                          className="flex space-x-reverse mb-[10px]"
+                          style={{ justifyContent: "space-between" }}
+                        >
                           <div>
                             <input type="checkbox" className=""></input>
                             <span className="ml-[5px]">Save Password</span>
@@ -66,9 +100,9 @@ function LoginPage() {
                           </div>
                         </div>
                         <div>
-                        <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[10px]">
-                          Login
-                        </button>
+                          <button className="bg-slate-300 w-full h-[40px] rounded-[4px] mb-[10px]">
+                            Login
+                          </button>
                         </div>
                         <div className="grid place-content-center">
                           <p>Don't have an account?</p>
