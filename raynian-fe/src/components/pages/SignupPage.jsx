@@ -58,7 +58,7 @@ function SignupPage() {
                 <div className="flex w-full flex-col">
                   <div>
                     {/* Form */}
-                    <form onClick={submitHandler}>
+                    <form onSubmit={submitHandler}>
                       <div className="w-full mb-[30px]">
                         <input
                           type="text"
