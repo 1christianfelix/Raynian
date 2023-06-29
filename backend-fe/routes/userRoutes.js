@@ -1,5 +1,6 @@
 const express = require("express");
 const { getuser, getusers } = require("../controllers/UserController");
+const { protect } = require("../middleware/authMiddleware");
 
 const {
   getuserstats,
@@ -11,7 +12,7 @@ const router = express.Router();
 router.get("/", getusers);
 
 // GET single user' stats
-router.get("/:id", getuser);
+router.get("/:id", protect, getuser);
 
 // GET user stats
 router.get("/:id/stats", getuserstats);
