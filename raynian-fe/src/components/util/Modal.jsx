@@ -4,7 +4,7 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 
 export default function Modal(props) {
-  const { toggleModal, type, setType } = useContext(ModalContext);
+  const { type, setType } = useContext(ModalContext);
   let content = null;
   if (type) {
     content = (
