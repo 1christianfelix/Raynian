@@ -5,12 +5,15 @@ import { useSignupMutation } from "../../slices/usersApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+
 function SignupPage() {
   const [togglePassword, setTogglePassword] = useState("password");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,17 +35,22 @@ function SignupPage() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setErrors({})
+
     console.log(username, email, password);
-    try {
-      const res = await signup({
-        email,
-        username,
-        password,
-      }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate("/");
-    } catch (err) {
-      console.log(err);
+    if (password === confirmPassword) {
+      try {
+        const res = await signup({
+          email,
+          username,
+          password,
+        }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
+      } catch (err) {
+        console.log(err)
+        setErrors(err.data)
+      }
     }
   };
 
@@ -52,11 +60,12 @@ function SignupPage() {
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[64px] mb-[30px]">Sign Up</h1>
+              <h1 className="text-[64px] mb-[20px]">Sign Up</h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
+                    {errors && <p className='text-red-500 p-[0]'>{errors.error}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full mb-[30px]">

@@ -101,8 +101,7 @@ export default function UserDropdown(props) {
             navigate("/signup");
             toggleModal();
           }}
-        >
-          Signup
+        >Signup
         </button>
         <div className="py-[5px] px-[20px]">
           <input
