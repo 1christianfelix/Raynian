@@ -22,7 +22,7 @@ function LoginPage() {
     if (userInfo) {
       navigate("/");
     }
-  });
+  }, [userInfo]);
 
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
