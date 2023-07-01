@@ -61,7 +61,7 @@ userSchema.statics.signup = async function (email, username, password) {
   };
 
   if (!validator.isStrongPassword(password, passwordCriteria)) {
-    throw Error("Password is not strong enough");
+    throw Error("The password requires capital and lowercase letters, numbers, and symbols");
   }
 
   if (username.length > 20) {
@@ -79,7 +79,7 @@ userSchema.statics.signup = async function (email, username, password) {
   const emailExists = await this.findOne({ email });
   const usernameExists = await this.findOne({ username });
   if (emailExists || usernameExists) {
-    throw Error("email or username already in use");
+    throw Error("Email or Username already exist");
   }
 
   const salt = await bcrypt.genSalt(10);

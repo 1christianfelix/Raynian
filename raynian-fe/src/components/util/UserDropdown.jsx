@@ -94,8 +94,7 @@ export default function UserDropdown(props) {
             toggleSignup();
             toggleDropdown();
           }}
-        >
-          Signup
+        >Signup
         </button>
       </>
     );
