@@ -1,14 +1,15 @@
-import { Route, Routes } from "react-router-dom";
-import { ModalProvider } from "./context/ModalContext";
-import { DarkLightProvider } from "./context/DarkLightContext";
-import Nav from "./components/navigation/Nav";
-import "./index.css";
-import LoginPage from "./components/pages/LoginPage";
-import SignupPage from "./components/pages/SignupPage";
-import ProfilePage from "./components/pages/ProfilePage";
-import Modal from "./components/util/Modal";
+import { Route, Routes } from 'react-router-dom';
+import { ModalProvider } from './context/ModalContext';
+import { DarkLightProvider } from './context/DarkLightContext';
+import Nav from './components/navigation/Nav';
+import './index.css';
+import LoginPage from './components/pages/LoginPage';
+import SignupPage from './components/pages/SignupPage';
+import ProfilePage from './components/pages/ProfilePage';
+import Modal from './components/util/Modal';
 
-import Dashboard from "./components/pages/Dashboard";
+import Dashboard from './components/pages/Dashboard';
+import { PageNotFound } from './components/pages/PageNotFound';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Dashboard />}></Route>
+            <Route path="/PageNotFound" element={<PageNotFound />}></Route>
             {/* <Route path="/login" element={<LoginPage />}></Route> */}
             {/* <Route path="/signup" element={<SignupPage />}></Route> */}
           </Routes>
