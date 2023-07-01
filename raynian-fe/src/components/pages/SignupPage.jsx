@@ -31,7 +31,7 @@ function SignupPage() {
     if (userInfo) {
       navigate("/");
     }
-  });
+  }, [userInfo]);
 
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
@@ -90,11 +90,12 @@ function SignupPage() {
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[64px] mb-[20px]">Sign Up</h1>
+              <h1 className="text-[51px] mb-[20px] font-light">Sign Up</h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
-                  <div>
+                  <div className="text-center">
+                    {errors && <p className="text-red-500 mb-[20px]">{errors.error}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
