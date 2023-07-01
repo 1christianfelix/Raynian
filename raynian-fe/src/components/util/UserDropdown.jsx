@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../../slices/usersApiSlice";
 import { removeCredentials } from "../../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 export default function UserDropdown(props) {
-  const { isModalOpen, toggleModal } = useContext(ModalContext);
+  const { isModalOpen, toggleModal, toggleLogin, toggleSignup } =
+    useContext(ModalContext);
   const { theme, toggleDark } = useContext(DarkLightContext);
   let content = null;
 
@@ -89,7 +91,7 @@ export default function UserDropdown(props) {
         <button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={() => {
-            navigate("/login");
+            toggleLogin();
             toggleModal();
           }}
         >
@@ -98,7 +100,7 @@ export default function UserDropdown(props) {
         <button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={() => {
-            navigate("/signup");
+            toggleSignup();
             toggleModal();
           }}
         >Signup
