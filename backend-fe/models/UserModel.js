@@ -10,7 +10,7 @@ const userSchema = new Schema({
     lowercase: true,
     required: true,
     unique: true,
-    maxlength: 20,
+    maxlength: 25,
   },
   email: {
     type: String,
@@ -18,9 +18,13 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  googleId: {
+    type: String,
+    default: null,
+  },
   password: {
     type: String,
-    required: true,
+    // required: true,
   },
   firstName: {
     type: String,

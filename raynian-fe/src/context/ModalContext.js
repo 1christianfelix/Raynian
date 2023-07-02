@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ModalContext = createContext();
 
@@ -18,6 +19,16 @@ export const ModalProvider = ({ children }) => {
   const toggleSignup = () => {
     setType("signup");
   };
+
+  // close login or sign up modals if user signs in (userInfo is not null in auth slice)
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      setType(null);
+      toggleModal();
+    }
+  }, [userInfo]);
 
   return (
     <ModalContext.Provider
