@@ -52,7 +52,11 @@ export const TimerProvider = ({ children }) => {
   const switchToBreak = () => {
     setIsWork(!isWork);
     setIsBreak(!isBreak);
+  };
+
+  useEffect(() => {
     if (isBreak) {
+      console.log("in break t");
       if (breakTime === "15 min")
         setCountdown({
           hours: 0,
@@ -72,7 +76,7 @@ export const TimerProvider = ({ children }) => {
           seconds: 5,
         });
     }
-  };
+  }, [isBreak, breakTime]);
 
   useEffect(() => {
     let timerID = null;
@@ -106,12 +110,14 @@ export const TimerProvider = ({ children }) => {
       }, 1000);
     }
     if (isBreak) {
+      console.log("in here");
       timerID = setInterval(() => {
         if (
           countdown.hours === 0 &&
           countdown.minutes === 0 &&
           countdown.seconds === 0
         ) {
+          console.log("inheree");
           clearInterval(timerID);
         } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
