@@ -5,14 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../slices/usersApiSlice";
 import { setCredentials } from "../../slices/authSlice";
+import { motion } from "framer-motion";
 import validator from "validator";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [email, setEmail] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -46,10 +47,18 @@ function LoginPage() {
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (err) {
-      setErrorMsg('Invalid Credentials')
+      setErrorMsg("Invalid Credentials");
     }
   };
 
+  const emailUsernameAnimation =
+    user.length || email.length ? { y: -15, fontSize: "12px" } : "";
+  const emailUsernameTransition =
+    user.length || email.length ? { type: "stiff", stiffness: 100 } : "";
+  const passwordAnimation = password.length ? { y: -15, fontSize: "12px" } : "";
+  const passwordTransition = password.length
+    ? { type: "stiff", stiffness: 100 }
+    : "";
   return (
     <div
       className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
@@ -59,7 +68,9 @@ function LoginPage() {
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[51px] mb-[20px] font-light">Welcome Back!</h1>
+              <h1 className="text-[51px] mb-[20px] font-light">
+                Welcome Back!
+              </h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
@@ -67,25 +78,36 @@ function LoginPage() {
                     {errorMsg && <p className="text-center">{errorMsg}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
-
                       <div className="w-full">
+                        <motion.p
+                          className="absolute text-gray-400 pointer-events-none"
+                          animate={emailUsernameAnimation}
+                          transition={emailUsernameTransition}
+                        >
+                          Username or Email
+                        </motion.p>
                         <input
                           type="text"
                           value={user}
-                          placeholder="Username or Email"
+                          // placeholder="Username or Email"
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
-                            setUser(e.target.value)
-                            validateEmail(e.target.value)
-                          }
-                        }
+                            setUser(e.target.value);
+                            validateEmail(e.target.value);
+                          }}
                         />
                       </div>
                       <div>
-                        <div className="w-full mt-[15px] flex">
+                        <div className="w-full mt-[17px] flex">
+                          <motion.p
+                            className="absolute text-gray-400 pointer-events-none"
+                            animate={passwordAnimation}
+                            transition={passwordTransition}
+                          >
+                            Password
+                          </motion.p>
                           <input
                             type={togglePassword}
-                            placeholder="Password"
                             value={password}
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                             onChange={(e) => {
@@ -112,7 +134,7 @@ function LoginPage() {
                       <div className="flex justify-center mt-[15px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
-                          disabled={(!email || !password || password.length < 8)}
+                          disabled={!email || !password || password.length < 8}
                         >
                           Sign in
                         </button>
@@ -121,7 +143,8 @@ function LoginPage() {
                         className="flex"
                         style={{ justifyContent: "center" }}
                       >
-                        <p>Don't have an account?</p> {/* Convert to a link that opens up the signup modal*/}
+                        <p>Don't have an account?</p>{" "}
+                        {/* Convert to a link that opens up the signup modal*/}
                       </div>
                     </form>
 
