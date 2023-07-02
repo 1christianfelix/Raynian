@@ -9,6 +9,7 @@ const userOauth = require("./routes/auth");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
+const jwt = require("jsonwebtoken");
 
 // express app
 const app = express();
@@ -22,11 +23,13 @@ app.use((req, res, next) => {
 });
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    name: "jwt",
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -41,13 +41,13 @@ function configurePassport(passport) {
   );
 
   passport.serializeUser((user, callback) => {
-    // console.log("serial", user);
+    console.log("serial", user);
     callback(null, user._id);
   });
 
   passport.deserializeUser(async (userId, callback) => {
     const user = await User.findById({ userId });
-    // console.log("deserial", userId, user);
+    console.log("deserial", userId, user);
     callback(null, user);
   });
 }
