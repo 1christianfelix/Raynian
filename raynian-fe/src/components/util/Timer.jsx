@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState, useRef } from "react";
 import { TimerContext } from "../../context/TimerContext";
 import {
   IoPlayOutline,
@@ -7,10 +7,17 @@ import {
   IoSettingsOutline,
 } from "react-icons/io5";
 import { PiPauseLight } from "react-icons/pi";
+import TimerSettings from "./TimerSettings";
 
 export default function Timer() {
+  const [openSettings, setOpenSettings] = useState(false);
+  const settingsRef = useRef();
   const { countdown, startTimer, stopTimer, pauseTimer } =
     useContext(TimerContext);
+
+  const toggleSettings = () => {
+    setOpenSettings(!openSettings);
+  };
 
   return (
     <div className="font-inter flex flex-row justify-center relative">
@@ -37,12 +44,23 @@ export default function Timer() {
             className="timer-button text-slate-700 cursor-pointer dark:text-white"
           />
         </div>
-        <div className="mx-[5px] my-[5px]" onClick={pauseTimer}>
+        <div
+          className="mx-[5px] my-[5px]"
+          onClick={toggleSettings}
+          ref={settingsRef}
+        >
           <IoSettingsOutline
             size={20}
             className="timer-button text-slate-700 cursor-pointer dark:text-white"
           />
         </div>
+        {openSettings && (
+          <TimerSettings
+            setOpenSettings={setOpenSettings}
+            openSettings={openSettings}
+            settingsRef={settingsRef}
+          />
+        )}
       </div>
     </div>
   );
