@@ -31,7 +31,7 @@ export default function UserDropdown(props) {
     }
   };
   if (!isModalOpen) return null;
-  if (userInfo) {
+  if (true) {
     content = (
       <div
         className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}

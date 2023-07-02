@@ -39,10 +39,52 @@ function SignupPage() {
         username,
         password,
       }).unwrap();
+      console.log(res);
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const fetchAuthUser = async () => {
+    try {
+      // sending credentials to send cookies
+      const res = await fetch("http://localhost:4000/api/auth/login/success", {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // parse the JSON from the response
+      const data = await res.json();
+      console.log(data);
+      dispatch(setCredentials({ ...data }));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+    // console.log(res);
+  };
+
+  const handleGoogleAuthClick = async (e) => {
+    // Redirect the user to Google authentication
+    let timer = null;
+    const newWindow = window.open(
+      "http://localhost:4000/api/auth/google",
+      "_blank",
+      "width=500,height=600"
+    );
+
+    // wait until pop out window closes and extract infor mation
+    if (newWindow) {
+      timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log("Yay we're authenticated");
+          fetchAuthUser();
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
     }
   };
 
@@ -141,7 +183,10 @@ function SignupPage() {
                       className="flex mt-[20px] text-[14px]"
                       style={{ justifyContent: "space-between" }}
                     >
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      <button
+                        className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                        onClick={handleGoogleAuthClick}
+                      >
                         {" "}
                         <div className="flex justify-center items-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />

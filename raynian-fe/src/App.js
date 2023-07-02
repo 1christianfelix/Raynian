@@ -5,6 +5,7 @@ import Nav from "./components/navigation/Nav";
 import "./index.css";
 import LoginPage from "./components/pages/LoginPage";
 import SignupPage from "./components/pages/SignupPage";
+import OAuthLoginSuccess from "./components/pages/OAuthLoginSuccess";
 import ProfilePage from "./components/pages/ProfilePage";
 
 import Dashboard from "./components/pages/Dashboard";
@@ -20,6 +21,10 @@ function App() {
             <Route path="/" element={<Dashboard />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignupPage />}></Route>
+            <Route
+              path="auth/login/success"
+              element={<OAuthLoginSuccess />}
+            ></Route>
           </Routes>
         </div>
       </ModalProvider>
