@@ -1,19 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect } from "react";
+import { FaCog, FaRegGrinTongue } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
+import { ModalContext } from "../../context/ModalContext";
 import UserDropdown from "../util/UserDropdown";
 import thick_logo from "../../assets/thick_logo.svg";
 
 export default function Nav() {
-  const [openDropdown, setToggleDropdown] = useState(false);
-  const navRef = useRef();
-
-  const toggleDropdown = () => {
-    setToggleDropdown(!openDropdown);
-  };
-
-  useEffect(() => {
-    console.log(openDropdown);
-  }, [openDropdown]);
+  const { toggleModal } = useContext(ModalContext);
 
   return (
     <div className="px-[25px] py-[20px]">
@@ -26,20 +19,9 @@ export default function Nav() {
           />
           <p className="text-3xl">raynian</p>
         </div>
-        <div className="relative" ref={navRef}>
-          <CiUser
-            size={50}
-            onClick={() => {
-              toggleDropdown();
-            }}
-            className="cursor-pointer"
-          />
-          <UserDropdown
-            openDropdown={openDropdown}
-            toggleDropdown={toggleDropdown}
-            setToggleDropdown={setToggleDropdown}
-            navRef={navRef}
-          />
+        <div className="relative">
+          <CiUser size={50} onClick={toggleModal} className="cursor-pointer" />
+          <UserDropdown type={"dropdown"} />
         </div>
       </div>
     </div>
