@@ -8,6 +8,8 @@ export const TimerProvider = ({ children }) => {
     minutes: 0,
     seconds: 0,
   });
+  const [workTime, setWorkTime] = useState("60 min");
+  const [breakTime, setBreakTime] = useState("15 min");
 
   const [isRunning, setIsRunning] = useState(false);
 
@@ -69,7 +71,17 @@ export const TimerProvider = ({ children }) => {
 
   return (
     <TimerContext.Provider
-      value={{ countdown, startTimer, stopTimer, pauseTimer }}
+      value={{
+        countdown,
+        startTimer,
+        stopTimer,
+        pauseTimer,
+        setCountdown,
+        workTime,
+        setWorkTime,
+        breakTime,
+        setBreakTime,
+      }}
     >
       {children}
     </TimerContext.Provider>

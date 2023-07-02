@@ -3,10 +3,10 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { TimerContext } from "../../context/TimerContext";
 
 export default function TimerSettings(props) {
-  const [workOption, setWorkOption] = useState("default");
-  const [breakOption, setBreakOption] = useState("default");
   const [backgroundOption, setBackgroundOption] = useState("default");
   const dropdownRef = useRef(null);
+  const { setCountdown, workTime, setWorkTime, breakTime, setBreakTime } =
+    useContext(TimerContext);
 
   const { setOpenSettings, settingsRef } = props;
 
@@ -17,6 +17,27 @@ export default function TimerSettings(props) {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setOpenSettings(false);
     }
+  };
+
+  const handleTimerChange = (time) => {
+    if (time === "60 min")
+      setCountdown({
+        hours: 0,
+        minutes: 60,
+        seconds: 0,
+      });
+    if (time === "45 min")
+      setCountdown({
+        hours: 0,
+        minutes: 45,
+        seconds: 0,
+      });
+    if (time === "30 min")
+      setCountdown({
+        hours: 0,
+        minutes: 30,
+        seconds: 0,
+      });
   };
 
   useEffect(() => {
@@ -35,9 +56,10 @@ export default function TimerSettings(props) {
         <p className="mr-[10px] whitespace-nowrap">Work Time</p>
         <div>
           <select
-            value={workOption}
+            value={workTime}
             onChange={(e) => {
-              setWorkOption(e.target.value);
+              setWorkTime(e.target.value);
+              handleTimerChange(e.target.value);
             }}
           >
             <option value="60 min">60 min</option>
@@ -49,9 +71,9 @@ export default function TimerSettings(props) {
       <div className="flex justify-between mb-[10px]">
         <p className="mr-[10px] whitespace-nowrap">Break Time</p>
         <select
-          value={breakOption}
+          value={breakTime}
           onChange={(e) => {
-            setBreakOption(e.target.value);
+            setBreakTime(e.target.value);
           }}
         >
           <option value="15 min">15 min</option>
