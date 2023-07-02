@@ -35,8 +35,8 @@ export default function TimerSettings(props) {
     if (time === "30 min")
       setCountdown({
         hours: 0,
-        minutes: 30,
-        seconds: 0,
+        minutes: 0,
+        seconds: 3,
       });
   };
 

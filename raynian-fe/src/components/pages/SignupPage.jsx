@@ -13,7 +13,6 @@ function SignupPage() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
-
   const [togglePassword, setTogglePassword] = useState("password");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +24,6 @@ function SignupPage() {
   const [errors, setErrors] = useState({});
 
   const [signup, { isLoading }] = useSignupMutation();
-
 
   useEffect(() => {
     if (userInfo) {
@@ -64,7 +62,7 @@ function SignupPage() {
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors({});
-    setEmailError('')
+    setEmailError("");
 
     if (password === confirmPassword) {
       try {
@@ -82,6 +80,47 @@ function SignupPage() {
     }
   };
 
+  const fetchAuthUser = async () => {
+    try {
+      // sending credentials to send cookies
+      const res = await fetch("http://localhost:4000/api/auth/login/success", {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // parse the JSON from the response
+      const data = await res.json();
+      console.log(data);
+      dispatch(setCredentials({ ...data }));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+    // console.log(res);
+  };
+
+  const handleGoogleAuthClick = async (e) => {
+    // Redirect the user to Google authentication
+    let timer = null;
+    const newWindow = window.open(
+      "http://localhost:4000/api/auth/google",
+      "_blank",
+      "width=500,height=600"
+    );
+
+    // wait until pop out window closes and extract infor mation
+    if (newWindow) {
+      timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log("Yay we're authenticated");
+          fetchAuthUser();
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
+    }
+  };
+
   return (
     <div
       className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
@@ -96,7 +135,11 @@ function SignupPage() {
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    {errors && <p className="text-red-500 mb-[20px] text-center">{errors.error}</p>}
+                    {errors && (
+                      <p className="text-red-500 mb-[20px] text-center">
+                        {errors.error}
+                      </p>
+                    )}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
@@ -139,7 +182,7 @@ function SignupPage() {
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                             onChange={(e) => {
                               setPassword(e.target.value);
-                              validatePassword(e.target.value)
+                              validatePassword(e.target.value);
                             }}
                           />
                           {togglePassword === "text" ? (
@@ -159,7 +202,9 @@ function SignupPage() {
                           )}
                         </div>
                         {password.length !== 0 && passwordError && (
-                          <p className="text-red-500 text-[12px] break-words">{passwordError}</p>
+                          <p className="text-red-500 text-[12px] break-words">
+                            {passwordError}
+                          </p>
                         )}
                       </div>
 
@@ -171,16 +216,21 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                        {confirmPassword.length !== 0 && password != confirmPassword && (
-                          <p className="text-red-500 p-[0] text-[12px]">
-                            Password do not match
-                          </p>
-                        )}
+                        {confirmPassword.length !== 0 &&
+                          password != confirmPassword && (
+                            <p className="text-red-500 p-[0] text-[12px]">
+                              Password do not match
+                            </p>
+                          )}
                       </div>
                       <div className="flex justify-center mt-[15px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
-                          disabled={password !== confirmPassword || !password || !confirmPassword}
+                          disabled={
+                            password !== confirmPassword ||
+                            !password ||
+                            !confirmPassword
+                          }
                         >
                           Sign up
                         </button>
@@ -189,7 +239,8 @@ function SignupPage() {
                         className="flex"
                         style={{ justifyContent: "center" }}
                       >
-                        <p>Already have an account?</p>  {/* Convert to a link that opens up the login modal*/}
+                        <p>Already have an account?</p>{" "}
+                        {/* Convert to a link that opens up the login modal*/}
                       </div>
                     </form>
 
@@ -208,7 +259,10 @@ function SignupPage() {
                       className="flex mt-[20px] text-[14px]"
                       style={{ justifyContent: "space-between" }}
                     >
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      <button
+                        className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                        onClick={handleGoogleAuthClick}
+                      >
                         {" "}
                         <div className="flex justify-center items-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />

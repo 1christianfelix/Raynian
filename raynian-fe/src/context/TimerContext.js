@@ -10,14 +10,14 @@ export const TimerProvider = ({ children }) => {
   });
   const [workTime, setWorkTime] = useState("60 min");
   const [breakTime, setBreakTime] = useState("15 min");
-
+  const [isBreak, setIsBreak] = useState(false);
+  const [isWork, setIsWork] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
 
   const startTimer = () => {
     if (!isRunning) {
       setCountdown((prevCountdown) => ({
         ...prevCountdown,
-        minutes: prevCountdown.minutes ? prevCountdown.minutes : 60,
       }));
       setIsRunning(true);
     }
@@ -39,8 +39,8 @@ export const TimerProvider = ({ children }) => {
     if (workTime === "30 min")
       setCountdown({
         hours: 0,
-        minutes: 30,
-        seconds: 0,
+        minutes: 0,
+        seconds: 3,
       });
     setIsRunning(false);
   };
@@ -49,17 +49,71 @@ export const TimerProvider = ({ children }) => {
     setIsRunning(false);
   };
 
+  const switchToBreak = () => {
+    setIsWork(!isWork);
+    setIsBreak(!isBreak);
+    if (isBreak) {
+      if (breakTime === "15 min")
+        setCountdown({
+          hours: 0,
+          minutes: 15,
+          seconds: 0,
+        });
+      if (breakTime === "10 min")
+        setCountdown({
+          hours: 0,
+          minutes: 10,
+          seconds: 0,
+        });
+      if (breakTime === "5 min")
+        setCountdown({
+          hours: 0,
+          minutes: 0,
+          seconds: 5,
+        });
+    }
+  };
+
   useEffect(() => {
     let timerID = null;
-    if (isRunning) {
+    if (isWork && isRunning) {
       timerID = setInterval(() => {
         if (
           countdown.hours === 0 &&
           countdown.minutes === 0 &&
           countdown.seconds === 0
-        )
+        ) {
           clearInterval(timerID);
-        else if (countdown.minutes === 0 && countdown.seconds === 0)
+          switchToBreak();
+        } else if (countdown.minutes === 0 && countdown.seconds === 0)
+          setCountdown({
+            hours: countdown.hours - 1,
+            minutes: 59,
+            seconds: 59,
+          });
+        else if (countdown.seconds === 0)
+          setCountdown({
+            hours: countdown.hours,
+            minutes: countdown.minutes - 1,
+            seconds: 59,
+          });
+        else
+          setCountdown({
+            hours: countdown.hours,
+            minutes: countdown.minutes,
+            seconds: countdown.seconds - 1,
+          });
+      }, 1000);
+    }
+    if (isBreak) {
+      timerID = setInterval(() => {
+        if (
+          countdown.hours === 0 &&
+          countdown.minutes === 0 &&
+          countdown.seconds === 0
+        ) {
+          clearInterval(timerID);
+        } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
             hours: countdown.hours - 1,
             minutes: 59,
@@ -80,7 +134,7 @@ export const TimerProvider = ({ children }) => {
       }, 1000);
     }
     return () => clearInterval(timerID);
-  }, [countdown, isRunning]);
+  }, [countdown, isRunning, isBreak, isWork]);
 
   return (
     <TimerContext.Provider
@@ -94,6 +148,8 @@ export const TimerProvider = ({ children }) => {
         setWorkTime,
         breakTime,
         setBreakTime,
+        isBreak,
+        isWork,
       }}
     >
       {children}
