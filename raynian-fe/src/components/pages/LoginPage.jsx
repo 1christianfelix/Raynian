@@ -109,9 +109,7 @@ function LoginPage() {
         <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[51px] mb-[20px] font-light">
-                Welcome Back!
-              </h1>
+              <h1 className="text-[51px] mb-[20px] font-thin">Welcome Back!</h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
