@@ -6,6 +6,11 @@ const TaskSchema = new Schema({
     type: String,
     default: "none",
   },
+  content: {
+    type: String,
+    default: "none",
+    required: true,
+  },
   startDate: {
     type: Date,
     default: Date.now,
