@@ -70,14 +70,14 @@ function LoginPage() {
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
               <img src={raynian_logo_thin} className="w-[50px] h-[50px]" />
-              <h1 className="text-[51px] mb-[20px]">Welcome Back!</h1>
+              <h1 className="text-[51px]">Welcome Back!</h1>
+                    {errorMsg && <p className="text-center text-red-500">{errorMsg}</p>}
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    {errorMsg && <p className="text-center">{errorMsg}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
-                      <div className="w-full">
+                      <div className="w-full mt-[25px]">
                         <motion.p
                           className="absolute text-gray-400 pointer-events-none"
                           animate={emailUsernameAnimation}
