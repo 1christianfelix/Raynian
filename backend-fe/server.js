@@ -9,13 +9,20 @@ const userOauth = require("./routes/auth");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
-const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
 // express app
 const app = express();
 
 // middleware
 app.use(express.json());
+// change cors usage logic for production
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use((req, res, next) => {
   console.log(req.path, req.method);

@@ -2,6 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 
 router.get("/login/success", (req, res) => {
+  console.log("\n\n\n\n", req);
   if (req.user) {
     res.status(200).json({
       error: false,
@@ -12,6 +13,18 @@ router.get("/login/success", (req, res) => {
     res.status(403).json({ error: true, message: "Not Authorized" });
   }
 });
+
+// Handle the success redirect
+// router.get("/login/success", (req, res) => {
+//   if (req.user) {
+//     // Redirect the user to http://localhost:3000
+//     req.session.userId = req.user._id;
+//     res.status(200).json({ success: true, userId: req.user._id });
+//     // res.redirect("http://localhost:3000");
+//   } else {
+//     res.status(403).json({ error: true, message: "Not Authorized" });
+//   }
+// });
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
@@ -28,14 +41,9 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_URL}/success`,
+    successRedirect: `http://localhost:3000/auth/login/success`,
     failureRedirect: `${process.env.CLIENT_URL}/failed`,
   })
-  // ,
-
-  // (req, res) => {
-  //   // console.log("User", req.user);
-  // }
 );
 
 router.get("/logout", (req, res) => {

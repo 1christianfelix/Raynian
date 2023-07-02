@@ -12,27 +12,27 @@ function configurePassport(passport) {
         // passReqToCallback: true,
         scope: ["profile", "email"],
       },
-      async (accessToken, refreshToken, profile, callback) => {
-        console.log(profile);
+      async (req, accessToken, refreshToken, profile, callback) => {
+        // console.log(profile);
         const defaultUser = {
           email: profile.emails[0].value,
           username: await usernameGeneration(),
           googleId: profile.id,
         };
 
-        console.log(defaultUser);
+        // console.log(defaultUser);
 
         let user = await User.findOneAndUpdate(
           { email: defaultUser.email },
           { $set: { googleId: defaultUser.googleId } },
           { new: true }
         );
-        console.log(user);
+        // console.log(user);
         if (user) {
-          console.log("update");
+          // console.log("update");
         }
         if (!user) {
-          console.log("creation");
+          // console.log("creation");
           user = await User.create(defaultUser);
         }
         return callback(null, user);
@@ -45,9 +45,9 @@ function configurePassport(passport) {
     callback(null, user._id);
   });
 
-  passport.deserializeUser(async (userId, callback) => {
-    const user = await User.findById({ userId });
-    console.log("deserial", userId, user);
+  passport.deserializeUser(async (_id, callback) => {
+    const user = await User.findById({ _id });
+    console.log("deserial", _id, user);
     callback(null, user);
   });
 }
