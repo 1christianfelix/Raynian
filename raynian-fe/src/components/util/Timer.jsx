@@ -32,16 +32,16 @@ export default function Timer() {
             className="timer-button text-green-700 cursor-pointer"
           />
         </div>
-        <div className="mx-[5px] my-[5px]" onClick={stopTimer}>
-          <IoStopOutline
-            size={20}
-            className="timer-button text-red-700 cursor-pointer"
-          />
-        </div>
         <div className="mx-[5px] my-[5px]" onClick={pauseTimer}>
           <PiPauseLight
             size={20}
             className="timer-button text-slate-700 cursor-pointer dark:text-white"
+          />
+        </div>
+        <div className="mx-[5px] my-[5px]" onClick={stopTimer}>
+          <IoStopOutline
+            size={20}
+            className="timer-button text-red-700 cursor-pointer"
           />
         </div>
         <div

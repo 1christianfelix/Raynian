@@ -5,7 +5,7 @@ export const TimerContext = createContext();
 export const TimerProvider = ({ children }) => {
   const [countdown, setCountdown] = useState({
     hours: 0,
-    minutes: 0,
+    minutes: 60,
     seconds: 0,
   });
   const [workTime, setWorkTime] = useState("60 min");
@@ -24,11 +24,24 @@ export const TimerProvider = ({ children }) => {
   };
 
   const stopTimer = () => {
-    setCountdown({
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    });
+    if (workTime === "60 min")
+      setCountdown({
+        hours: 0,
+        minutes: 60,
+        seconds: 0,
+      });
+    if (workTime === "45 min")
+      setCountdown({
+        hours: 0,
+        minutes: 45,
+        seconds: 0,
+      });
+    if (workTime === "30 min")
+      setCountdown({
+        hours: 0,
+        minutes: 30,
+        seconds: 0,
+      });
     setIsRunning(false);
   };
 
