@@ -94,7 +94,8 @@ export default function UserDropdown(props) {
             toggleSignup();
             toggleDropdown();
           }}
-        >Signup
+        >
+          Signup
         </button>
       </>
     );
@@ -102,7 +103,7 @@ export default function UserDropdown(props) {
 
   return (
     <div
-      className={`absolute flex flex-col justify-center right-[20px] top-[80px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}
+      className={`absolute flex flex-col justify-center right-[5px] top-[55px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}
       onClick={(e) => e.stopPropagation()}
       ref={dropdownRef}
     >
