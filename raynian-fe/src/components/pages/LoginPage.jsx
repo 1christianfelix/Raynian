@@ -7,6 +7,7 @@ import { useLoginMutation } from "../../slices/usersApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 import { motion } from "framer-motion";
 import validator from "validator";
+import raynian_logo_thin from "../../assets/thin_logo.svg";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
@@ -100,24 +101,25 @@ function LoginPage() {
   const passwordTransition = password.length
     ? { type: "stiff", stiffness: 100 }
     : "";
+
   return (
     <div
       className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
-        <div className="w-full">
+      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible  h-[400px] flex items-center">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
               <h1 className="text-[51px] mb-[20px] font-thin">Welcome Back!</h1>
-
+              <img src={raynian_logo_thin} className="w-[50px] h-[50px]" />
+              <h1 className="text-[51px]">Welcome Back!</h1>
+                    {errorMsg && <p className="text-center text-red-500">{errorMsg}</p>}
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    {errorMsg && <p className="text-center">{errorMsg}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
-                      <div className="w-full">
+                      <div className="w-full mt-[25px]">
                         <motion.p
                           className="absolute text-gray-400 pointer-events-none"
                           animate={emailUsernameAnimation}
@@ -137,7 +139,7 @@ function LoginPage() {
                         />
                       </div>
                       <div>
-                        <div className="w-full mt-[17px] flex">
+                        <div className="w-full mt-[25px] flex">
                           <motion.p
                             className="absolute text-gray-400 pointer-events-none"
                             animate={passwordAnimation}
@@ -173,7 +175,7 @@ function LoginPage() {
                       <div className="flex justify-center mt-[15px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
-                          disabled={!email || !password || password.length < 8}
+                          disabled={!user || !password}
                         >
                           Sign in
                         </button>
@@ -195,7 +197,12 @@ function LoginPage() {
                       className="flex mt-[20px] text-[14px]"
                       style={{ justifyContent: "space-between" }}
                     >
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      <motion.button
+                        className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                        whileHover={{
+                          backgroundColor: "whitesmoke",
+                        }}
+                      >
                         {" "}
                         <div
                           className="flex justify-center items-center"
@@ -204,14 +211,19 @@ function LoginPage() {
                           <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Sign in with Google</p>
                         </div>
-                      </button>
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      </motion.button>
+                      <motion.button
+                        className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                        whileHover={{
+                          backgroundColor: "whitesmoke",
+                        }}
+                      >
                         {" "}
                         <div className="flex justify-center items-center">
                           <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Sign in with Apple</p>
                         </div>
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
                 </div>
@@ -219,7 +231,6 @@ function LoginPage() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }
