@@ -10,6 +10,8 @@ import { removeCredentials } from "../../slices/authSlice";
 export default function UserDropdown(props) {
   const { toggleLogin, toggleSignup } = useContext(ModalContext);
   const { theme, toggleDark } = useContext(DarkLightContext);
+  const dropdownRef = useRef(null);
+  const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
   let content = null;
 
   const dispatch = useDispatch();

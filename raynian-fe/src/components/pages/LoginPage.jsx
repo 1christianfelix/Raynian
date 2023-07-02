@@ -51,6 +51,47 @@ function LoginPage() {
     }
   };
 
+  const fetchAuthUser = async () => {
+    try {
+      // sending credentials to send cookies
+      const res = await fetch("http://localhost:4000/api/auth/login/success", {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // parse the JSON from the response
+      const data = await res.json();
+      console.log(data);
+      dispatch(setCredentials({ ...data }));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+    // console.log(res);
+  };
+
+  const handleGoogleAuthClick = async (e) => {
+    // Redirect the user to Google authentication
+    let timer = null;
+    const newWindow = window.open(
+      "http://localhost:4000/api/auth/google",
+      "_blank",
+      "width=500,height=600"
+    );
+
+    // wait until pop out window closes and extract infor mation
+    if (newWindow) {
+      timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log("Yay we're authenticated");
+          fetchAuthUser();
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
+    }
+  };
+
   const emailUsernameAnimation =
     user.length || email.length ? { y: -15, fontSize: "12px" } : "";
   const emailUsernameTransition =
@@ -158,7 +199,10 @@ function LoginPage() {
                     >
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
-                        <div className="flex justify-center items-center">
+                        <div
+                          className="flex justify-center items-center"
+                          onClick={handleGoogleAuthClick}
+                        >
                           <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Sign in with Google</p>
                         </div>
