@@ -20,11 +20,11 @@ const userSchema = new Schema({
   },
   googleId: {
     type: String,
-    default: "",
+    default: null,
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
   },
   firstName: {
     type: String,

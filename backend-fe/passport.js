@@ -22,9 +22,18 @@ function configurePassport(passport) {
 
         console.log(defaultUser);
 
-        let user = await User.find({ username: defaultUser.username });
+        let user = await User.findOneAndUpdate(
+          { email: defaultUser.email },
+          { $set: { googleId: defaultUser.googleId } },
+          { new: true }
+        );
+        console.log(user);
+        if (user) {
+          console.log("update");
+        }
         if (!user) {
-          user = await User.create({ username });
+          console.log("creation");
+          user = await User.create(defaultUser);
         }
         return callback(null, user);
       }
