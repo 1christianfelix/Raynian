@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../slices/usersApiSlice";
 import { setCredentials } from "../../slices/authSlice";
+import validator from "validator";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-
+  const [email, setEmail] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,6 +31,11 @@ function LoginPage() {
     else setTogglePassword("password");
   };
 
+  const validateEmail = (email) => {
+    if (validator.isEmail(email)) setEmail(email);
+    else setEmail("");
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const username = user.includes("@") ? null : user;
@@ -39,7 +46,7 @@ function LoginPage() {
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (err) {
-      console.log(err);
+      setErrorMsg('Invalid Credentials')
     }
   };
 
@@ -57,15 +64,21 @@ function LoginPage() {
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
+                    {errorMsg && <p className="text-center">{errorMsg}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
+
                       <div className="w-full">
                         <input
                           type="text"
                           value={user}
                           placeholder="Username or Email"
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
-                          onChange={(e) => setUser(e.target.value)}
+                          onChange={(e) => {
+                            setUser(e.target.value)
+                            validateEmail(e.target.value)
+                          }
+                        }
                         />
                       </div>
                       <div>
@@ -77,7 +90,6 @@ function LoginPage() {
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                             onChange={(e) => {
                               setPassword(e.target.value);
-
                             }}
                           />
                           {togglePassword === "text" ? (
@@ -100,16 +112,16 @@ function LoginPage() {
                       <div className="flex justify-center mt-[15px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
-                          disabled={''}
+                          disabled={(!email || !password || password.length < 8)}
                         >
-                          Sign up
+                          Sign in
                         </button>
                       </div>
                       <div
                         className="flex"
                         style={{ justifyContent: "center" }}
                       >
-                        <p>Don't have an account?</p>
+                        <p>Don't have an account?</p> {/* Convert to a link that opens up the signup modal*/}
                       </div>
                     </form>
 

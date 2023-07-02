@@ -64,6 +64,7 @@ function SignupPage() {
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors({});
+    setEmailError('')
 
     if (password === confirmPassword) {
       try {
@@ -94,8 +95,8 @@ function SignupPage() {
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
-                  <div className="text-center">
-                    {errors && <p className="text-red-500 mb-[20px]">{errors.error}</p>}
+                  <div>
+                    {errors && <p className="text-red-500 mb-[20px] text-center">{errors.error}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
@@ -188,7 +189,7 @@ function SignupPage() {
                         className="flex"
                         style={{ justifyContent: "center" }}
                       >
-                        <p>Already have an account?</p>
+                        <p>Already have an account?</p>  {/* Convert to a link that opens up the login modal*/}
                       </div>
                     </form>
 
