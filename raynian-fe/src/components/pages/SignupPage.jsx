@@ -6,6 +6,7 @@ import { setCredentials } from '../../slices/authSlice';
 import { FaEye, FaEyeSlash, FaApple, BiRefresh } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { FiRefreshCcw } from 'react-icons/fi';
+import { generateUser } from '../../helpers/generateUser';
 
 import { motion } from 'framer-motion';
 
@@ -110,7 +111,7 @@ function SignupPage() {
 
   // Generate username logic
   const generateUserName = () => {
-    setUsername('static');
+    setUsername(generateUser());
   };
 
   return (
