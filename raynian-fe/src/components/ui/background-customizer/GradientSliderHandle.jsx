@@ -1,11 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { ColorPickerStatusContext } from "./ColorPickerStatusContext";
 import Draggable from "react-draggable";
 import { RgbaColorPicker } from "react-colorful";
 import "./bg-customizer.css";
 
-const GradientSliderHandle = () => {
+const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
-  const [isPickerVisible, setPickerVisible] = useState(false);
+  const { activePicker, setActivePicker } = useContext(
+    ColorPickerStatusContext
+  );
+  const active = activePicker === id;
+  const isPickerVisible = activePicker === id;
+  const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(0); // position in pixels
   const wasDragged = useRef(false); // ref to track if the element was dragged
 
@@ -14,8 +20,13 @@ const GradientSliderHandle = () => {
   };
 
   const handleDrag = (e, ui) => {
+    setIsDragging(true);
     setPosition(ui.x);
     wasDragged.current = true; // update ref to note that element was dragged
+  };
+
+  const handleStop = () => {
+    setIsDragging(false);
   };
 
   const handleClick = () => {
@@ -23,20 +34,20 @@ const GradientSliderHandle = () => {
     if (wasDragged.current) {
       wasDragged.current = false; // reset ref for future clicks
     } else {
-      setPickerVisible(!isPickerVisible);
+      setActivePicker(isPickerVisible ? null : id);
     }
   };
 
-  const calculatePercentage = () => {
-    console.log(position);
-    Math.round((position / 500) * 100);
-  };
+  useEffect(() => {
+    setBGProperties({ color, position: Math.round((position / 500) * 100) });
+  }, [color, position]);
 
   return (
     <Draggable
       axis="x"
       bounds=".range-slider"
       onDrag={handleDrag}
+      onStop={handleStop}
       cancel=".color-selector-container"
     >
       <div className="bg-customizer-container relative">
@@ -48,11 +59,16 @@ const GradientSliderHandle = () => {
           )}
         </div>
         <div
-          className="handle h-5 w-5 rounded-full border border-white drop-shadow-sm flex items-center justify-center bg-red-500"
-          style={{ left: `${position}px`, ...colorStyle }}
+          className={`handle h-5 w-5 rounded-full border border-white drop-shadow-sm flex items-center justify-center bg-red-500 ${
+            isDragging && "scale-110"
+          } ${active && "scale-110"}`}
+          style={{
+            left: `${position}px`,
+            ...colorStyle,
+          }}
           onClick={handleClick}
         >
-          <div className="tooltip">{calculatePercentage()}%</div>
+          <div className="tooltip">{Math.round((position / 500) * 100)}%</div>
         </div>
       </div>
     </Draggable>
