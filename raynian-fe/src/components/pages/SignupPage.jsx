@@ -6,6 +6,8 @@ import { setCredentials } from "../../slices/authSlice";
 import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
+import { motion } from "framer-motion";
+
 import validator from "validator";
 
 function SignupPage() {
@@ -20,7 +22,6 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [errors, setErrors] = useState({});
 
   const [signup, { isLoading }] = useSignupMutation();
@@ -31,16 +32,19 @@ function SignupPage() {
     }
   }, [userInfo]);
 
+  // Toggle password seen or unseen
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
     else setTogglePassword("password");
   };
 
+  // Validate Email Error
   const validateEmail = (email) => {
     if (!validator.isEmail(email)) setEmailError("Email is invalid");
     else setEmailError("");
   };
 
+  // Validate password Error
   const validatePassword = (password) => {
     if (
       !validator.isStrongPassword(password, {
@@ -59,6 +63,7 @@ function SignupPage() {
     }
   };
 
+  // Submit handler for form
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -80,46 +85,29 @@ function SignupPage() {
     }
   };
 
-  const fetchAuthUser = async () => {
-    try {
-      // sending credentials to send cookies
-      const res = await fetch("http://localhost:4000/api/auth/login/success", {
-        credentials: "include",
-      });
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      // parse the JSON from the response
-      const data = await res.json();
-      console.log(data);
-      dispatch(setCredentials({ ...data }));
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-    // console.log(res);
-  };
+  // Framer Motion Placeholder Input Animations
+  const usernameMotion = {}
+  const emailMotion = {}
+  const passwordMotion = {}
+  const confirmPasswordMotion = {}
+  if (username.length) {
+    usernameMotion.animation = { y: -15, fontSize: "12px" }
+    usernameMotion.transition = { type: "stiff", stiffness: 100 }
+  }
+  if (email.length) {
+    emailMotion.animation = { y: -15, fontSize: "12px" }
+    emailMotion.transition = { type: "stiff", stiffness: 100 }
+  }
 
-  const handleGoogleAuthClick = async (e) => {
-    // Redirect the user to Google authentication
-    let timer = null;
-    const newWindow = window.open(
-      "http://localhost:4000/api/auth/google",
-      "_blank",
-      "width=500,height=600"
-    );
+  if (password.length) {
+    passwordMotion.animation = { y: -15, fontSize: "12px" }
+    passwordMotion.transition = { type: "stiff", stiffness: 100 }
+  }
 
-    // wait until pop out window closes and extract infor mation
-    if (newWindow) {
-      timer = setInterval(() => {
-        if (newWindow.closed) {
-          console.log("Yay we're authenticated");
-          fetchAuthUser();
-          if (timer) clearInterval(timer);
-        }
-      }, 500);
-    }
-  };
+  if (confirmPassword.length) {
+    confirmPasswordMotion.animation = { y: -15, fontSize: "12px" }
+    confirmPasswordMotion.transition = { type: "stiff", stiffness: 100 }
+  }
 
   return (
     <div
@@ -131,7 +119,6 @@ function SignupPage() {
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
               <h1 className="text-[51px] mb-[20px] font-light">Sign Up</h1>
-
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
@@ -143,23 +130,35 @@ function SignupPage() {
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
+                        <motion.p
+                          className="absolute text-gray-400 pointer-events-none"
+                          animate={usernameMotion.animation}
+                          transition={usernameMotion.transition}
+                        >
+                          Username
+                        </motion.p>
                         <input
                           type="text"
                           value={username}
-                          placeholder="Username"
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => setUsername(e.target.value)}
                         />
                       </div>
                       {username.length !== 0 && username.length < 4 && (
-                        <p className="text-red-500 text-[12px]">
+                        <p className="text-red-500 text-[12px] absolute">
                           Username must be at least 4 characters
                         </p>
                       )}
-                      <div className="w-full mt-[15px]">
+                      <div className="w-full mt-[35px]">
+                        <motion.p
+                          className="absolute text-gray-400 pointer-events-none"
+                          animate={emailMotion.animation}
+                          transition={emailMotion.transition}
+                        >
+                          Email
+                        </motion.p>
                         <input
                           type="text"
-                          placeholder="Email"
                           value={email}
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
@@ -168,16 +167,22 @@ function SignupPage() {
                           }}
                         />
                         {email.length !== 0 && emailError && (
-                          <p className="text-red-500 text-[12px]">
+                          <p className="text-red-500 text-[12px] absolute">
                             {emailError}
                           </p>
                         )}
                       </div>
                       <div>
-                        <div className="w-full mt-[15px] flex">
+                        <div className="w-full mt-[35px] flex">
+                          <motion.p
+                            className="absolute text-gray-400 pointer-events-none"
+                            animate={passwordMotion.animation}
+                            transition={passwordMotion.transition}
+                          >
+                            Password
+                          </motion.p>
                           <input
                             type={togglePassword}
-                            placeholder="Password"
                             value={password}
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                             onChange={(e) => {
@@ -202,28 +207,34 @@ function SignupPage() {
                           )}
                         </div>
                         {password.length !== 0 && passwordError && (
-                          <p className="text-red-500 text-[12px] break-words">
+                          <p className="text-red-500 text-[12px] absolute">
                             {passwordError}
                           </p>
                         )}
                       </div>
 
-                      <div className="w-full mt-[15px]">
+                      <div className="w-full mt-[35px]">
+                        <motion.p
+                          className="absolute text-gray-400 pointer-events-none"
+                          animate={confirmPasswordMotion.animation}
+                          transition={confirmPasswordMotion.transition}
+                        >
+                          Confirm Password
+                        </motion.p>
                         <input
                           type={togglePassword}
                           value={confirmPassword}
-                          placeholder="Confirm Password"
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         {confirmPassword.length !== 0 &&
                           password != confirmPassword && (
-                            <p className="text-red-500 p-[0] text-[12px]">
+                            <p className="text-red-500 p-[0] text-[12px] absolute">
                               Password do not match
                             </p>
                           )}
                       </div>
-                      <div className="flex justify-center mt-[15px]">
+                      <div className="flex justify-center mt-[25px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
                           disabled={
@@ -259,10 +270,7 @@ function SignupPage() {
                       className="flex mt-[20px] text-[14px]"
                       style={{ justifyContent: "space-between" }}
                     >
-                      <button
-                        className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
-                        onClick={handleGoogleAuthClick}
-                      >
+                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
                         <div className="flex justify-center items-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />
