@@ -12,7 +12,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   const active = activePicker === id;
   const isPickerVisible = activePicker === id;
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState(0); // position in pixels
+  const [position, setPosition] = useState(id == "handle2" ? 498 : 0); // position in pixels
   const wasDragged = useRef(false); // ref to track if the element was dragged
 
   const colorStyle = {
@@ -21,6 +21,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
 
   const handleDrag = (e, ui) => {
     setIsDragging(true);
+    console.log(ui);
     setPosition(ui.x);
     wasDragged.current = true; // update ref to note that element was dragged
   };
@@ -46,14 +47,22 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
     <Draggable
       axis="x"
       bounds=".range-slider"
+      defaultPosition={{ x: id === "handle2" ? 498 : 0, y: 0 }}
       onDrag={handleDrag}
       onStop={handleStop}
       cancel=".color-selector-container"
     >
-      <div className="bg-customizer-container relative">
-        <div className="color-selector-container h-[255px] w-[255px] absolute translate-y-[-270px] translate-x-[-115px]">
+      <div className="bg-customizer-container absolute ">
+        <div
+          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-270px] translate-x-[-115px] ${
+            !isPickerVisible && "hidden"
+          }`}
+        >
           {isPickerVisible && (
-            <div className="color-selector">
+            <div
+              className="color-selector"
+              style={{ zIndex: active === id ? 1000 : 0 }}
+            >
               <RgbaColorPicker color={color} onChange={setColor} />
             </div>
           )}
@@ -63,7 +72,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
             isDragging && "scale-110"
           } ${active && "scale-110"}`}
           style={{
-            left: `${position}px`,
+            // left: `${position}px`,
             ...colorStyle,
           }}
           onClick={handleClick}

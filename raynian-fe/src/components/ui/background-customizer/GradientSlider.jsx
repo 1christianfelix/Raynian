@@ -4,13 +4,15 @@ import GradientSliderHandle from "./GradientSliderHandle";
 const GradientSlider = ({ bgProperties, setBGProperties }) => {
   return (
     <div className="h-screen w-screen flex justify-center items-center">
-      <div className="range-slider w-[520px] relative rounded-full border border-white bg-gray-700 flex">
+      <div className="range-slider w-[520px] relative rounded-full border border-white bg-gray-700 flex h-[22px]">
         <GradientSliderHandle
           bgProperties={bgProperties}
           setBGProperties={setBGProperties}
           id={"handle1"}
+          z={1}
         ></GradientSliderHandle>
         <GradientSliderHandle
+          // className="absolute"
           bgProperties={bgProperties}
           setBGProperties={setBGProperties}
           id={"handle2"}
