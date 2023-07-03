@@ -42,14 +42,14 @@ export default function Timer() {
 
   return (
     <>
-      <p className="text-3xl">{message}</p>
-      <div className="font-inter flex flex-row justify-center relative">
+      <p className="text-3xl select-none">{message}</p>
+      <div className="font-inter flex flex-row justify-center relative select-none">
         <p className="text-[128px] leading-tight">
           {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}
           :
           {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}
         </p>
-        <div className="flex flex-col justify-center absolute bottom-[35px] right-[-30px]">
+        <div className="flex flex-col justify-center absolute bottom-[35px] right-[-15px]">
           {!isRunning && (
             <div
               className="mx-[5px] my-[5px] absolute bottom-[58px]"
@@ -97,6 +97,10 @@ export default function Timer() {
           )}
         </div>
       </div>
+
+      <p className="text-3xl">
+        Sessions completed today:<span className="text-3xl"> 2</span>
+      </p>
     </>
   );
 }

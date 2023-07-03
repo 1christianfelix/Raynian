@@ -49,7 +49,7 @@ export default function TimerSettings(props) {
 
   return (
     <div
-      className="absolute top-[7px] left-[65px] bg-white drop-shadow-md rounded-md text-sm py-[15px] px-[20px]"
+      className="absolute top-[-38px] left-[45px] bg-white drop-shadow-md rounded-md text-sm py-[15px] px-[20px]"
       ref={dropdownRef}
     >
       <div className="flex justify-between mb-[10px]">
