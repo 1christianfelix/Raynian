@@ -21,10 +21,35 @@
   border-radius: 12px;
 }
 
-.color-selector,
-.react-colorful__hue-pointer,
-.react-colorful__alpha-pointer {
-  width: 14px;
-  height: 14px;
+.color-selector .react-colorful__hue-pointer {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+}
+
+.color-selector .react-colorful__alpha-pointer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.handle:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }

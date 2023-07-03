@@ -12,13 +12,17 @@ import ColorSelection from "./components/ui/background-customizer/ColorSelection
 
 import Dashboard from "./components/pages/Dashboard";
 import { PageNotFound } from "./components/pages/PageNotFound";
+import GradientSlider from "./components/ui/background-customizer/GradientSlider";
+import GradientSliderHandle from "./components/ui/background-customizer/GradientSliderHandle";
 
 function App() {
   return (
     <DarkLightProvider>
       <ModalProvider>
         <div className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
-          <ColorSelection></ColorSelection>
+          {/* <ColorSelection></ColorSelection> */}
+          <GradientSlider></GradientSlider>
+          {/* <GradientSliderHandle></GradientSliderHandle> */}
           {/* <Modal />
           <Nav />
           <Routes>
