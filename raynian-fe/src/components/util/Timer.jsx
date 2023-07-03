@@ -49,19 +49,29 @@ export default function Timer() {
           :
           {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}
         </p>
-        <div className="flex flex-col justify-center absolute bottom-[20px] right-[-30px]">
-          <div className="mx-[5px] my-[5px]" onClick={startTimer}>
-            <IoPlayOutline
-              size={22}
-              className="timer-button text-green-700 cursor-pointer"
-            />
-          </div>
-          <div className="mx-[5px] my-[5px]" onClick={pauseTimer}>
-            <PiPauseLight
-              size={20}
-              className="timer-button text-slate-700 cursor-pointer dark:text-white"
-            />
-          </div>
+        <div className="flex flex-col justify-center absolute bottom-[35px] right-[-30px]">
+          {!isRunning && (
+            <div
+              className="mx-[5px] my-[5px] absolute bottom-[58px]"
+              onClick={startTimer}
+            >
+              <IoPlayOutline
+                size={22}
+                className="timer-button text-green-700 cursor-pointer"
+              />
+            </div>
+          )}
+          {isRunning && (
+            <div
+              className="mx-[5px] my-[5px] absolute bottom-[58px]"
+              onClick={pauseTimer}
+            >
+              <PiPauseLight
+                size={20}
+                className="timer-button text-slate-700 cursor-pointer dark:text-white"
+              />
+            </div>
+          )}
           <div className="mx-[5px] my-[5px]" onClick={stopTimer}>
             <IoStopOutline
               size={20}
