@@ -107,13 +107,9 @@ function LoginPage() {
     >
       <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
         <div className="w-full">
-      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
-        <div className="w-full">
           <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
             <div className="flex flex-col items-center">
-              <h1 className="text-[51px] mb-[20px] font-light">
-                Welcome Back!
-              </h1>
+              <h1 className="text-[51px] mb-[20px] font-thin">Welcome Back!</h1>
 
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
@@ -141,7 +137,6 @@ function LoginPage() {
                         />
                       </div>
                       <div>
-                        <div className="w-full mt-[17px] flex">
                         <div className="w-full mt-[17px] flex">
                           <motion.p
                             className="absolute text-gray-400 pointer-events-none"
@@ -179,7 +174,6 @@ function LoginPage() {
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
                           disabled={!email || !password || password.length < 8}
-                          disabled={!email || !password || password.length < 8}
                         >
                           Sign in
                         </button>
@@ -202,7 +196,6 @@ function LoginPage() {
                       style={{ justifyContent: "space-between" }}
                     >
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
                         <div
                           className="flex justify-center items-center"
@@ -213,22 +206,11 @@ function LoginPage() {
                         </div>
                       </button>
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                      </button>
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
                         {" "}
                         <div className="flex justify-center items-center">
                           <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Sign in with Apple</p>
                         </div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
                       </button>
                     </div>
                   </div>
