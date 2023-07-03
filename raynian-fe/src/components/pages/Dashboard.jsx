@@ -11,7 +11,6 @@ const Dashboard = () => {
   return (
     <div className="h-[60%] flex items-center justify-center flex-col">
       <div className="text-center ">
-        <p className="text-3xl">You're doing great!</p>
         <TimerProvider>
           <Timer />
         </TimerProvider>
