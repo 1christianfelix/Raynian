@@ -39,8 +39,8 @@ export const TimerProvider = ({ children }) => {
     if (workTime === "30 min")
       setCountdown({
         hours: 0,
-        minutes: 0,
-        seconds: 3,
+        minutes: 30,
+        seconds: 0,
       });
     setIsRunning(false);
   };
@@ -72,8 +72,8 @@ export const TimerProvider = ({ children }) => {
       if (breakTime === "5 min")
         setCountdown({
           hours: 0,
-          minutes: 0,
-          seconds: 5,
+          minutes: 5,
+          seconds: 0,
         });
     }
   }, [isBreak, breakTime]);
@@ -109,7 +109,7 @@ export const TimerProvider = ({ children }) => {
           });
       }, 1000);
     }
-    if (isBreak) {
+    if (isBreak && isRunning) {
       console.log("in here");
       timerID = setInterval(() => {
         if (
