@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
+import { BGCustomContext } from "../../../context/BGCustomContext";
 
-function AnglePicker({ bgProperties, setBGProperties }) {
+function AnglePicker() {
+  const { bgProperties, setBGProperties } = useContext(BGCustomContext);
+
   const circleRef = useRef(null);
   const isDragging = useRef(false);
 
@@ -91,15 +94,15 @@ function AnglePicker({ bgProperties, setBGProperties }) {
   }, [setBGProperties]);
 
   return (
-    <div style={{ position: "relative", height: "100px", width: "100px" }}>
+    <div style={{ position: "relative", height: "70px", width: "70px" }}>
       <div
         ref={circleRef}
         style={{
           position: "absolute",
           top: "50%",
           left: "50%",
-          width: "100px",
-          height: "100px",
+          width: "70px",
+          height: "70px",
           borderRadius: "50%",
           border: "1px solid black",
           transform: "translate(-50%, -50%)",
@@ -108,7 +111,7 @@ function AnglePicker({ bgProperties, setBGProperties }) {
         <div
           style={{
             width: "1px",
-            height: "50px",
+            height: "35px",
             backgroundColor: "black",
             position: "absolute",
             top: "0",

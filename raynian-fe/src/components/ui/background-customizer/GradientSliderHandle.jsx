@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { ColorPickerStatusContext } from "./ColorPickerStatusContext";
+import { BGCustomContext } from "../../../context/BGCustomContext";
 import Draggable from "react-draggable";
 import { RgbaColorPicker } from "react-colorful";
 import "./bg-customizer.css";
 
-const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
+const GradientSliderHandle = ({ id }) => {
+  const { bgProperties, setBGProperties } = useContext(BGCustomContext);
+
   const [color, setColor] = useState(
     id === "handle1" ? bgProperties.color1 : bgProperties.color2
   );
@@ -23,12 +26,14 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   );
   const wasDragged = useRef(false); // ref to track if the element was dragged
   const colorStyle = {
-    backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+    backgroundColor:
+      id === "handle1"
+        ? `rgba(${bgProperties.color1.r}, ${bgProperties.color1.g}, ${bgProperties.color1.b}, ${bgProperties.color1.a})`
+        : `rgba(${bgProperties.color2.r}, ${bgProperties.color2.g}, ${bgProperties.color2.b}, ${bgProperties.color2.a})`,
   };
 
   const handleDrag = (e, ui) => {
     setIsDragging(true);
-    console.log(ui);
     setPosition(ui.x);
     setStopPercent(Math.round((position / 500) * 100));
     wasDragged.current = true; // update ref to note that element was dragged
@@ -48,25 +53,28 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   };
 
   useEffect(() => {
+    // This is your new effect to listen for changes in stopPercent
+    setPosition((stopPercent / 100) * 500);
+  }, [stopPercent]);
+
+  useEffect(() => {
     setBGProperties((prev) => {
       if (id === "handle1") {
         prev = {
           ...prev,
-          color1: color,
           position1: position,
           stopPercent1: stopPercent,
         };
       } else {
         prev = {
           ...prev,
-          color2: color,
           position2: position,
           stopPercent2: stopPercent,
         };
       }
       return prev;
     });
-  }, [color, position, stopPercent]);
+  }, [position, stopPercent]);
 
   return (
     <Draggable
@@ -79,7 +87,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
     >
       <div className="bg-customizer-container absolute ">
         <div
-          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-270px] translate-x-[-115px] ${
+          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-310px] translate-x-[-115px] ${
             !isPickerVisible && "hidden"
           }`}
         >
@@ -88,7 +96,28 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
               className="color-selector"
               style={{ zIndex: active === id ? 1000 : 0 }}
             >
-              <RgbaColorPicker color={color} onChange={setColor} />
+              <RgbaColorPicker
+                color={
+                  id === "handle1" ? bgProperties.color1 : bgProperties.color2
+                }
+                onChange={(e) => {
+                  setBGProperties((prev) => {
+                    console.log(e);
+                    if (id === "handle1") {
+                      prev = {
+                        ...prev,
+                        color1: e,
+                      };
+                    } else {
+                      prev = {
+                        ...prev,
+                        color2: e,
+                      };
+                    }
+                    return prev;
+                  });
+                }}
+              />
             </div>
           )}
         </div>
