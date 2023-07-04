@@ -7,10 +7,10 @@ import "./bg-customizer.css";
 
 const BgCustomizerMenu = () => {
   const [bgProperties, setBGProperties] = useState({
-    color1: { r: 255, g: 255, b: 255, a: 1 },
+    color1: { r: 255, g: 255, b: 44, a: 0.3 },
     position1: 0,
     stopPercent1: 0,
-    color2: { r: 255, g: 255, b: 255, a: 1 },
+    color2: { r: 255, g: 255, b: 255, a: 0.4 },
     position2: 498,
     stopPercent2: 100,
     angle: 90,
@@ -21,12 +21,18 @@ const BgCustomizerMenu = () => {
   const [colorInput2, setColorInput2] = useState("");
 
   useEffect(() => {
-    setColorInput1(tinycolor(bgProperties.color1).toString("rgb"));
-    setColorInput2(tinycolor(bgProperties.color2).toString("rgb"));
+    console.log(bgProperties);
+    let color1 = tinycolor(bgProperties.color1);
+    color1.setAlpha(bgProperties.color1.a);
+    console.log(bgProperties.color1.a, color1.toRgbString());
+    setColorInput1(color1.toRgbString());
+    setColorInput2(tinycolor(bgProperties.color2).toRgbString());
   }, [bgProperties.color1, bgProperties.color2]);
 
   const handleColorBlur = (id, value) => {
+    console.log("hh", value);
     const color = tinycolor(value);
+    console.log(color.toRgb());
     if (color.isValid()) {
       setBGProperties((prev) => ({
         ...prev,
@@ -67,16 +73,28 @@ const BgCustomizerMenu = () => {
         [property]: value,
       }));
     }
-    if (property.includes("color")) {
-      const color = tinycolor(value);
-      if (color.isValid()) {
-        value = color.toRgb();
-        setBGProperties((prev) => ({
-          ...prev,
-          [property + id]: value,
-        }));
+
+    if (property == "colorInput") {
+      console.log("col property");
+      switch (id) {
+        case "1":
+          setColorInput1(value);
+          break;
       }
     }
+
+    // if (property.includes("color")) {
+    //   console.log("lor", value);
+    //   const color = tinycolor(value);
+    //   if (color.isValid()) {
+    //     console.log("lor test");
+    //     value = color.toRgb();
+    //     setBGProperties((prev) => ({
+    //       ...prev,
+    //       [property + id]: value,
+    //     }));
+    //   }
+    // }
   };
 
   return (
@@ -101,19 +119,22 @@ const BgCustomizerMenu = () => {
               <div className="flex items-end ">
                 <div className="cursor-default">RGBA:</div>
                 <input
-                  name="tt"
+                  placeholder="rgba(255, 255, 255, 1)"
                   type="text"
-                  value=""
-                  // onChange={(e) => setColorInput1(e.target.value)}
-                  // onBlur={() => handleColorBlur(1, colorInput1)}
+                  value={colorInput1}
+                  onChange={(e) =>
+                    handleInputChange("1", "colorInput", e.target.value)
+                  }
+                  onBlur={(e) => handleColorBlur(1, e.target.value)}
                   className="focus:outline hover:bg-white bg-opacity-50 hover:outline outline-1 transition-all"
                 />
               </div>
               <div className="flex items-end">
                 <span>HEX:</span>
                 <input
+                  placeholder="ffffff"
                   type="text"
-                  value={bgProperties.color1}
+                  value={tinycolor(bgProperties.color1).toString("hex")}
                   onChange={(e) =>
                     handleInputChange(1, "color", e.target.value)
                   }

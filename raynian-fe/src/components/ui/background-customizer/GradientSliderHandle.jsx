@@ -5,7 +5,9 @@ import { RgbaColorPicker } from "react-colorful";
 import "./bg-customizer.css";
 
 const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
-  const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
+  const [color, setColor] = useState(
+    id === "handle1" ? bgProperties.color1 : bgProperties.color2
+  );
 
   const { activePicker, setActivePicker } = useContext(
     ColorPickerStatusContext
