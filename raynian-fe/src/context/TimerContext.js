@@ -152,8 +152,11 @@ export const TimerProvider = ({ children }) => {
         breakTime,
         setBreakTime,
         isBreak,
+        setIsBreak,
         isWork,
+        setIsWork,
         isRunning,
+        setIsRunning,
       }}
     >
       {children}

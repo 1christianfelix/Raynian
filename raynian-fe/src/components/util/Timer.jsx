@@ -26,7 +26,9 @@ export default function Timer() {
     stopTimer,
     pauseTimer,
     isBreak,
+    setIsBreak,
     isWork,
+    setIsWork,
     isRunning,
   } = useContext(TimerContext);
 
@@ -172,6 +174,11 @@ export default function Timer() {
                 className="timer-button text-slate-700 cursor-pointer dark:text-white"
                 onMouseEnter={() => setSkipHovered(true)}
                 onMouseLeave={() => setSkipHovered(false)}
+                onClick={() => {
+                  setIsBreak(false);
+                  setIsWork(true);
+                  stopTimer();
+                }}
               />
               <AnimatePresence>
                 {skipHovered && (
