@@ -40,9 +40,14 @@ function SignupPage() {
 
   // Validate Email Error
   const validateEmail = (email) => {
+
     if (!validator.isEmail(email)) setEmailError("Email is invalid");
     else setEmailError("");
   };
+
+  const checkUsernameDuplicate = () => {
+
+  }
 
   // Validate password Error
   const validatePassword = (password) => {
@@ -149,6 +154,11 @@ function SignupPage() {
                           Username must be at least 4 characters
                         </p>
                       )}
+                      {username.length !== 0 && username.length > 25 && (
+                        <p className="text-red-500 text-[12px] absolute">
+                          Username must be at least 25 characters
+                        </p>
+                      )}
                       <div className="w-full mt-[35px]">
                         <motion.p
                           className="absolute text-gray-400 pointer-events-none"
@@ -240,7 +250,7 @@ function SignupPage() {
                           disabled={
                             password !== confirmPassword ||
                             !password ||
-                            !confirmPassword
+                            !confirmPassword || username.length < 4 || username.length > 25
                           }
                         >
                           Sign up
