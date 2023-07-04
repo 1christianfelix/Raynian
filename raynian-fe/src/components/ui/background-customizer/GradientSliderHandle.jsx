@@ -87,7 +87,7 @@ const GradientSliderHandle = ({ id }) => {
     >
       <div className="bg-customizer-container absolute ">
         <div
-          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-310px] translate-x-[-115px] ${
+          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-318px] translate-x-[-115px] ${
             !isPickerVisible && "hidden"
           }`}
         >
