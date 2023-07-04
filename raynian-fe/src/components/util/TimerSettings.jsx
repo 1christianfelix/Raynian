@@ -3,12 +3,11 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { TimerContext } from "../../context/TimerContext";
 
 export default function TimerSettings(props) {
-  const [workOption, setWorkOption] = useState("default");
-  const [breakOption, setBreakOption] = useState("default");
+  const { setOpenSettings, settingsRef } = props;
   const [backgroundOption, setBackgroundOption] = useState("default");
   const dropdownRef = useRef(null);
-
-  const { setOpenSettings, settingsRef } = props;
+  const { setCountdown, workTime, setWorkTime, breakTime, setBreakTime } =
+    useContext(TimerContext);
 
   const handleClickOutside = (event) => {
     if (settingsRef.current && settingsRef.current.contains(event.target)) {
@@ -17,6 +16,27 @@ export default function TimerSettings(props) {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setOpenSettings(false);
     }
+  };
+
+  const handleTimerChange = (time) => {
+    if (time === "60 min")
+      setCountdown({
+        hours: 0,
+        minutes: 60,
+        seconds: 0,
+      });
+    if (time === "45 min")
+      setCountdown({
+        hours: 0,
+        minutes: 45,
+        seconds: 0,
+      });
+    if (time === "30 min")
+      setCountdown({
+        hours: 0,
+        minutes: 30,
+        seconds: 0,
+      });
   };
 
   useEffect(() => {
@@ -28,17 +48,19 @@ export default function TimerSettings(props) {
 
   return (
     <div
-      className="absolute top-[7px] left-[65px] bg-white drop-shadow-md rounded-md text-sm py-[15px] px-[20px]"
+      className="absolute top-[-38px] left-[45px] bg-white drop-shadow-md rounded-md text-sm py-[15px] px-[20px] dark:bg-slate-700"
       ref={dropdownRef}
     >
       <div className="flex justify-between mb-[10px]">
         <p className="mr-[10px] whitespace-nowrap">Work Time</p>
         <div>
           <select
-            value={workOption}
+            value={workTime}
             onChange={(e) => {
-              setWorkOption(e.target.value);
+              setWorkTime(e.target.value);
+              handleTimerChange(e.target.value);
             }}
+            className="focus:outline-none dark:bg-slate-700"
           >
             <option value="60 min">60 min</option>
             <option value="45 min">45 min</option>
@@ -49,10 +71,11 @@ export default function TimerSettings(props) {
       <div className="flex justify-between mb-[10px]">
         <p className="mr-[10px] whitespace-nowrap">Break Time</p>
         <select
-          value={breakOption}
+          value={breakTime}
           onChange={(e) => {
-            setBreakOption(e.target.value);
+            setBreakTime(e.target.value);
           }}
+          className="focus:outline-none dark:bg-slate-700"
         >
           <option value="15 min">15 min</option>
           <option value="10 min">10 min</option>
@@ -66,6 +89,7 @@ export default function TimerSettings(props) {
           onChange={(e) => {
             setBackgroundOption(e.target.value);
           }}
+          className="focus:outline-none dark:bg-slate-700"
         >
           <option value="default">default</option>
           <option value="option1">option1</option>

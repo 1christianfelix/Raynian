@@ -14,6 +14,8 @@ export default function Modal(props) {
     (e) => {
       if (mouseDown === mouseUp && mouseDown === "center-modal-container") {
         setType(null);
+        setMouseDown("a");
+        setMouseUp("b");
       }
     },
     [mouseDown, mouseUp]
