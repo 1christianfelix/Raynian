@@ -11,9 +11,7 @@ export default function Nav() {
     setToggleDropdown(!openDropdown);
   };
 
-  useEffect(() => {
-    console.log(openDropdown);
-  }, [openDropdown]);
+  useEffect(() => {}, [openDropdown]);
 
   return (
     <div className="px-[25px] py-[20px] select-none">

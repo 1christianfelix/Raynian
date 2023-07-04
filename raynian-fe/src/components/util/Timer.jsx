@@ -10,7 +10,7 @@ import {
 import { PiPauseLight } from "react-icons/pi";
 import TimerSettings from "./TimerSettings";
 import "../../index.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Timer() {
   const [openSettings, setOpenSettings] = useState(false);
@@ -32,12 +32,24 @@ export default function Timer() {
 
   const [message, setMessage] = useState("PlaceHolder Message");
 
+  const tooltipAnimation = {
+    initial: { width: 0, opacity: 0 },
+    animate: { width: "auto", opacity: 1 },
+    exit: { opacity: 0, width: 0, transition: { duration: 0.05 } },
+    transition: { duration: 0.05 },
+    style: { pointerEvents: "none" },
+  };
+
+  const tooltipTextAnimation = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0, transition: { duration: 0 } },
+  };
+
   useEffect(() => {
     if (isBreak) {
-      console.log("BREAK");
       setMessage("Break Time!");
     } else if (isWork) {
-      console.log("Study");
       setMessage("Study Time!");
     } else {
       setMessage("PlaceHolder Message");
@@ -47,6 +59,12 @@ export default function Timer() {
   const toggleSettings = () => {
     setOpenSettings(!openSettings);
   };
+
+  useEffect(() => {
+    console.log("playHovered: ", playHovered);
+    console.log("pauseHovered: ", pauseHovered);
+    console.log("stopHovered: ", stopHovered);
+  }, [playHovered, pauseHovered, stopHovered, skipHovered, settingsHovered]);
 
   return (
     <>
@@ -61,7 +79,10 @@ export default function Timer() {
           {!isRunning && (
             <div
               className="mx-[5px] my-[5px] absolute bottom-[58px] flex flex-row"
-              onClick={startTimer}
+              onClick={() => {
+                startTimer();
+                setPlayHovered(false);
+              }}
             >
               <IoPlayOutline
                 size={22}
@@ -69,30 +90,30 @@ export default function Timer() {
                 onMouseEnter={() => setPlayHovered(true)}
                 onMouseLeave={() => setPlayHovered(false)}
               />
-              {playHovered && (
-                <motion.div
-                  className="tooltip absolute left-[30px] top-[-1px]"
-                  initial={{ width: 0 }}
-                  animate={{ width: "auto" }}
-                  transition={{ duration: 0.05 }}
-                  style={{ pointerEvents: "none" }}
-                >
-                  <motion.p
-                    className="whitespace-nowrap text-white text-xs align"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+              <AnimatePresence>
+                {playHovered && (
+                  <motion.div
+                    className="tooltip absolute left-[30px] top-[-4px]"
+                    {...tooltipAnimation}
                   >
-                    Start Timer
-                  </motion.p>
-                </motion.div>
-              )}
+                    <motion.p
+                      className="whitespace-nowrap text-white text-xs align"
+                      {...tooltipTextAnimation}
+                    >
+                      Start Timer
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
           {isRunning && (
             <div
               className="mx-[5px] my-[5px] absolute bottom-[58px]"
-              onClick={pauseTimer}
+              onClick={() => {
+                pauseTimer();
+                setPauseHovered(false);
+              }}
             >
               <PiPauseLight
                 size={20}
@@ -100,24 +121,21 @@ export default function Timer() {
                 onMouseEnter={() => setPauseHovered(true)}
                 onMouseLeave={() => setPauseHovered(false)}
               />
-              {pauseHovered && (
-                <motion.div
-                  className="tooltip absolute left-[30px] top-[-3px]"
-                  initial={{ width: 0 }}
-                  animate={{ width: "auto" }}
-                  transition={{ duration: 0.05 }}
-                  style={{ pointerEvents: "none" }}
-                >
-                  <motion.p
-                    className="whitespace-nowrap text-white text-xs align"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+              <AnimatePresence>
+                {pauseHovered && (
+                  <motion.div
+                    className="tooltip absolute left-[30px] top-[-6px]"
+                    {...tooltipAnimation}
                   >
-                    Pause Timer
-                  </motion.p>
-                </motion.div>
-              )}
+                    <motion.p
+                      className="whitespace-nowrap text-white text-xs align"
+                      {...tooltipTextAnimation}
+                    >
+                      Pause Timer
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
           {isWork && (
@@ -126,26 +144,25 @@ export default function Timer() {
                 size={20}
                 className="timer-button text-red-700 cursor-pointer"
                 onMouseEnter={() => setStopHovered(true)}
-                onMouseLeave={() => setStopHovered(false)}
+                onMouseLeave={() => {
+                  setStopHovered(false);
+                }}
               />
-              {stopHovered && (
-                <motion.div
-                  className="tooltip absolute left-[35px] top-[2px]"
-                  initial={{ width: 0 }}
-                  animate={{ width: "auto" }}
-                  transition={{ duration: 0.05 }}
-                  style={{ pointerEvents: "none" }}
-                >
-                  <motion.p
-                    className="whitespace-nowrap text-white text-xs align"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+              <AnimatePresence>
+                {stopHovered && (
+                  <motion.div
+                    className="tooltip absolute left-[35px] top-[0px]"
+                    {...tooltipAnimation}
                   >
-                    Stop Timer
-                  </motion.p>
-                </motion.div>
-              )}
+                    <motion.p
+                      className="whitespace-nowrap text-white text-xs align"
+                      {...tooltipTextAnimation}
+                    >
+                      Stop Timer
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
           {isBreak && (
@@ -156,29 +173,29 @@ export default function Timer() {
                 onMouseEnter={() => setSkipHovered(true)}
                 onMouseLeave={() => setSkipHovered(false)}
               />
-              {skipHovered && (
-                <motion.div
-                  className="tooltip absolute left-[35px] top-[2px]"
-                  initial={{ width: 0 }}
-                  animate={{ width: "auto" }}
-                  transition={{ duration: 0.05 }}
-                  style={{ pointerEvents: "none" }}
-                >
-                  <motion.p
-                    className="whitespace-nowrap text-white text-xs align"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+              <AnimatePresence>
+                {skipHovered && (
+                  <motion.div
+                    className="tooltip absolute left-[35px] top-[0px]"
+                    {...tooltipAnimation}
                   >
-                    Skip Break
-                  </motion.p>
-                </motion.div>
-              )}
+                    <motion.p
+                      className="whitespace-nowrap text-white text-xs align"
+                      {...tooltipTextAnimation}
+                    >
+                      Skip Break
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
           <div
             className="mx-[5px] my-[5px] relative"
-            onClick={toggleSettings}
+            onClick={() => {
+              toggleSettings();
+              setSettingsHovered(false);
+            }}
             ref={settingsRef}
           >
             <IoSettingsOutline
@@ -187,24 +204,21 @@ export default function Timer() {
               onMouseEnter={() => setSettingsHovered(true)}
               onMouseLeave={() => setSettingsHovered(false)}
             />
-            {settingsHovered && (
-              <motion.div
-                className="tooltip absolute left-[30px] top-[-2px]"
-                initial={{ width: 0 }}
-                animate={{ width: "auto" }}
-                transition={{ duration: 0.05 }}
-                style={{ pointerEvents: "none" }}
-              >
-                <motion.p
-                  className="whitespace-nowrap text-white text-xs align"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+            <AnimatePresence>
+              {settingsHovered && (
+                <motion.div
+                  className="tooltip absolute left-[30px] top-[-6px]"
+                  {...tooltipAnimation}
                 >
-                  Settings
-                </motion.p>
-              </motion.div>
-            )}
+                  <motion.p
+                    className="whitespace-nowrap text-white text-xs align"
+                    {...tooltipTextAnimation}
+                  >
+                    Settings
+                  </motion.p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           {openSettings && (
             <TimerSettings
