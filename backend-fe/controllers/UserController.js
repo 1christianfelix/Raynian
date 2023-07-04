@@ -36,23 +36,23 @@ const usernameChecker = async (req, res) => {
 
   const findUsername = await User.findOne({ username: username });
 
-  const alphanumericOptions = {
-    ignore: "-._", // Ignore characters "-", ".", and "_"
-  };
+  const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
+
   if (username.length > 25) {
     res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: false});
+
   } else if (username.length < 4) {
     res.json({ msg: "Username must be at least 4 characters", valid_display: false});
-  } else if (
-    !validator.isAlphanumeric(username, "en-US", alphanumericOptions)
-  ) {
-    res.json({
-      msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: false
-    });
+
+  } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
+    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: false});
+
   } else if (findUsername) {
     res.json({ msg: "Username already exist", valid_display: true});
+
   } else {
     res.json({ msg: "Username available", valid_display: true});
+
   }
 
 };
