@@ -45,7 +45,8 @@ function SignupPage() {
     else setEmailError("");
   };
 
-  const checkUsernameDuplicate = () => {
+  const checkUsernameDuplicate = (e) => {
+    e.preventDefault()
 
   }
 
