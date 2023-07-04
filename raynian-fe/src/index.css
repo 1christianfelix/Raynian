@@ -54,3 +54,14 @@
   background: linear-gradient(to bottom, #2c2c2c 0%, #9b1b30 100%);
   color: white;
 } */
+
+.tooltip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background-color: rgb(0, 0, 0, 0.75);
+  padding: 8px;
+  margin-left: 2px;
+}
