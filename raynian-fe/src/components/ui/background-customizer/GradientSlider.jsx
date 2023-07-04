@@ -3,7 +3,7 @@ import GradientSliderHandle from "./GradientSliderHandle";
 
 const GradientSlider = ({ bgProperties, setBGProperties }) => {
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="scale-100">
       <div className="range-slider w-[520px] relative rounded-full border border-white bg-gray-700 flex h-[22px]">
         <GradientSliderHandle
           bgProperties={bgProperties}

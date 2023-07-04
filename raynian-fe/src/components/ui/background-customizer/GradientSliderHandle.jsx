@@ -6,15 +6,20 @@ import "./bg-customizer.css";
 
 const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
+
   const { activePicker, setActivePicker } = useContext(
     ColorPickerStatusContext
   );
   const active = activePicker === id;
   const isPickerVisible = activePicker === id;
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState(id == "handle2" ? 498 : 0); // position in pixels
+  const [position, setPosition] = useState(
+    id == "handle2" ? bgProperties.position2 : bgProperties.position1
+  ); // position in pixels
+  const [stopPercent, setStopPercent] = useState(
+    id == "handle2" ? bgProperties.position2 : bgProperties.position1
+  );
   const wasDragged = useRef(false); // ref to track if the element was dragged
-
   const colorStyle = {
     backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
   };
@@ -23,6 +28,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
     setIsDragging(true);
     console.log(ui);
     setPosition(ui.x);
+    setStopPercent(Math.round((position / 500) * 100));
     wasDragged.current = true; // update ref to note that element was dragged
   };
 
@@ -40,7 +46,24 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
   };
 
   useEffect(() => {
-    setBGProperties({ color, position: Math.round((position / 500) * 100) });
+    setBGProperties((prev) => {
+      if (id === "handle1") {
+        prev = {
+          ...prev,
+          color1: color,
+          position1: position,
+          stopPercent1: stopPercent,
+        };
+      } else {
+        prev = {
+          ...prev,
+          color2: color,
+          position2: position,
+          stopPercent2: stopPercent,
+        };
+      }
+      return prev;
+    });
   }, [color, position]);
 
   return (
@@ -77,7 +100,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
           }}
           onClick={handleClick}
         >
-          <div className="tooltip">{Math.round((position / 500) * 100)}%</div>
+          <div className="tooltip  ">{stopPercent}%</div>
         </div>
       </div>
     </Draggable>
