@@ -53,3 +53,11 @@
   visibility: visible;
   opacity: 1;
 }
+
+input {
+  width: 75%;
+  background: transparent;
+  margin-left: 4px;
+  outline-style: none;
+  padding-left: 4px;
+}

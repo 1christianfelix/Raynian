@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 function AnglePicker({ bgProperties, setBGProperties }) {
-  const [angle, setAngle] = useState(bgProperties.angle);
   const circleRef = useRef(null);
   const isDragging = useRef(false);
 
@@ -37,9 +36,21 @@ function AnglePicker({ bgProperties, setBGProperties }) {
         e.clientY - circleCenter.y,
         e.clientX - circleCenter.x
       );
-      const angleDeg = (angleRad * 180) / Math.PI;
+      const newAngle = Math.floor((angleRad * 180) / Math.PI + 90);
 
-      setAngle(angleDeg + 90);
+      let angleVal;
+
+      if (newAngle > 90 && newAngle < 270) {
+        angleVal = 360 - (newAngle - 90);
+      } else {
+        angleVal = newAngle >= 270 ? newAngle - 270 : 90 - newAngle;
+      }
+
+      setBGProperties((prev) => ({
+        ...prev,
+        angle: newAngle,
+        angleVal: angleVal,
+      }));
     };
 
     const handleMouseDown = (e) => {
@@ -77,26 +88,7 @@ function AnglePicker({ bgProperties, setBGProperties }) {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
-
-  useEffect(() => {
-    setBGProperties((prev) => {
-      let newAngle = Math.floor(angle);
-      let angleVal;
-
-      if (newAngle > 90 && newAngle < 270) {
-        angleVal = 360 - (newAngle - 90);
-      } else {
-        angleVal = newAngle >= 270 ? newAngle - 270 : 90 - newAngle;
-      }
-
-      return {
-        ...prev,
-        angle: newAngle,
-        angleVal: angleVal,
-      };
-    });
-  }, [angle]);
+  }, [setBGProperties]);
 
   return (
     <div style={{ position: "relative", height: "100px", width: "100px" }}>
@@ -121,12 +113,11 @@ function AnglePicker({ bgProperties, setBGProperties }) {
             position: "absolute",
             top: "0",
             left: "50%",
-            transform: `rotate(${angle}deg)`,
+            transform: `rotate(${bgProperties.angle}deg)`,
             transformOrigin: "bottom",
           }}
         />
       </div>
-      {/* {angle} */}
     </div>
   );
 }

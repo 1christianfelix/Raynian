@@ -17,7 +17,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
     id == "handle2" ? bgProperties.position2 : bgProperties.position1
   ); // position in pixels
   const [stopPercent, setStopPercent] = useState(
-    id == "handle2" ? bgProperties.position2 : bgProperties.position1
+    id == "handle2" ? bgProperties.stopPercent2 : bgProperties.stopPercent1
   );
   const wasDragged = useRef(false); // ref to track if the element was dragged
   const colorStyle = {
@@ -64,7 +64,7 @@ const GradientSliderHandle = ({ bgProperties, setBGProperties, id }) => {
       }
       return prev;
     });
-  }, [color, position]);
+  }, [color, position, stopPercent]);
 
   return (
     <Draggable
