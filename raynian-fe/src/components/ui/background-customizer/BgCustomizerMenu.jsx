@@ -133,7 +133,12 @@ const BgCustomizerMenu = () => {
 
   return (
     <ColorPickerStatusProvider>
-      <div className="h-screen w-screen flex justify-center items-center">
+      <div
+        className="flex justify-center items-center absolute"
+        style={{
+          // background: bg,
+        }}
+      >
         <div className="p-4 pt-8 flex flex-col bg-yellow-600 bg-opacity-50 shadow-2xl shadow-[rgba(0,0,0,.5)] rounded-3xl">
           <div className="flex justify-center items-center gap-5">
             <GradientSlider
