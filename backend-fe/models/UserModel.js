@@ -68,7 +68,7 @@ userSchema.statics.signup = async function (email, username, password) {
     throw Error("The password requires capital and lowercase letters, numbers, and symbols");
   }
 
-  if (username.length > 20) {
+  if (username.length > 25) {
     throw Error("Username exceeds the maximum length of 20 characters");
   }
 

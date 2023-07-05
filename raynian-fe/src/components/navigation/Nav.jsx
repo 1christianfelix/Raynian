@@ -11,12 +11,10 @@ export default function Nav() {
     setToggleDropdown(!openDropdown);
   };
 
-  useEffect(() => {
-    console.log(openDropdown);
-  }, [openDropdown]);
+  useEffect(() => {}, [openDropdown]);
 
   return (
-    <div className="px-[25px] py-[20px]">
+    <div className="px-[25px] py-[20px] select-none">
       <div className="Header flex justify-between">
         <div className="flex items-center gap-[1.25rem]">
           <img

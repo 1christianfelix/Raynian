@@ -6,7 +6,6 @@ export const DarkLightProvider = ({ children }) => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const toggleDark = () => {
-    console.log(theme);
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
@@ -18,7 +17,6 @@ export const DarkLightProvider = ({ children }) => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
-    console.log("AAA");
   }, [theme]);
 
   return (
