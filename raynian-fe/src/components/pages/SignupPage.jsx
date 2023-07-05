@@ -1,21 +1,21 @@
 // React Imports
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useSignupMutation } from "../../slices/usersApiSlice";
-import { setCredentials } from "../../slices/authSlice";
-import { FaEye, FaEyeSlash, FaApple, BiRefresh } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { FiRefreshCcw } from "react-icons/fi";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSignupMutation } from '../../slices/usersApiSlice';
+import { setCredentials } from '../../slices/authSlice';
+import { FaEye, FaEyeSlash, FaApple, BiRefresh } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 // Helpers
-import { generateUser } from "../../helpers/generateUser";
-import { checkUsernameDuplicate } from "../../helpers/usernameDuplicate";
-import { checkEmailDuplicate } from "../../helpers/emailDuplicate";
+import { generateUniqueUser } from '../../helpers/generateUser';
+import { checkUsernameDuplicate } from '../../helpers/usernameDuplicate';
+import { checkEmailDuplicate } from '../../helpers/emailDuplicate';
 
 // Others
-import { motion } from "framer-motion";
-import validator from "validator";
+import { motion } from 'framer-motion';
+import validator from 'validator';
 
 // --------------------
 
@@ -25,17 +25,17 @@ function SignupPage() {
   const { userInfo } = useSelector((state) => state.auth);
 
   // useStates
-  const [togglePassword, setTogglePassword] = useState("password");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [togglePassword, setTogglePassword] = useState('password');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   // error useStates
-  const [passwordError, setPasswordError] = useState("");
-  const [requiredPassword, setRequiredPassword] = useState("");
-  const [requiredConfirmPassword, setRequiredConfirmPassword] = useState('')
-  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const [passwordError, setPasswordError] = useState('');
+  const [requiredPassword, setRequiredPassword] = useState('');
+  const [requiredConfirmPassword, setRequiredConfirmPassword] = useState('');
+  const [passwordMatchError, setPasswordMatchError] = useState('');
   const [errors, setErrors] = useState({});
   const [dupUserCheck, setDupUserCheck] = useState({});
   const [dupEmailCheck, setDupEmailCheck] = useState({});
@@ -45,44 +45,45 @@ function SignupPage() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate('/');
     }
   }, [userInfo]);
 
   // Generate username logic
-  const generateUserName = () => {
-    setUsername(generateUser());
+  const generateUserName = async () => {
+    setUsername(await generateUniqueUser());
+    setDupUserCheck({ msg: 'Username available', valid_display: true, error: true }); // Always will be unique as this is checked in the backend
   };
+
   // Toggle password seen or unseen
   const handleTogglePassword = () => {
-    if (togglePassword === "password") setTogglePassword("text");
-    else setTogglePassword("password");
+    if (togglePassword === 'password') setTogglePassword('text');
+    else setTogglePassword('password');
   };
 
   // Set Password required Error
   const handleRequiredPasswordError = (password) => {
     if (password.length === 0) {
-      setRequiredPassword("Password Required");
+      setRequiredPassword('Password Required');
     }
   };
 
   // Set Confirm Password required Error
   const handleRequiredConfirmPasswordError = (confirmPassword) => {
     if (confirmPassword.length === 0) {
-      setRequiredConfirmPassword("Password Required");
+      setRequiredConfirmPassword('Password Required');
     }
   };
 
   // Set password must match error
   const handlePasswordMatch = (confirmPassword) => {
     if (confirmPassword !== password) {
-      setPasswordMatchError("Password must match");
+      setPasswordMatchError('Password must match');
     }
     if (confirmPassword.length === 0) {
-      setPasswordMatchError("Password required")
+      setPasswordMatchError('Password required');
     }
   };
-
 
   // check for username Duplicates and username invalidation throwing
   const handleUserDuplicate = async (user) => {
@@ -98,8 +99,8 @@ function SignupPage() {
   // Validate password Error
   const handleValidatePassword = (password) => {
     if (password.length < 8 && password.length > 0) {
-      setPasswordError('Password requires at least 8 characters')
-      return
+      setPasswordError('Password requires at least 8 characters');
+      return;
     }
     if (
       !validator.isStrongPassword(password, {
@@ -110,11 +111,9 @@ function SignupPage() {
         minSymbols: 1,
       })
     ) {
-      setPasswordError(
-        "Password requires at least one capital letter, number, and symbol"
-      );
+      setPasswordError('Password requires at least one capital letter, number, and symbol');
     } else {
-      setPasswordError("");
+      setPasswordError('');
     }
   };
 
@@ -131,7 +130,7 @@ function SignupPage() {
           password,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
-        navigate("/");
+        navigate('/');
       } catch (err) {
         console.log(err);
         setErrors(err.data);
@@ -145,23 +144,23 @@ function SignupPage() {
   const passwordMotion = {};
   const confirmPasswordMotion = {};
   if (username.length) {
-    usernameMotion.animation = { y: -15, fontSize: "12px" };
-    usernameMotion.transition = { type: "stiff", stiffness: 100 };
+    usernameMotion.animation = { y: -15, fontSize: '12px' };
+    usernameMotion.transition = { type: 'stiff', stiffness: 100 };
   }
 
   if (email.length) {
-    emailMotion.animation = { y: -15, fontSize: "12px" };
-    emailMotion.transition = { type: "stiff", stiffness: 100 };
+    emailMotion.animation = { y: -15, fontSize: '12px' };
+    emailMotion.transition = { type: 'stiff', stiffness: 100 };
   }
 
   if (password.length) {
-    passwordMotion.animation = { y: -15, fontSize: "12px" };
-    passwordMotion.transition = { type: "stiff", stiffness: 100 };
+    passwordMotion.animation = { y: -15, fontSize: '12px' };
+    passwordMotion.transition = { type: 'stiff', stiffness: 100 };
   }
 
   if (confirmPassword.length) {
-    confirmPasswordMotion.animation = { y: -15, fontSize: "12px" };
-    confirmPasswordMotion.transition = { type: "stiff", stiffness: 100 };
+    confirmPasswordMotion.animation = { y: -15, fontSize: '12px' };
+    confirmPasswordMotion.transition = { type: 'stiff', stiffness: 100 };
   }
 
   return (
@@ -177,11 +176,7 @@ function SignupPage() {
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    {errors && (
-                      <p className="text-red-500 mb-[20px] text-center">
-                        {errors.error}
-                      </p>
-                    )}
+                    {errors && <p className="text-red-500 mb-[20px] text-center">{errors.error}</p>}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
@@ -211,13 +206,9 @@ function SignupPage() {
                         </div>
                       </div>
                       {username.length > 1 && dupUserCheck.error ? (
-                        <p className="text-green-500 text-[12px] absolute">
-                          {dupUserCheck.msg}
-                        </p>
+                        <p className="text-green-500 text-[12px] absolute">{dupUserCheck.msg}</p>
                       ) : (
-                        <p className="text-red-500 text-[12px] absolute">
-                          {dupUserCheck.msg}
-                        </p>
+                        <p className="text-red-500 text-[12px] absolute">{dupUserCheck.msg}</p>
                       )}
                       <div className="w-full mt-[35px]">
                         <motion.p
@@ -237,13 +228,9 @@ function SignupPage() {
                           }}
                         />
                         {dupEmailCheck.error ? (
-                          <p className="text-green-500 text-[12px] absolute">
-                            {dupEmailCheck.msg}
-                          </p>
+                          <p className="text-green-500 text-[12px] absolute">{dupEmailCheck.msg}</p>
                         ) : (
-                          <p className="text-red-500 text-[12px] absolute">
-                            {dupEmailCheck.msg}
-                          </p>
+                          <p className="text-red-500 text-[12px] absolute">{dupEmailCheck.msg}</p>
                         )}
                       </div>
                       <div>
@@ -265,7 +252,7 @@ function SignupPage() {
                               handleRequiredPasswordError(e.target.value);
                             }}
                           />
-                          {togglePassword === "text" ? (
+                          {togglePassword === 'text' ? (
                             <FaEyeSlash
                               className="ml-[-25px] cursor-pointer"
                               size={20}
@@ -282,16 +269,12 @@ function SignupPage() {
                           )}
                         </div>
                         {password.length === 0 && requiredPassword ? (
-                          <p className="text-red-500 text-[12px] absolute">
-                            {requiredPassword}
-                          </p>
+                          <p className="text-red-500 text-[12px] absolute">{requiredPassword}</p>
                         ) : (
-                          ""
+                          ''
                         )}
                         {password.length !== 0 && passwordError && (
-                          <p className="text-red-500 text-[12px] absolute">
-                            {passwordError}
-                          </p>
+                          <p className="text-red-500 text-[12px] absolute">{passwordError}</p>
                         )}
                       </div>
 
@@ -309,13 +292,13 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
                             setConfirmPassword(e.target.value);
-                            handleRequiredConfirmPasswordError(e.target.value)
+                            handleRequiredConfirmPasswordError(e.target.value);
                             handlePasswordMatch(e.target.value);
                           }}
                         />
-                        {confirmPassword.length !== 0 && confirmPassword !== password && <p className="text-red-500 text-[12px] absolute">
-                            {passwordMatchError}
-                          </p>}
+                        {confirmPassword.length !== 0 && confirmPassword !== password && (
+                          <p className="text-red-500 text-[12px] absolute">{passwordMatchError}</p>
+                        )}
                         {confirmPassword.length === 0 && requiredConfirmPassword && (
                           <p className="text-red-500 text-[12px] absolute">
                             {requiredConfirmPassword}
@@ -337,11 +320,8 @@ function SignupPage() {
                           Sign up
                         </button>
                       </div>
-                      <div
-                        className="flex"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <p>Already have an account?</p>{" "}
+                      <div className="flex" style={{ justifyContent: 'center' }}>
+                        <p>Already have an account?</p>{' '}
                         {/* Convert to a link that opens up the login modal*/}
                       </div>
                     </form>
@@ -359,17 +339,17 @@ function SignupPage() {
 
                     <div
                       className="flex mt-[20px] text-[14px]"
-                      style={{ justifyContent: "space-between" }}
+                      style={{ justifyContent: 'space-between' }}
                     >
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                        {" "}
+                        {' '}
                         <div className="flex justify-center items-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Google</p>
                         </div>
                       </button>
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                        {" "}
+                        {' '}
                         <div className="flex justify-center items-center">
                           <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Apple</p>
