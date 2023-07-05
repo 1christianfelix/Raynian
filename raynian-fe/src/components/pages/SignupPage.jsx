@@ -24,18 +24,23 @@ function SignupPage() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
+  // useStates
   const [togglePassword, setTogglePassword] = useState("password");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [validEmail, setValidEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // error useStates
   const [passwordError, setPasswordError] = useState("");
+  const [requiredPassword, setRequiredPassword] = useState("");
+  const [requiredConfirmPassword, setRequiredConfirmPassword] = useState('')
+  const [passwordMatchError, setPasswordMatchError] = useState("");
   const [errors, setErrors] = useState({});
   const [dupUserCheck, setDupUserCheck] = useState({});
   const [dupEmailCheck, setDupEmailCheck] = useState({});
 
+  // slices
   const [signup, { isLoading }] = useSignupMutation();
 
   useEffect(() => {
@@ -48,12 +53,34 @@ function SignupPage() {
   const generateUserName = () => {
     setUsername(generateUser());
   };
-
   // Toggle password seen or unseen
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
     else setTogglePassword("password");
   };
+
+  // Set Password required Error
+  const handleRequiredPasswordError = (password) => {
+    if (password.length === 0) {
+      setRequiredPassword("Password Required");
+    }
+  };
+
+  const handleRequiredConfirmPasswordError = (confirmPassword) => {
+    if (confirmPassword.length === 0) {
+      setRequiredConfirmPassword("Password Required");
+    }
+  };
+
+  // Set password must match error
+  const handlePasswordMatch = (confirmPassword) => {
+    if (confirmPassword !== password) {
+      setPasswordMatchError("Password must match");
+    } else {
+      setPasswordMatchError("Password required")
+    }
+  };
+
 
   // check for username Duplicates and username invalidation throwing
   const handleUserDuplicate = async (user) => {
@@ -62,13 +89,12 @@ function SignupPage() {
   };
   // Check for email duplicates and set with error validations
   const handleEmailDuplicate = async (email) => {
-    const data = await checkEmailDuplicate(email)
-    setDupEmailCheck(data)
-  }
-
+    const data = await checkEmailDuplicate(email);
+    setDupEmailCheck(data);
+  };
 
   // Validate password Error
-  const validatePassword = (password) => {
+  const handleValidatePassword = (password) => {
     if (
       !validator.isStrongPassword(password, {
         minLength: 8,
@@ -90,7 +116,6 @@ function SignupPage() {
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors({});
-    setEmailError("");
 
     if (password === confirmPassword) {
       try {
@@ -170,7 +195,6 @@ function SignupPage() {
                               setUsername(e.target.value);
                               handleUserDuplicate(e.target.value);
                             }}
-                            // onBlur={(e) => checkUsernameDuplicate(e.target.value)}
                           />
                           <FiRefreshCcw
                             className="ml-[-25px] cursor-pointer"
@@ -203,11 +227,18 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
                             setEmail(e.target.value);
-                            // validateEmail(e.target.value);
-                            handleEmailDuplicate(e.target.value)
+                            handleEmailDuplicate(e.target.value);
                           }}
                         />
-                        {dupEmailCheck.error ? <p className="text-green-500 text-[12px] absolute">{dupEmailCheck.msg}</p> : <p className="text-red-500 text-[12px] absolute">{dupEmailCheck.msg}</p>}
+                        {dupEmailCheck.error ? (
+                          <p className="text-green-500 text-[12px] absolute">
+                            {dupEmailCheck.msg}
+                          </p>
+                        ) : (
+                          <p className="text-red-500 text-[12px] absolute">
+                            {dupEmailCheck.msg}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <div className="w-full mt-[35px] flex">
@@ -224,7 +255,8 @@ function SignupPage() {
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                             onChange={(e) => {
                               setPassword(e.target.value);
-                              validatePassword(e.target.value);
+                              handleValidatePassword(e.target.value);
+                              handleRequiredPasswordError(e.target.value);
                             }}
                           />
                           {togglePassword === "text" ? (
@@ -243,6 +275,13 @@ function SignupPage() {
                             />
                           )}
                         </div>
+                        {password.length === 0 && requiredPassword ? (
+                          <p className="text-red-500 text-[12px] absolute">
+                            {requiredPassword}
+                          </p>
+                        ) : (
+                          ""
+                        )}
                         {password.length !== 0 && passwordError && (
                           <p className="text-red-500 text-[12px] absolute">
                             {passwordError}
@@ -262,14 +301,20 @@ function SignupPage() {
                           type={togglePassword}
                           value={confirmPassword}
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
-                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          onChange={(e) => {
+                            setConfirmPassword(e.target.value);
+                            handleRequiredConfirmPasswordError(e.target.value)
+                            handlePasswordMatch(e.target.value);
+                          }}
                         />
-                        {confirmPassword.length !== 0 &&
-                          password != confirmPassword && (
-                            <p className="text-red-500 p-[0] text-[12px] absolute">
-                              Password do not match
-                            </p>
-                          )}
+                        {confirmPassword.length !== 0 && confirmPassword !== password && <p className="text-red-500 text-[12px] absolute">
+                            {passwordMatchError}
+                          </p>}
+                        {confirmPassword.length === 0 && requiredConfirmPassword && (
+                          <p className="text-red-500 text-[12px] absolute">
+                            {requiredConfirmPassword}
+                          </p>
+                        )}
                       </div>
                       <div className="flex justify-center mt-[25px]">
                         <button
