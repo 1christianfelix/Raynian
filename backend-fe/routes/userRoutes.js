@@ -13,7 +13,6 @@ router.get("/", getusers);
 
 // GET single user' stats
 router.get("/:id", protect, getuser);
-
 router.post('/check/email', emailChecker)
 router.post('/check/username', usernameChecker)
 
