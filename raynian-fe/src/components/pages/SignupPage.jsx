@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FiRefreshCcw } from "react-icons/fi";
 
 // Helpers
-import { generateUser } from "../../helpers/generateUser";
+import { generateUniqueUser } from "../../helpers/generateUser";
 import { checkUsernameDuplicate } from "../../helpers/usernameDuplicate";
 import { checkEmailDuplicate } from "../../helpers/emailDuplicate";
 
@@ -50,9 +50,15 @@ function SignupPage() {
   }, [userInfo]);
 
   // Generate username logic
-  const generateUserName = () => {
-    setUsername(generateUser());
+  const generateUserName = async () => {
+    setUsername(await generateUniqueUser());
+    setDupUserCheck({
+      msg: "Username available",
+      valid_display: true,
+      error: true,
+    }); // Always will be unique as this is checked in the backend
   };
+
   // Toggle password seen or unseen
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
