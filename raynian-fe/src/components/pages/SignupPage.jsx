@@ -1,50 +1,71 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSignupMutation } from '../../slices/usersApiSlice';
-import { setCredentials } from '../../slices/authSlice';
-import { FaEye, FaEyeSlash, FaApple, BiRefresh } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { FiRefreshCcw } from 'react-icons/fi';
-import { generateUser } from '../../helpers/generateUser';
+// React Imports
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useSignupMutation } from "../../slices/usersApiSlice";
+import { setCredentials } from "../../slices/authSlice";
+import { FaEye, FaEyeSlash, FaApple, BiRefresh } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FiRefreshCcw } from "react-icons/fi";
 
-import { motion } from 'framer-motion';
+// Helpers
+import { generateUser } from "../../helpers/generateUser";
+import { checkUsernameDuplicate } from "../../helpers/usernameDuplicate";
+import { checkEmailDuplicate } from "../../helpers/emailDuplicate";
 
-import validator from 'validator';
+// Others
+import { motion } from "framer-motion";
+import validator from "validator";
+
+// --------------------
 
 function SignupPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [togglePassword, setTogglePassword] = useState('password');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [togglePassword, setTogglePassword] = useState("password");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [errors, setErrors] = useState({});
+  const [dupUserCheck, setDupUserCheck] = useState({});
+  const [dupEmailCheck, setDupEmailCheck] = useState({});
 
   const [signup, { isLoading }] = useSignupMutation();
 
   useEffect(() => {
     if (userInfo) {
-      navigate('/');
+      navigate("/");
     }
   }, [userInfo]);
 
-  // Toggle password seen or unseen
-  const handleTogglePassword = () => {
-    if (togglePassword === 'password') setTogglePassword('text');
-    else setTogglePassword('password');
+  // Generate username logic
+  const generateUserName = () => {
+    setUsername(generateUser());
   };
 
-  // Validate Email Error
-  const validateEmail = (email) => {
-    if (!validator.isEmail(email)) setEmailError('Email is invalid');
-    else setEmailError('');
+  // Toggle password seen or unseen
+  const handleTogglePassword = () => {
+    if (togglePassword === "password") setTogglePassword("text");
+    else setTogglePassword("password");
   };
+
+  // check for username Duplicates and username invalidation throwing
+  const handleUserDuplicate = async (user) => {
+    const data = await checkUsernameDuplicate(user);
+    setDupUserCheck(data);
+  };
+  // Check for email duplicates and set with error validations
+  const handleEmailDuplicate = async (email) => {
+    const data = await checkEmailDuplicate(email)
+    setDupEmailCheck(data)
+  }
+
 
   // Validate password Error
   const validatePassword = (password) => {
@@ -57,9 +78,11 @@ function SignupPage() {
         minSymbols: 1,
       })
     ) {
-      setPasswordError('Password requires at least one capital letter, number, and symbol');
+      setPasswordError(
+        "Password requires at least one capital letter, number, and symbol"
+      );
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
   };
 
@@ -67,7 +90,7 @@ function SignupPage() {
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors({});
-    setEmailError('');
+    setEmailError("");
 
     if (password === confirmPassword) {
       try {
@@ -77,7 +100,7 @@ function SignupPage() {
           password,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
-        navigate('/');
+        navigate("/");
       } catch (err) {
         console.log(err);
         setErrors(err.data);
@@ -91,28 +114,24 @@ function SignupPage() {
   const passwordMotion = {};
   const confirmPasswordMotion = {};
   if (username.length) {
-    usernameMotion.animation = { y: -15, fontSize: '12px' };
-    usernameMotion.transition = { type: 'stiff', stiffness: 100 };
+    usernameMotion.animation = { y: -15, fontSize: "12px" };
+    usernameMotion.transition = { type: "stiff", stiffness: 100 };
   }
+
   if (email.length) {
-    emailMotion.animation = { y: -15, fontSize: '12px' };
-    emailMotion.transition = { type: 'stiff', stiffness: 100 };
+    emailMotion.animation = { y: -15, fontSize: "12px" };
+    emailMotion.transition = { type: "stiff", stiffness: 100 };
   }
 
   if (password.length) {
-    passwordMotion.animation = { y: -15, fontSize: '12px' };
-    passwordMotion.transition = { type: 'stiff', stiffness: 100 };
+    passwordMotion.animation = { y: -15, fontSize: "12px" };
+    passwordMotion.transition = { type: "stiff", stiffness: 100 };
   }
 
   if (confirmPassword.length) {
-    confirmPasswordMotion.animation = { y: -15, fontSize: '12px' };
-    confirmPasswordMotion.transition = { type: 'stiff', stiffness: 100 };
+    confirmPasswordMotion.animation = { y: -15, fontSize: "12px" };
+    confirmPasswordMotion.transition = { type: "stiff", stiffness: 100 };
   }
-
-  // Generate username logic
-  const generateUserName = () => {
-    setUsername(generateUser());
-  };
 
   return (
     <div
@@ -127,7 +146,11 @@ function SignupPage() {
               <div className="w-full flex flex-col items-center max-w-[400px]">
                 <div className="flex w-full flex-col">
                   <div>
-                    {errors && <p className="text-red-500 mb-[20px] text-center">{errors.error}</p>}
+                    {errors && (
+                      <p className="text-red-500 mb-[20px] text-center">
+                        {errors.error}
+                      </p>
+                    )}
                     {/* Form */}
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
@@ -143,7 +166,11 @@ function SignupPage() {
                             type="text"
                             value={username}
                             className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => {
+                              setUsername(e.target.value);
+                              handleUserDuplicate(e.target.value);
+                            }}
+                            // onBlur={(e) => checkUsernameDuplicate(e.target.value)}
                           />
                           <FiRefreshCcw
                             className="ml-[-25px] cursor-pointer"
@@ -153,13 +180,15 @@ function SignupPage() {
                           />
                         </div>
                       </div>
-
-                      {username.length !== 0 && username.length < 4 && (
+                      {dupUserCheck && dupUserCheck.error ? (
+                        <p className="text-green-500 text-[12px] absolute">
+                          {dupUserCheck.msg}
+                        </p>
+                      ) : (
                         <p className="text-red-500 text-[12px] absolute">
-                          Username must be at least 4 characters
+                          {dupUserCheck.msg}
                         </p>
                       )}
-
                       <div className="w-full mt-[35px]">
                         <motion.p
                           className="absolute text-gray-400 pointer-events-none"
@@ -174,12 +203,11 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
                             setEmail(e.target.value);
-                            validateEmail(e.target.value);
+                            // validateEmail(e.target.value);
+                            handleEmailDuplicate(e.target.value)
                           }}
                         />
-                        {email.length !== 0 && emailError && (
-                          <p className="text-red-500 text-[12px] absolute">{emailError}</p>
-                        )}
+                        {dupEmailCheck.error ? <p className="text-green-500 text-[12px] absolute">{dupEmailCheck.msg}</p> : <p className="text-red-500 text-[12px] absolute">{dupEmailCheck.msg}</p>}
                       </div>
                       <div>
                         <div className="w-full mt-[35px] flex">
@@ -199,7 +227,7 @@ function SignupPage() {
                               validatePassword(e.target.value);
                             }}
                           />
-                          {togglePassword === 'text' ? (
+                          {togglePassword === "text" ? (
                             <FaEyeSlash
                               className="ml-[-25px] cursor-pointer"
                               size={20}
@@ -216,7 +244,9 @@ function SignupPage() {
                           )}
                         </div>
                         {password.length !== 0 && passwordError && (
-                          <p className="text-red-500 text-[12px] absolute">{passwordError}</p>
+                          <p className="text-red-500 text-[12px] absolute">
+                            {passwordError}
+                          </p>
                         )}
                       </div>
 
@@ -234,22 +264,32 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                        {confirmPassword.length !== 0 && password != confirmPassword && (
-                          <p className="text-red-500 p-[0] text-[12px] absolute">
-                            Password do not match
-                          </p>
-                        )}
+                        {confirmPassword.length !== 0 &&
+                          password != confirmPassword && (
+                            <p className="text-red-500 p-[0] text-[12px] absolute">
+                              Password do not match
+                            </p>
+                          )}
                       </div>
                       <div className="flex justify-center mt-[25px]">
                         <button
                           className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
-                          disabled={password !== confirmPassword || !password || !confirmPassword}
+                          disabled={
+                            password !== confirmPassword ||
+                            !password ||
+                            !confirmPassword ||
+                            username.length < 4 ||
+                            username.length > 25
+                          }
                         >
                           Sign up
                         </button>
                       </div>
-                      <div className="flex" style={{ justifyContent: 'center' }}>
-                        <p>Already have an account?</p>{' '}
+                      <div
+                        className="flex"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p>Already have an account?</p>{" "}
                         {/* Convert to a link that opens up the login modal*/}
                       </div>
                     </form>
@@ -267,17 +307,17 @@ function SignupPage() {
 
                     <div
                       className="flex mt-[20px] text-[14px]"
-                      style={{ justifyContent: 'space-between' }}
+                      style={{ justifyContent: "space-between" }}
                     >
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                        {' '}
+                        {" "}
                         <div className="flex justify-center items-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Google</p>
                         </div>
                       </button>
                       <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
-                        {' '}
+                        {" "}
                         <div className="flex justify-center items-center">
                           <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Apple</p>

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getuser, getusers } = require("../controllers/UserController");
+const { getuser, getusers, usernameChecker, emailChecker } = require("../controllers/UserController");
 const { protect } = require("../middleware/authMiddleware");
 
 const {
@@ -13,6 +13,9 @@ router.get("/", getusers);
 
 // GET single user' stats
 router.get("/:id", protect, getuser);
+
+router.post('/check/email', emailChecker)
+router.post('/check/username', usernameChecker)
 
 // GET user stats
 router.get("/:id/stats", getuserstats);

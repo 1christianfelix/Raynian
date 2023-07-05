@@ -2,6 +2,7 @@ const User = require("../models/UserModel");
 const Stats = require("../models/StatsModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "7d" });
@@ -28,6 +29,42 @@ const getuser = async (req, res) => {
   }
 
   res.status(200).json(user);
+};
+
+const usernameChecker = async (req, res) => {
+  const { username } = req.body;
+
+  const findUsername = await User.findOne({ username: username });
+
+  const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
+
+  if (username.length > 25) {
+    res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: false});
+
+  } else if (username.length < 4) {
+    res.json({ msg: "Username must be at least 4 characters", valid_display: false});
+
+  } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
+    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: false});
+
+  } else if (findUsername) {
+    res.json({ msg: "Username already exist", valid_display: true});
+
+  } else {
+    res.json({ msg: "Username available", valid_display: true});
+
+  }
+
+};
+
+const emailChecker = async (req, res) => {
+  const { email } = req.body;
+
+  const findEmail = await User.findOne({ email: email });
+
+  if (findEmail) {
+    res.json({ msg: "Email already exist" });
+  }
 };
 
 // signup
@@ -103,4 +140,6 @@ module.exports = {
   signup,
   login,
   logout,
+  usernameChecker,
+  emailChecker,
 };
