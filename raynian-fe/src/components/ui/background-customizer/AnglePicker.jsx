@@ -43,10 +43,10 @@ function AnglePicker() {
 
       let angleVal;
 
-      if (newAngle > 90 && newAngle < 270) {
+      if (newAngle > 90 && newAngle <= 270) {
         angleVal = 360 - (newAngle - 90);
       } else {
-        angleVal = newAngle >= 270 ? newAngle - 270 : 90 - newAngle;
+        angleVal = newAngle > 270 ? newAngle - 270 : 90 - newAngle;
       }
 
       setBGProperties((prev) => ({
