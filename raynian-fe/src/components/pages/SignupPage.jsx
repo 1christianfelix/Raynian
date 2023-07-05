@@ -66,6 +66,7 @@ function SignupPage() {
     }
   };
 
+  // Set Confirm Password required Error
   const handleRequiredConfirmPasswordError = (confirmPassword) => {
     if (confirmPassword.length === 0) {
       setRequiredConfirmPassword("Password Required");
@@ -76,7 +77,8 @@ function SignupPage() {
   const handlePasswordMatch = (confirmPassword) => {
     if (confirmPassword !== password) {
       setPasswordMatchError("Password must match");
-    } else {
+    }
+    if (confirmPassword.length === 0) {
       setPasswordMatchError("Password required")
     }
   };
@@ -208,7 +210,7 @@ function SignupPage() {
                           />
                         </div>
                       </div>
-                      {dupUserCheck && dupUserCheck.error ? (
+                      {username.length > 1 && dupUserCheck.error ? (
                         <p className="text-green-500 text-[12px] absolute">
                           {dupUserCheck.msg}
                         </p>
@@ -327,6 +329,7 @@ function SignupPage() {
                             password !== confirmPassword ||
                             !password ||
                             !confirmPassword ||
+                            passwordError ||
                             username.length < 4 ||
                             username.length > 25
                           }
