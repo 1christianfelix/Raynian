@@ -58,7 +58,7 @@ const usernameChecker = async (req, res) => {
 
 const emailChecker = async (req, res) => {
   const { email } = req.body;
-  if (!validator.isEmail(email)) return res.json({msg: 'Invalid email', error: false})
+  if (!validator.isEmail(email)) return res.json({msg: 'Email Required', error: false})
 
   const findEmail = await User.findOne({ email: email });
 
