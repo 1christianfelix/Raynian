@@ -19,8 +19,6 @@ const Dashboard = () => {
           <TimerProvider>
             <Timer />
           </TimerProvider>
-          <p className="text-3xl">Sessions completed today:</p>
-          <span className="text-3xl">2</span>
         </div>
         <ProfileGrid profiles={profiles} />
       </div>
