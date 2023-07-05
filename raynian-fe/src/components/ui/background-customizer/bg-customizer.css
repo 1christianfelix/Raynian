@@ -33,7 +33,7 @@
   border-radius: 50%;
 }
 
-.tooltip {
+.tooltip-slider {
   visibility: hidden;
   background-color: black;
   color: #fff;
@@ -54,7 +54,7 @@
   opacity: 1;
 }
 
-input {
+.slider-input {
   width: 75%;
   background: transparent;
   margin-left: 4px;

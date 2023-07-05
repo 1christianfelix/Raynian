@@ -135,11 +135,13 @@ const BgCustomizerMenu = () => {
     <ColorPickerStatusProvider>
       <div
         className="flex justify-center items-center absolute"
-        style={{
-          // background: bg,
-        }}
+        style={
+          {
+            // background: bg,
+          }
+        }
       >
-        <div className="p-4 pt-8 flex flex-col bg-yellow-600 bg-opacity-50 shadow-2xl shadow-[rgba(0,0,0,.5)] rounded-3xl">
+        <div className="p-4 pt-8 flex flex-col bg-yellow-200 bg-opacity-70 shadow-2xl shadow-[rgba(0,0,0,.5)] rounded-3xl">
           <div className="flex justify-center items-center gap-5">
             <GradientSlider
               bgProperties={bgProperties}
@@ -194,7 +196,7 @@ const BgCustomizerMenu = () => {
                       handleInputChange("1", "colorInput", e.target.value)
                     }
                     onBlur={(e) => handleColorBlur(1, e.target.value)}
-                    className="text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
 
@@ -211,7 +213,7 @@ const BgCustomizerMenu = () => {
                       handleInputChange("1", "colorInputHex", e.target.value)
                     }
                     onBlur={(e) => handleColorBlur(1, e.target.value)}
-                    className="text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
               </div>
@@ -232,7 +234,7 @@ const BgCustomizerMenu = () => {
                       handleInputChange("2", "colorInput", e.target.value)
                     }
                     onBlur={(e) => handleColorBlur(2, e.target.value)}
-                    className="text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
 
@@ -249,7 +251,7 @@ const BgCustomizerMenu = () => {
                       handleInputChange("2", "colorInputHex", e.target.value)
                     }
                     onBlur={(e) => handleColorBlur(2, e.target.value)}
-                    className="text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
               </div>
@@ -268,7 +270,7 @@ const BgCustomizerMenu = () => {
                     onChange={(e) =>
                       handleInputChange("", "angleVal", e.target.value)
                     }
-                    className="w-[60px] text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input w-[60px] text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
               </div>

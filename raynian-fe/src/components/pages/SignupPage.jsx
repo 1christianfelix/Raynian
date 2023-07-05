@@ -34,7 +34,7 @@ function SignupPage() {
   // error useStates
   const [passwordError, setPasswordError] = useState("");
   const [requiredPassword, setRequiredPassword] = useState("");
-  const [requiredConfirmPassword, setRequiredConfirmPassword] = useState('')
+  const [requiredConfirmPassword, setRequiredConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const [errors, setErrors] = useState({});
   const [dupUserCheck, setDupUserCheck] = useState({});
@@ -79,10 +79,9 @@ function SignupPage() {
       setPasswordMatchError("Password must match");
     }
     if (confirmPassword.length === 0) {
-      setPasswordMatchError("Password required")
+      setPasswordMatchError("Password required");
     }
   };
-
 
   // check for username Duplicates and username invalidation throwing
   const handleUserDuplicate = async (user) => {
@@ -98,8 +97,8 @@ function SignupPage() {
   // Validate password Error
   const handleValidatePassword = (password) => {
     if (password.length < 8 && password.length > 0) {
-      setPasswordError('Password requires at least 8 characters')
-      return
+      setPasswordError("Password requires at least 8 characters");
+      return;
     }
     if (
       !validator.isStrongPassword(password, {
@@ -221,7 +220,7 @@ function SignupPage() {
                       )}
                       <div className="w-full mt-[35px]">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none"
+                          className="absolute text-gray-400 pointer-events-none translate-x-1"
                           animate={emailMotion.animation}
                           transition={emailMotion.transition}
                         >
@@ -249,7 +248,7 @@ function SignupPage() {
                       <div>
                         <div className="w-full mt-[35px] flex">
                           <motion.p
-                            className="absolute text-gray-400 pointer-events-none"
+                            className="absolute text-gray-400 pointer-events-none translate-x-2"
                             animate={passwordMotion.animation}
                             transition={passwordMotion.transition}
                           >
@@ -297,7 +296,7 @@ function SignupPage() {
 
                       <div className="w-full mt-[35px]">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none"
+                          className="absolute text-gray-400 pointer-events-none translate-x-1"
                           animate={confirmPasswordMotion.animation}
                           transition={confirmPasswordMotion.transition}
                         >
@@ -309,18 +308,22 @@ function SignupPage() {
                           className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
                           onChange={(e) => {
                             setConfirmPassword(e.target.value);
-                            handleRequiredConfirmPasswordError(e.target.value)
+                            handleRequiredConfirmPasswordError(e.target.value);
                             handlePasswordMatch(e.target.value);
                           }}
                         />
-                        {confirmPassword.length !== 0 && confirmPassword !== password && <p className="text-red-500 text-[12px] absolute">
-                            {passwordMatchError}
-                          </p>}
-                        {confirmPassword.length === 0 && requiredConfirmPassword && (
-                          <p className="text-red-500 text-[12px] absolute">
-                            {requiredConfirmPassword}
-                          </p>
-                        )}
+                        {confirmPassword.length !== 0 &&
+                          confirmPassword !== password && (
+                            <p className="text-red-500 text-[12px] absolute">
+                              {passwordMatchError}
+                            </p>
+                          )}
+                        {confirmPassword.length === 0 &&
+                          requiredConfirmPassword && (
+                            <p className="text-red-500 text-[12px] absolute">
+                              {requiredConfirmPassword}
+                            </p>
+                          )}
                       </div>
                       <div className="flex justify-center mt-[25px]">
                         <button

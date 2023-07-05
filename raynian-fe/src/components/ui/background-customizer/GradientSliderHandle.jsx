@@ -131,7 +131,7 @@ const GradientSliderHandle = ({ id }) => {
           }}
           onClick={handleClick}
         >
-          <div className="tooltip  ">{stopPercent}%</div>
+          <div className="tooltip-slider">{stopPercent}%</div>
         </div>
       </div>
     </Draggable>
