@@ -1,0 +1,7 @@
+NODE_ENV=development
+PORT=4000
+MONGO_URI=mongodb+srv://raynianadmin:Qe7O4JAMFNNgb5hz@raynian.zb0tcen.mongodb.net/?retryWrites=true&w=majority
+SECRET=3D0ughR0ckyR04dN3opolitanMang0S0rb3tCh0c0Ch!pC00k!3D0ughRumRais!nP!st@ch!0C0n3C0ffeeT0ff33CrunchL3m0nS0rb3tM00nstruckM@rshm@ll0wC@ndyC@n3S@ltyC@r3@mM!str@lSund@3Str4wb3rryCh0c0l@teC@r@m3lSw!rlyM!ntCh!pV@n!ll@ButterP3c@nC00k!Spr!nkl3dW!thL0v3
+CLIENT_ID=1023555412577-m5r5hbgme7mki5m7g8e6r37haia1c86h.apps.googleusercontent.com
+CLIENT_SECRET=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
+CLIENT_URL=http://localhost:3000

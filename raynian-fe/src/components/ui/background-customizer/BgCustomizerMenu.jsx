@@ -29,13 +29,19 @@ const BgCustomizerMenu = () => {
   const [colorInput2Hex, setColorInput2Hex] = useState("");
 
   useEffect(() => {
-    setColorInput1(tinycolor(bgProperties.color1).toRgbString());
+    const color1 = bgProperties.color1;
+    const color2 = bgProperties.color2;
+
+    setColorInput1(`rgba(${color1.r}, ${color1.g}, ${color1.b}, ${color1.a})`);
     setColorInput1Hex(tinycolor(bgProperties.color1).toHexString());
-    setColorInput2(tinycolor(bgProperties.color2).toRgbString());
+    setColorInput2(`rgba(${color2.r}, ${color2.g}, ${color2.b}, ${color2.a})`);
     setColorInput2Hex(tinycolor(bgProperties.color2).toHexString());
   }, [bgProperties.color1, bgProperties.color2]);
 
   const handleColorBlur = (id, value) => {
+    if (value.includes("rgb") && !value.includes("rgba")) {
+      value = value.replace("rgb", "rgba");
+    }
     console.log("hh", value);
     const color = tinycolor(value);
     let rgba = {
@@ -192,10 +198,11 @@ const BgCustomizerMenu = () => {
                     placeholder="rgba(255, 255, 255, 1)"
                     type="text"
                     value={colorInput1}
-                    onChange={(e) =>
-                      handleInputChange("1", "colorInput", e.target.value)
-                    }
-                    onBlur={(e) => handleColorBlur(1, e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange("1", "colorInput", e.target.value);
+                      handleColorBlur(1, e.target.value);
+                    }}
+                    // onBlur={(e) => handleColorBlur(1, e.target.value)}
                     className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
@@ -209,10 +216,11 @@ const BgCustomizerMenu = () => {
                     placeholder="#ffffff"
                     type="text"
                     value={colorInput1Hex}
-                    onChange={(e) =>
-                      handleInputChange("1", "colorInputHex", e.target.value)
-                    }
-                    onBlur={(e) => handleColorBlur(1, e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange("1", "colorInputHex", e.target.value);
+                      handleColorBlur(1, e.target.value);
+                    }}
+                    // onBlur={(e) => handleColorBlur(1, e.target.value)}
                     className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
@@ -230,10 +238,11 @@ const BgCustomizerMenu = () => {
                     placeholder="rgba(255, 255, 255, 1)"
                     type="text"
                     value={colorInput2}
-                    onChange={(e) =>
-                      handleInputChange("2", "colorInput", e.target.value)
-                    }
-                    onBlur={(e) => handleColorBlur(2, e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange("2", "colorInput", e.target.value);
+                      handleColorBlur(2, e.target.value);
+                    }}
+                    // onBlur={(e) => handleColorBlur(2, e.target.value)}
                     className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
@@ -247,10 +256,11 @@ const BgCustomizerMenu = () => {
                     placeholder="#ffffff"
                     type="text"
                     value={colorInput2Hex}
-                    onChange={(e) =>
-                      handleInputChange("2", "colorInputHex", e.target.value)
-                    }
-                    onBlur={(e) => handleColorBlur(2, e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange("2", "colorInputHex", e.target.value);
+                      handleColorBlur(2, e.target.value);
+                    }}
+                    // onBlur={(e) => handleColorBlur(2, e.target.value)}
                     className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
                   />
                 </div>
