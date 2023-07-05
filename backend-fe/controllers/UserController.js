@@ -39,31 +39,34 @@ const usernameChecker = async (req, res) => {
   const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
 
   if (username.length > 25) {
-    res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: false});
+    res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: true, error: false});
 
   } else if (username.length < 4) {
-    res.json({ msg: "Username must be at least 4 characters", valid_display: false});
+    res.json({ msg: "Username must be at least 4 characters", valid_display: true, error: false});
 
   } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
-    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: false});
+    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: true, error: false });
 
   } else if (findUsername) {
-    res.json({ msg: "Username already exist", valid_display: true});
+    res.json({ msg: "Username already exist", valid_display: true, error: false });
 
   } else {
-    res.json({ msg: "Username available", valid_display: true});
+    res.json({ msg: "Username available", valid_display: true, error: true});
 
   }
-
 };
 
 const emailChecker = async (req, res) => {
   const { email } = req.body;
+  if (!validator.isEmail(email)) return res.json({msg: 'Invalid email', error: false})
 
   const findEmail = await User.findOne({ email: email });
 
+
   if (findEmail) {
-    res.json({ msg: "Email already exist" });
+    res.json({ msg: "Email already exist", error: false});
+  } else {
+    res.json({msg: 'Email is available', error: true})
   }
 };
 
