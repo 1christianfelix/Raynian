@@ -34,6 +34,10 @@ const getuser = async (req, res) => {
 const usernameChecker = async (req, res) => {
   const { username } = req.body;
 
+  if (username.length === 0) {
+    return res.json({ msg: "Username required", valid_display: true, error: false});
+  }
+
   const findUsername = await User.findOne({ username: username });
 
   const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
@@ -58,7 +62,7 @@ const usernameChecker = async (req, res) => {
 
 const emailChecker = async (req, res) => {
   const { email } = req.body;
-  if (!validator.isEmail(email)) return res.json({msg: 'Invalid email', error: false})
+  if (!validator.isEmail(email)) return res.json({msg: 'Email Required', error: false})
 
   const findEmail = await User.findOne({ email: email });
 
