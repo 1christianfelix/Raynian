@@ -95,6 +95,10 @@ function SignupPage() {
 
   // Validate password Error
   const handleValidatePassword = (password) => {
+    if (password.length < 8 && password.length > 0) {
+      setPasswordError('Password requires at least 8 characters')
+      return
+    }
     if (
       !validator.isStrongPassword(password, {
         minLength: 8,
