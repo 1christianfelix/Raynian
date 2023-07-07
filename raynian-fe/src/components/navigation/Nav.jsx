@@ -27,12 +27,15 @@ export default function Nav() {
           <p className="text-3xl">raynian</p>
         </div>
         <AnimatePresence>
-          <div className="relative" ref={navRef} onMouseLeave={()=> setToggleDropdown(false)}>
+          <div
+            className="relative"
+            ref={navRef}
+            onClick={() => toggleDropdown()}
+          >
             <CiUser
               size={50}
               className="cursor-pointer"
-              onMouseEnter={()=> setToggleDropdown(true)}
-
+              onClick={() => toggleDropdown()}
             />
             <UserDropdown
               openDropdown={openDropdown}
