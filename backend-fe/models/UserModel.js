@@ -44,9 +44,11 @@ const userSchema = new Schema({
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
 
-// static signup method
+/**
+ * Static method for user signup
+ */
 userSchema.statics.signup = async function (email, username, password) {
-  // validation
+  // Validation
   if (!email || !username || !password) {
     throw Error("All fields must be filled");
   }
@@ -65,7 +67,9 @@ userSchema.statics.signup = async function (email, username, password) {
   };
 
   if (!validator.isStrongPassword(password, passwordCriteria)) {
-    throw Error("The password requires capital and lowercase letters, numbers, and symbols");
+    throw Error(
+      "The password requires capital and lowercase letters, numbers, and symbols"
+    );
   }
 
   if (username.length > 25) {
@@ -94,9 +98,11 @@ userSchema.statics.signup = async function (email, username, password) {
   return user;
 };
 
-// static login method
+/**
+ * Static method for user login
+ */
 userSchema.statics.login = async function (email, username, password) {
-  // validation
+  // Validation
   const login = email || username;
   if (!login || !password) {
     throw Error("All fields must be filled");

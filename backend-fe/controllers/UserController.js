@@ -1,25 +1,25 @@
+// Import necessary modules
 const User = require("../models/UserModel");
 const Stats = require("../models/StatsModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
+// Create a token using jwt
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "7d" });
 };
 
-// get all users
+// Get all users from the database
 const getusers = async (req, res) => {
   const users = await User.find({}).sort({ createdAt: -1 });
-
   res.status(200).json(users);
 };
 
-// get a single user
+// Get a specific user by ID from the database
 const getuser = async (req, res) => {
   const { user } = req.params;
 
-  // checking if the id being passed is a valid MongoDB type id
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "user does not exist" });
   }
@@ -31,42 +31,44 @@ const getuser = async (req, res) => {
   res.status(200).json(user);
 };
 
+// Check username availability and validity
 const usernameChecker = async (req, res) => {
   const { username } = req.body;
 
+  // If username is empty, send error
   if (username.length === 0) {
     return res.json({ msg: "Username required", valid_display: true, error: false});
   }
 
+  // Find username in database
   const findUsername = await User.findOne({ username: username });
 
-  const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
+  // Specify characters to ignore in the alphanumeric check
+  const alphanumericOptions = { ignore: "-._",};
 
+  // Validate username length and character composition
   if (username.length > 25) {
     res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: true, error: false});
-
   } else if (username.length < 4) {
     res.json({ msg: "Username must be at least 4 characters", valid_display: true, error: false});
-
   } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
     res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: true, error: false });
-
   } else if (findUsername) {
     res.json({ msg: "Username already exist", valid_display: true, error: false });
-
   } else {
     res.json({ msg: "Username available", valid_display: true, error: true});
-
   }
 };
 
+// Check if email is valid and available
 const emailChecker = async (req, res) => {
   const { email } = req.body;
   if (!validator.isEmail(email)) return res.json({msg: 'Email Required', error: false})
 
+  // Check if email exists in the database
   const findEmail = await User.findOne({ email: email });
 
-
+  // Respond with appropriate message
   if (findEmail) {
     res.json({ msg: "Email already exist", error: false});
   } else {
@@ -74,72 +76,73 @@ const emailChecker = async (req, res) => {
   }
 };
 
-// signup
+// User signup
 const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
-  // add doc to db
   try {
     const user = await User.signup(email, username, password);
-
     const token = createToken(user._id);
 
-    // Create the stats object and link it to the user
+    // Create stats for user and update user's stats reference
     const stats = new Stats({ user: user._id });
     await stats.save();
-
-    // Update the user's stats reference
     user.stats = stats._id;
     await user.save();
     await user.populate("stats");
 
+    // Set jwt in the cookie
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
+
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// login
+// User login
 const login = async (req, res) => {
   const { email = null, username = null, password = null } = req.body;
+
   try {
     const user = await User.login(email, username, password);
-
     const token = createToken(user._id);
 
+    // Set jwt in the cookie
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
+
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// logout
+// User logout
 const logout = async (req, res) => {
   const { email = null, username = null, password = null } = req.body;
+
   try {
+    // Clear jwt from the cookie
     res.cookie("jwt", "", {
       httpOnly: true,
       expires: new Date(0),
     });
+
     res.status(200).json({});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-
-// update a user
 
 module.exports = {
   getuser,
