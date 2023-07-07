@@ -42,6 +42,7 @@ const userSchema = new Schema({
   friends: [mongoose.Schema.Types.ObjectId],
   labels: [{ type: String, lowercase: true }],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  room: { type: mongoose.Schema.Types.ObjectId, ref: "Room" },
 });
 
 // static signup method
@@ -65,10 +66,12 @@ userSchema.statics.signup = async function (email, username, password) {
   };
 
   if (!validator.isStrongPassword(password, passwordCriteria)) {
-    throw Error("The password requires capital and lowercase letters, numbers, and symbols");
+    throw Error(
+      "The password requires capital and lowercase letters, numbers, and symbols"
+    );
   }
 
-  if (username.length > 20) {
+  if (username.length > 25) {
     throw Error("Username exceeds the maximum length of 20 characters");
   }
 

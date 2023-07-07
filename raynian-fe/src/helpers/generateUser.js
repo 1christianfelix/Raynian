@@ -1,3 +1,5 @@
+import { checkUsernameDuplicate } from './usernameDuplicate';
+
 function getRandomElement(arr) {
   const randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
@@ -19,19 +21,22 @@ function randomUsername(animals, hardAdj, softAdj, determiners) {
   return username;
 }
 
-export function generateUser() {
+export async function generateUniqueUser() {
   let username = '';
-
-  // generate within range
-  while (username.length < MIN_CHAR_LEN || username.length > MAX_NAME_LEN) {
-    username = randomUsername(animals, hardAdj, softAdj, determiners);
+  while (true) {
+    while (username.length < MIN_NAME_LEN || username.length > MAX_NAME_LEN) {
+      username = randomUsername(animals, hardAdj, softAdj, determiners);
+    }
+    const data = await checkUsernameDuplicate(username);
+    if (!data || data.valid_display) {
+      return username;
+    }
+    username = '';
   }
-
-  return username;
 }
 
 // Constants
-const MIN_CHAR_LEN = 4;
+const MIN_NAME_LEN = 4;
 const MAX_NAME_LEN = 25;
 
 const animals = [
