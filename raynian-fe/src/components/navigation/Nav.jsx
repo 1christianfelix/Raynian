@@ -3,8 +3,6 @@ import { CiUser } from "react-icons/ci";
 import UserDropdown from "../util/UserDropdown";
 import thick_logo from "../../assets/thick_logo.svg";
 
-import { motion, AnimatePresence } from "framer-motion";
-
 export default function Nav() {
   const [openDropdown, setToggleDropdown] = useState(false);
   const navRef = useRef();
