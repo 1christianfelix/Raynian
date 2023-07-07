@@ -53,7 +53,7 @@ export default function UserDropdown(props) {
   let tooltipAnimation = {
     initial: { height: 0, opacity: 0 },
     animate: { height: "auto", opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0 },
+    exit: { opacity: 0, height: 0, transition: { duration: 0.2 } },
     transition: { duration: 0.2 },
   };
 
@@ -113,7 +113,7 @@ export default function UserDropdown(props) {
 
   return (
     <AnimatePresence>
-      <motion.div
+      { openDropdown && <motion.div
         className={`absolute right-[5px] top-[55px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}
         onClick={(e) => e.stopPropagation()}
         ref={dropdownRef}
@@ -136,7 +136,7 @@ export default function UserDropdown(props) {
             <div className="mode-ball absolute bg-white top-[2px] left-[2px] w-[22px] h-[22px] rounded-full translate-x-0 transition-transform duration-150 ease-linear"></div>
           </label>
         </motion.div>
-      </motion.div>
+      </motion.div> }
     </AnimatePresence>
   );
 }
