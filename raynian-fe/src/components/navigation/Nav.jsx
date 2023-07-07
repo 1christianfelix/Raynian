@@ -3,6 +3,8 @@ import { CiUser } from "react-icons/ci";
 import UserDropdown from "../util/UserDropdown";
 import thick_logo from "../../assets/thick_logo.svg";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function Nav() {
   const [openDropdown, setToggleDropdown] = useState(false);
   const navRef = useRef();
@@ -24,21 +26,22 @@ export default function Nav() {
           />
           <p className="text-3xl">raynian</p>
         </div>
-        <div className="relative" ref={navRef}>
-          <CiUser
-            size={50}
-            onClick={() => {
-              toggleDropdown();
-            }}
-            className="cursor-pointer"
-          />
-          <UserDropdown
-            openDropdown={openDropdown}
-            toggleDropdown={toggleDropdown}
-            setToggleDropdown={setToggleDropdown}
-            navRef={navRef}
-          />
-        </div>
+        <AnimatePresence>
+          <div className="relative" ref={navRef} onMouseLeave={()=> setToggleDropdown(false)}>
+            <CiUser
+              size={50}
+              className="cursor-pointer"
+              onMouseEnter={()=> setToggleDropdown(true)}
+
+            />
+            <UserDropdown
+              openDropdown={openDropdown}
+              toggleDropdown={toggleDropdown}
+              setToggleDropdown={setToggleDropdown}
+              navRef={navRef}
+            />
+          </div>
+        </AnimatePresence>
       </div>
     </div>
   );
