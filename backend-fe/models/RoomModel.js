@@ -29,7 +29,7 @@ const roomSchema = new Schema({
     required: true,
   },
   roomSettings: { type: mongoose.Schema.Types.ObjectId, ref: "RoomSettings" },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   whiteList: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });

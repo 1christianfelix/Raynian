@@ -3,9 +3,7 @@ const cookieParser = require("cookie-parser");
 
 const express = require("express");
 const mongoose = require("mongoose");
-const userRoutes = require("./routes/userRoutes");
-const userAuthRoutes = require("./routes/userAuthRoutes");
-const userOauth = require("./routes/auth");
+const apiRoutes = require("./API");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
@@ -74,9 +72,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // routes
-app.use("/api/user", userRoutes);
-app.use("/api/user/auth", userAuthRoutes);
-app.use("/api/auth", userOauth);
+app.use(apiRoutes);
 
 // DB start
 mongoose
