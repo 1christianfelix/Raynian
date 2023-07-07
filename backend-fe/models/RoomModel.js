@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const validator = require("validator");
 
 const Schema = mongoose.Schema;
 
 const roomSettingsSchema = new Schema({
   backgroundSettings: {
     type: Schema.Types.Mixed,
+    default: {},
   },
   timerSettings: {
     type: Schema.Types.Mixed,
+    default: {},
   },
 });
 

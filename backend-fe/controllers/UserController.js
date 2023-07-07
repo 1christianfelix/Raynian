@@ -35,42 +35,59 @@ const usernameChecker = async (req, res) => {
   const { username } = req.body;
 
   if (username.length === 0) {
-    return res.json({ msg: "Username required", valid_display: true, error: false});
+    return res.json({
+      msg: "Username required",
+      valid_display: true,
+      error: false,
+    });
   }
 
   const findUsername = await User.findOne({ username: username });
 
-  const alphanumericOptions = { ignore: "-._",}; // Ignore characters "-", ".", and "_"
+  const alphanumericOptions = { ignore: "-._" }; // Ignore characters "-", ".", and "_"
 
   if (username.length > 25) {
-    res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: true, error: false});
-
+    res.json({
+      msg: "Username exceeds the maximum length of 25 characters",
+      valid_display: true,
+      error: false,
+    });
   } else if (username.length < 4) {
-    res.json({ msg: "Username must be at least 4 characters", valid_display: true, error: false});
-
-  } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
-    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: true, error: false });
-
+    res.json({
+      msg: "Username must be at least 4 characters",
+      valid_display: true,
+      error: false,
+    });
+  } else if (
+    !validator.isAlphanumeric(username, "en-US", alphanumericOptions)
+  ) {
+    res.json({
+      msg: "Username must be alphanumeric (allowing '-', '.', and '_')",
+      valid_display: true,
+      error: false,
+    });
   } else if (findUsername) {
-    res.json({ msg: "Username already exist", valid_display: true, error: false });
-
+    res.json({
+      msg: "Username already exist",
+      valid_display: true,
+      error: false,
+    });
   } else {
-    res.json({ msg: "Username available", valid_display: true, error: true});
-
+    res.json({ msg: "Username available", valid_display: true, error: true });
   }
 };
 
 const emailChecker = async (req, res) => {
   const { email } = req.body;
-  if (!validator.isEmail(email)) return res.json({msg: 'Email Required', error: false})
+  if (!validator.isEmail(email))
+    return res.json({ msg: "Email Required", error: false });
 
   const findEmail = await User.findOne({ email: email });
 
-
   if (findEmail) {
-    res.json({ msg: "Email already exist", error: false});
+    res.json({ msg: "Email already exist", error: false });
   } else {
-    res.json({msg: 'Email is available', error: true})
+    res.json({ msg: "Email is available", error: true });
   }
 };
 
@@ -81,6 +98,25 @@ const signup = async (req, res) => {
   // add doc to db
   try {
     const user = await User.signup(email, username, password);
+
+    // adding default pfp
+    pfpRandomizer = Math.floor(Math.random() * 3) + 1;
+    switch (pfpRandomizer) {
+      case 1:
+        user.profilePicture = "../../raynian-fe/assets/temp-pfp/avocado.jpg";
+        break;
+      case 2:
+        user.profilePicture = "../../raynian-fe/assets/temp-pfp/boba.jpg";
+        break;
+      case 3:
+        user.profilePicture = "../../raynian-fe/assets/temp-pfp/sushi.jpg";
+        break;
+      default:
+        user.profilePicture = "../../raynian-fe/assets/temp-pfp/avocado.jpg";
+        break;
+    }
+
+    user.save();
 
     const token = createToken(user._id);
 

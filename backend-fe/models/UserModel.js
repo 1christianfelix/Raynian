@@ -38,6 +38,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  profilePicture: {
+    type: String,
+    default: "../../raynian-fe/assets/temp-pfp/avocado.jpg",
+  },
   stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   labels: [{ type: String, lowercase: true }],
