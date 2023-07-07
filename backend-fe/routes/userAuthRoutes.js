@@ -3,13 +3,22 @@ const { signup, login, logout } = require("../controllers/UserController");
 
 const router = express.Router();
 
-// sign up
+/**
+ * Sign up
+ * POST /api/user/auth/signup
+ */
 router.post("/signup", signup);
 
-// login
+/**
+ * Login
+ * POST /api/user/auth/login
+ */
 router.post("/login", login);
 
-// logout
+/**
+ * Logout
+ * POST /api/user/auth/logout
+ */
 router.post("/logout", logout);
 
 module.exports = router;
