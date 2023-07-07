@@ -42,6 +42,7 @@ const userSchema = new Schema({
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   labels: [{ type: String, lowercase: true }],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  room: { type: mongoose.Schema.Types.ObjectId, ref: "Room" },
 });
 
 // static signup method
