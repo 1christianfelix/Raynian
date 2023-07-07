@@ -31,7 +31,7 @@ export default function UserDropdown(props) {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, []);
+  });
 
   const [logout] = useLogoutMutation();
 
@@ -53,6 +53,7 @@ export default function UserDropdown(props) {
   let tooltipAnimation = {
     initial: { height: 0, opacity: 0 },
     animate: { height: "auto", opacity: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0 },
     transition: { duration: 0.2 },
   };
 
@@ -62,28 +63,24 @@ export default function UserDropdown(props) {
         <motion.button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
-
         >
           Profile
         </motion.button>
         <button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
-
         >
           Settings
         </button>
         <button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
-
         >
           Stats
         </button>
         <button
           className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={logoutHandler}
-
         >
           Logout
         </button>
@@ -98,7 +95,6 @@ export default function UserDropdown(props) {
             toggleLogin();
             toggleDropdown();
           }}
-
         >
           Login
         </motion.button>
@@ -123,7 +119,7 @@ export default function UserDropdown(props) {
         ref={dropdownRef}
       >
         <motion.div className="flex flex-col" {...tooltipAnimation}> {content} </motion.div>
-        <div className="py-[5px] px-[20px]">
+        <motion.div className="py-[5px] px-[20px]">
           <input
             type="checkbox"
             id="check"
@@ -139,7 +135,7 @@ export default function UserDropdown(props) {
             <BsFillBrightnessHighFill className=" text-yellow-400 dark:text-yellow-400" />
             <div className="mode-ball absolute bg-white top-[2px] left-[2px] w-[22px] h-[22px] rounded-full translate-x-0 transition-transform duration-150 ease-linear"></div>
           </label>
-        </div>
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );
