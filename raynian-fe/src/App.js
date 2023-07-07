@@ -14,10 +14,9 @@ import ColorSelection from "./components/ui/background-customizer/ColorSelection
 
 import Dashboard from "./components/pages/Dashboard";
 import { PageNotFound } from "./components/pages/PageNotFound";
-import GradientSlider from "./components/ui/background-customizer/GradientSlider";
-import GradientSliderHandle from "./components/ui/background-customizer/GradientSliderHandle";
-import BgCustomizerMenu from "./components/ui/background-customizer/BgCustomizerMenu";
+
 import { BGCustomContext } from "./context/BGCustomContext";
+import Chat from "./components/socket-testing/Chat";
 
 function App() {
   const { bg } = useContext(BGCustomContext);
@@ -28,11 +27,8 @@ function App() {
           className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
           style={{ background: bg }}
         >
-          {/* <ColorSelection></ColorSelection> */}
-          {/* <BgCustomizerMenu></BgCustomizerMenu> */}
-          {/* <GradientSlider></GradientSlider> */}
-          {/* <GradientSliderHandle></GradientSliderHandle> */}
-          <Modal />
+          <Chat></Chat>
+          {/* <Modal />
           <Nav />
           <Routes>
             <Route path="/" element={<Dashboard />}></Route>
@@ -41,7 +37,7 @@ function App() {
               path="auth/login/success"
               element={<OAuthLoginSuccess />}
             ></Route>
-          </Routes>
+          </Routes> */}
         </div>
       </ModalProvider>
     </DarkLightProvider>

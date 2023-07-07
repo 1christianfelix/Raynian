@@ -39,7 +39,7 @@ const userSchema = new Schema({
     default: Date.now,
   },
   stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
-  friends: [mongoose.Schema.Types.ObjectId],
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   labels: [{ type: String, lowercase: true }],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
@@ -65,7 +65,9 @@ userSchema.statics.signup = async function (email, username, password) {
   };
 
   if (!validator.isStrongPassword(password, passwordCriteria)) {
-    throw Error("The password requires capital and lowercase letters, numbers, and symbols");
+    throw Error(
+      "The password requires capital and lowercase letters, numbers, and symbols"
+    );
   }
 
   if (username.length > 25) {
