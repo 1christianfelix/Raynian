@@ -40,7 +40,7 @@ const userSchema = new Schema({
   },
   profilePicture: {
     type: String,
-    default: "../../raynian-fe/assets/temp-pfp/avocado.jpg",
+    default: "",
   },
   stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

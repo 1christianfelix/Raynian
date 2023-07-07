@@ -28,16 +28,16 @@ function App() {
           style={{ background: bg }}
         >
           <Chat></Chat>
-          {/* <Modal />
+          <Modal />
           <Nav />
           <Routes>
-            <Route path="/" element={<Dashboard />}></Route>
+            {/* <Route path="/" element={<Dashboard />}></Route> */}
             <Route path="/PageNotFound" element={<PageNotFound />}></Route>
             <Route
               path="auth/login/success"
               element={<OAuthLoginSuccess />}
             ></Route>
-          </Routes> */}
+          </Routes>
         </div>
       </ModalProvider>
     </DarkLightProvider>

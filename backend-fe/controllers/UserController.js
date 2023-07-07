@@ -103,16 +103,20 @@ const signup = async (req, res) => {
     pfpRandomizer = Math.floor(Math.random() * 3) + 1;
     switch (pfpRandomizer) {
       case 1:
-        user.profilePicture = "../../raynian-fe/assets/temp-pfp/avocado.jpg";
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg";
         break;
       case 2:
-        user.profilePicture = "../../raynian-fe/assets/temp-pfp/boba.jpg";
+        user.profilePicture =
+          "https://i.pinimg.com/736x/ef/26/df/ef26df0ce4f41d74cb48a4f139504619.jpg";
         break;
       case 3:
-        user.profilePicture = "../../raynian-fe/assets/temp-pfp/sushi.jpg";
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
         break;
       default:
-        user.profilePicture = "../../raynian-fe/assets/temp-pfp/avocado.jpg";
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
         break;
     }
 

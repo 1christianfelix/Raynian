@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import ChatRoom from "./ChatRoom";
 const socket = io.connect("http://localhost:4001");
 
 const Chat = () => {
+  const { userInfo } = useSelector((state) => state.auth);
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
 
   const joinRoom = () => {
     if (username != "" && room != "") {
-      socket.emit("join_room", room);
+      socket.emit("join_room", { room, userInfo });
     }
   };
 

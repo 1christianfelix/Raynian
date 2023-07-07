@@ -26,18 +26,25 @@ io.on("connection", (socket) => {
   console.log("User:", socket.id);
 
   socket.on("join_room", (data) => {
-    console.log(data);
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
-  });
+    const { room, userInfo } = data;
+    socket.join(room);
+    console.log(`User with ID: ${socket.id} joined room: ${room}`);
 
-  socket.on("send_message", (data) => {
-    console.log("messageBody", data);
-    socket.to(data.room).emit("receive_message", data);
+    // Emit an event to notify other users in the room about the connected user's profile picture
+    io.to(room).emit("user_connected", {
+      profilePicture: userInfo.user.profilePicture,
+    });
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
+    console.log("User disconnected", socket.id);
+
+    // Emit an event to notify other users in the room about the disconnected user's profile picture
+    socket.rooms.forEach((room) => {
+      io.to(room).emit("user_disconnected", {
+        profilePicture: "USER_PROFILE_PICTURE",
+      });
+    });
   });
 });
 

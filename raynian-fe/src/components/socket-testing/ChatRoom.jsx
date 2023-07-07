@@ -1,7 +1,43 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import avocado from "../../assets/temp_pfp/avocado.jpg";
+import boba from "../../assets/temp_pfp/boba.jpg";
+import sushi from "../../assets/temp_pfp/sushi.jpg";
 
 const ChatRoom = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState();
+  const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
+  const [pfp, setPfp] = useState("");
+  const [profilePictures, setProfilePictures] = useState([]);
+
+  // const user = userInfo.profilePicture;
+  // console.log(user);
+  useEffect(() => {
+    setPfp((prev) => [userInfo.user.profilePicture]);
+  }, []);
+
+  useEffect(() => {
+    socket.on("user_connected", (data) => {
+      const { profilePicture } = data;
+      setProfilePictures((prevProfilePictures) => [
+        ...prevProfilePictures,
+        profilePicture,
+      ]);
+    });
+
+    socket.on("user_disconnected", (data) => {
+      const { profilePicture } = data;
+      setProfilePictures((prevProfilePictures) =>
+        prevProfilePictures.filter((picture) => picture !== profilePicture)
+      );
+    });
+
+    return () => {
+      socket.off("user_connected");
+      socket.off("user_disconnected");
+    };
+  }, [room]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -40,6 +76,21 @@ const ChatRoom = ({ socket, username, room }) => {
           }}
         />
         <button onClick={sendMessage}>&#9658;</button>
+        <div className="flex">
+          <div className="flex">
+            {profilePictures.map((pfp) => {
+              console.log(profilePictures);
+              console.log(pfp, boba);
+              return (
+                <img
+                  className="rounded-full h-20"
+                  src={pfp}
+                  alt="Profile Picture"
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
