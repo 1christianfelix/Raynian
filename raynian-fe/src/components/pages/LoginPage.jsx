@@ -101,6 +101,7 @@ function LoginPage() {
   const passwordTransition = password.length
     ? { type: "stiff", stiffness: 100 }
     : "";
+
   return (
     <div
       className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
