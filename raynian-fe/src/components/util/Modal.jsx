@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
+import AfkCheckPage from "../pages/AfkCheckPage";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -18,7 +19,7 @@ export default function Modal(props) {
         setMouseUp("b");
       }
     },
-    [mouseDown, mouseUp]
+    [mouseDown, mouseUp, setType]
   );
 
   if (type) {
@@ -34,6 +35,7 @@ export default function Modal(props) {
       >
         {type === "login" && <LoginPage />}
         {type === "signup" && <SignupPage />}
+        {type === "afk" && <AfkCheckPage />}
       </div>
     );
   }

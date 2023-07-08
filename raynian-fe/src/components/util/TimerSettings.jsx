@@ -6,7 +6,7 @@ export default function TimerSettings(props) {
   const { setOpenSettings, settingsRef } = props;
   const [backgroundOption, setBackgroundOption] = useState("default");
   const dropdownRef = useRef(null);
-  const { setCountdown, workTime, setWorkTime, breakTime, setBreakTime } =
+  const { workTime, setWorkTime, breakTime, setBreakTime } =
     useContext(TimerContext);
 
   const handleClickOutside = (event) => {
@@ -16,27 +16,6 @@ export default function TimerSettings(props) {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setOpenSettings(false);
     }
-  };
-
-  const handleTimerChange = (time) => {
-    if (time === "60 min")
-      setCountdown({
-        hours: 0,
-        minutes: 60,
-        seconds: 0,
-      });
-    if (time === "45 min")
-      setCountdown({
-        hours: 0,
-        minutes: 45,
-        seconds: 0,
-      });
-    if (time === "30 min")
-      setCountdown({
-        hours: 0,
-        minutes: 30,
-        seconds: 0,
-      });
   };
 
   useEffect(() => {
@@ -58,7 +37,6 @@ export default function TimerSettings(props) {
             value={workTime}
             onChange={(e) => {
               setWorkTime(e.target.value);
-              handleTimerChange(e.target.value);
             }}
             className="focus:outline-none dark:bg-slate-700"
           >

@@ -1,8 +1,10 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
+import { ModalContext } from "./ModalContext";
 
 export const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
+  const { toggleAFK } = useContext(ModalContext);
   const [countdown, setCountdown] = useState({
     hours: 0,
     minutes: 60,
@@ -49,11 +51,7 @@ export const TimerProvider = ({ children }) => {
     setIsRunning(false);
   };
 
-  const switchToBreak = () => {
-    setIsWork(!isWork);
-    setIsBreak(!isBreak);
-  };
-
+  //Set break time
   useEffect(() => {
     if (isBreak) {
       if (breakTime === "15 min")
@@ -71,13 +69,42 @@ export const TimerProvider = ({ children }) => {
       if (breakTime === "5 min")
         setCountdown({
           hours: 0,
-          minutes: 5,
-          seconds: 0,
+          minutes: 0,
+          seconds: 3,
         });
     }
   }, [isBreak, breakTime]);
 
+  //Set work time
   useEffect(() => {
+    if (isWork) {
+      if (workTime === "60 min")
+        setCountdown({
+          hours: 0,
+          minutes: 60,
+          seconds: 0,
+        });
+      if (workTime === "45 min")
+        setCountdown({
+          hours: 0,
+          minutes: 45,
+          seconds: 0,
+        });
+      if (workTime === "30 min")
+        setCountdown({
+          hours: 0,
+          minutes: 0,
+          seconds: 3,
+        });
+    }
+  }, [isWork, workTime]);
+
+  //Switch from work to break time automatically
+  useEffect(() => {
+    const switchState = () => {
+      setIsWork(!isWork);
+      setIsBreak(!isBreak);
+    };
     let timerID = null;
     if (isWork && isRunning) {
       timerID = setInterval(() => {
@@ -87,7 +114,7 @@ export const TimerProvider = ({ children }) => {
           countdown.seconds === 0
         ) {
           clearInterval(timerID);
-          switchToBreak();
+          switchState();
         } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
             hours: countdown.hours - 1,
@@ -116,6 +143,9 @@ export const TimerProvider = ({ children }) => {
           countdown.seconds === 0
         ) {
           clearInterval(timerID);
+          toggleAFK();
+          stopTimer();
+          switchState();
         } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
             hours: countdown.hours - 1,

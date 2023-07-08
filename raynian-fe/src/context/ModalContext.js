@@ -7,11 +7,6 @@ export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-    if (!isModalOpen) setType(null);
-  };
-
   const toggleLogin = () => {
     setType("login");
   };
@@ -20,24 +15,32 @@ export const ModalProvider = ({ children }) => {
     setType("signup");
   };
 
+  const toggleAFK = () => {
+    setType("afk");
+  };
+
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+      if (!isModalOpen) setType(null);
+    };
     if (userInfo) {
       setType(null);
       toggleModal();
     }
-  }, [userInfo]);
+  }, [userInfo, isModalOpen]);
 
   return (
     <ModalContext.Provider
       value={{
         isModalOpen,
         type,
-        toggleModal,
         toggleLogin,
         toggleSignup,
+        toggleAFK,
         setType,
       }}
     >
