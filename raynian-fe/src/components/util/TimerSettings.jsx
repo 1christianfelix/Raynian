@@ -6,7 +6,7 @@ export default function TimerSettings(props) {
   const { setOpenSettings, settingsRef } = props;
   const [backgroundOption, setBackgroundOption] = useState("default");
   const dropdownRef = useRef(null);
-  const { workTime, setWorkTime, breakTime, setBreakTime } =
+  const { workTime, setWorkTime, breakTime, setBreakTime, playSound } =
     useContext(TimerContext);
 
   const handleClickOutside = (event) => {
@@ -60,12 +60,27 @@ export default function TimerSettings(props) {
           <option value="5 min">5 min</option>
         </select>
       </div>
+      <div className="flex justify-between mb-[10px]">
+        <p className="mr-[10px] whitespace-nowrap">Alarm Sound</p>
+        <select
+          value={breakTime}
+          onChange={(e) => {
+            setBreakTime(e.target.value);
+          }}
+          className="focus:outline-none dark:bg-slate-700"
+        >
+          <option value="15 min">Sound 1</option>
+          <option value="10 min">Sound 2</option>
+          <option value="5 min">Sound 3</option>
+        </select>
+      </div>
       <div className="flex justify-between">
         <p className="mr-[25px]">Background</p>
         <select
           value={backgroundOption}
           onChange={(e) => {
-            setBackgroundOption(e.target.value);
+            e.preventDefault();
+            playSound();
           }}
           className="focus:outline-none dark:bg-slate-700"
         >

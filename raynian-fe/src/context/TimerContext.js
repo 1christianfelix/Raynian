@@ -1,18 +1,18 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
-import { Howl } from "howler";
 import { ModalContext } from "./ModalContext";
-import sound1 from "../assets/sounds/sound1.mp3";
+import { RoomContext } from "./RoomContext";
 
 export const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
   const { toggleAFK } = useContext(ModalContext);
+  const { playSound } = useContext(RoomContext);
+
   const [countdown, setCountdown] = useState({
     hours: 0,
     minutes: 60,
     seconds: 0,
   });
-  const [volume, setVolume] = useState(0.1);
   const [workTime, setWorkTime] = useState("60 min");
   const [breakTime, setBreakTime] = useState("15 min");
   const [isBreak, setIsBreak] = useState(false);
@@ -104,14 +104,6 @@ export const TimerProvider = ({ children }) => {
 
   //Switch from work to break time automatically
   useEffect(() => {
-    const playSound = (src) => {
-      const sound = new Howl({
-        src,
-        html5: true,
-        volume: volume,
-      });
-      sound.play();
-    };
     const switchState = () => {
       setIsWork(!isWork);
       setIsBreak(!isBreak);
@@ -126,7 +118,7 @@ export const TimerProvider = ({ children }) => {
         ) {
           clearInterval(timerID);
           switchState();
-          playSound(sound1);
+          playSound();
         } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
             hours: countdown.hours - 1,
@@ -158,7 +150,7 @@ export const TimerProvider = ({ children }) => {
           toggleAFK();
           stopTimer();
           switchState();
-          playSound(sound1);
+          playSound();
         } else if (countdown.minutes === 0 && countdown.seconds === 0)
           setCountdown({
             hours: countdown.hours - 1,
@@ -180,7 +172,7 @@ export const TimerProvider = ({ children }) => {
       }, 1000);
     }
     return () => clearInterval(timerID);
-  }, [countdown, isRunning, isBreak, isWork]);
+  }, [countdown, isRunning, isBreak, isWork, toggleAFK]);
 
   return (
     <TimerContext.Provider
@@ -200,7 +192,6 @@ export const TimerProvider = ({ children }) => {
         setIsWork,
         isRunning,
         setIsRunning,
-        setVolume,
       }}
     >
       {children}
