@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         inter: ['"Inter"'],
       },
+      // fontSize: {
+      //   popup: "1rem",
+      // },
     },
   },
   darkMode: "class",
