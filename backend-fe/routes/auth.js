@@ -1,9 +1,20 @@
 const router = require("express").Router();
 const passport = require("passport");
 
-router.get("/login/success", (req, res) => {
+router.get("/login/success", async (req, res) => {
   console.log("\n\n\n\n", req);
+  user = req.user || null;
+  await user.populate("stats");
   if (req.user) {
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      stats: user.stats,
+      bio: user.bio,
+      tasks: user.tasks,
+    };
+    console.log(req.session);
     res.status(200).json({
       error: false,
       message: "Successfully Loged In",
