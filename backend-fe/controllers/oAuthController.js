@@ -1,7 +1,8 @@
 const passport = require("passport");
 
+/* OAuth Login Operations */
+// Handle successful login
 async function loginSuccess(req, res) {
-  console.log("\n\n\n\n", req);
   const user = req.user || null;
   await user.populate("stats");
   if (req.user) {
@@ -13,7 +14,6 @@ async function loginSuccess(req, res) {
       bio: user.bio,
       tasks: user.tasks,
     };
-    console.log(req.session);
     res.status(200).json({
       error: false,
       message: "Successfully Loged In",
@@ -24,6 +24,7 @@ async function loginSuccess(req, res) {
   }
 }
 
+// Handle failed login
 function loginFailed(req, res) {
   res.status(401).json({
     error: true,
@@ -31,10 +32,13 @@ function loginFailed(req, res) {
   });
 }
 
+/* OAuth Google Authentication Operations */
+// Start Google authentication process
 function googleAuth(req, res) {
   passport.authenticate("google", { scope: ["profile", "email"] });
 }
 
+// Handle Google authentication callback
 function googleCallback(req, res) {
   passport.authenticate("google", {
     successRedirect: `http://localhost:3000/auth/login/success`,
@@ -42,6 +46,8 @@ function googleCallback(req, res) {
   });
 }
 
+/* OAuth Logout Operation */
+// Handle logout
 function logout(req, res) {
   req.logout();
   res.redirect(process.env.CLIENT_URL);

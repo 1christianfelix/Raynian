@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
-// Create a token using jwt
+/* JWT Token Creation */
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "7d" });
 };
 
+/* User Retrieval Operations */
 // Get all users from the database
 const getusers = async (req, res) => {
   const users = await User.find({}).sort({ createdAt: -1 });
@@ -19,76 +20,33 @@ const getusers = async (req, res) => {
 // Get a specific user by ID from the database
 const getuser = async (req, res) => {
   const { user } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "user does not exist" });
   }
-
   if (!user) {
     return res.status(404).json({ error: "No such user" });
   }
-
   res.status(200).json(user);
 };
 
+/* Username and Email Validation Operations */
 // Check username availability and validity
 const usernameChecker = async (req, res) => {
   const { username } = req.body;
-
-  // If username is empty, send error
-  if (username.length === 0) {
-    return res.json({
-      msg: "Username required",
-      valid_display: true,
-      error: false,
-    });
-  }
-
-  // Find username in database
-  const findUsername = await User.findOne({ username: username });
-
-  // Specify characters to ignore in the alphanumeric check
   const alphanumericOptions = { ignore: "-._" };
-
-  // Validate username length and character composition
-  if (username.length > 25) {
-    res.json({
-      msg: "Username exceeds the maximum length of 25 characters",
-      valid_display: true,
-      error: false,
-    });
-    res.json({
-      msg: "Username exceeds the maximum length of 25 characters",
-      valid_display: true,
-      error: false,
-    });
-  } else if (username.length < 4) {
-    res.json({
-      msg: "Username must be at least 4 characters",
-      valid_display: true,
-      error: false,
-    });
-  } else if (
-    !validator.isAlphanumeric(username, "en-US", alphanumericOptions)
+  const findUsername = await User.findOne({ username: username });
+  if (
+    username.length > 25 ||
+    username.length < 4 ||
+    !validator.isAlphanumeric(username, "en-US", alphanumericOptions) ||
+    findUsername
   ) {
-    res.json({
-      msg: "Username must be alphanumeric (allowing '-', '.', and '_')",
-      valid_display: true,
-      error: false,
-    });
-  } else if (findUsername) {
-    res.json({
-      msg: "Username already exist",
-      valid_display: true,
-      error: false,
-    });
     res.json({
       msg: "Username already exist",
       valid_display: true,
       error: false,
     });
   } else {
-    res.json({ msg: "Username available", valid_display: true, error: true });
     res.json({ msg: "Username available", valid_display: true, error: true });
   }
 };
@@ -98,11 +56,7 @@ const emailChecker = async (req, res) => {
   const { email } = req.body;
   if (!validator.isEmail(email))
     return res.json({ msg: "Email Required", error: false });
-
-  // Check if email exists in the database
   const findEmail = await User.findOne({ email: email });
-
-  // Respond with appropriate message
   if (findEmail) {
     res.json({ msg: "Email already exist", error: false });
   } else {
@@ -110,6 +64,7 @@ const emailChecker = async (req, res) => {
   }
 };
 
+/* User Authentication Operations */
 // User signup
 const signup = async (req, res) => {
   const { username, email, password } = req.body;

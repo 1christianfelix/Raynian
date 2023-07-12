@@ -3,6 +3,7 @@ const User = require("../models/UserModel");
 const Stats = require("../models/StatsModel");
 const mongoose = require("mongoose");
 
+/* Stats Fetching Operations */
 // Fetch stats for a specific user
 const getuserstats = async (req, res) => {
   const { id } = req.params;
@@ -19,6 +20,7 @@ const getuserstats = async (req, res) => {
   res.status(200).json(userStats);
 };
 
+/* Stats Updating Operations */
 // Update the stats for a specific user
 const updateuserstats = async (req, res) => {
   const { id } = req.params;
