@@ -159,6 +159,14 @@ const login = async (req, res) => {
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      stats: user.stats,
+      bio: user.bio,
+    };
+    console.log(req.session);
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });

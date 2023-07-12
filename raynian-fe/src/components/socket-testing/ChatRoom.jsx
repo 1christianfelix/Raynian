@@ -13,9 +13,9 @@ const ChatRoom = ({ socket, username, room }) => {
 
   // const user = userInfo.profilePicture;
   // console.log(user);
-  useEffect(() => {
-    setPfp((prev) => [userInfo.user.profilePicture]);
-  }, []);
+  // useEffect(() => {
+  //   setPfp((prev) => [userInfo.user.profilePicture]);
+  // }, []);
 
   useEffect(() => {
     socket.on("user_connected", (data) => {

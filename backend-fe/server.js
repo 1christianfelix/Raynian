@@ -69,6 +69,7 @@ app.use((req, res, next) => {
 app.use(
   session({
     secret: process.env.SECRET,
+    credentials: true,
     resave: false,
     saveUninitialized: false,
     name: "jwt",
