@@ -54,9 +54,11 @@ const userSchema = new Schema({
   room: { type: mongoose.Schema.Types.ObjectId, ref: "Room" },
 });
 
-// static signup method
+/**
+ * Static method for user signup
+ */
 userSchema.statics.signup = async function (email, username, password) {
-  // validation
+  // Validation
   if (!email || !username || !password) {
     throw Error("All fields must be filled");
   }
@@ -106,9 +108,11 @@ userSchema.statics.signup = async function (email, username, password) {
   return user;
 };
 
-// static login method
+/**
+ * Static method for user login
+ */
 userSchema.statics.login = async function (email, username, password) {
-  // validation
+  // Validation
   const login = email || username;
   if (!login || !password) {
     throw Error("All fields must be filled");
