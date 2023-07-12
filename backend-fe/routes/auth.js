@@ -1,65 +1,14 @@
 const router = require("express").Router();
-const passport = require("passport");
+const oAuthController = require("../controllers/oAuthController");
 
-router.get("/login/success", async (req, res) => {
-  console.log("\n\n\n\n", req);
-  user = req.user || null;
-  await user.populate("stats");
-  if (req.user) {
-    req.session.user = {
-      id: user._id,
-      username: user.username,
-      profilePicture: user.profilePicture,
-      stats: user.stats,
-      bio: user.bio,
-      tasks: user.tasks,
-    };
-    console.log(req.session);
-    res.status(200).json({
-      error: false,
-      message: "Successfully Loged In",
-      user: req.user,
-    });
-  } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
-  }
-});
+router.get("/login/success", oAuthController.loginSuccess);
 
-// Handle the success redirect
-// router.get("/login/success", (req, res) => {
-//   if (req.user) {
-//     // Redirect the user to http://localhost:3000
-//     req.session.userId = req.user._id;
-//     res.status(200).json({ success: true, userId: req.user._id });
-//     // res.redirect("http://localhost:3000");
-//   } else {
-//     res.status(403).json({ error: true, message: "Not Authorized" });
-//   }
-// });
+router.get("/login/failed", oAuthController.loginFailed);
 
-router.get("/login/failed", (req, res) => {
-  res.status(401).json({
-    error: true,
-    message: "Log in failure",
-  });
-});
+router.get("/google", oAuthController.googleAuth);
 
-router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/google/callback", oAuthController.googleCallback);
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: `http://localhost:3000/auth/login/success`,
-    failureRedirect: `${process.env.CLIENT_URL}/failed`,
-  })
-);
-
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect(process.env.CLIENT_URL);
-});
+router.get("/logout", oAuthController.logout);
 
 module.exports = router;
