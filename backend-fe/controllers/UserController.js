@@ -47,7 +47,6 @@ const usernameChecker = async (req, res) => {
   // Find username in database
   const findUsername = await User.findOne({ username: username });
 
-  const alphanumericOptions = { ignore: "-._" }; // Ignore characters "-", ".", and "_"
   // Specify characters to ignore in the alphanumeric check
   const alphanumericOptions = { ignore: "-._" };
 
