@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import ChatRoom from "./ChatRoom";
+
 const socket = io.connect("http://localhost:4001");
 
 const Chat = () => {

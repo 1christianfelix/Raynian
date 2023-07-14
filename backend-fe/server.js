@@ -4,12 +4,12 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const apiRoutes = require("./API");
-const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+const { sessionMiddleware, wrap } = require("./middleware/sessionMiddleware");
 
 // express app
 const app = express();
@@ -22,8 +22,10 @@ const io = new Server(server, {
   },
 });
 
+io.use(wrap(sessionMiddleware));
 io.on("connection", (socket) => {
   console.log("User:", socket.id);
+  console.log("session:", socket.session);
 
   socket.on("join_room", (data) => {
     const { room, userInfo } = data;
@@ -66,15 +68,7 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
-app.use(
-  session({
-    secret: process.env.SECRET,
-    credentials: true,
-    resave: false,
-    saveUninitialized: false,
-    name: "jwt",
-  })
-);
+app.use(sessionMiddleware);
 
 app.use(passport.initialize());
 app.use(passport.session());
