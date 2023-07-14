@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
-// Create a token using jwt
+/* JWT Token Creation */
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "7d" });
 };
 
+/* User Retrieval Operations */
 // Get all users from the database
 const getusers = async (req, res) => {
   const users = await User.find({}).sort({ createdAt: -1 });
@@ -19,69 +20,80 @@ const getusers = async (req, res) => {
 // Get a specific user by ID from the database
 const getuser = async (req, res) => {
   const { user } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "user does not exist" });
   }
-
   if (!user) {
     return res.status(404).json({ error: "No such user" });
   }
-
   res.status(200).json(user);
 };
 
+/* Username and Email Validation Operations */
 // Check username availability and validity
 const usernameChecker = async (req, res) => {
   const { username } = req.body;
-
-  // If username is empty, send error
-  if (username.length === 0) {
-    return res.json({ msg: "Username required", valid_display: true, error: false});
-  }
-
-  // Find username in database
+  const alphanumericOptions = { ignore: "-._" };
   const findUsername = await User.findOne({ username: username });
-
-  // Specify characters to ignore in the alphanumeric check
-  const alphanumericOptions = { ignore: "-._",};
-
-  // Validate username length and character composition
-  if (username.length > 25) {
-    res.json({ msg: "Username exceeds the maximum length of 25 characters", valid_display: true, error: false});
-  } else if (username.length < 4) {
-    res.json({ msg: "Username must be at least 4 characters", valid_display: true, error: false});
-  } else if (!validator.isAlphanumeric(username, "en-US", alphanumericOptions)) {
-    res.json({msg: "Username must be alphanumeric (allowing '-', '.', and '_')", valid_display: true, error: false });
-  } else if (findUsername) {
-    res.json({ msg: "Username already exist", valid_display: true, error: false });
+  if (
+    username.length > 25 ||
+    username.length < 4 ||
+    !validator.isAlphanumeric(username, "en-US", alphanumericOptions) ||
+    findUsername
+  ) {
+    res.json({
+      msg: "Username already exist",
+      valid_display: true,
+      error: false,
+    });
   } else {
-    res.json({ msg: "Username available", valid_display: true, error: true});
+    res.json({ msg: "Username available", valid_display: true, error: true });
   }
 };
 
 // Check if email is valid and available
 const emailChecker = async (req, res) => {
   const { email } = req.body;
-  if (!validator.isEmail(email)) return res.json({msg: 'Email Required', error: false})
-
-  // Check if email exists in the database
+  if (!validator.isEmail(email))
+    return res.json({ msg: "Email Required", error: false });
   const findEmail = await User.findOne({ email: email });
-
-  // Respond with appropriate message
   if (findEmail) {
-    res.json({ msg: "Email already exist", error: false});
+    res.json({ msg: "Email already exist", error: false });
   } else {
-    res.json({msg: 'Email is available', error: true})
+    res.json({ msg: "Email is available", error: true });
   }
 };
 
+/* User Authentication Operations */
 // User signup
 const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
     const user = await User.signup(email, username, password);
+    // adding default pfp
+    pfpRandomizer = Math.floor(Math.random() * 3) + 1;
+    switch (pfpRandomizer) {
+      case 1:
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg";
+        break;
+      case 2:
+        user.profilePicture =
+          "https://i.pinimg.com/736x/ef/26/df/ef26df0ce4f41d74cb48a4f139504619.jpg";
+        break;
+      case 3:
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
+        break;
+      default:
+        user.profilePicture =
+          "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
+        break;
+    }
+
+    user.save();
+
     const token = createToken(user._id);
 
     // Create stats for user and update user's stats reference
@@ -98,7 +110,15 @@ const signup = async (req, res) => {
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
-
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      stats: user.stats,
+      bio: user.bio,
+      tasks: user.tasks,
+    };
+    console.log(req.session);
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -120,6 +140,16 @@ const login = async (req, res) => {
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
+    await user.populate("stats");
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      stats: user.stats,
+      bio: user.bio,
+      tasks: user.tasks,
+    };
+    console.log(req.session);
 
     res.status(200).json({ user, token });
   } catch (error) {

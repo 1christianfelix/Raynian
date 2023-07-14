@@ -3,6 +3,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { BGCustomProvider } from "./context/BGCustomContext";
 
 import "./index.css";
 import App from "./App";
@@ -10,9 +11,11 @@ import App from "./App";
 function Root() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <BGCustomProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </BGCustomProvider>
     </Provider>
   );
 }

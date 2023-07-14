@@ -1,0 +1,63 @@
+.color-selector .react-colorful {
+  height: 255px;
+  width: 255px;
+}
+
+.color-selector .react-colorful__saturation {
+  /* margin: 15px 0; */
+  border-radius: 8px;
+  /* border-bottom: none; */
+}
+
+.color-selector .react-colorful__hue {
+  margin-top: 0.5rem;
+  height: 12px;
+  border-radius: 12px;
+}
+
+.color-selector .react-colorful__alpha {
+  margin-top: 0.5rem;
+  height: 12px;
+  border-radius: 12px;
+}
+
+.color-selector .react-colorful__hue-pointer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.color-selector .react-colorful__alpha-pointer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.tooltip-slider {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10;
+  top: 150%;
+  /* left: 50%; */
+  /* margin-left: -50px; */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.handle:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.slider-input {
+  width: 75%;
+  background: transparent;
+  margin-left: 4px;
+  outline-style: none;
+  padding-left: 4px;
+}
