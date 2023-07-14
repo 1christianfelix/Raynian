@@ -22,9 +22,6 @@ const Dashboard = () => {
         </div>
         <ProfileGrid profiles={profiles} />
       </div>
-      {/* <div className="translate-x-12">
-        <BgCustomizerMenu></BgCustomizerMenu>
-      </div> */}
     </div>
   );
 };
