@@ -5,17 +5,23 @@ import ProfileGrid from "../util/ProfileGrid";
 import sushi from "../../assets/temp_pfp/sushi.jpg";
 import boba from "../../assets/temp_pfp/boba.jpg";
 import avocado from "../../assets/temp_pfp/avocado.jpg";
+import BgCustomizerMenu from "../ui/background-customizer/BgCustomizerMenu";
+import Draggable from "react-draggable";
+import { BGCustomContext } from "../../context/BGCustomContext";
 
 const Dashboard = () => {
   const profiles = [sushi, avocado, boba]; // Add more profiles if needed
   return (
-    <div className="h-[60%] flex items-center justify-center flex-col">
-      <div className="text-center ">
-        <TimerProvider>
-          <Timer />
-        </TimerProvider>
+    <div>
+      <div className="h-[60%] flex items-center justify-center flex-col">
+        <div className="text-center ">
+          <p className="text-3xl">You're doing great!</p>
+          <TimerProvider>
+            <Timer />
+          </TimerProvider>
+        </div>
+        <ProfileGrid profiles={profiles} />
       </div>
-      <ProfileGrid profiles={profiles} />
     </div>
   );
 };

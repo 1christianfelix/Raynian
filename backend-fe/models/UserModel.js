@@ -34,20 +34,31 @@ const userSchema = new Schema({
     type: String,
     default: "",
   },
+  bio: {
+    type: String,
+    maxlength: 150,
+    default: "",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  profilePicture: {
+    type: String,
+    default: "",
+  },
   stats: { type: mongoose.Schema.Types.ObjectId, ref: "Stats" },
-  friends: [mongoose.Schema.Types.ObjectId],
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   labels: [{ type: String, lowercase: true }],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   room: { type: mongoose.Schema.Types.ObjectId, ref: "Room" },
 });
 
-// static signup method
+/**
+ * Static method for user signup
+ */
 userSchema.statics.signup = async function (email, username, password) {
-  // validation
+  // Validation
   if (!email || !username || !password) {
     throw Error("All fields must be filled");
   }
@@ -97,9 +108,11 @@ userSchema.statics.signup = async function (email, username, password) {
   return user;
 };
 
-// static login method
+/**
+ * Static method for user login
+ */
 userSchema.statics.login = async function (email, username, password) {
-  // validation
+  // Validation
   const login = email || username;
   if (!login || !password) {
     throw Error("All fields must be filled");
