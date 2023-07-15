@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ModalProvider } from "./context/ModalContext";
 import { DarkLightProvider } from "./context/DarkLightContext";
+import { RoomProvider } from "./context/RoomContext";
 
 import Nav from "./components/navigation/Nav";
 import "./index.css";
@@ -22,24 +23,26 @@ function App() {
   const { bg } = useContext(BGCustomContext);
   return (
     <DarkLightProvider>
-      <ModalProvider>
-        <div
-          className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
-          style={{ background: bg }}
-        >
-          {/* <Chat></Chat> */}
-          <Modal />
-          <Nav />
-          <Routes>
-            <Route path="/" element={<Dashboard />}></Route>
-            <Route path="/PageNotFound" element={<PageNotFound />}></Route>
-            <Route
-              path="auth/login/success"
-              element={<OAuthLoginSuccess />}
-            ></Route>
-          </Routes>
-        </div>
-      </ModalProvider>
+      <RoomProvider>
+        <ModalProvider>
+          <div
+            className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
+            style={{ background: bg }}
+          >
+            {/* <Chat></Chat> */}
+            <Modal />
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Dashboard />}></Route>
+              <Route path="/PageNotFound" element={<PageNotFound />}></Route>
+              <Route
+                path="auth/login/success"
+                element={<OAuthLoginSuccess />}
+              ></Route>
+            </Routes>
+          </div>
+        </ModalProvider>
+      </RoomProvider>
     </DarkLightProvider>
   );
 }

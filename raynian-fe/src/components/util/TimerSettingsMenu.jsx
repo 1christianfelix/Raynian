@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState, useRef, useEffect } from "react";
 import { TimerContext } from "../../context/TimerContext";
+import BgCustomizerMenu from "../ui/background-customizer/BgCustomizerMenu";
 
 export default function TimerSettingsMenu(props) {
   const { type } = props;
@@ -40,13 +41,31 @@ export default function TimerSettingsMenu(props) {
   if (type === "work") {
     content = (
       <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setWorkTime("60 min");
+          }}
+        >
           60 min
         </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600over:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600over:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setWorkTime("45 min");
+          }}
+        >
           45 min
         </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setWorkTime("30 min");
+          }}
+        >
           30 min
         </p>
       </div>
@@ -55,34 +74,37 @@ export default function TimerSettingsMenu(props) {
   if (type === "break") {
     content = (
       <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setBreakTime("15 min");
+          }}
+        >
           15 min
         </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setBreakTime("10 min");
+          }}
+        >
           10 min
         </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
+        <p
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            setBreakTime("5 min");
+          }}
+        >
           5 min
         </p>
       </div>
     );
   }
   if (type === "alarm") {
-    content = (
-      <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
-          option1
-        </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
-          option2
-        </p>
-        <p className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600">
-          option3
-        </p>
-      </div>
-    );
-  }
-  if (type === "background") {
     content = (
       <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px] overflow-auto w-[250px] h-[250px]">
         <input
@@ -99,6 +121,13 @@ export default function TimerSettingsMenu(props) {
             </div>
           ))}
         </div>
+      </div>
+    );
+  }
+  if (type === "background") {
+    content = (
+      <div className="scale-75">
+        <BgCustomizerMenu />
       </div>
     );
   }

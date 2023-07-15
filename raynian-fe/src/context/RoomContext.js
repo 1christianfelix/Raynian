@@ -18,6 +18,7 @@ export const RoomProvider = ({ children }) => {
     });
     sound.play();
   };
+
   return (
     <RoomContext.Provider value={{ playSound, volume, setVolume }}>
       {children}
