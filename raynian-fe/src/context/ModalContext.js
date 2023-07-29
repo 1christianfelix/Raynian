@@ -31,12 +31,13 @@ export const ModalProvider = ({ children }) => {
       setType(null);
       toggleModal();
     }
-  }, [userInfo, isModalOpen]);
+  }, [userInfo]);
 
   return (
     <ModalContext.Provider
       value={{
         isModalOpen,
+        setIsModalOpen,
         type,
         toggleLogin,
         toggleSignup,
