@@ -22,7 +22,6 @@ const roomSlice = createSlice({
       joinRoom({
         room: state.roomID,
         user: state.userInfo,
-        participants: state.participants,
       });
     },
     // Reducer for updating the chat log
