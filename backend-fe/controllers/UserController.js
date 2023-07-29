@@ -118,7 +118,7 @@ const signup = async (req, res) => {
       bio: user.bio,
       tasks: user.tasks,
     };
-    console.log(req.session);
+    // console.log(req.session);
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -149,7 +149,7 @@ const login = async (req, res) => {
       bio: user.bio,
       tasks: user.tasks,
     };
-    console.log(req.session);
+    // console.log(req.session);
 
     res.status(200).json({ user, token });
   } catch (error) {

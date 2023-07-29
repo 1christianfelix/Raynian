@@ -4,7 +4,7 @@ import { DarkLightContext } from "../../context/DarkLightContext";
 import { FaRegMoon } from "react-icons/fa";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { useLogoutMutation } from "../../slices/usersApiSlice";
+import { useLogoutMutation } from "../../slices/usersApi";
 import { removeCredentials } from "../../slices/authSlice";
 import { motion, AnimatePresence } from "framer-motion";
 

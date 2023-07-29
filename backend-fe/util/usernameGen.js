@@ -30,13 +30,11 @@ const usernameGeneration = async () => {
     username.length > 25 ||
     (count < 5 && (await User.findOne({ username })))
   ) {
-    console.log(username);
     username = randomUsername(animals, hardAdj, softAdj, determiners);
     count++;
   }
   if (await User.findOne({ username })) {
     while (await User.findOne({ username })) {
-      console.log("loop2", await User.findOne({ username }));
       if (username.length < 24 && username.match(/\d/) == null) {
         username += "2";
       } else if (username.length < 24 && username.match(/\d/) != null) {

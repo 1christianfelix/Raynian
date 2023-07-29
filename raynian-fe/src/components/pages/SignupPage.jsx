@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useSignupMutation } from "../../slices/usersApiSlice";
+import { useSignupMutation } from "../../slices/usersApi";
 import { setCredentials } from "../../slices/authSlice";
 import { FaEye, FaEyeSlash, FaApple, BiRefresh } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -168,8 +168,6 @@ function SignupPage() {
     confirmPasswordMotion.animation = { y: -15, fontSize: "12px" };
     confirmPasswordMotion.transition = { type: "stiff", stiffness: 100 };
   }
-
-
 
   return (
     <div

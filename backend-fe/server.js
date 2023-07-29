@@ -25,7 +25,8 @@ const io = new Server(server, {
 io.use(wrap(sessionMiddleware));
 io.on("connection", (socket) => {
   console.log("User:", socket.id);
-  console.log("session:", socket.session);
+  console.log("session:", socket.request.session);
+  // console.log("socket:", socket);
 
   socket.on("join_room", (data) => {
     const { room, userInfo } = data;

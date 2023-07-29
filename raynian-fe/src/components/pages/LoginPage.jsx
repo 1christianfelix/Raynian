@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation } from "../../slices/usersApiSlice";
+import { useLoginMutation } from "../../slices/usersApi";
 import { setCredentials } from "../../slices/authSlice";
 import { motion } from "framer-motion";
 import { ModalContext } from "../../context/ModalContext";

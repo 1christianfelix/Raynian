@@ -24,23 +24,19 @@ export default function Nav() {
           />
           <p className="text-3xl">raynian</p>
         </div>
-          <div
-            className="relative"
-            ref={navRef}
+        <div className="relative" ref={navRef} onClick={() => toggleDropdown()}>
+          <CiUser
+            size={50}
+            className="cursor-pointer"
             onClick={() => toggleDropdown()}
-          >
-            <CiUser
-              size={50}
-              className="cursor-pointer"
-              onClick={() => toggleDropdown()}
-            />
-            <UserDropdown
-              openDropdown={openDropdown}
-              toggleDropdown={toggleDropdown}
-              setToggleDropdown={setToggleDropdown}
-              navRef={navRef}
-            />
-          </div>
+          />
+          <UserDropdown
+            openDropdown={openDropdown}
+            toggleDropdown={toggleDropdown}
+            setToggleDropdown={setToggleDropdown}
+            navRef={navRef}
+          />
+        </div>
       </div>
     </div>
   );
