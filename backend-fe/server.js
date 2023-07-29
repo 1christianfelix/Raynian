@@ -28,15 +28,15 @@ io.on("connection", (socket) => {
   console.log("session:", socket.request.session);
   // console.log("socket:", socket);
 
-  socket.on("join_room", (data) => {
+  socket.on("join-room", (data) => {
     const { room, userInfo } = data;
     socket.join(room);
     console.log(`User with ID: ${socket.id} joined room: ${room}`);
 
     // Emit an event to notify other users in the room about the connected user's profile picture
-    io.to(room).emit("user_connected", {
-      profilePicture: userInfo.user.profilePicture,
-    });
+    // io.to(room).emit("user_connected", {
+    //   profilePicture: userInfo.user.profilePicture,
+    // });
   });
 
   socket.on("disconnect", () => {
