@@ -1,4 +1,7 @@
 import io from "socket.io-client";
+import { useDispatch } from "react-redux";
+import { connectToRoom, updateParticipants } from "../../slices/roomSlice";
+import store from "../../store";
 
 let socket = null;
 
@@ -7,6 +10,7 @@ export const socketServerConnect = (user) => {
   console.log("test");
 
   socket.on("room-participants", (data) => {
+    store.dispatch(updateParticipants(data));
     console.log(data, " joined");
   });
 };

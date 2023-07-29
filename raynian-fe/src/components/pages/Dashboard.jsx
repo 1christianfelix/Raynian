@@ -13,7 +13,7 @@ import { BGCustomContext } from "../../context/BGCustomContext";
 import { socketServerConnect } from "../socket/socketConnection";
 import ChatBox from "../room-chat/Chatbox";
 import { useDispatch } from "react-redux";
-import { connectToRoom, updateParticipants } from "../../slices/roomSlice";
+import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
 
 const Dashboard = () => {
   const profiles = [sushi, avocado, boba]; // Add more profiles if needed
@@ -45,7 +45,7 @@ const Dashboard = () => {
     }
 
     // Dispatch the actions to update the roomID and add the participant
-    dispatch(updateParticipants(username));
+    dispatch(setUserInfo(username));
     dispatch(connectToRoom(roomId));
   };
 

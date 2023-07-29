@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { joinRoom } from "../components/socket/socketConnection";
 
 const initialState = {
+  userInfo: "",
   roomID: null,
   chatLog: [],
   participants: [],
@@ -11,10 +12,18 @@ const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
+    // set user
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
+    },
     // Connect to room
     connectToRoom: (state, action) => {
       state.roomID = action.payload;
-      joinRoom({ room: state.roomID, user: state.participants[0] });
+      joinRoom({
+        room: state.roomID,
+        user: state.userInfo,
+        participants: state.participants,
+      });
     },
     // Reducer for updating the chat log
     updateChatLog: (state, action) => {
@@ -30,6 +39,6 @@ const roomSlice = createSlice({
   },
 });
 
-export const { connectToRoom, updateChatLog, updateParticipants } =
+export const { connectToRoom, updateChatLog, updateParticipants, setUserInfo } =
   roomSlice.actions;
 export default roomSlice.reducer;
