@@ -42,7 +42,7 @@ export default function TimerSettingsMenu(props) {
     content = (
       <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600 py"
           onClick={(e) => {
             e.stopPropagation();
             setWorkTime("60 min");
