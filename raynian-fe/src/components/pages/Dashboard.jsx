@@ -8,7 +8,8 @@ import avocado from "../../assets/temp_pfp/avocado.jpg";
 import BgCustomizerMenu from "../ui/background-customizer/BgCustomizerMenu";
 import Draggable from "react-draggable";
 import { BGCustomContext } from "../../context/BGCustomContext";
-import { socketServerConnect } from "../communication/socketConnection";
+import { socketServerConnect } from "../socket/socketConnection";
+import ChatBox from "../room-chat/Chatbox";
 
 const Dashboard = () => {
   const profiles = [sushi, avocado, boba]; // Add more profiles if needed
@@ -52,6 +53,7 @@ const Dashboard = () => {
             Join room
           </button>
         </div>
+        <ChatBox />
       </div>
     </div>
   );
