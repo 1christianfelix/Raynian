@@ -14,7 +14,7 @@ const roomSlice = createSlice({
     // Connect to room
     connectToRoom: (state, action) => {
       state.roomID = action.payload;
-      joinRoom({ room: state.roomID });
+      joinRoom({ room: state.roomID, user: state.participants[0] });
     },
     // Reducer for updating the chat log
     updateChatLog: (state, action) => {
@@ -25,7 +25,7 @@ const roomSlice = createSlice({
     // Reducer for updating the participants
     updateParticipants: (state, action) => {
       // The payload should be an array of participant names
-      state.participants = action.payload;
+      state.participants = [...state.participants, action.payload];
     },
   },
 });

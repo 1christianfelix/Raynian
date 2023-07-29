@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
   // console.log("socket:", socket);
 
   socket.on("join-room", (data) => {
-    const { room, userInfo } = data;
+    const { room, user } = data;
     socket.join(room);
     console.log(`User with ID: ${socket.id} joined room: ${room}`);
 
@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
     // io.to(room).emit("user_connected", {
     //   profilePicture: userInfo.user.profilePicture,
     // });
+    io.to(room).emit("room-participants", user);
   });
 
   socket.on("disconnect", () => {

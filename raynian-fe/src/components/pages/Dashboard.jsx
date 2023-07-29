@@ -45,8 +45,8 @@ const Dashboard = () => {
     }
 
     // Dispatch the actions to update the roomID and add the participant
-    dispatch(connectToRoom(roomId));
     dispatch(updateParticipants(username));
+    dispatch(connectToRoom(roomId));
   };
 
   return (
