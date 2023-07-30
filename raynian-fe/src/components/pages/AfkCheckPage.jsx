@@ -3,8 +3,8 @@ import dogSleep from "../../assets/Sleep.png";
 
 export default function AfkCheckPage() {
   return (
-    <div className="flex flex-col items-center relative">
-      <p className="text-3xl text-white absolute top-[140px]">Still There?</p>
+    <div className="relative flex flex-col items-center">
+      <p className="absolute top-[140px] text-3xl text-white">Still There?</p>
       <img src={dogSleep} alt="" />
     </div>
   );

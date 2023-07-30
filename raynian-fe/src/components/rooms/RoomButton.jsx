@@ -8,7 +8,7 @@ const RoomButton = () => {
     <div className="mt-4">
       <button
         onClick={toggleRoomPrompt}
-        className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+        className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
       >
         Join room
       </button>

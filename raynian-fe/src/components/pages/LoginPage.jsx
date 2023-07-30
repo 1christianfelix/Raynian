@@ -103,25 +103,25 @@ function LoginPage() {
     : "";
 
   return (
-    <div className="py-10 flex flex-row bg-white w-[475px] rounded-3xl">
-      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible  h-[400px] flex items-center">
-        <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
+    <div className="flex w-[475px] flex-row rounded-3xl bg-white py-10">
+      <div className="mx-auto mb-0 flex h-[400px] w-full items-center  overflow-visible px-[60px]">
+        <div className="mx-auto my-0 w-full max-w-[960px]">
           <div className="flex flex-col items-center">
             <img
               src={raynian_logo_thin}
-              className="w-[50px] h-[50px]"
+              className="h-[50px] w-[50px]"
               alt="raynian logo"
             />
             <h1 className="text-[51px]">Welcome Back!</h1>
             {errorMsg && <p className="text-center text-red-500">{errorMsg}</p>}
-            <div className="w-full flex flex-col items-center max-w-[400px]">
+            <div className="flex w-full max-w-[400px] flex-col items-center">
               <div className="flex w-full flex-col">
                 <div>
                   {/* Form */}
                   <form onSubmit={submitHandler}>
-                    <div className="w-full mt-[25px]">
+                    <div className="mt-[25px] w-full">
                       <motion.p
-                        className="absolute text-gray-400 pointer-events-none"
+                        className="pointer-events-none absolute text-gray-400"
                         animate={emailUsernameAnimation}
                         transition={emailUsernameTransition}
                       >
@@ -131,7 +131,7 @@ function LoginPage() {
                         type="text"
                         value={user}
                         // placeholder="Username or Email"
-                        className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                        className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                         onChange={(e) => {
                           setUser(e.target.value);
                           validateEmail(e.target.value);
@@ -139,9 +139,9 @@ function LoginPage() {
                       />
                     </div>
                     <div>
-                      <div className="w-full mt-[25px] flex">
+                      <div className="mt-[25px] flex w-full">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none"
+                          className="pointer-events-none absolute text-gray-400"
                           animate={passwordAnimation}
                           transition={passwordTransition}
                         >
@@ -150,7 +150,7 @@ function LoginPage() {
                         <input
                           type={togglePassword}
                           value={password}
-                          className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                          className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                           onChange={(e) => {
                             setPassword(e.target.value);
                           }}
@@ -172,9 +172,9 @@ function LoginPage() {
                         )}
                       </div>
                     </div>
-                    <div className="flex justify-center mt-[15px]">
+                    <div className="mt-[15px] flex justify-center">
                       <button
-                        className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
+                        className="mb-[5px] h-[40px] w-full rounded-[4px] bg-sky-500 disabled:bg-red-200 disabled:text-white"
                         disabled={!user || !password}
                       >
                         Sign in
@@ -186,23 +186,23 @@ function LoginPage() {
                     </div>
                   </form>
 
-                  <div className="text-center border-b border-black leading-[0.1em] mt-[20px] mb-[20px] bg-inherit">
-                    <span className="pl-[10px] pr-[10px] bg-white">or</span>
+                  <div className="my-[20px] border-b border-black bg-inherit text-center leading-[0.1em]">
+                    <span className="bg-white px-[10px]">or</span>
                   </div>
 
                   <div
-                    className="flex mt-[20px] text-[14px]"
+                    className="mt-[20px] flex text-[14px]"
                     style={{ justifyContent: "space-between" }}
                   >
                     <motion.button
-                      className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                      className="mb-[5px] h-[40px] w-[49%] rounded-[4px] border border-gray-300 bg-white"
                       whileHover={{
                         backgroundColor: "whitesmoke",
                       }}
                     >
                       {" "}
                       <div
-                        className="flex justify-center items-center"
+                        className="flex items-center justify-center"
                         onClick={handleGoogleAuthClick}
                       >
                         <FcGoogle className="mr-[5px] text-[16px]" />
@@ -210,13 +210,13 @@ function LoginPage() {
                       </div>
                     </motion.button>
                     <motion.button
-                      className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300"
+                      className="mb-[5px] h-[40px] w-[49%] rounded-[4px] border border-gray-300 bg-white"
                       whileHover={{
                         backgroundColor: "whitesmoke",
                       }}
                     >
                       {" "}
-                      <div className="flex justify-center items-center">
+                      <div className="flex items-center justify-center">
                         <FaApple className="mr-[5px] text-[16px]" />
                         <p className="font-normal">Sign in with Apple</p>
                       </div>

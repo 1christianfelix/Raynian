@@ -11,7 +11,7 @@ import RoomButton from "../rooms/RoomButton";
 const Dashboard = () => {
   return (
     <div>
-      <div className="flex items-center justify-center flex-col">
+      <div className="flex flex-col items-center justify-center">
         <div className="text-center ">
           <p className="text-3xl">You're doing great!</p>
           <TimerProvider>

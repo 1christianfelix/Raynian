@@ -5,10 +5,10 @@ import TimerSettingsMenu from "./TimerSettingsMenu";
 
 export default function TimerSettings(props) {
   const { setOpenSettings, settingsRef } = props;
-  const [backgroundOption, setBackgroundOption] = useState("default");
+  // const [backgroundOption, setBackgroundOption] = useState("default");
   const dropdownRef = useRef(null);
-  const { workTime, setWorkTime, breakTime, setBreakTime, playSound } =
-    useContext(TimerContext);
+  // const { workTime, setWorkTime, breakTime, setBreakTime, playSound } =
+  //   useContext(TimerContext);
 
   const [showWorkMenu, setShowWorkMenu] = useState(false);
   const [showBreakMenu, setShowBreakMenu] = useState(false);

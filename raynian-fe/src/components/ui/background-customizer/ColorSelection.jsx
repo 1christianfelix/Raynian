@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import React, { useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { RgbaColorPicker } from "react-colorful";
@@ -33,10 +34,10 @@ const ColorSelection = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="flex h-screen w-screen items-center justify-center">
       <div className="bg-customizer-container relative">
         <div
-          className="color-selector-container h-[255px] w-[255px] absolute translate-y-[-270px] translate-x-[-115px]"
+          className="color-selector-container absolute h-[255px] w-[255px] translate-x-[-115px] translate-y-[-270px]"
           style={{ left: `${position}px` }}
         >
           {isPickerVisible && (
@@ -45,10 +46,10 @@ const ColorSelection = () => {
             </div>
           )}
         </div>
-        <div className="range-slider w-[520px] relative rounded-full border border-white bg-gray-700 flex">
+        <div className="range-slider relative flex w-[520px] rounded-full border border-white bg-gray-700">
           <Draggable axis="x" bounds="parent" onDrag={handleDrag}>
             <div
-              className="handle h-5 w-5 rounded-full border border-white drop-shadow-sm flex items-center justify-center bg-red-500"
+              className="handle flex h-5 w-5 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm"
               style={{ left: `${position}px`, ...colorStyle }}
               onClick={handleClick}
             >

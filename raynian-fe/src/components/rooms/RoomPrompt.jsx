@@ -54,20 +54,20 @@ const RoomPrompt = () => {
   }, [userDetails, roomId, roomID]);
 
   return (
-    <div className="py-10 px-[30px] flex flex-col bg-white rounded-3xl">
-      <div className="text-center text-2xl mb-4">Join a Room</div>
+    <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
+      <div className="mb-4 text-center text-2xl">Join a Room</div>
       <div className="text-center">
         {userInfo === null ? (
           <>
             You are not signed in. Joining as{" "}
-            <span className="italic text-lg font-medium text-blue-700">
+            <span className="text-lg font-medium italic text-blue-700">
               {usernameRef.current}
             </span>{" "}
           </>
         ) : (
           <>
             Joining as{" "}
-            <span className="italic text-lg font-medium text-blue-700">
+            <span className="text-lg font-medium italic text-blue-700">
               {userInfo.user.username}
             </span>
           </>
@@ -80,10 +80,10 @@ const RoomPrompt = () => {
           value={roomId}
           onChange={handleRoomInputChange}
           placeholder="Enter room ID"
-          className="border border-gray-400 px-4 py-2 rounded-md"
+          className="rounded-md border border-gray-400 px-4 py-2"
         />
         <button
-          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+          className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
           onClick={handleSubmit}
         >
           Connect
