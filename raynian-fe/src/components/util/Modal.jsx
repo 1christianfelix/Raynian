@@ -16,7 +16,7 @@ export default function Modal(props) {
 
   if (type) {
     content = (
-      <div className="absolute h-screen w-screen" onClick={handleContent}>
+      <div className="absolute h-screen w-screen" onMouseDown={handleContent}>
         <div className="center-modal-container">
           {type === "login" && <LoginPage />}
           {type === "signup" && <SignupPage />}

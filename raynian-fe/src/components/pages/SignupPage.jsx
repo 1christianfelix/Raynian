@@ -172,7 +172,7 @@ function SignupPage() {
   return (
     <div
       className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
-      onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
         <div className="w-full">
