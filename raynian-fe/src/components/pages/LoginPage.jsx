@@ -1,12 +1,11 @@
 import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../slices/usersApi";
 import { setCredentials } from "../../slices/authSlice";
 import { motion } from "framer-motion";
-import { ModalContext } from "../../context/ModalContext";
 import validator from "validator";
 import raynian_logo_thin from "../../assets/thin_logo.svg";
 
@@ -19,7 +18,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -27,7 +26,7 @@ function LoginPage() {
     if (userInfo) {
       navigate("/");
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   const handleTogglePassword = () => {
     if (togglePassword === "password") setTogglePassword("text");
@@ -108,7 +107,11 @@ function LoginPage() {
       <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible  h-[400px] flex items-center">
         <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
           <div className="flex flex-col items-center">
-            <img src={raynian_logo_thin} className="w-[50px] h-[50px]" />
+            <img
+              src={raynian_logo_thin}
+              className="w-[50px] h-[50px]"
+              alt="raynian logo"
+            />
             <h1 className="text-[51px]">Welcome Back!</h1>
             {errorMsg && <p className="text-center text-red-500">{errorMsg}</p>}
             <div className="w-full flex flex-col items-center max-w-[400px]">

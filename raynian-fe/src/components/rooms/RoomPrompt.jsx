@@ -14,14 +14,14 @@ const RoomPrompt = () => {
   console.log(userInfo);
 
   const dispatch = useDispatch();
-  const { roomID, user } = useSelector((state) => state.room);
+  const { roomID } = useSelector((state) => state.room);
 
   const handleRoomInputChange = (event) => {
     setRoomId(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (roomId.length != 0) {
+    if (roomId.length !== 0) {
       console.log("test");
       socketServerConnect();
       handleJoinRoom();
@@ -46,12 +46,12 @@ const RoomPrompt = () => {
   };
 
   useEffect(() => {
-    if (roomId.length != 0)
+    if (roomId.length !== 0)
       joinRoom({
         room: roomID,
         user: userDetails,
       });
-  }, [userDetails]);
+  }, [userDetails, roomId, roomID]);
 
   return (
     <div className="py-10 px-[30px] flex flex-col bg-white rounded-3xl">

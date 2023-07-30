@@ -1,6 +1,5 @@
 import io from "socket.io-client";
-import { useDispatch } from "react-redux";
-import { connectToRoom, updateParticipants } from "../../slices/roomSlice";
+import { updateParticipants } from "../../slices/roomSlice";
 import store from "../../store";
 
 let socket = null;

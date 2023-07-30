@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSignupMutation } from "../../slices/usersApi";
 import { setCredentials } from "../../slices/authSlice";
-import { FaEye, FaEyeSlash, FaApple, BiRefresh } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FiRefreshCcw } from "react-icons/fi";
 
@@ -41,13 +41,13 @@ function SignupPage() {
   const [dupEmailCheck, setDupEmailCheck] = useState({});
 
   // slices
-  const [signup, { isLoading }] = useSignupMutation();
+  const [signup] = useSignupMutation();
 
   useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   // Generate username logic
   const generateUserName = async () => {
