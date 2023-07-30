@@ -4,7 +4,7 @@ import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch } from "react-redux";
 import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
 
-const RoomField = () => {
+const RoomButton = () => {
   const [user, setUser] = useState({ username: "", roomId: null });
   const { toggleRoomPrompt } = useContext(ModalContext);
 
@@ -49,4 +49,4 @@ const RoomField = () => {
   );
 };
 
-export default RoomField;
+export default RoomButton;

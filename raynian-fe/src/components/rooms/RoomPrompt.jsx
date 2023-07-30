@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
+import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 
 const RoomPrompt = () => {
   const [user, setUser] = useState({ username: "", roomId: null });
+  const { userInfo } = useSelector((state) => state.auth);
+  let username = generateUniqueUserNoCheck();
+  console.log(userInfo);
+  console.log(username);
 
   const dispatch = useDispatch();
 
@@ -14,9 +19,6 @@ const RoomPrompt = () => {
   };
 
   const handleSubmit = () => {
-    // You can perform any additional logic here if needed before updating the state.
-    // For now, we are simply updating the state with the entered username.
-    // You may want to add validation or other checks depending on your use case.
     if (user.username.length > 1 && user.roomId != null) {
       console.log("test");
       socketServerConnect(user);
@@ -31,17 +33,30 @@ const RoomPrompt = () => {
       return;
     }
 
-    // Dispatch the actions to update the roomID and add the participant
     dispatch(setUserInfo(username));
     dispatch(connectToRoom(roomId));
   };
   return (
     <div
-      className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
+      className="py-10 px-[30px] flex flex-col bg-white rounded-3xl"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible h-[400px] flex items-center">
-        {/* <input
+      <div className="text-center text-2xl mb-4">Join a Room</div>
+      <div className="text-center">
+        {userInfo === null ? (
+          <>
+            You are not signed in, Joining as{" "}
+            <span className="italic text-lg font-medium text-blue-700">
+              {username}
+            </span>{" "}
+            instead
+          </>
+        ) : (
+          <>Joining as "{userInfo.user.username}"</>
+        )}
+      </div>
+      <div>
+        <input
           type="text"
           name="username"
           value={user.username}
@@ -55,8 +70,8 @@ const RoomPrompt = () => {
           value={user.roomId}
           onChange={handleInputChange}
           placeholder="Enter room ID"
-          className="border border-gray-400 px-4 py-2 rounded-md ml-2"
-        /> */}
+          className="border border-gray-400 px-4 py-2 rounded-md"
+        />
       </div>
     </div>
   );

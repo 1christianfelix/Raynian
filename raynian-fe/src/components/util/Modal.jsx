@@ -12,32 +12,20 @@ export default function Modal(props) {
 
   let content = null;
 
-  useEffect(
-    (e) => {
-      if (mouseDown === mouseUp && mouseDown === "center-modal-container") {
-        setType(null);
-        setMouseDown("a");
-        setMouseUp("b");
-      }
-    },
-    [mouseDown, mouseUp, setType]
-  );
+  const handleContent = () => {
+    setType(null);
+    console.log("testting");
+  };
 
   if (type) {
     content = (
-      <div
-        className="center-modal-container"
-        onMouseDown={(e) => {
-          setMouseDown(e.target.className);
-        }}
-        onMouseUp={(e) => {
-          setMouseUp(e.target.className);
-        }}
-      >
-        {type === "login" && <LoginPage />}
-        {type === "signup" && <SignupPage />}
-        {type === "afk" && <AfkCheckPage />}
-        {type === "roomPrompt" && <RoomPrompt />}
+      <div className="absolute h-screen w-screen" onClick={handleContent}>
+        <div className="center-modal-container">
+          {type === "login" && <LoginPage />}
+          {type === "signup" && <SignupPage />}
+          {type === "afk" && <AfkCheckPage />}
+          {type === "roomPrompt" && <RoomPrompt />}
+        </div>
       </div>
     );
   }

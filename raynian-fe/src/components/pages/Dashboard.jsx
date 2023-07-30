@@ -10,7 +10,7 @@ import Draggable from "react-draggable";
 import { BGCustomContext } from "../../context/BGCustomContext";
 
 import ChatBox from "../rooms/Chatbox";
-import RoomField from "../rooms/RoomField";
+import RoomButton from "../rooms/RoomButton";
 
 const Dashboard = () => {
   const profiles = [sushi, avocado, boba]; // Add more profiles if needed
@@ -25,7 +25,7 @@ const Dashboard = () => {
           </TimerProvider>
         </div>
         {/* Create a username field and button here */}
-        <RoomField />
+        <RoomButton />
         <ChatBox />
       </div>
     </div>
