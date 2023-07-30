@@ -16,13 +16,17 @@ export default function Modal(props) {
 
   if (type) {
     content = (
-      <div className="absolute h-screen w-screen" onMouseDown={handleContent}>
-        <div className="center-modal-container">
+      <div className="absolute h-screen w-[100%] flex items-center justify-center">
+        <div className="z-[60]">
           {type === "login" && <LoginPage />}
           {type === "signup" && <SignupPage />}
           {type === "afk" && <AfkCheckPage />}
           {type === "roomPrompt" && <RoomPrompt />}
         </div>
+        <div
+          className="absolute z-50 h-screen w-screen cursor-pointer backdrop-blur-sm bg-black bg-opacity-50"
+          onClick={handleContent}
+        ></div>
       </div>
     );
   }

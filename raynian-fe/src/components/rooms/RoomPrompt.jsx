@@ -54,10 +54,7 @@ const RoomPrompt = () => {
   }, [userDetails]);
 
   return (
-    <div
-      className="py-10 px-[30px] flex flex-col bg-white rounded-3xl"
-      onMouseDown={(e) => e.stopPropagation()}
-    >
+    <div className="py-10 px-[30px] flex flex-col bg-white rounded-3xl">
       <div className="text-center text-2xl mb-4">Join a Room</div>
       <div className="text-center">
         {userInfo === null ? (
