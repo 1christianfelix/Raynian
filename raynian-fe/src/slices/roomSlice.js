@@ -33,7 +33,7 @@ const roomSlice = createSlice({
     // Reducer for updating the participants
     updateParticipants: (state, action) => {
       // The payload should be an array of participant names
-      state.participants = [...state.participants, action.payload];
+      state.participants = action.payload;
     },
   },
 });

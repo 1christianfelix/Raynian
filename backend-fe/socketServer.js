@@ -18,7 +18,10 @@ const registerSocketServer = (server) => {
       socket.join(data.room);
       console.log(`User with ID: ${socket.id} joined room: ${data.room}`);
       joinRoomHandler(data);
-      io.to(data.room).emit("room-participants", data.user);
+      io.to(data.room).emit(
+        "room-participants",
+        socketStore.roomsLive.getRoomParticipants(data.room)
+      );
     });
 
     socket.on("disconnect", () => {

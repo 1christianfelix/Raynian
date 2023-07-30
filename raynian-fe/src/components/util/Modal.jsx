@@ -3,6 +3,7 @@ import { ModalContext } from "../../context/ModalContext";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import AfkCheckPage from "../pages/AfkCheckPage";
+import RoomPrompt from "../rooms/RoomPrompt";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -36,6 +37,7 @@ export default function Modal(props) {
         {type === "login" && <LoginPage />}
         {type === "signup" && <SignupPage />}
         {type === "afk" && <AfkCheckPage />}
+        {type === "roomPrompt" && <RoomPrompt />}
       </div>
     );
   }
