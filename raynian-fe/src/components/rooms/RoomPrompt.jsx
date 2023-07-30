@@ -1,41 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
 import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
+import { joinRoom } from "../socket/socketConnection";
 
 const RoomPrompt = () => {
-  const [user, setUser] = useState({ username: "", roomId: null });
+  const [roomId, setRoomId] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
-  let username = generateUniqueUserNoCheck();
+  const [userDetails, setUserDetails] = useState(null);
+  const usernameRef = useRef(generateUniqueUserNoCheck());
+
   console.log(userInfo);
-  console.log(username);
 
   const dispatch = useDispatch();
+  const { roomID, user } = useSelector((state) => state.room);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUser((prevUser) => ({ ...prevUser, [name]: value }));
+  const handleRoomInputChange = (event) => {
+    setRoomId(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (user.username.length > 1 && user.roomId != null) {
+    if (roomId.length != 0) {
       console.log("test");
-      socketServerConnect(user);
+      socketServerConnect();
       handleJoinRoom();
     }
   };
 
-  const handleJoinRoom = () => {
-    const { username, roomId } = user;
-
-    if (username.trim() === "" || roomId.trim() === "") {
-      return;
+  const handleJoinRoom = async () => {
+    if (userInfo == null) {
+      setUserDetails({ _id: "guest", username: usernameRef.current });
+    } else {
+      setUserDetails({
+        _id: userInfo.user._id,
+        username: userInfo.user.username,
+      });
     }
+    // Wrap the dispatch calls in Promises
+    const setUserInfoPromise = dispatch(setUserInfo(userDetails));
+    const connectToRoomPromise = dispatch(connectToRoom(roomId));
 
-    dispatch(setUserInfo(username));
-    dispatch(connectToRoom(roomId));
+    // Wait for both Promises to resolve using Promise.all
+    await Promise.all([setUserInfoPromise, connectToRoomPromise]);
   };
+
+  useEffect(() => {
+    if (roomId.length != 0)
+      joinRoom({
+        room: roomID,
+        user: userDetails,
+      });
+  }, [userDetails]);
+
   return (
     <div
       className="py-10 px-[30px] flex flex-col bg-white rounded-3xl"
@@ -45,33 +62,35 @@ const RoomPrompt = () => {
       <div className="text-center">
         {userInfo === null ? (
           <>
-            You are not signed in, Joining as{" "}
+            You are not signed in. Joining as{" "}
             <span className="italic text-lg font-medium text-blue-700">
-              {username}
+              {usernameRef.current}
             </span>{" "}
-            instead
           </>
         ) : (
-          <>Joining as "{userInfo.user.username}"</>
+          <>
+            Joining as{" "}
+            <span className="italic text-lg font-medium text-blue-700">
+              {userInfo.user.username}
+            </span>
+          </>
         )}
       </div>
-      <div>
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          onChange={handleInputChange}
-          placeholder="Enter your username"
-          className="border border-gray-400 px-4 py-2 rounded-md"
-        />
+      <div className="flex items-center justify-center">
         <input
           type="text"
           name="roomId"
-          value={user.roomId}
-          onChange={handleInputChange}
+          value={roomId}
+          onChange={handleRoomInputChange}
           placeholder="Enter room ID"
           className="border border-gray-400 px-4 py-2 rounded-md"
         />
+        <button
+          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+          onClick={handleSubmit}
+        >
+          Connect
+        </button>
       </div>
     </div>
   );

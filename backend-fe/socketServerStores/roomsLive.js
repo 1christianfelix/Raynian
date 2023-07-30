@@ -6,6 +6,7 @@ const joinRoom = ({ socketId, room, user }) => {
   } else {
     roomsLive[room] = { participants: [user] };
   }
+  console.log(user);
   console.log(roomsLive);
 };
 

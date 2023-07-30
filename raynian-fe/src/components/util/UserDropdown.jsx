@@ -141,7 +141,7 @@ export default function UserDropdown(props) {
               checked={theme === "dark"}
             />
             <label
-              for="check"
+              htmlFor="check"
               className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-slate-700 rounded-2xl cursor-pointer"
             >
               <FaRegMoon className=" text-yellow-400 dark:text-yellow-400" />

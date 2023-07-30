@@ -7,14 +7,11 @@ import RoomPrompt from "../rooms/RoomPrompt";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
-  const [mouseDown, setMouseDown] = useState("a");
-  const [mouseUp, setMouseUp] = useState("b");
 
   let content = null;
 
   const handleContent = () => {
     setType(null);
-    console.log("testting");
   };
 
   if (type) {

@@ -5,7 +5,7 @@ import store from "../../store";
 
 let socket = null;
 
-export const socketServerConnect = (user) => {
+export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
   console.log("test");
 
@@ -16,6 +16,7 @@ export const socketServerConnect = (user) => {
 };
 
 export const joinRoom = (data) => {
+  console.log("joinRoom");
   console.log(data);
   socket.emit("join-room", data);
 };
