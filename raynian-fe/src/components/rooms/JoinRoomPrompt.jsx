@@ -5,7 +5,7 @@ import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
 import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 import { joinRoom } from "../socket/socketConnection";
 
-const RoomPrompt = () => {
+const JoinRoomPrompt = () => {
   const [roomId, setRoomId] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
   const [userDetails, setUserDetails] = useState(null);
@@ -51,7 +51,7 @@ const RoomPrompt = () => {
         room: roomID,
         user: userDetails,
       });
-  }, [userDetails, roomId, roomID]);
+  }, [userDetails]);
 
   return (
     <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
@@ -93,4 +93,4 @@ const RoomPrompt = () => {
   );
 };
 
-export default RoomPrompt;
+export default JoinRoomPrompt;

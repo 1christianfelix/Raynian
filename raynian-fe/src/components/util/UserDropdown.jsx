@@ -61,7 +61,7 @@ export default function UserDropdown(props) {
     exit: { opacity: 0, transition: { duration: 0.05 } },
   };
 
-  if (userInfo) {
+  if (userInfo !== null && userInfo.user._id !== "guest") {
     content = (
       <>
         <motion.button

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {},
   roomID: null,
-  chatLog: [],
+  chat: [],
   participants: [],
 };
 
@@ -20,9 +20,8 @@ const roomSlice = createSlice({
       state.roomID = action.payload;
     },
     // Reducer for updating the chat log
-    updateChatLog: (state, action) => {
-      // The payload should be an object containing the message details (e.g., { id, sender, text, timestamp })
-      state.chatLog = action.payload;
+    updateChat: (state, action) => {
+      state.chat = [...state.chat, action.payload];
     },
 
     // Reducer for updating the participants
@@ -33,6 +32,6 @@ const roomSlice = createSlice({
   },
 });
 
-export const { connectToRoom, updateChatLog, updateParticipants, setUserInfo } =
+export const { connectToRoom, updateChat, updateParticipants, setUserInfo } =
   roomSlice.actions;
 export default roomSlice.reducer;

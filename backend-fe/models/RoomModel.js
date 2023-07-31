@@ -16,21 +16,18 @@ const roomSettingsSchema = new Schema({
 mongoose.model("RoomSettings", roomSettingsSchema);
 
 const roomSchema = new Schema({
-  name: {
+  roomId: {
     type: String,
     required: true,
   },
   public: {
     type: Boolean,
-    required: true,
-  },
-  isLive: {
-    type: Boolean,
+    default: false,
     required: true,
   },
   roomSettings: { type: mongoose.Schema.Types.ObjectId, ref: "RoomSettings" },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   whiteList: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 

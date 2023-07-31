@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../../slices/authSlice";
 import { TimerProvider } from "../../context/TimerContext";
 import Timer from "../util/Timer";
 // import sushi from "../../assets/temp_pfp/sushi.jpg";
 // import boba from "../../assets/temp_pfp/boba.jpg";
 // import avocado from "../../assets/temp_pfp/avocado.jpg";
 
-import ChatBox from "../rooms/Chatbox";
+import Chat from "../rooms/Chat";
 import RoomButton from "../rooms/RoomButton";
 
 const Dashboard = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const usernameRef = useRef(generateUniqueUserNoCheck());
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userInfo === null) {
+      dispatch(
+        setCredentials({
+          user: { _id: "guest", username: usernameRef.current },
+        })
+      );
+    }
+  });
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
@@ -20,7 +37,7 @@ const Dashboard = () => {
         </div>
         {/* Create a username field and button here */}
         <RoomButton />
-        <ChatBox />
+        <Chat />
       </div>
     </div>
   );
