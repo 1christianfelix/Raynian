@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/no-custom-classname */
+/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 import React, { useState, useEffect, useContext } from "react";
 import GradientSlider from "./GradientSlider";
 import AnglePicker from "./AnglePicker";
@@ -140,15 +142,15 @@ const BgCustomizerMenu = () => {
   return (
     <ColorPickerStatusProvider>
       <div
-        className="flex justify-center items-center absolute"
+        className="absolute flex items-center justify-center"
         style={
           {
             // background: bg,
           }
         }
       >
-        <div className="p-4 pt-8 flex flex-col bg-yellow-200 bg-opacity-70 shadow-2xl shadow-[rgba(0,0,0,.5)] rounded-3xl">
-          <div className="flex justify-center items-center gap-5">
+        <div className="flex flex-col rounded-3xl bg-yellow-200 bg-opacity-70 p-4  pt-8 shadow-[rgba(0,0,0,.5)]">
+          <div className="flex items-center justify-center gap-5">
             <GradientSlider
               bgProperties={bgProperties}
               setBGProperties={setBGProperties}
@@ -161,12 +163,12 @@ const BgCustomizerMenu = () => {
           </div>
 
           <motion.div
-            className="flex justify-center mt-4"
+            className="mt-4 flex justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
             <button
-              className="p-2 bg-gray-500 text-white rounded-full px-6 flex items-center shadow-md"
+              className="flex items-center rounded-full bg-gray-500 p-2 px-6 text-white shadow-md"
               onClick={() => setShowForm(!showForm)}
             >
               Advanced Settings
@@ -185,8 +187,8 @@ const BgCustomizerMenu = () => {
             transition={{ duration: 0.5 }}
             style={{ overflow: "hidden", paddingBottom: "2rem" }}
           >
-            <div className="settings-form flex justify-center mt-8 px-5 space-x-5">
-              <div className="flex flex-col gap-4 text-md font-semibold">
+            <div className="settings-form mt-8 flex justify-center space-x-5 px-5">
+              <div className="flex flex-col gap-4 font-semibold">
                 <h2 className="text-xl">Handle1</h2>
 
                 <div className="flex items-center ">
@@ -203,7 +205,7 @@ const BgCustomizerMenu = () => {
                       handleColorBlur(1, e.target.value);
                     }}
                     // onBlur={(e) => handleColorBlur(1, e.target.value)}
-                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input rounded bg-white p-2 text-sm text-black shadow-inner focus:outline-none"
                   />
                 </div>
 
@@ -221,12 +223,12 @@ const BgCustomizerMenu = () => {
                       handleColorBlur(1, e.target.value);
                     }}
                     // onBlur={(e) => handleColorBlur(1, e.target.value)}
-                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input rounded bg-white p-2 text-sm text-black shadow-inner focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 text-md font-semibold">
+              <div className="flex flex-col gap-4 font-semibold">
                 <h2 className="text-xl">Handle2</h2>
 
                 <div className="flex items-center ">
@@ -243,7 +245,7 @@ const BgCustomizerMenu = () => {
                       handleColorBlur(2, e.target.value);
                     }}
                     // onBlur={(e) => handleColorBlur(2, e.target.value)}
-                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input rounded bg-white p-2 text-sm text-black shadow-inner focus:outline-none"
                   />
                 </div>
 
@@ -261,13 +263,13 @@ const BgCustomizerMenu = () => {
                       handleColorBlur(2, e.target.value);
                     }}
                     // onBlur={(e) => handleColorBlur(2, e.target.value)}
-                    className="slider-input text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input rounded bg-white p-2 text-sm text-black shadow-inner focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 text-md font-semibold">
-                <h2 className="text-xl mb-3">Angle</h2>
+              <div className="flex flex-col gap-4 font-semibold">
+                <h2 className="mb-3 text-xl">Angle</h2>
 
                 <div className="flex items-center space-x-2">
                   <label htmlFor="angle" className="font-bold text-gray-700">
@@ -280,7 +282,7 @@ const BgCustomizerMenu = () => {
                     onChange={(e) =>
                       handleInputChange("", "angleVal", e.target.value)
                     }
-                    className="slider-input w-[60px] text-sm focus:outline-none rounded bg-white text-black shadow-inner p-2"
+                    className="slider-input w-[60px] rounded bg-white p-2 text-sm text-black shadow-inner focus:outline-none"
                   />
                 </div>
               </div>

@@ -4,7 +4,7 @@ import { DarkLightContext } from "../../context/DarkLightContext";
 import { FaRegMoon } from "react-icons/fa";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { useLogoutMutation } from "../../slices/usersApiSlice";
+import { useLogoutMutation } from "../../slices/usersApi";
 import { removeCredentials } from "../../slices/authSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -65,28 +65,28 @@ export default function UserDropdown(props) {
     content = (
       <>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
           {...dropdownTextAnimation}
         >
           Profile
         </motion.button>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
           {...dropdownTextAnimation}
         >
           Settings
         </motion.button>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
           {...dropdownTextAnimation}
         >
           Stats
         </motion.button>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={logoutHandler}
           {...dropdownTextAnimation}
         >
@@ -98,7 +98,7 @@ export default function UserDropdown(props) {
     content = (
       <>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={() => {
             toggleLogin();
             toggleDropdown();
@@ -108,7 +108,7 @@ export default function UserDropdown(props) {
           Login
         </motion.button>
         <motion.button
-          className="py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={() => {
             toggleSignup();
             toggleDropdown();
@@ -125,28 +125,28 @@ export default function UserDropdown(props) {
     <AnimatePresence>
       {openDropdown && (
         <motion.div
-          className={`absolute right-[5px] top-[55px] rounded-[8px]  bg-white drop-shadow-md dark:bg-slate-900 dark:text-white transition`}
+          className={`absolute right-[5px] top-[55px] rounded-[8px]  bg-white drop-shadow-md transition dark:bg-slate-900 dark:text-white`}
           onClick={(e) => e.stopPropagation()}
           ref={dropdownRef}
         >
           <motion.div className="flex flex-col" {...dropdownAnimation}>
             {content}
           </motion.div>
-          <motion.div className="py-[5px] px-[20px]" {...dropdownTextAnimation}>
+          <motion.div className="px-[20px] py-[5px]" {...dropdownTextAnimation}>
             <input
               type="checkbox"
               id="check"
-              className="mode-checkbox opacity-0 absolute"
+              className="mode-checkbox absolute opacity-0"
               onChange={toggleDark}
               checked={theme === "dark"}
             />
             <label
-              for="check"
-              className="mode-label relative flex justify-between items-center p-[5px] h-[26px] w-[60px] bg-slate-700 rounded-2xl cursor-pointer"
+              htmlFor="check"
+              className="mode-label relative flex h-[26px] w-[60px] cursor-pointer items-center justify-between rounded-2xl bg-slate-700 p-[5px]"
             >
               <FaRegMoon className=" text-yellow-400 dark:text-yellow-400" />
               <BsFillBrightnessHighFill className=" text-yellow-400 dark:text-yellow-400" />
-              <div className="mode-ball absolute bg-white top-[2px] left-[2px] w-[22px] h-[22px] rounded-full translate-x-0 transition-transform duration-150 ease-linear"></div>
+              <div className="mode-ball absolute left-[2px] top-[2px] h-[22px] w-[22px] translate-x-0 rounded-full bg-white transition-transform duration-150 ease-linear"></div>
             </label>
           </motion.div>
         </motion.div>

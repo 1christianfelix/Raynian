@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import React, { useContext } from "react";
 import { BGCustomContext } from "../../../context/BGCustomContext";
 import GradientSliderHandle from "./GradientSliderHandle";
@@ -7,7 +8,7 @@ const GradientSlider = () => {
 
   return (
     <div className="scale-100">
-      <div className="range-slider w-[520px] relative rounded-full border border-white bg-gray-700 flex h-[22px]">
+      <div className="range-slider relative flex h-[22px] w-[520px] rounded-full border border-white bg-gray-700">
         <GradientSliderHandle id={"handle1"} z={1} />
         <GradientSliderHandle id={"handle2"} />
       </div>

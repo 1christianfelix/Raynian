@@ -29,7 +29,6 @@ function App() {
             className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
             style={{ background: bg }}
           >
-            {/* <Chat></Chat> */}
             <Modal />
             <Nav />
             <Routes>

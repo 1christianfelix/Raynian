@@ -70,17 +70,17 @@ export default function Timer() {
 
   return (
     <>
-      <p className="text-3xl select-none">{message}</p>
-      <div className="font-inter flex flex-row justify-center relative select-none">
+      <p className="select-none text-3xl">{message}</p>
+      <div className="font-inter relative flex select-none flex-row justify-center">
         <p className="text-[128px] leading-tight">
           {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}
           :
           {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}
         </p>
-        <div className="flex flex-col justify-center absolute bottom-[35px] right-[-15px]">
+        <div className="absolute bottom-[35px] right-[-15px] flex flex-col justify-center">
           {!isRunning && (
             <div
-              className="mx-[5px] my-[5px] absolute bottom-[58px] flex flex-row"
+              className="absolute bottom-[58px] m-[5px] flex flex-row"
               onClick={() => {
                 startTimer();
                 setPlayHovered(false);
@@ -88,7 +88,7 @@ export default function Timer() {
             >
               <IoPlayOutline
                 size={22}
-                className="timer-button text-green-700 cursor-pointer"
+                className="timer-button cursor-pointer text-green-700"
                 onMouseEnter={() => setPlayHovered(true)}
                 onMouseLeave={() => setPlayHovered(false)}
               />
@@ -99,7 +99,7 @@ export default function Timer() {
                     {...tooltipAnimation}
                   >
                     <motion.p
-                      className="whitespace-nowrap text-white text-xs align"
+                      className="align whitespace-nowrap text-xs text-white"
                       {...tooltipTextAnimation}
                     >
                       Start Timer
@@ -111,7 +111,7 @@ export default function Timer() {
           )}
           {isRunning && (
             <div
-              className="mx-[5px] my-[5px] absolute bottom-[58px]"
+              className="absolute bottom-[58px] m-[5px]"
               onClick={() => {
                 pauseTimer();
                 setPauseHovered(false);
@@ -119,7 +119,7 @@ export default function Timer() {
             >
               <PiPauseLight
                 size={20}
-                className="timer-button text-slate-700 cursor-pointer dark:text-white"
+                className="timer-button cursor-pointer text-slate-700 dark:text-white"
                 onMouseEnter={() => setPauseHovered(true)}
                 onMouseLeave={() => setPauseHovered(false)}
               />
@@ -130,7 +130,7 @@ export default function Timer() {
                     {...tooltipAnimation}
                   >
                     <motion.p
-                      className="whitespace-nowrap text-white text-xs align"
+                      className="align whitespace-nowrap text-xs text-white"
                       {...tooltipTextAnimation}
                     >
                       Pause Timer
@@ -141,10 +141,10 @@ export default function Timer() {
             </div>
           )}
           {isWork && (
-            <div className="mx-[5px] my-[5px]" onClick={stopTimer}>
+            <div className="m-[5px]" onClick={stopTimer}>
               <IoStopOutline
                 size={20}
-                className="timer-button text-red-700 cursor-pointer"
+                className="timer-button cursor-pointer text-red-700"
                 onMouseEnter={() => setStopHovered(true)}
                 onMouseLeave={() => {
                   setStopHovered(false);
@@ -157,7 +157,7 @@ export default function Timer() {
                     {...tooltipAnimation}
                   >
                     <motion.p
-                      className="whitespace-nowrap text-white text-xs align"
+                      className="align whitespace-nowrap text-xs text-white"
                       {...tooltipTextAnimation}
                     >
                       Stop Timer
@@ -168,10 +168,10 @@ export default function Timer() {
             </div>
           )}
           {isBreak && (
-            <div className="mx-[5px] my-[5px]" onClick={stopTimer}>
+            <div className="m-[5px]" onClick={stopTimer}>
               <IoPlaySkipForwardOutline
                 size={20}
-                className="timer-button text-slate-700 cursor-pointer dark:text-white"
+                className="timer-button cursor-pointer text-slate-700 dark:text-white"
                 onMouseEnter={() => setSkipHovered(true)}
                 onMouseLeave={() => setSkipHovered(false)}
                 onClick={() => {
@@ -187,7 +187,7 @@ export default function Timer() {
                     {...tooltipAnimation}
                   >
                     <motion.p
-                      className="whitespace-nowrap text-white text-xs align"
+                      className="align whitespace-nowrap text-xs text-white"
                       {...tooltipTextAnimation}
                     >
                       Skip Break
@@ -198,7 +198,7 @@ export default function Timer() {
             </div>
           )}
           <div
-            className="mx-[5px] my-[5px] relative"
+            className="relative m-[5px]"
             onClick={() => {
               toggleSettings();
               setSettingsHovered(false);
@@ -207,7 +207,7 @@ export default function Timer() {
           >
             <IoSettingsOutline
               size={20}
-              className="timer-button text-slate-700 cursor-pointer dark:text-white"
+              className="timer-button cursor-pointer text-slate-700 dark:text-white"
               onMouseEnter={() => setSettingsHovered(true)}
               onMouseLeave={() => setSettingsHovered(false)}
             />
@@ -218,7 +218,7 @@ export default function Timer() {
                   {...tooltipAnimation}
                 >
                   <motion.p
-                    className="whitespace-nowrap text-white text-xs align"
+                    className="align whitespace-nowrap text-xs text-white"
                     {...tooltipTextAnimation}
                   >
                     Settings
@@ -237,7 +237,7 @@ export default function Timer() {
         </div>
       </div>
 
-      <p className="text-3xl select-none">
+      <p className="select-none text-3xl">
         Sessions completed today:<span className="text-3xl"> 2</span>
       </p>
     </>

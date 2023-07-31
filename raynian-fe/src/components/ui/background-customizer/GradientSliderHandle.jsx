@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { ColorPickerStatusContext } from "./ColorPickerStatusContext";
 import { BGCustomContext } from "../../../context/BGCustomContext";
@@ -87,7 +88,7 @@ const GradientSliderHandle = ({ id }) => {
     >
       <div className="bg-customizer-container absolute ">
         <div
-          className={`color-selector-container h-[255px] w-[255px] absolute translate-y-[-318px] translate-x-[-115px] ${
+          className={`color-selector-container absolute h-[255px] w-[255px] translate-x-[-115px] translate-y-[-318px] ${
             !isPickerVisible && "hidden"
           }`}
         >
@@ -122,7 +123,7 @@ const GradientSliderHandle = ({ id }) => {
           )}
         </div>
         <div
-          className={`handle h-5 w-5 rounded-full border border-white drop-shadow-sm flex items-center justify-center bg-red-500 ${
+          className={`handle flex h-5 w-5 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
             isDragging && "scale-110"
           } ${active && "scale-110"}`}
           style={{

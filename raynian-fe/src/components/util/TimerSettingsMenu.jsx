@@ -40,9 +40,9 @@ export default function TimerSettingsMenu(props) {
 
   if (type === "work") {
     content = (
-      <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
+      <div className="absolute left-[115px] top-[0px] rounded-md bg-white text-sm drop-shadow-md dark:bg-slate-700">
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600 py"
+          className="py whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setWorkTime("60 min");
@@ -51,7 +51,7 @@ export default function TimerSettingsMenu(props) {
           60 min
         </p>
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600over:bg-gray-200 dark:hover:bg-gray-600"
+          className="dark:hover:bg-gray-600over:bg-gray-200 whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setWorkTime("45 min");
@@ -60,7 +60,7 @@ export default function TimerSettingsMenu(props) {
           45 min
         </p>
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setWorkTime("30 min");
@@ -73,9 +73,9 @@ export default function TimerSettingsMenu(props) {
   }
   if (type === "break") {
     content = (
-      <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px]">
+      <div className="absolute left-[115px] top-[0px] rounded-md bg-white text-sm drop-shadow-md dark:bg-slate-700">
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setBreakTime("15 min");
@@ -84,7 +84,7 @@ export default function TimerSettingsMenu(props) {
           15 min
         </p>
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setBreakTime("10 min");
@@ -93,7 +93,7 @@ export default function TimerSettingsMenu(props) {
           10 min
         </p>
         <p
-          className="whitespace-nowrap py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
             setBreakTime("5 min");
@@ -106,7 +106,7 @@ export default function TimerSettingsMenu(props) {
   }
   if (type === "alarm") {
     content = (
-      <div className="bg-white drop-shadow-md rounded-md text-sm absolute dark:bg-slate-700 left-[115px] top-[0px] overflow-auto w-[250px] h-[250px]">
+      <div className="absolute left-[115px] top-[0px] h-[250px] w-[250px] overflow-auto rounded-md bg-white text-sm drop-shadow-md dark:bg-slate-700">
         <input
           type="text"
           value={search}
@@ -116,7 +116,7 @@ export default function TimerSettingsMenu(props) {
         />
         <div className="grid grid-cols-4 gap-4 p-4">
           {backgroundList.map((item) => (
-            <div key={item.id} className="bg-slate-300 w-[50px] h-[50px]">
+            <div key={item.id} className="h-[50px] w-[50px] bg-slate-300">
               <p>a</p>
             </div>
           ))}

@@ -1,41 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import AfkCheckPage from "../pages/AfkCheckPage";
+import RoomPrompt from "../rooms/RoomPrompt";
+import { RxCross1 } from "react-icons/rx";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
-  const [mouseDown, setMouseDown] = useState("a");
-  const [mouseUp, setMouseUp] = useState("b");
 
   let content = null;
 
-  useEffect(
-    (e) => {
-      if (mouseDown === mouseUp && mouseDown === "center-modal-container") {
-        setType(null);
-        setMouseDown("a");
-        setMouseUp("b");
-      }
-    },
-    [mouseDown, mouseUp, setType]
-  );
+  const handleContent = () => {
+    setType(null);
+  };
 
   if (type) {
     content = (
-      <div
-        className="center-modal-container"
-        onMouseDown={(e) => {
-          setMouseDown(e.target.className);
-        }}
-        onMouseUp={(e) => {
-          setMouseUp(e.target.className);
-        }}
-      >
-        {type === "login" && <LoginPage />}
-        {type === "signup" && <SignupPage />}
-        {type === "afk" && <AfkCheckPage />}
+      <div className="absolute flex h-screen w-[100%] items-center justify-center">
+        <div className="relative z-[60]">
+          <div className="absolute right-4 top-4">
+            <div onClick={handleContent} className="cursor-pointer">
+              <RxCross1 />
+            </div>
+          </div>
+          {type === "login" && <LoginPage />}
+          {type === "signup" && <SignupPage />}
+          {type === "afk" && <AfkCheckPage />}
+          {type === "roomPrompt" && <RoomPrompt />}
+        </div>
+        <div
+          className="absolute z-50 h-screen w-screen bg-black bg-opacity-50 backdrop-blur-sm"
+          onClick={handleContent}
+        ></div>
       </div>
     );
   }

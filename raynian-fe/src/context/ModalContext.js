@@ -19,6 +19,10 @@ export const ModalProvider = ({ children }) => {
     setType("afk");
   };
 
+  const toggleRoomPrompt = () => {
+    setType("roomPrompt");
+  };
+
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -42,6 +46,7 @@ export const ModalProvider = ({ children }) => {
         toggleLogin,
         toggleSignup,
         toggleAFK,
+        toggleRoomPrompt,
         setType,
       }}
     >

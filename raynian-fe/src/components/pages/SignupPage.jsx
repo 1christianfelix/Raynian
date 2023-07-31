@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useSignupMutation } from "../../slices/usersApiSlice";
+import { useSignupMutation } from "../../slices/usersApi";
 import { setCredentials } from "../../slices/authSlice";
-import { FaEye, FaEyeSlash, FaApple, BiRefresh } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FiRefreshCcw } from "react-icons/fi";
 
@@ -41,13 +41,13 @@ function SignupPage() {
   const [dupEmailCheck, setDupEmailCheck] = useState({});
 
   // slices
-  const [signup, { isLoading }] = useSignupMutation();
+  const [signup] = useSignupMutation();
 
   useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   // Generate username logic
   const generateUserName = async () => {
@@ -169,23 +169,18 @@ function SignupPage() {
     confirmPasswordMotion.transition = { type: "stiff", stiffness: 100 };
   }
 
-
-
   return (
-    <div
-      className="py-10 flex flex-row bg-white w-[475px] rounded-3xl"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <div className="pl-[60px] pr-[60px] w-full mx-auto mb-0 overflow-visible">
+    <div className="flex w-[475px] flex-row rounded-3xl bg-white py-10">
+      <div className="mx-auto mb-0 w-full overflow-visible px-[60px]">
         <div className="w-full">
-          <div className="w-full max-w-[960px] mx-auto mt-0 mb-0">
+          <div className="mx-auto my-0 w-full max-w-[960px]">
             <div className="flex flex-col items-center">
-              <h1 className="text-[51px] mb-[20px] font-light">Sign Up</h1>
-              <div className="w-full flex flex-col items-center max-w-[400px]">
+              <h1 className="mb-[20px] text-[51px] font-light">Sign Up</h1>
+              <div className="flex w-full max-w-[400px] flex-col items-center">
                 <div className="flex w-full flex-col">
                   <div>
                     {errors && (
-                      <p className="text-red-500 mb-[20px] text-center">
+                      <p className="mb-[20px] text-center text-red-500">
                         {errors.error}
                       </p>
                     )}
@@ -193,7 +188,7 @@ function SignupPage() {
                     <form onSubmit={submitHandler}>
                       <div className="w-full">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none"
+                          className="pointer-events-none absolute text-gray-400"
                           animate={usernameMotion.animation}
                           transition={usernameMotion.transition}
                         >
@@ -203,7 +198,7 @@ function SignupPage() {
                           <input
                             type="text"
                             value={username}
-                            className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                            className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                             onChange={(e) => {
                               setUsername(e.target.value);
                               handleUserDuplicate(e.target.value);
@@ -218,17 +213,17 @@ function SignupPage() {
                         </div>
                       </div>
                       {username.length > 1 && dupUserCheck.error ? (
-                        <p className="text-green-500 text-[12px] absolute">
+                        <p className="absolute text-[12px] text-green-500">
                           {dupUserCheck.msg}
                         </p>
                       ) : (
-                        <p className="text-red-500 text-[12px] absolute">
+                        <p className="absolute text-[12px] text-red-500">
                           {dupUserCheck.msg}
                         </p>
                       )}
-                      <div className="w-full mt-[35px]">
+                      <div className="mt-[35px] w-full">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none translate-x-1"
+                          className="pointer-events-none absolute translate-x-1 text-gray-400"
                           animate={emailMotion.animation}
                           transition={emailMotion.transition}
                         >
@@ -237,26 +232,26 @@ function SignupPage() {
                         <input
                           type="text"
                           value={email}
-                          className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                          className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                           onChange={(e) => {
                             setEmail(e.target.value);
                             handleEmailDuplicate(e.target.value);
                           }}
                         />
                         {dupEmailCheck.error ? (
-                          <p className="text-green-500 text-[12px] absolute">
+                          <p className="absolute text-[12px] text-green-500">
                             {dupEmailCheck.msg}
                           </p>
                         ) : (
-                          <p className="text-red-500 text-[12px] absolute">
+                          <p className="absolute text-[12px] text-red-500">
                             {dupEmailCheck.msg}
                           </p>
                         )}
                       </div>
                       <div>
-                        <div className="w-full mt-[35px] flex">
+                        <div className="mt-[35px] flex w-full">
                           <motion.p
-                            className="absolute text-gray-400 pointer-events-none translate-x-2"
+                            className="pointer-events-none absolute translate-x-2 text-gray-400"
                             animate={passwordMotion.animation}
                             transition={passwordMotion.transition}
                           >
@@ -265,7 +260,7 @@ function SignupPage() {
                           <input
                             type={togglePassword}
                             value={password}
-                            className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                            className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                             onChange={(e) => {
                               setPassword(e.target.value);
                               handleValidatePassword(e.target.value);
@@ -289,22 +284,22 @@ function SignupPage() {
                           )}
                         </div>
                         {password.length === 0 && requiredPassword ? (
-                          <p className="text-red-500 text-[12px] absolute">
+                          <p className="absolute text-[12px] text-red-500">
                             {requiredPassword}
                           </p>
                         ) : (
                           ""
                         )}
                         {password.length !== 0 && passwordError && (
-                          <p className="text-red-500 text-[12px] absolute">
+                          <p className="absolute text-[12px] text-red-500">
                             {passwordError}
                           </p>
                         )}
                       </div>
 
-                      <div className="w-full mt-[35px]">
+                      <div className="mt-[35px] w-full">
                         <motion.p
-                          className="absolute text-gray-400 pointer-events-none translate-x-1"
+                          className="pointer-events-none absolute translate-x-1 text-gray-400"
                           animate={confirmPasswordMotion.animation}
                           transition={confirmPasswordMotion.transition}
                         >
@@ -313,7 +308,7 @@ function SignupPage() {
                         <input
                           type={togglePassword}
                           value={confirmPassword}
-                          className="w-full border-b-[1px] border-black focus:outline-none bg-inherit pb-[3px]"
+                          className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                           onChange={(e) => {
                             setConfirmPassword(e.target.value);
                             handleRequiredConfirmPasswordError(e.target.value);
@@ -322,20 +317,20 @@ function SignupPage() {
                         />
                         {confirmPassword.length !== 0 &&
                           confirmPassword !== password && (
-                            <p className="text-red-500 text-[12px] absolute">
+                            <p className="absolute text-[12px] text-red-500">
                               {passwordMatchError}
                             </p>
                           )}
                         {confirmPassword.length === 0 &&
                           requiredConfirmPassword && (
-                            <p className="text-red-500 text-[12px] absolute">
+                            <p className="absolute text-[12px] text-red-500">
                               {requiredConfirmPassword}
                             </p>
                           )}
                       </div>
-                      <div className="flex justify-center mt-[25px]">
+                      <div className="mt-[25px] flex justify-center">
                         <button
-                          className="bg-sky-500 w-full h-[40px] rounded-[4px] mb-[5px] disabled:bg-red-200 disabled:text-white"
+                          className="mb-[5px] h-[40px] w-full rounded-[4px] bg-sky-500 disabled:bg-red-200 disabled:text-white"
                           disabled={
                             password !== confirmPassword ||
                             !password ||
@@ -357,31 +352,31 @@ function SignupPage() {
                       </div>
                     </form>
 
-                    <div className="text-center border-b border-black leading-[0.1em] mt-[20px] mb-[20px] bg-inherit">
+                    <div className="my-[20px] border-b border-black bg-inherit text-center leading-[0.1em]">
                       <span
                         // style={{
                         //   background: "#ffe4e6 var(--tw-gradient-to-position)",
                         // }}
-                        className="pl-[10px] pr-[10px] bg-white"
+                        className="bg-white px-[10px]"
                       >
                         or
                       </span>
                     </div>
 
                     <div
-                      className="flex mt-[20px] text-[14px]"
+                      className="mt-[20px] flex text-[14px]"
                       style={{ justifyContent: "space-between" }}
                     >
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      <button className="mb-[5px] h-[40px] w-[49%] rounded-[4px] border border-gray-300 bg-white">
                         {" "}
-                        <div className="flex justify-center items-center">
+                        <div className="flex items-center justify-center">
                           <FcGoogle className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Google</p>
                         </div>
                       </button>
-                      <button className="bg-white w-[49%] h-[40px] rounded-[4px] mb-[5px] border border-gray-300">
+                      <button className="mb-[5px] h-[40px] w-[49%] rounded-[4px] border border-gray-300 bg-white">
                         {" "}
-                        <div className="flex justify-center items-center">
+                        <div className="flex items-center justify-center">
                           <FaApple className="mr-[5px] text-[16px]" />
                           <p className="font-normal">Continue with Apple</p>
                         </div>
