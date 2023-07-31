@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { ModalContext } from "../../context/ModalContext";
 
 const RoomButton = () => {
-  const { toggleJoinRoomPrompt } = useContext(ModalContext);
+  const { toggleJoinRoomPrompt, toggleOpenRoomPrompt } =
+    useContext(ModalContext);
 
   return (
     <div className="mt-4">
       <button
-        onClick={toggleJoinRoomPrompt}
+        onClick={toggleOpenRoomPrompt}
         className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
       >
         Open your room

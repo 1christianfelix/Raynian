@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
-import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 import { joinRoom } from "../socket/socketConnection";
 
 const JoinRoomPrompt = () => {
   const [roomId, setRoomId] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
   const [userDetails, setUserDetails] = useState(null);
-  const usernameRef = useRef(generateUniqueUserNoCheck());
 
   console.log(userInfo);
 
@@ -29,14 +27,11 @@ const JoinRoomPrompt = () => {
   };
 
   const handleJoinRoom = async () => {
-    if (userInfo == null) {
-      setUserDetails({ _id: "guest", username: usernameRef.current });
-    } else {
-      setUserDetails({
-        _id: userInfo.user._id,
-        username: userInfo.user.username,
-      });
-    }
+    setUserDetails({
+      _id: userInfo.user._id,
+      username: userInfo.user.username,
+    });
+
     // Wrap the dispatch calls in Promises
     const setUserInfoPromise = dispatch(setUserInfo(userDetails));
     const connectToRoomPromise = dispatch(connectToRoom(roomId));
@@ -57,11 +52,11 @@ const JoinRoomPrompt = () => {
     <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
       <div className="mb-4 text-center text-2xl">Join a Room</div>
       <div className="text-center">
-        {userInfo === null ? (
+        {userInfo.user._id === "guest" ? (
           <>
             You are not signed in. Joining as{" "}
             <span className="text-lg font-medium italic text-blue-700">
-              {usernameRef.current}
+              {userInfo.user.username}
             </span>{" "}
           </>
         ) : (

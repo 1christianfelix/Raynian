@@ -47,7 +47,8 @@ const OpenRoomPrompt = () => {
   }, [userDetails]);
   return (
     <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
-      <div className="mb-4 text-center text-2xl">Join a Room</div>
+      <div className="mb-4 text-center text-2xl">Open your room?</div>
+      <div>Invite friends to your room! Make your room public or private.</div>
       <div className="text-center">
         {userInfo.user._id === "guest" ? (
           <>
