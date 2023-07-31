@@ -33,11 +33,11 @@ export default function TimerSettings(props) {
 
   return (
     <div
-      className="absolute top-[-46px] left-[45px] bg-white drop-shadow-md rounded-md text-sm dark:bg-slate-700"
+      className="absolute left-[45px] top-[-46px] rounded-md bg-white text-sm drop-shadow-md dark:bg-slate-700"
       ref={dropdownRef}
     >
       <div
-        className="flex justify-between py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+        className="flex justify-between px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
         onMouseEnter={() => setShowWorkMenu(true)}
         onMouseLeave={() => setShowWorkMenu(false)}
       >
@@ -58,7 +58,7 @@ export default function TimerSettings(props) {
         </div> */}
       </div>
       <div
-        className="flex justify-between py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+        className="flex justify-between px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
         onMouseEnter={() => setShowBreakMenu(true)}
         onMouseLeave={() => setShowBreakMenu(false)}
       >
@@ -77,7 +77,7 @@ export default function TimerSettings(props) {
         </select> */}
       </div>
       <div
-        className="flex justify-between py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+        className="flex justify-between px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
         onMouseEnter={() => setShowAlarmMenu(true)}
         onMouseLeave={() => setShowAlarmMenu(false)}
       >
@@ -96,7 +96,7 @@ export default function TimerSettings(props) {
         </select> */}
       </div>
       <div
-        className="flex justify-between py-[5px] px-[20px] hover:bg-gray-200 dark:hover:bg-gray-600"
+        className="flex justify-between px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
         onMouseEnter={() => setShowBackgroundMenu(true)}
         onMouseLeave={() => setShowBackgroundMenu(false)}
       >
