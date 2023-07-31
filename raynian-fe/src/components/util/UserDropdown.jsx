@@ -42,7 +42,6 @@ export default function UserDropdown(props) {
       await logout().unwrap();
       dispatch(removeCredentials());
       toggleDropdown();
-      console.log("test");
     } catch (err) {
       console.log(err);
     }

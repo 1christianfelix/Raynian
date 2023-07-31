@@ -1,13 +1,14 @@
 import { FaEye, FaEyeSlash, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../slices/usersApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 import { motion } from "framer-motion";
+import { ModalContext } from "../../context/ModalContext";
 import validator from "validator";
-import raynian_logo_thin from '../../assets/thin_logo.svg'
+import raynian_logo_thin from "../../assets/thin_logo.svg";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
@@ -200,7 +201,10 @@ function LoginPage() {
                       }}
                     >
                       {" "}
-                      <div className="flex justify-center items-center" onClick={handleGoogleAuthClick}>
+                      <div
+                        className="flex justify-center items-center"
+                        onClick={handleGoogleAuthClick}
+                      >
                         <FcGoogle className="mr-[5px] text-[16px]" />
                         <p className="font-normal">Sign in with Google</p>
                       </div>
