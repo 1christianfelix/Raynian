@@ -50,7 +50,9 @@ const OpenRoomPrompt = () => {
             onChange={handleToggle}
             className="mr-2"
           />
-          <span className="text-lg font-medium">Private</span>
+          <span className="text-lg font-medium">
+            Private <span className="text-base">(invite only)</span>
+          </span>
         </label>
         <button className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white">
           Start Live Session

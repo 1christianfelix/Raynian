@@ -1,34 +1,39 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const roomSettingsSchema = new Schema({
-  backgroundSettings: {
-    type: Schema.Types.Mixed,
-    default: {},
-  },
   timerSettings: {
     type: Schema.Types.Mixed,
-    default: {},
+    required: true,
   },
 });
 
-mongoose.model("RoomSettings", roomSettingsSchema);
+const participantSchema = new Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+});
 
 const roomSchema = new Schema({
   roomId: {
     type: String,
-    required: true,
   },
   public: {
     type: Boolean,
     default: false,
-    required: true,
   },
-  roomSettings: { type: mongoose.Schema.Types.ObjectId, ref: "RoomSettings" },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  whiteList: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  roomSettings: {
+    type: roomSettingsSchema,
+  },
+  ownerId: {
+    type: String,
+  },
+  participants: { type: [participantSchema] },
 });
 
 module.exports = mongoose.model("Room", roomSchema);
