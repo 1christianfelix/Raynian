@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const roomSettingsSchema = new Schema({
-  timerSettings: {
-    type: Schema.Types.Mixed,
-    required: true,
+const roomSettingsSchema = new Schema(
+  {
+    timerSettings: {
+      type: Schema.Types.Mixed,
+      required: true,
+    },
   },
-});
+  { _id: false }
+);
 
 const participantSchema = new Schema({
   _id: {
