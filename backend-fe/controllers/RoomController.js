@@ -11,19 +11,19 @@ const getRooms = async (req, res) => {
 
 /* Create a room */
 const createRoom = async (req, res) => {
-  const { owner, username, public, roomSettings } = req.body;
+  const { ownerId, username, public, roomSettings } = req.body;
 
   const roomId = generateRandomString(8);
 
   const participant = {
-    _id: owner,
+    _id: ownerId,
     username,
   };
 
   const newRoom = await Room.create({
     roomId,
     public,
-    owner: owner,
+    ownerId,
     participants: [participant],
     roomSettings,
   });

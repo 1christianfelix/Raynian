@@ -5,7 +5,6 @@ const roomSettingsSchema = new Schema(
   {
     timerSettings: {
       type: Schema.Types.Mixed,
-      required: true,
     },
   },
   { _id: false }
@@ -23,6 +22,9 @@ const participantSchema = new Schema({
 });
 
 const roomSchema = new Schema({
+  invitationLink: {
+    type: String,
+  },
   roomId: {
     type: String,
   },
