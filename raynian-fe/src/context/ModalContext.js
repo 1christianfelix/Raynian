@@ -35,7 +35,7 @@ export const ModalProvider = ({ children }) => {
       setIsModalOpen(!isModalOpen);
       if (!isModalOpen) setType(null);
     };
-    if (userInfo) {
+    if (userInfo && (type == "login" || type == "signup")) {
       setType(null);
       toggleModal();
     }

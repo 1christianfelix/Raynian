@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
   roomID: null,
   chat: [],
   participants: [],
+  roomSettings: {},
+  public: true,
 };
 
 const roomSlice = createSlice({
@@ -30,6 +33,34 @@ const roomSlice = createSlice({
       state.participants = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(createRoom.fulfilled, (state, action) => {
+      // Update the state based on the fulfilled action
+      state.user = {
+        _id: action.payload._id,
+        username: action.payload.username,
+      };
+      state.roomID = action.payload.roomID;
+      state.participants = action.payload.participants;
+      state.public = action.payload.public;
+      // Other state updates as needed
+    });
+    // Handle other cases (pending, rejected) if required
+  },
+});
+
+export const createRoom = createAsyncThunk("room/createRoom", async (req) => {
+  const response = await fetch("http://localhost:4000/api/room/", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  });
+
+  const data = await response.json();
+  return data; // This will be the payload of the fulfilled action
 });
 
 export const { connectToRoom, updateChat, updateParticipants, setUserInfo } =

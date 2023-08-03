@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
-import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
+import { connectToRoom, setUserInfo, createRoom } from "../../slices/roomSlice";
+import { generateGuestCredentials } from "../../slices/authSlice";
 import { joinRoom } from "../socket/socketConnection";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { FaRegMoon } from "react-icons/fa";
+import { FiRefreshCcw } from "react-icons/fi";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
+
+  const dispatch = useDispatch();
   const [isPublic, setIsPublic] = useState(true);
+
+  useEffect(() => {
+    setUsername(userInfo.user.username);
+    setUserId(userInfo.user._id);
+  }, [userInfo]);
 
   const handlePublicToggle = () => {
     setIsPublic((prevIsPublic) => !prevIsPublic);
@@ -16,25 +27,21 @@ const OpenRoomPrompt = () => {
 
   const handleCreateRoom = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/room/", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ownerId: userInfo.user._id,
-          username: userInfo.user.username,
-          roomSettings: {},
-          public: isPublic,
-        }),
-      });
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const req = {
+        ownerId: userInfo.user._id,
+        username: userInfo.user.username,
+        roomSettings: {},
+        public: isPublic,
+      };
+
+      await dispatch(createRoom(req));
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const refreshUsername = () => {
+    dispatch(generateGuestCredentials());
   };
 
   return (
@@ -45,18 +52,25 @@ const OpenRoomPrompt = () => {
         </div>
         <div>
           <div className="text-center text-sm italic">
-            {userInfo.user._id === "guest" ? (
-              <>
-                (<span className="">You are not signed in</span>. Joining as{" "}
-                <span className="text-sm font-medium italic text-blue-700">
-                  {userInfo.user.username})
-                </span>
-              </>
+            {userId === "guest" ? (
+              <div className="flex items-center justify-center gap-2">
+                <div>
+                  (<span className="">You are not signed in. </span>Joining as{" "}
+                  <span className="text-sm font-medium italic text-blue-700">
+                    {username}
+                  </span>
+                  )
+                </div>
+                <FiRefreshCcw
+                  className="cursor-pointer"
+                  onClick={refreshUsername}
+                />
+              </div>
             ) : (
               <>
                 (Joining as{" "}
                 <span className="text-sm font-medium italic text-blue-700">
-                  {userInfo.user.username})
+                  {username})
                 </span>
               </>
             )}
