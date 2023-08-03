@@ -52,6 +52,8 @@ const roomSlice = createSlice({
   },
 });
 
+// more createAsyncThunk parameters https://redux-toolkit.js.org/api/createAsyncThunk#payloadcreator
+// accessing redux state with getState
 export const setRoomUser = createAsyncThunk(
   "room/initializeUser",
   (_, { getState }) => {
