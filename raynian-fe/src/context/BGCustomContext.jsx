@@ -4,7 +4,7 @@ export const BGCustomContext = createContext();
 
 export const BGCustomProvider = ({ children }) => {
   const [bgProperties, setBGProperties] = useState({
-    color1: { r: 255, g: 255, b: 44, a: 0.3 },
+    color1: { r: 255, g: 255, b: 255, a: 0.3 },
     position1: 0,
     stopPercent1: 0,
     color2: { r: 255, g: 255, b: 255, a: 0.4 },

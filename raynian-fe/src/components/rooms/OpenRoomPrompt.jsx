@@ -8,10 +8,33 @@ import { FaRegMoon } from "react-icons/fa";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPublic, setIsPublic] = useState(true);
 
-  const handleToggle = () => {
-    setIsPrivate((prevIsPrivate) => !prevIsPrivate);
+  const handlePublicToggle = () => {
+    setIsPublic((prevIsPublic) => !prevIsPublic);
+  };
+
+  const handleCreateRoom = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/api/room/", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ownerId: userInfo.user._id,
+          username: userInfo.user.username,
+          roomSettings: {},
+          public: isPublic,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -46,15 +69,18 @@ const OpenRoomPrompt = () => {
           <input
             type="checkbox"
             id="privateCheckbox"
-            checked={isPrivate}
-            onChange={handleToggle}
+            checked={isPublic}
+            onChange={handlePublicToggle}
             className="mr-2"
           />
           <span className="text-lg font-medium">
             Private <span className="text-base">(invite only)</span>
           </span>
         </label>
-        <button className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white">
+        <button
+          className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+          onClick={handleCreateRoom}
+        >
           Start Live Session
         </button>
       </div>
