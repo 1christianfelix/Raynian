@@ -83,7 +83,7 @@ const OpenRoomPrompt = () => {
           <input
             type="checkbox"
             id="privateCheckbox"
-            checked={isPublic}
+            checked={!isPublic}
             onChange={handlePublicToggle}
             className="mr-2"
           />

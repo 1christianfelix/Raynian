@@ -35,9 +35,10 @@ const roomSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createRoom.fulfilled, (state, action) => {
+      console.log(action.payload);
       // Update the state based on the fulfilled action
       state.user = {
-        _id: action.payload._id,
+        _id: action.payload.ownerId,
         username: action.payload.username,
       };
       state.roomID = action.payload.roomID;
