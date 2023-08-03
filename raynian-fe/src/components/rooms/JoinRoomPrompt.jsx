@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
-import { connectToRoom, setUserInfo } from "../../slices/roomSlice";
+import { connectToRoom } from "../../slices/roomSlice";
 import { joinRoom } from "../socket/socketConnection";
 
 const JoinRoomPrompt = () => {
@@ -33,11 +33,10 @@ const JoinRoomPrompt = () => {
     });
 
     // Wrap the dispatch calls in Promises
-    const setUserInfoPromise = dispatch(setUserInfo(userDetails));
     const connectToRoomPromise = dispatch(connectToRoom(roomId));
 
     // Wait for both Promises to resolve using Promise.all
-    await Promise.all([setUserInfoPromise, connectToRoomPromise]);
+    await Promise.all([connectToRoomPromise]);
   };
 
   useEffect(() => {

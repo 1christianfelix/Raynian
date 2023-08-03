@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
+  host: {},
   roomID: null,
   chat: [],
   participants: [],
@@ -14,10 +15,6 @@ const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
-    // set user
-    setUserInfo: (state, action) => {
-      state.user = action.payload;
-    },
     // Connect to room
     connectToRoom: (state, action) => {
       state.roomID = action.payload;
@@ -26,7 +23,6 @@ const roomSlice = createSlice({
     updateChat: (state, action) => {
       state.chat = [...state.chat, action.payload];
     },
-
     // Reducer for updating the participants
     updateParticipants: (state, action) => {
       // The payload should be an array of participant names
@@ -34,21 +30,35 @@ const roomSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createRoom.fulfilled, (state, action) => {
-      console.log(action.payload);
-      // Update the state based on the fulfilled action
-      state.user = {
-        _id: action.payload.ownerId,
-        username: action.payload.username,
-      };
-      state.roomID = action.payload.roomID;
-      state.participants = action.payload.participants;
-      state.public = action.payload.public;
-      // Other state updates as needed
-    });
-    // Handle other cases (pending, rejected) if required
+    builder
+      .addCase(createRoom.fulfilled, (state, action) => {
+        console.log(action.payload);
+        // Update the state based on the fulfilled action
+        state.user = {
+          _id: action.payload.ownerId,
+          username: action.payload.username,
+        };
+        state.roomID = action.payload.roomID;
+        state.participants = action.payload.participants;
+        state.public = action.payload.public;
+        // Other state updates as needed
+      })
+      .addCase(setRoomUser.fulfilled, (state, action) => {
+        state.user = {
+          _id: action.payload.user._id,
+          username: action.payload.user.username,
+        };
+      });
   },
 });
+
+export const setRoomUser = createAsyncThunk(
+  "room/initializeUser",
+  (_, { getState }) => {
+    const userInfo = getState().auth.userInfo;
+    return userInfo;
+  }
+);
 
 export const createRoom = createAsyncThunk("room/createRoom", async (req) => {
   const response = await fetch("http://localhost:4000/api/room/", {
@@ -64,6 +74,6 @@ export const createRoom = createAsyncThunk("room/createRoom", async (req) => {
   return data; // This will be the payload of the fulfilled action
 });
 
-export const { connectToRoom, updateChat, updateParticipants, setUserInfo } =
+export const { connectToRoom, updateChat, updateParticipants } =
   roomSlice.actions;
 export default roomSlice.reducer;

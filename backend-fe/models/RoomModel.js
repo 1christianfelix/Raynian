@@ -35,8 +35,8 @@ const roomSchema = new Schema({
   roomSettings: {
     type: roomSettingsSchema,
   },
-  ownerId: {
-    type: String,
+  host: {
+    type: participantSchema,
   },
   participants: { type: [participantSchema] },
 });

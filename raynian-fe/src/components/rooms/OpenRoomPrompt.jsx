@@ -17,8 +17,8 @@ const OpenRoomPrompt = () => {
   const [isPublic, setIsPublic] = useState(true);
 
   useEffect(() => {
-    setUsername(userInfo.user.username);
-    setUserId(userInfo.user._id);
+    setUsername(userInfo.username);
+    setUserId(userInfo._id);
   }, [userInfo]);
 
   const handlePublicToggle = () => {

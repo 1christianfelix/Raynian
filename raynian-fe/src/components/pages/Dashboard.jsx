@@ -1,28 +1,28 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCredentials,
-  generateGuestCredentials,
-} from "../../slices/authSlice";
+import { generateGuestCredentials } from "../../slices/authSlice";
+import { setRoomUser } from "../../slices/roomSlice";
 import { TimerProvider } from "../../context/TimerContext";
 import Timer from "../util/Timer";
-// import sushi from "../../assets/temp_pfp/sushi.jpg";
-// import boba from "../../assets/temp_pfp/boba.jpg";
-// import avocado from "../../assets/temp_pfp/avocado.jpg";
 
 import Chat from "../rooms/Chat";
 import RoomButton from "../rooms/RoomButton";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
+
+  const [currUser, setCurrUser] = useState("");
+
   const dispatch = useDispatch();
 
+  // handle guest info
   useEffect(() => {
     if (userInfo === null) {
       dispatch(generateGuestCredentials());
     }
-  });
+    dispatch(setRoomUser());
+  }, [userInfo]);
 
   return (
     <div>
