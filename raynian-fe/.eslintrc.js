@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/migration-from-tailwind-2": "off",
+    "react-hooks/exhaustive-deps": "off",
   },
 };
