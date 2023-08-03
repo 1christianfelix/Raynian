@@ -11,7 +11,7 @@ import raynian_logo_thin from "../../assets/thin_logo.svg";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState("password");
-  const [user, setUser] = useState("");
+  const [user, setRoomUser] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -24,7 +24,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      // if roomID not null, take over stats
     }
   }, [userInfo, navigate]);
 
@@ -133,7 +133,7 @@ function LoginPage() {
                         // placeholder="Username or Email"
                         className="w-full border-b-[1px] border-black bg-inherit pb-[3px] focus:outline-none"
                         onChange={(e) => {
-                          setUser(e.target.value);
+                          setRoomUser(e.target.value);
                           validateEmail(e.target.value);
                         }}
                       />

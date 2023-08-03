@@ -19,8 +19,12 @@ export const ModalProvider = ({ children }) => {
     setType("afk");
   };
 
-  const toggleRoomPrompt = () => {
-    setType("roomPrompt");
+  const toggleJoinRoomPrompt = () => {
+    setType("joinRoomPrompt");
+  };
+
+  const toggleOpenRoomPrompt = () => {
+    setType("openRoomPrompt");
   };
 
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
@@ -31,7 +35,7 @@ export const ModalProvider = ({ children }) => {
       setIsModalOpen(!isModalOpen);
       if (!isModalOpen) setType(null);
     };
-    if (userInfo) {
+    if (userInfo && (type == "login" || type == "signup")) {
       setType(null);
       toggleModal();
     }
@@ -46,7 +50,8 @@ export const ModalProvider = ({ children }) => {
         toggleLogin,
         toggleSignup,
         toggleAFK,
-        toggleRoomPrompt,
+        toggleJoinRoomPrompt,
+        toggleOpenRoomPrompt,
         setType,
       }}
     >
