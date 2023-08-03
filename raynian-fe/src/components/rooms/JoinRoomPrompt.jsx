@@ -3,6 +3,8 @@ import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom } from "../../slices/roomSlice";
 import { joinRoom } from "../socket/socketConnection";
+import { FiRefreshCcw } from "react-icons/fi";
+import { generateGuestCredentials } from "../../slices/authSlice";
 
 const JoinRoomPrompt = () => {
   const [room, setRoom] = useState("");
@@ -39,6 +41,10 @@ const JoinRoomPrompt = () => {
     await Promise.all([connectToRoomPromise]);
   };
 
+  const refreshUsername = () => {
+    dispatch(generateGuestCredentials());
+  };
+
   useEffect(() => {
     if (room.length !== 0)
       joinRoom({
@@ -54,12 +60,19 @@ const JoinRoomPrompt = () => {
         <div>
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (
-              <>
-                (<span className="">You are not signed in</span>. Joining as{" "}
-                <span className="text-sm font-medium italic text-blue-700">
-                  {userInfo.user.username})
-                </span>
-              </>
+              <div className="flex items-center justify-center gap-2">
+                <div>
+                  (<span className="">You are not signed in. </span>Joining as{" "}
+                  <span className="text-sm font-medium italic text-blue-700">
+                    {userInfo.user.username}
+                  </span>
+                  )
+                </div>
+                <FiRefreshCcw
+                  className="cursor-pointer"
+                  onClick={refreshUsername}
+                />
+              </div>
             ) : (
               <>
                 (Joining as{" "}
