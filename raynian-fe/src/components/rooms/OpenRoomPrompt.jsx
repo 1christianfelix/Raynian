@@ -10,16 +10,9 @@ import { FiRefreshCcw } from "react-icons/fi";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState("");
 
   const dispatch = useDispatch();
   const [isPublic, setIsPublic] = useState(true);
-
-  useEffect(() => {
-    setUsername(userInfo.username);
-    setUserId(userInfo._id);
-  }, [userInfo]);
 
   const handlePublicToggle = () => {
     setIsPublic((prevIsPublic) => !prevIsPublic);
@@ -52,12 +45,12 @@ const OpenRoomPrompt = () => {
         </div>
         <div>
           <div className="text-center text-sm italic">
-            {userId === "guest" ? (
+            {userInfo.user._id === "guest" ? (
               <div className="flex items-center justify-center gap-2">
                 <div>
                   (<span className="">You are not signed in. </span>Joining as{" "}
                   <span className="text-sm font-medium italic text-blue-700">
-                    {username}
+                    {userInfo.user.username}
                   </span>
                   )
                 </div>
@@ -70,7 +63,7 @@ const OpenRoomPrompt = () => {
               <>
                 (Joining as{" "}
                 <span className="text-sm font-medium italic text-blue-700">
-                  {username})
+                  {usernuserInfo.user.usernameame})
                 </span>
               </>
             )}
