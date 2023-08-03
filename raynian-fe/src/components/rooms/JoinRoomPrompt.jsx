@@ -5,21 +5,21 @@ import { connectToRoom } from "../../slices/roomSlice";
 import { joinRoom } from "../socket/socketConnection";
 
 const JoinRoomPrompt = () => {
-  const [roomId, setRoomId] = useState("");
+  const [room, setRoom] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
   const [userDetails, setUserDetails] = useState(null);
 
   console.log(userInfo);
 
   const dispatch = useDispatch();
-  const { roomID } = useSelector((state) => state.room);
+  const { roomId } = useSelector((state) => state.room);
 
   const handleRoomInputChange = (event) => {
-    setRoomId(event.target.value);
+    setRoom(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (roomId.length !== 0) {
+    if (room.length !== 0) {
       console.log("test");
       socketServerConnect();
       handleJoinRoom();
@@ -33,16 +33,16 @@ const JoinRoomPrompt = () => {
     });
 
     // Wrap the dispatch calls in Promises
-    const connectToRoomPromise = dispatch(connectToRoom(roomId));
+    const connectToRoomPromise = dispatch(connectToRoom(room));
 
     // Wait for both Promises to resolve using Promise.all
     await Promise.all([connectToRoomPromise]);
   };
 
   useEffect(() => {
-    if (roomId.length !== 0)
+    if (room.length !== 0)
       joinRoom({
-        room: roomID,
+        room: roomId,
         user: userDetails,
       });
   }, [userDetails]);
@@ -74,8 +74,8 @@ const JoinRoomPrompt = () => {
       <div className="flex items-center justify-center">
         <input
           type="text"
-          name="roomId"
-          value={roomId}
+          name="room"
+          value={room}
           onChange={handleRoomInputChange}
           placeholder="Enter room ID"
           className="rounded-md border border-gray-400 px-4 py-2"

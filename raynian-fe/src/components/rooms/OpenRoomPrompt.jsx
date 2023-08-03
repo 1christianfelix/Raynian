@@ -28,7 +28,7 @@ const OpenRoomPrompt = () => {
   const handleCreateRoom = async () => {
     try {
       const req = {
-        ownerId: userInfo.user._id,
+        userId: userInfo.user._id,
         username: userInfo.user.username,
         roomSettings: {},
         public: isPublic,
