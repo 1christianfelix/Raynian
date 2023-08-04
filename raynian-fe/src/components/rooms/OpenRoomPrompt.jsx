@@ -3,20 +3,26 @@ import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom, setUserInfo, createRoom } from "../../slices/roomSlice";
 import { generateGuestCredentials } from "../../slices/authSlice";
-import { joinRoom } from "../socket/socketConnection";
+// import { joinRoom } from "../socket/socketConnection";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { FaRegMoon } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
+import { joinRoom } from "../socket/joinRoom";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const { roomId, user } = useSelector((state) => state.room);
+  const { roomId } = useSelector((state) => state.room);
 
   const dispatch = useDispatch();
   const [isPublic, setIsPublic] = useState(true);
 
   const handlePublicToggle = () => {
     setIsPublic((prevIsPublic) => !prevIsPublic);
+  };
+
+  const handleSubmit = () => {
+    socketServerConnect();
+    handleCreateRoom();
   };
 
   const handleCreateRoom = async () => {
@@ -29,9 +35,14 @@ const OpenRoomPrompt = () => {
       };
 
       await dispatch(createRoom(req));
+
       joinRoom({
-        room: roomId,
-        user: user,
+        room: [{ roomId }],
+        user: {
+          _id: userInfo.user._id,
+          username: userInfo.user.username,
+          test: "test",
+        },
       });
     } catch (err) {
       console.log(err);
@@ -91,7 +102,7 @@ const OpenRoomPrompt = () => {
         </label>
         <button
           className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
-          onClick={handleCreateRoom}
+          onClick={handleSubmit}
         >
           Start Live Session
         </button>

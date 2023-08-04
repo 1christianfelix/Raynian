@@ -30,3 +30,5 @@ export const sendRoomChat = (data) => {
   console.log(data);
   socket.emit("room-chat", data);
 };
+
+export { socket };

@@ -39,19 +39,15 @@ const JoinRoomPrompt = () => {
 
     // Wait for both Promises to resolve using Promise.all
     await Promise.all([connectToRoomPromise]);
+    joinRoom({
+      room: room,
+      user: { _id: userInfo.user._id, username: userInfo.user.username },
+    });
   };
 
   const refreshUsername = () => {
     dispatch(generateGuestCredentials());
   };
-
-  useEffect(() => {
-    if (room.length !== 0)
-      joinRoom({
-        room: roomId,
-        user: userDetails,
-      });
-  }, [userDetails]);
 
   return (
     <div className="flex flex-col rounded-3xl bg-white w-[450px] px-[30px] py-10">
