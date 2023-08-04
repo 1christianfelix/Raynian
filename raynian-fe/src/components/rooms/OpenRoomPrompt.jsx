@@ -10,6 +10,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { roomId, user } = useSelector((state) => state.room);
 
   const dispatch = useDispatch();
   const [isPublic, setIsPublic] = useState(true);
@@ -28,6 +29,10 @@ const OpenRoomPrompt = () => {
       };
 
       await dispatch(createRoom(req));
+      joinRoom({
+        room: roomId,
+        user: user,
+      });
     } catch (err) {
       console.log(err);
     }
