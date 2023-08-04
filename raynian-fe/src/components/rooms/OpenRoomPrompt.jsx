@@ -3,11 +3,11 @@ import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom, setUserInfo, createRoom } from "../../slices/roomSlice";
 import { generateGuestCredentials } from "../../slices/authSlice";
-// import { joinRoom } from "../socket/socketConnection";
+import { joinRoom } from "../socket/socketConnection";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { FaRegMoon } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
-import { joinRoom } from "../socket/joinRoom";
+// import { joinRoom } from "../socket/joinRoom";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
