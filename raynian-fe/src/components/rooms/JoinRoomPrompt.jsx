@@ -54,13 +54,13 @@ const JoinRoomPrompt = () => {
   }, [userDetails]);
 
   return (
-    <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
+    <div className="flex flex-col rounded-3xl bg-white w-[450px] px-[30px] py-10">
       <div className="mb-4">
-        <div className="text-center text-2xl">Join a Room</div>
+        <div className="text-center text-2xl">Join a room!</div>
         <div>
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex flex-col items-center justify-center gap-2">
                 <div>
                   (<span className="">You are not signed in. </span>Joining as{" "}
                   <span className="text-sm font-medium italic text-blue-700">

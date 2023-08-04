@@ -37,41 +37,38 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <Draggable>
-      <div className="h-64 w-96">
-        <div className="flex h-[100%] w-[100%] flex-col rounded-md border border-gray-300">
-          <div className="flex h-8 w-[100%] items-center justify-end rounded-t-md bg-black bg-opacity-10">
-            <div className="mr-2 cursor-pointer transition-all hover:scale-[110%]">
-              <LiaWindowMinimizeSolid />
-            </div>
+    // <Draggable>
+    <div className="h-64 w-96">
+      <div className="flex h-[100%] w-[100%] flex-col rounded-md border border-gray-300">
+        <div className="flex h-8 w-[100%] items-center justify-end rounded-t-md bg-black bg-opacity-10">
+          <div className="mr-2 cursor-pointer transition-all hover:scale-[110%]">
+            <LiaWindowMinimizeSolid />
           </div>
-          <div ref={chatBoxRef} className="flex-1 overflow-y-scroll p-4">
-            {chat.map((chat, index) => (
-              <div key={index} className="mb-2">
-                {/* <span className="font-semibold">{chat.username}: </span>
+        </div>
+        <div ref={chatBoxRef} className="flex-1 overflow-y-scroll p-4">
+          {chat.map((chat, index) => (
+            <div key={index} className="mb-2">
+              {/* <span className="font-semibold">{chat.username}: </span>
                 <span className="text-gray-600">{chat.message}</span>
                 <span className="ml-2 text-xs text-gray-400">
                   {chat.timestamp}
                 </span> */}
-                <span>{chat.message}</span>
-              </div>
-            ))}
-          </div>
-          <form
-            className="border-t border-gray-300 p-4"
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="text"
-              className="w-full rounded-md border border-gray-400 bg-transparent p-2"
-              placeholder="Type your message..."
-              value={newMessage}
-              onChange={handleInputChange}
-            />
-          </form>
+              <span>{chat.message}</span>
+            </div>
+          ))}
         </div>
+        <form className="border-t border-gray-300 p-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="w-full rounded-md border border-gray-400 bg-transparent p-2"
+            placeholder="Type your message..."
+            value={newMessage}
+            onChange={handleInputChange}
+          />
+        </form>
       </div>
-    </Draggable>
+    </div>
+    // </Draggable>
   );
 };
 
