@@ -7,7 +7,6 @@ import { joinRoom } from "../socket/socketConnection";
 import { BsFillBrightnessHighFill } from "react-icons/bs";
 import { FaRegMoon } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
-// import { joinRoom } from "../socket/joinRoom";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -37,11 +36,10 @@ const OpenRoomPrompt = () => {
       await dispatch(createRoom(req));
 
       joinRoom({
-        room: [{ roomId }],
+        room: roomId,
         user: {
           _id: userInfo.user._id,
           username: userInfo.user.username,
-          test: "test",
         },
       });
     } catch (err) {
