@@ -34,9 +34,9 @@ const Chat = () => {
   };
 
   // Scroll the chat box to the bottom when a new message is added
-  useEffect(() => {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [chat]);
+  // useEffect(() => {
+  //   chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  // }, [chat]);
 
   return (
     // <Draggable>
