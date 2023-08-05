@@ -34,7 +34,13 @@ const OpenRoomPrompt = () => {
       };
 
       await dispatch(createRoom(req));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  useEffect(() => {
+    if (roomId != null)
       joinRoom({
         room: roomId,
         user: {
@@ -42,10 +48,7 @@ const OpenRoomPrompt = () => {
           username: userInfo.user.username,
         },
       });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  }, [roomId]);
 
   const refreshUsername = () => {
     dispatch(generateGuestCredentials());

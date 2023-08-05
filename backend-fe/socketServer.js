@@ -17,9 +17,9 @@ const registerSocketServer = (server) => {
 
     socket.on("join-room", (data) => {
       socket.join(data.room);
-      console.log(
-        `User with ID: ${socket.id} aka ${data.user.username} joined room: ${data.room}`
-      );
+      // console.log(
+      //   `User with ID: ${socket.id} aka ${data.user.username} joined room: ${data.room}`
+      // );
       joinRoomHandler(socket, data);
       io.to(data.room).emit(
         "room-participants",

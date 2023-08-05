@@ -1,17 +1,18 @@
 const util = require("util");
 
-const roomsLive = new Map();
+const roomsLive = {};
 // const roomMessages = [];
 
 const joinRoom = ({ socketID, room, user }) => {
-  if (roomsLive.has(room)) {
-    roomsLive.room.participants.push(user);
+  console.log(room, "roomslive before: ", roomsLive);
+  if (roomsLive[room]) {
+    roomsLive[room].participants.push(user);
   } else {
     roomsLive[room] = { participants: [user] };
   }
   console.log("joinRoom function:");
   console.log(user);
-  console.log(roomsLive); // Adjust depth as needed
+  console.log("roomslive after: ", roomsLive);
 };
 
 const getRoomParticipants = (room) => {
