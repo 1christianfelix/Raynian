@@ -71,7 +71,7 @@ export default function Timer() {
   return (
     <>
       <p className="select-none text-3xl">{message}</p>
-      <div className="font-inter relative flex select-none flex-row justify-center">
+      <div className="relative flex select-none flex-row justify-center">
         <p className="text-[128px] leading-tight">
           {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}
           :
