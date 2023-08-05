@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   user: {},
   host: {},
-  roomID: null,
+  roomId: null,
   chat: [],
   participants: [],
   roomSettings: {},
@@ -17,7 +17,7 @@ const roomSlice = createSlice({
   reducers: {
     // Connect to room
     connectToRoom: (state, action) => {
-      state.roomID = action.payload;
+      state.roomId = action.payload;
     },
     // Reducer for updating the chat log
     updateChat: (state, action) => {
@@ -34,11 +34,8 @@ const roomSlice = createSlice({
       .addCase(createRoom.fulfilled, (state, action) => {
         console.log(action.payload);
         // Update the state based on the fulfilled action
-        state.user = {
-          _id: action.payload.ownerId,
-          username: action.payload.username,
-        };
-        state.roomID = action.payload.roomID;
+        state.host = action.payload.host;
+        state.roomId = action.payload.roomId;
         state.participants = action.payload.participants;
         state.public = action.payload.public;
         // Other state updates as needed

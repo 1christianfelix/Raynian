@@ -10,25 +10,24 @@ import { FiRefreshCcw } from "react-icons/fi";
 
 const OpenRoomPrompt = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState("");
+  const { roomId } = useSelector((state) => state.room);
 
   const dispatch = useDispatch();
   const [isPublic, setIsPublic] = useState(true);
-
-  useEffect(() => {
-    setUsername(userInfo.username);
-    setUserId(userInfo._id);
-  }, [userInfo]);
 
   const handlePublicToggle = () => {
     setIsPublic((prevIsPublic) => !prevIsPublic);
   };
 
+  const handleSubmit = () => {
+    socketServerConnect();
+    handleCreateRoom();
+  };
+
   const handleCreateRoom = async () => {
     try {
       const req = {
-        ownerId: userInfo.user._id,
+        userId: userInfo.user._id,
         username: userInfo.user.username,
         roomSettings: {},
         public: isPublic,
@@ -40,24 +39,37 @@ const OpenRoomPrompt = () => {
     }
   };
 
+  useEffect(() => {
+    if (roomId != null) {
+      console.log("testing join room");
+      joinRoom({
+        roomId: roomId,
+        user: {
+          _id: userInfo.user._id,
+          username: userInfo.user.username,
+        },
+      });
+    }
+  }, [roomId]);
+
   const refreshUsername = () => {
     dispatch(generateGuestCredentials());
   };
 
   return (
-    <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
+    <div className="flex w-[450px] flex-col rounded-3xl bg-white px-[30px] py-10">
       <div className="mb-4">
         <div className="text-center text-2xl">
           Open up your room for others to join!
         </div>
         <div>
           <div className="text-center text-sm italic">
-            {userId === "guest" ? (
-              <div className="flex items-center justify-center gap-2">
+            {userInfo.user._id === "guest" ? (
+              <div className="flex flex-col items-center justify-center ">
                 <div>
                   (<span className="">You are not signed in. </span>Joining as{" "}
                   <span className="text-sm font-medium italic text-blue-700">
-                    {username}
+                    {userInfo.user.username}
                   </span>
                   )
                 </div>
@@ -70,7 +82,7 @@ const OpenRoomPrompt = () => {
               <>
                 (Joining as{" "}
                 <span className="text-sm font-medium italic text-blue-700">
-                  {username})
+                  {usernuserInfo.user.usernameame})
                 </span>
               </>
             )}
@@ -93,7 +105,7 @@ const OpenRoomPrompt = () => {
         </label>
         <button
           className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
-          onClick={handleCreateRoom}
+          onClick={handleSubmit}
         >
           Start Live Session
         </button>
