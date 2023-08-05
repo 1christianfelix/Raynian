@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { LiaWindowMinimizeSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
+import { sendRoomChat } from "../socket/socketConnection";
 import Draggable from "react-draggable";
 
 const Chat = () => {
@@ -25,7 +26,7 @@ const Chat = () => {
         username: "User", // Replace 'User' with the actual username or user data
         timestamp: new Date().toLocaleTimeString(), // Or use any preferred time format
       };
-
+      sendRoomChat(newChat);
       setMessages([...messages, newChat]);
       setNewMessage("");
     }

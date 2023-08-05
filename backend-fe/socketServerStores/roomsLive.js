@@ -1,18 +1,25 @@
 const util = require("util");
 
+// active rooms and information of each room
 const roomsLive = {};
 // const roomMessages = [];
 
+/**
+ * Add a user to the room in server storage.
+ *
+ * @param {String} socketID, - The socket id of connected user.
+ * @param {String} room - The ID of the room to join.
+ * @param {Object} user - Information about the user joining the room.
+ * @param {string} user._id - The ID of the user.
+ * @param {string} user.username - The username of the user.
+ * @returns {void}
+ */
 const joinRoom = ({ socketID, room, user }) => {
-  console.log(room, "roomslive before: ", roomsLive);
   if (roomsLive[room]) {
     roomsLive[room].participants.push(user);
   } else {
     roomsLive[room] = { participants: [user] };
   }
-  console.log("joinRoom function:");
-  console.log(user);
-  console.log("roomslive after: ", roomsLive);
 };
 
 const getRoomParticipants = (room) => {

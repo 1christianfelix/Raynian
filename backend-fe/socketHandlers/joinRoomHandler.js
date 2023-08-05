@@ -13,6 +13,13 @@ const joinRoomHandler = async (socket, data) => {
     user: user,
     room: room,
   });
+
+  io.to(data.room).emit(
+    "room-messages",
+    socketStore.roomsLive.sendRoomMessage({
+      message: `${user.username} has connected!`,
+    })
+  );
 };
 
 module.exports = joinRoomHandler;

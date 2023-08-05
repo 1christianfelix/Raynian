@@ -13,7 +13,7 @@ export const socketServerConnect = () => {
     console.log(data, " joined");
   });
 
-  socket.on("room-messages", (messages) => {
+  socket.on("room-chat-log", (messages) => {
     console.log("room-messages");
     store.dispatch(updateChat(messages));
     console.log(messages);
@@ -38,7 +38,7 @@ export const joinRoom = (data) => {
 
 export const sendRoomChat = (data) => {
   console.log(data);
-  socket.emit("room-chat", data);
+  socket.emit("send-room-chat", data);
 };
 
 export { socket };
