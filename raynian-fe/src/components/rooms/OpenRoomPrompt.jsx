@@ -43,7 +43,7 @@ const OpenRoomPrompt = () => {
     if (roomId != null) {
       console.log("testing join room");
       joinRoom({
-        room: roomId,
+        roomId: roomId,
         user: {
           _id: userInfo.user._id,
           username: userInfo.user.username,

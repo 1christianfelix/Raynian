@@ -40,7 +40,7 @@ const JoinRoomPrompt = () => {
     // Wait for both Promises to resolve using Promise.all
     await Promise.all([connectToRoomPromise]);
     joinRoom({
-      room: room,
+      roomId: room,
       user: { _id: userInfo.user._id, username: userInfo.user.username },
     });
   };

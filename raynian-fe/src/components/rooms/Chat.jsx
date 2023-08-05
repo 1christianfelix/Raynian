@@ -5,7 +5,7 @@ import { sendRoomChat } from "../socket/socketConnection";
 import Draggable from "react-draggable";
 
 const Chat = () => {
-  const { chat } = useSelector((state) => state.room);
+  const { chat, roomId } = useSelector((state) => state.room);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const chatBoxRef = useRef(null);
@@ -25,9 +25,10 @@ const Chat = () => {
         message: newMessage,
         username: "User", // Replace 'User' with the actual username or user data
         timestamp: new Date().toLocaleTimeString(), // Or use any preferred time format
+        roomId: roomId,
       };
       sendRoomChat(newChat);
-      setMessages([...messages, newChat]);
+      // setMessages([...messages, newChat]);
       setNewMessage("");
     }
   };

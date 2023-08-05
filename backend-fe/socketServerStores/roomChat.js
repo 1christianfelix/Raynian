@@ -1,4 +1,5 @@
 const sendRoomMessage = (message) => {
+  console.log("sendRoomMessage func");
   console.log("message:");
   console.log(message);
   return message;
