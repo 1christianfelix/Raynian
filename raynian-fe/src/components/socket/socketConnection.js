@@ -20,6 +20,16 @@ export const socketServerConnect = () => {
   });
 };
 
+/**
+ * Joins a room by emitting a socket event.
+ *
+ * @param {Object} data - The data object containing room and user information.
+ * @param {string} data.roomId - The ID of the room to join.
+ * @param {Object} data.user - Information about the user joining the room.
+ * @param {string} data.user._id - The ID of the user.
+ * @param {string} data.user.username - The username of the user.
+ * @returns {void}
+ */
 export const joinRoom = (data) => {
   console.log("joinRoom");
   console.log(data);
