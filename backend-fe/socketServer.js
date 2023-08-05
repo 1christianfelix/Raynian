@@ -1,6 +1,6 @@
 const socketStore = require("./socketServerStores/socketStore");
-const joinRoomHandler = require("./socketHandlers/joinRoomHandler");
 const { Server } = require("socket.io");
+const joinRoomHandler = require("./socketHandlers/joinRoomHandler");
 const sendRoomMessageHandler = require("./socketHandlers/sendRoomMessageHandler");
 
 const registerSocketServer = (server) => {
@@ -15,23 +15,19 @@ const registerSocketServer = (server) => {
   io.on("connection", (socket) => {
     console.log("User:", socket.id);
 
+    // Joining a room
     socket.on("join-room", (data) => {
-      socket.join(data.room);
-      console.log(
-        `User with ID: ${socket.id} aka ${data.user.username} joined room: ${data.room}`
-      );
+      socket.join(data.roomId);
       joinRoomHandler(socket, data);
-      io.to(data.room).emit(
-        "room-participants",
-        socketStore.roomsLive.getRoomParticipants(data.room)
-      );
-
-      io.to(data.room).emit(
-        "room-messages",
-        socketStore.roomsLive.sendRoomMessage({ message: "test" })
-      );
     });
 
+    // Sending chat message
+    socket.on("send-room-chat", (data) => {
+      console.log(data);
+      sendRoomMessageHandler(data);
+    });
+
+    // Disconnect from room
     socket.on("disconnect", () => {
       console.log("User disconnected", socket.id);
     });

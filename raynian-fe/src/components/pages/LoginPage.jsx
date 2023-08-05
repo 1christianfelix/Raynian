@@ -24,7 +24,6 @@ function LoginPage() {
 
   useEffect(() => {
     if (userInfo) {
-      // if roomID not null, take over stats
     }
   }, [userInfo, navigate]);
 

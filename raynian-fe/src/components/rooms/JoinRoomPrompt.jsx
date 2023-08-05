@@ -3,23 +3,25 @@ import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom } from "../../slices/roomSlice";
 import { joinRoom } from "../socket/socketConnection";
+import { FiRefreshCcw } from "react-icons/fi";
+import { generateGuestCredentials } from "../../slices/authSlice";
 
 const JoinRoomPrompt = () => {
-  const [roomId, setRoomId] = useState("");
+  const [room, setRoom] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
   const [userDetails, setUserDetails] = useState(null);
 
   console.log(userInfo);
 
   const dispatch = useDispatch();
-  const { roomID } = useSelector((state) => state.room);
+  const { roomId } = useSelector((state) => state.room);
 
   const handleRoomInputChange = (event) => {
-    setRoomId(event.target.value);
+    setRoom(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (roomId.length !== 0) {
+    if (room.length !== 0) {
       console.log("test");
       socketServerConnect();
       handleJoinRoom();
@@ -33,33 +35,40 @@ const JoinRoomPrompt = () => {
     });
 
     // Wrap the dispatch calls in Promises
-    const connectToRoomPromise = dispatch(connectToRoom(roomId));
+    const connectToRoomPromise = dispatch(connectToRoom(room));
 
     // Wait for both Promises to resolve using Promise.all
     await Promise.all([connectToRoomPromise]);
+    joinRoom({
+      roomId: room,
+      user: { _id: userInfo.user._id, username: userInfo.user.username },
+    });
   };
 
-  useEffect(() => {
-    if (roomId.length !== 0)
-      joinRoom({
-        room: roomID,
-        user: userDetails,
-      });
-  }, [userDetails]);
+  const refreshUsername = () => {
+    dispatch(generateGuestCredentials());
+  };
 
   return (
-    <div className="flex flex-col rounded-3xl bg-white px-[30px] py-10">
+    <div className="flex w-[450px] flex-col rounded-3xl bg-white px-[30px] py-10">
       <div className="mb-4">
-        <div className="text-center text-2xl">Join a Room</div>
+        <div className="text-center text-2xl">Join a room!</div>
         <div>
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (
-              <>
-                (<span className="">You are not signed in</span>. Joining as{" "}
-                <span className="text-sm font-medium italic text-blue-700">
-                  {userInfo.user.username})
-                </span>
-              </>
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div>
+                  (<span className="">You are not signed in. </span>Joining as{" "}
+                  <span className="text-sm font-medium italic text-blue-700">
+                    {userInfo.user.username}
+                  </span>
+                  )
+                </div>
+                <FiRefreshCcw
+                  className="cursor-pointer"
+                  onClick={refreshUsername}
+                />
+              </div>
             ) : (
               <>
                 (Joining as{" "}
@@ -74,8 +83,8 @@ const JoinRoomPrompt = () => {
       <div className="flex items-center justify-center">
         <input
           type="text"
-          name="roomId"
-          value={roomId}
+          name="room"
+          value={room}
           onChange={handleRoomInputChange}
           placeholder="Enter room ID"
           className="rounded-md border border-gray-400 px-4 py-2"
