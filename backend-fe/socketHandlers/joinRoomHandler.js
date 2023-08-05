@@ -15,8 +15,8 @@ const joinRoomHandler = async (socket, data) => {
   });
 
   io.to(data.room).emit(
-    "room-messages",
-    socketStore.roomsLive.sendRoomMessage({
+    "room-chat-log",
+    socketStore.roomChat.sendRoomMessage({
       message: `${user.username} has connected!`,
     })
   );

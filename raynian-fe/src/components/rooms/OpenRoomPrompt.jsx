@@ -40,7 +40,8 @@ const OpenRoomPrompt = () => {
   };
 
   useEffect(() => {
-    if (roomId != null)
+    if (roomId != null) {
+      console.log("testing join room");
       joinRoom({
         room: roomId,
         user: {
@@ -48,6 +49,7 @@ const OpenRoomPrompt = () => {
           username: userInfo.user.username,
         },
       });
+    }
   }, [roomId]);
 
   const refreshUsername = () => {

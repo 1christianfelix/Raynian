@@ -1,4 +1,5 @@
 const roomsLive = require("./roomsLive");
+const roomChat = require("./roomChat");
 let io = null;
 
 const setSocketServerInstance = (ioInstance) => {
@@ -13,4 +14,5 @@ module.exports = {
   setSocketServerInstance,
   getSocketServerInstance,
   roomsLive,
+  roomChat,
 };

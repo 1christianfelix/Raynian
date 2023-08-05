@@ -29,6 +29,10 @@ const registerSocketServer = (server) => {
     // Sending chat message
     socket.on("send-room-chat", (data) => {
       console.log(data);
+      io.to(data.room).emit(
+        "room-chat-log",
+        socketStore.roomChat.getRoomParticipants(data.room)
+      );
     });
 
     // Disconnect from room
