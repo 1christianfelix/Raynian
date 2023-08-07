@@ -8,13 +8,22 @@ export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
   console.log("test");
 
+  /*
+    Recieves from:
+    joinRoomHandler.js
+  */
   socket.on("room-participants", (data) => {
+    console.log(data);
     store.dispatch(updateParticipants(data));
     console.log(data, " joined");
   });
 
+  /*
+    Recieves from:
+    joinRoomHandler.js
+  */
   socket.on("room-chat-log", (messages) => {
-    console.log("room-messages");
+    console.log("room-chat-log");
     store.dispatch(updateChat(messages));
     console.log(messages);
   });
