@@ -51,6 +51,7 @@ const registerSocketServer = (server) => {
 
     // Disconnect
     socket.on("disconnect", () => {
+      removeParticipantHandler(socket);
       console.log("User disconnected", socket.id);
     });
     socket.on("disconnectRequest", (roomId) => {
