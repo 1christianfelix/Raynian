@@ -67,6 +67,11 @@ export const leaveRoom = (data) => {
   socket.emit("leave-room", data);
 };
 
+export const disconnect = () => {
+  console.log("disconnected from socket server");
+  socket.emit("disconnectRequest");
+};
+
 export const sendRoomChat = (data) => {
   console.log("send-room-chat");
   socket.emit("send-room-chat", data);

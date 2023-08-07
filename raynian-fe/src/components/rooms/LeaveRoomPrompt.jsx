@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { disconnectFromRoom } from "../../slices/roomSlice";
-import { joinRoom, leaveRoom } from "../socket/socketConnection";
+import { leaveRoom, disconnect } from "../socket/socketConnection";
 
 const LeaveRoomPrompt = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const LeaveRoomPrompt = () => {
   const handleLeaveRoom = () => {
     if (roomId !== null) {
       console.log("---------");
-      leaveRoom(roomId);
+      disconnect();
       dispatch(disconnectFromRoom());
     }
   };

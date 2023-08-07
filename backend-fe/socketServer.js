@@ -47,9 +47,13 @@ const registerSocketServer = (server) => {
       sendRoomMessageHandler(data);
     });
 
-    // Disconnect from room
+    // Disconnect
     socket.on("disconnect", () => {
       console.log("User disconnected", socket.id);
+    });
+    socket.on("disconnectRequest", () => {
+      console.log("User requested disconnection");
+      socket.disconnect(); // Disconnect the socket
     });
   });
 };
