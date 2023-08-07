@@ -19,6 +19,23 @@ const roomSlice = createSlice({
     connectToRoom: (state, action) => {
       state.roomId = action.payload;
     },
+    // Added socketId field to user field upon connection to socket server
+    updateSocketId: (state, action) => {
+      state.user = { ...state.user, socketId: action.payload };
+    },
+
+    // Reseting room state back to default
+    disconnectFromRoom: (state) => {
+      state.user = {
+        _id: state.user._id,
+        username: state.user.username,
+      };
+      state.host = {};
+      state.roomId = null;
+      state.chat = [];
+      state.participants = [];
+    },
+
     // Reducer for updating the chat log
     updateChat: (state, action) => {
       state.chat = [...state.chat, action.payload];
@@ -73,6 +90,11 @@ export const createRoom = createAsyncThunk("room/createRoom", async (req) => {
   return data; // This will be the payload of the fulfilled action
 });
 
-export const { connectToRoom, updateChat, updateParticipants } =
-  roomSlice.actions;
+export const {
+  connectToRoom,
+  updateChat,
+  updateParticipants,
+  updateSocketId,
+  disconnectFromRoom,
+} = roomSlice.actions;
 export default roomSlice.reducer;

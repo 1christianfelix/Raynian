@@ -5,6 +5,7 @@ import LoginPage from "../pages/LoginPage";
 import AfkCheckPage from "../pages/AfkCheckPage";
 import JoinRoomPrompt from "../rooms/JoinRoomPrompt";
 import OpenRoomPrompt from "../rooms/OpenRoomPrompt";
+import LeaveRoomPrompt from "../rooms/LeaveRoomPrompt";
 
 import { RxCross1 } from "react-icons/rx";
 
@@ -31,6 +32,7 @@ export default function Modal(props) {
           {type === "afk" && <AfkCheckPage />}
           {type === "joinRoomPrompt" && <JoinRoomPrompt />}
           {type === "openRoomPrompt" && <OpenRoomPrompt />}
+          {type === "leaveRoomPrompt" && <LeaveRoomPrompt />}
         </div>
         <div
           className="absolute z-50 h-screen w-screen bg-black bg-opacity-50 backdrop-blur-sm"

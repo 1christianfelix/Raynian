@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const RoomButton = () => {
   const { roomId } = useSelector((state) => state.room);
-  const { toggleJoinRoomPrompt, toggleOpenRoomPrompt } =
+  const { toggleJoinRoomPrompt, toggleOpenRoomPrompt, toggleLeaveRoomPrompt } =
     useContext(ModalContext);
 
   return (
@@ -24,6 +24,14 @@ const RoomButton = () => {
       >
         Join a room
       </button>
+      {roomId != null && (
+        <button
+          onClick={toggleLeaveRoomPrompt}
+          className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+        >
+          Leave room
+        </button>
+      )}
     </div>
   );
 };
