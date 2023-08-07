@@ -2,6 +2,7 @@ const socketStore = require("./socketServerStores/socketStore");
 const { Server } = require("socket.io");
 const joinRoomHandler = require("./socketHandlers/joinRoomHandler");
 const sendRoomMessageHandler = require("./socketHandlers/sendRoomMessageHandler");
+const removeParticipantHandler = require("./socketHandlers/removeParticipantHandler");
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
@@ -39,6 +40,7 @@ const registerSocketServer = (server) => {
         `----Socket ID ${socket.id} is now connected to rooms:`,
         socket.rooms
       );
+      removeParticipantHandler(socket, roomId);
     });
 
     // Sending chat message
@@ -51,9 +53,10 @@ const registerSocketServer = (server) => {
     socket.on("disconnect", () => {
       console.log("User disconnected", socket.id);
     });
-    socket.on("disconnectRequest", () => {
+    socket.on("disconnectRequest", (roomId) => {
       console.log("User requested disconnection");
       socket.disconnect(); // Disconnect the socket
+      removeParticipantHandler(socket, roomId);
     });
   });
 };

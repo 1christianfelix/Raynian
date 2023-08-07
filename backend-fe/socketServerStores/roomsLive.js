@@ -29,7 +29,13 @@ const getRoomParticipants = (roomId) => {
   return roomsLive[roomId].participants;
 };
 
+const deleteRoom = (roomId) => {
+  delete roomsLive[roomId];
+};
+
 module.exports = {
+  roomsLive,
   joinRoom,
   getRoomParticipants,
+  deleteRoom,
 };
