@@ -63,9 +63,9 @@ export default function Timer() {
   };
 
   useEffect(() => {
-    console.log("playHovered: ", playHovered);
-    console.log("pauseHovered: ", pauseHovered);
-    console.log("stopHovered: ", stopHovered);
+    // console.log("playHovered: ", playHovered);
+    // console.log("pauseHovered: ", pauseHovered);
+    // console.log("stopHovered: ", stopHovered);
   }, [playHovered, pauseHovered, stopHovered, skipHovered, settingsHovered]);
 
   return (

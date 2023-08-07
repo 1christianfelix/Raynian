@@ -9,6 +9,7 @@ export const socketServerConnect = () => {
   console.log("test");
 
   socket.on("room-participants", (data) => {
+    console.log(data);
     store.dispatch(updateParticipants(data));
     console.log(data, " joined");
   });

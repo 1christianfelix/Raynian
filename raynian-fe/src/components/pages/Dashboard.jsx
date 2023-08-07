@@ -8,6 +8,7 @@ import Timer from "../util/Timer";
 
 import Chat from "../rooms/Chat";
 import RoomButton from "../rooms/RoomButton";
+import ParticipantList from "../rooms/ParticipantList";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -25,7 +26,7 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-col items-center justify-center">
         <div className="text-center ">
           <p className="text-3xl">You're doing great!</p>
@@ -36,6 +37,7 @@ const Dashboard = () => {
         {/* Create a username field and button here */}
         <RoomButton />
         <Chat />
+        <ParticipantList />
       </div>
     </div>
   );

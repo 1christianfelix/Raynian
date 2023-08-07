@@ -18,7 +18,11 @@ export default function Nav() {
     <div className="select-none px-[25px] py-[20px]">
       <div className="Header flex justify-between">
         <div className="flex items-center gap-[1.25rem]">
-          <img src={thick_logo} alt="logo" className="h-[4.5rem] dark:invert" />
+          <img
+            src={thick_logo}
+            alt="logo"
+            className="dark:invert lg:h-[2.5rem] xl:h-[3.5rem] 2xl:h-[4.5rem]"
+          />
           <p className="text-3xl">raynian</p>
         </div>
         <div className="relative" ref={navRef} onClick={() => toggleDropdown()}>
