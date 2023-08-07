@@ -5,14 +5,12 @@ const joinRoomHandler = async (socket, data) => {
   const socketId = socket.id;
   const user = data.user;
   const roomId = data.roomId;
-
   console.log(user);
   user["socketId"] = socketId;
 
   socketStore.roomsLive.joinRoom({
     user: user,
     roomId: roomId,
-    socketId: socketId,
   });
 
   io.to(data.roomId).emit(

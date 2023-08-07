@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom } from "../../slices/roomSlice";
-import { joinRoom } from "../socket/socketConnection";
+import { joinRoom, leaveRoom } from "../socket/socketConnection";
 import { FiRefreshCcw } from "react-icons/fi";
 import { generateGuestCredentials } from "../../slices/authSlice";
 
 const JoinRoomPrompt = () => {
   const [room, setRoom] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
+
   const [userDetails, setUserDetails] = useState(null);
 
   console.log(userInfo);
@@ -21,28 +22,35 @@ const JoinRoomPrompt = () => {
   };
 
   const handleSubmit = () => {
+    // to avoid changing socketId upon room changes
+    if (roomId === null) {
+      socketServerConnect();
+    }
+
     if (room.length !== 0) {
       console.log("test");
-      socketServerConnect();
       handleJoinRoom();
     }
   };
 
-  const handleJoinRoom = async () => {
-    setUserDetails({
-      _id: userInfo.user._id,
-      username: userInfo.user.username,
-    });
-
+  const handleJoinRoom = () => {
+    if (roomId !== null) {
+      console.log("---------");
+      leaveRoom(roomId);
+      // dispatch(connectToRoom(null));
+    }
     // Wrap the dispatch calls in Promises
-    const connectToRoomPromise = dispatch(connectToRoom(room));
+    dispatch(connectToRoom(room));
 
     // Wait for both Promises to resolve using Promise.all
-    await Promise.all([connectToRoomPromise]);
+
     joinRoom({
       roomId: room,
-      user: { _id: userInfo.user._id, username: userInfo.user.username },
-      profilePicture: userInfo.user.profilePicture,
+      user: {
+        _id: userInfo.user._id,
+        username: userInfo.user.username,
+        profilePicture: userInfo.user.profilePicture,
+      },
     });
   };
 
