@@ -17,8 +17,6 @@ The development of Raynian is still ongoing, and the application is continuously
 
 ## Developers
 
-Raynian is being developed by a team of skilled developers on GitHub:
-
 - [@1christianfelix](https://github.com/1christianfelix)
 - [@abramfelix1](https://github.com/abramfelix1)
 - [@randydhack](https://github.com/randydhack)
