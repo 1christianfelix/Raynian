@@ -83,7 +83,7 @@ const OpenRoomPrompt = () => {
               <>
                 (Joining as{" "}
                 <span className="text-sm font-medium italic text-blue-700">
-                  {usernuserInfo.user.usernameame})
+                  {userInfo.user.username})
                 </span>
               </>
             )}
