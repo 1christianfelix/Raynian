@@ -26,7 +26,7 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div className="relative">
+    <div className="">
       <div className="flex flex-col items-center justify-center">
         <div className="text-center ">
           <p className="text-3xl">You're doing great!</p>
