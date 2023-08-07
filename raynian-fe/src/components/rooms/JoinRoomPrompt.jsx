@@ -22,9 +22,13 @@ const JoinRoomPrompt = () => {
   };
 
   const handleSubmit = () => {
+    // to avoid changing socketId upon room changes
+    if (roomId === null) {
+      socketServerConnect();
+    }
+
     if (room.length !== 0) {
       console.log("test");
-      socketServerConnect();
       handleJoinRoom();
     }
   };
@@ -33,7 +37,7 @@ const JoinRoomPrompt = () => {
     if (roomId !== null) {
       console.log("---------");
       leaveRoom(roomId);
-      dispatch(connectToRoom(null));
+      // dispatch(connectToRoom(null));
     }
     // Wrap the dispatch calls in Promises
     dispatch(connectToRoom(room));
@@ -50,13 +54,6 @@ const JoinRoomPrompt = () => {
     });
   };
 
-  const leaveRoomHandle = () => {
-    if (roomId !== null) {
-      leaveRoom(roomId);
-      dispatch(connectToRoom(null));
-    }
-  };
-
   const refreshUsername = () => {
     dispatch(generateGuestCredentials());
   };
@@ -65,9 +62,6 @@ const JoinRoomPrompt = () => {
     <div className="flex w-[450px] flex-col rounded-3xl bg-white px-[30px] py-10">
       <div className="mb-4">
         <div className="text-center text-2xl">Join a room!</div>
-        <button className="bg-blue" onClick={leaveRoomHandle}>
-          leave
-        </button>
         <div>
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (
