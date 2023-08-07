@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { socketServerConnect } from "../socket/socketConnection";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToRoom } from "../../slices/roomSlice";
-import { joinRoom } from "../socket/socketConnection";
+import { joinRoom, leaveRoom } from "../socket/socketConnection";
 import { FiRefreshCcw } from "react-icons/fi";
 import { generateGuestCredentials } from "../../slices/authSlice";
 
 const JoinRoomPrompt = () => {
   const [room, setRoom] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
+
   const [userDetails, setUserDetails] = useState(null);
 
   console.log(userInfo);
@@ -29,11 +30,6 @@ const JoinRoomPrompt = () => {
   };
 
   const handleJoinRoom = async () => {
-    setUserDetails({
-      _id: userInfo.user._id,
-      username: userInfo.user.username,
-    });
-
     // Wrap the dispatch calls in Promises
     const connectToRoomPromise = dispatch(connectToRoom(room));
 
@@ -41,9 +37,19 @@ const JoinRoomPrompt = () => {
     await Promise.all([connectToRoomPromise]);
     joinRoom({
       roomId: room,
-      user: { _id: userInfo.user._id, username: userInfo.user.username },
-      profilePicture: userInfo.user.profilePicture,
+      user: {
+        _id: userInfo.user._id,
+        username: userInfo.user.username,
+        profilePicture: userInfo.user.profilePicture,
+      },
     });
+  };
+
+  const leaveRoomHandle = () => {
+    if (roomId !== null) {
+      leaveRoom(roomId);
+      dispatch(connectToRoom(null));
+    }
   };
 
   const refreshUsername = () => {
@@ -54,6 +60,9 @@ const JoinRoomPrompt = () => {
     <div className="flex w-[450px] flex-col rounded-3xl bg-white px-[30px] py-10">
       <div className="mb-4">
         <div className="text-center text-2xl">Join a room!</div>
+        <button className="bg-blue" onClick={leaveRoomHandle}>
+          leave
+        </button>
         <div>
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (

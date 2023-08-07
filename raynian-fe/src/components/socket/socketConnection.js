@@ -37,12 +37,24 @@ export const socketServerConnect = () => {
  * @param {Object} data.user - Information about the user joining the room.
  * @param {string} data.user._id - The ID of the user.
  * @param {string} data.user.username - The username of the user.
+ * @param {string} data.user.profilePicture - The profile picture of the user.
  * @returns {void}
  */
 export const joinRoom = (data) => {
-  console.log("joinRoom");
+  // console.log("joinRoom");
   console.log(data);
   socket.emit("join-room", data);
+};
+
+/**
+ * Leaves the current room
+ *
+ * @param {string} data - data is the roomId
+ */
+export const leaveRoom = (data) => {
+  console.log("leaveRoom");
+  console.log(data);
+  socket.emit("leave-room", data);
 };
 
 export const sendRoomChat = (data) => {

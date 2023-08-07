@@ -21,6 +21,13 @@ const registerSocketServer = (server) => {
       joinRoomHandler(socket, data);
     });
 
+    // Leaving a room
+    socket.on("leave-room", (roomId) => {
+      console.log("leaving room");
+      socket.leave(roomId);
+      // leaveRoomHandler(socket, roomId);
+    });
+
     // Sending chat message
     socket.on("send-room-chat", (data) => {
       console.log(data);

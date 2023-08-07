@@ -26,6 +26,7 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
+    // BUG: adding relative to parent div breaks userdropdown
     <div className="">
       <div className="flex flex-col items-center justify-center">
         <div className="text-center ">
