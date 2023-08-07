@@ -1,19 +1,32 @@
 import io from "socket.io-client";
-import { updateParticipants, updateChat } from "../../slices/roomSlice";
+import {
+  updateParticipants,
+  updateChat,
+  updateSocketId,
+} from "../../slices/roomSlice";
 import store from "../../store";
 
 let socket = null;
 
 export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
-  console.log("test");
+
+  /*
+    Recieves from:
+    socketServer.js
+
+    serves indicator for connection. attaches as field to user field in reduc room state
+  */
+  socket.on("socketId", (socketId) => {
+    store.dispatch(updateSocketId(socketId));
+  });
 
   /*
     Recieves from:
     joinRoomHandler.js
   */
   socket.on("room-participants", (data) => {
-    console.log(data);
+    console.log("room-participants");
     store.dispatch(updateParticipants(data));
     console.log(data, " joined");
   });
@@ -25,7 +38,6 @@ export const socketServerConnect = () => {
   socket.on("room-chat-log", (messages) => {
     console.log("room-chat-log");
     store.dispatch(updateChat(messages));
-    console.log(messages);
   });
 };
 
@@ -41,8 +53,7 @@ export const socketServerConnect = () => {
  * @returns {void}
  */
 export const joinRoom = (data) => {
-  // console.log("joinRoom");
-  console.log(data);
+  console.log("joinRoom");
   socket.emit("join-room", data);
 };
 
@@ -53,12 +64,11 @@ export const joinRoom = (data) => {
  */
 export const leaveRoom = (data) => {
   console.log("leaveRoom");
-  console.log(data);
   socket.emit("leave-room", data);
 };
 
 export const sendRoomChat = (data) => {
-  console.log(data);
+  console.log("send-room-chat");
   socket.emit("send-room-chat", data);
 };
 

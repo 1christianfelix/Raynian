@@ -29,12 +29,17 @@ const JoinRoomPrompt = () => {
     }
   };
 
-  const handleJoinRoom = async () => {
+  const handleJoinRoom = () => {
+    if (roomId !== null) {
+      console.log("---------");
+      leaveRoom(roomId);
+      dispatch(connectToRoom(null));
+    }
     // Wrap the dispatch calls in Promises
-    const connectToRoomPromise = dispatch(connectToRoom(room));
+    dispatch(connectToRoom(room));
 
     // Wait for both Promises to resolve using Promise.all
-    await Promise.all([connectToRoomPromise]);
+
     joinRoom({
       roomId: room,
       user: {

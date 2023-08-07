@@ -14,7 +14,7 @@ const roomsLive = {};
  * @param {string} user.username - The username of the user.
  * @returns {void}
  */
-const joinRoom = ({ socketID, roomId, user }) => {
+const joinRoom = ({ socketId, roomId, user }) => {
   if (roomsLive[roomId]) {
     roomsLive[roomId].participants.push(user);
   } else {
