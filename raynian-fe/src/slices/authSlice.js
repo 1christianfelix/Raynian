@@ -23,7 +23,7 @@ const authSlice = createSlice({
     },
     generateGuestCredentials: (state) => {
       const username = generateUniqueUserNoCheck();
-      const guest = { user: { _id: "guest", username } };
+      const guest = { user: { _id: "guest", username, profilePicture: "" } };
       state.userInfo = guest;
       localStorage.setItem("userInfo", JSON.stringify(guest));
     },
