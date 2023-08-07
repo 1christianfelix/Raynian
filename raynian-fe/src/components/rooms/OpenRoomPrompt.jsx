@@ -47,6 +47,7 @@ const OpenRoomPrompt = () => {
         user: {
           _id: userInfo.user._id,
           username: userInfo.user.username,
+          profilePicture: userInfo.user.profilePicture,
         },
       });
     }
