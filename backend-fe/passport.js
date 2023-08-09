@@ -13,26 +13,20 @@ function configurePassport(passport) {
         scope: ["profile", "email"],
       },
       async (req, accessToken, refreshToken, profile, callback) => {
-        // console.log(profile);
         const defaultUser = {
           email: profile.emails[0].value,
           username: await usernameGeneration(),
           googleId: profile.id,
         };
 
-        // console.log(defaultUser);
-
         let user = await User.findOneAndUpdate(
           { email: defaultUser.email },
           { $set: { googleId: defaultUser.googleId } },
           { new: true }
         );
-        // console.log(user);
         if (user) {
-          // console.log("update");
         }
         if (!user) {
-          // console.log("creation");
           user = await User.create(defaultUser);
         }
         return callback(null, user);
