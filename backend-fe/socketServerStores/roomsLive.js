@@ -14,21 +14,28 @@ const roomsLive = {};
  * @param {string} user.username - The username of the user.
  * @returns {void}
  */
-const joinRoom = ({ socketID, room, user }) => {
-  if (roomsLive[room]) {
-    roomsLive[room].participants.push(user);
+const joinRoom = ({ socketId, roomId, user }) => {
+  if (roomsLive[roomId]) {
+    roomsLive[roomId].participants.push(user);
   } else {
-    roomsLive[room] = { participants: [user] };
+    roomsLive[roomId] = { participants: [user] };
   }
 };
 
-const getRoomParticipants = (room) => {
+const getRoomParticipants = (roomId) => {
+  console.log(roomsLive);
   // console.log(room);
   // console.log(roomsLive[room].participants);
-  return roomsLive[room].participants;
+  return roomsLive[roomId].participants;
+};
+
+const deleteRoom = (roomId) => {
+  delete roomsLive[roomId];
 };
 
 module.exports = {
+  roomsLive,
   joinRoom,
   getRoomParticipants,
+  deleteRoom,
 };

@@ -8,9 +8,11 @@ import Timer from "../util/Timer";
 
 import Chat from "../rooms/Chat";
 import RoomButton from "../rooms/RoomButton";
+import ParticipantList from "../rooms/ParticipantList";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { roomId } = useSelector((state) => state.room);
 
   const [currUser, setCurrUser] = useState("");
 
@@ -25,7 +27,8 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div>
+    // BUG: adding relative to parent div breaks userdropdown
+    <div className="">
       <div className="flex flex-col items-center justify-center">
         <div className="text-center ">
           <p className="text-3xl">You're doing great!</p>
@@ -35,7 +38,8 @@ const Dashboard = () => {
         </div>
         {/* Create a username field and button here */}
         <RoomButton />
-        <Chat />
+        {roomId && <Chat />}
+        <ParticipantList />
       </div>
     </div>
   );

@@ -1,22 +1,43 @@
 import io from "socket.io-client";
-import { updateParticipants, updateChat } from "../../slices/roomSlice";
+import {
+  updateParticipants,
+  updateChat,
+  updateSocketId,
+} from "../../slices/roomSlice";
 import store from "../../store";
 
 let socket = null;
 
 export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
-  console.log("test");
 
+  /*
+    Recieves from:
+    socketServer.js
+
+    serves indicator for connection. attaches as field to user field in reduc room state
+  */
+  socket.on("socketId", (socketId) => {
+    store.dispatch(updateSocketId(socketId));
+  });
+
+  /*
+    Recieves from:
+    joinRoomHandler.js
+  */
   socket.on("room-participants", (data) => {
+    console.log("room-participants");
     store.dispatch(updateParticipants(data));
     console.log(data, " joined");
   });
 
+  /*
+    Recieves from:
+    joinRoomHandler.js
+  */
   socket.on("room-chat-log", (messages) => {
-    console.log("room-messages");
+    console.log("room-chat-log");
     store.dispatch(updateChat(messages));
-    console.log(messages);
   });
 };
 
@@ -28,16 +49,36 @@ export const socketServerConnect = () => {
  * @param {Object} data.user - Information about the user joining the room.
  * @param {string} data.user._id - The ID of the user.
  * @param {string} data.user.username - The username of the user.
+ * @param {string} data.user.profilePicture - The profile picture of the user.
  * @returns {void}
  */
 export const joinRoom = (data) => {
   console.log("joinRoom");
-  console.log(data);
   socket.emit("join-room", data);
 };
 
+/**
+ * Leaves the current room
+ *
+ * @param {string} data - data is the roomId
+ */
+export const leaveRoom = (data) => {
+  console.log("leaveRoom");
+  socket.emit("leave-room", data);
+};
+
+/**
+ * Disconnects from the server
+ *
+ * @param {string} data - data is the roomId
+ */
+export const disconnect = (data) => {
+  console.log("disconnected from socket server");
+  socket.emit("disconnectRequest", data);
+};
+
 export const sendRoomChat = (data) => {
-  console.log(data);
+  console.log("send-room-chat");
   socket.emit("send-room-chat", data);
 };
 

@@ -5,7 +5,6 @@ const joinRoomHandler = async (socket, data) => {
   const socketId = socket.id;
   const user = data.user;
   const roomId = data.roomId;
-
   console.log(user);
   user["socketId"] = socketId;
 
@@ -23,7 +22,7 @@ const joinRoomHandler = async (socket, data) => {
 
   io.to(data.roomId).emit(
     "room-participants",
-    socketStore.roomsLive.getRoomParticipants(data.room)
+    socketStore.roomsLive.getRoomParticipants(data.roomId)
   );
 };
 
