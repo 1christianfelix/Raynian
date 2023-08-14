@@ -9,7 +9,7 @@ const LeaveRoomPrompt = () => {
 
   const handleLeaveRoom = () => {
     if (roomId !== null) {
-      console.log("---------");
+      console.log("--------");
       disconnect(roomId);
       dispatch(disconnectFromRoom());
     }
