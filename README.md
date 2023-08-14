@@ -23,3 +23,7 @@ The development of Raynian is still ongoing, and the application is continuously
 - [@ahljenn](https://github.com/ahljenn)
 - [@asmbuac](https://github.com/asmbuac)
 
+
+## Current Demo - 8/13/23
+![ChatRoom Feature](media/8-13%20%20chat%20room%20connection.gif)
+
