@@ -40,6 +40,7 @@ const roomSlice = createSlice({
     updateChat: (state, action) => {
       state.chat = [...state.chat, action.payload];
     },
+
     // Reducer for updating the participants
     updateParticipants: (state, action) => {
       // The payload should be an array of participant names

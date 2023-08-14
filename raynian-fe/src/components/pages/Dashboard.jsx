@@ -12,6 +12,7 @@ import ParticipantList from "../rooms/ParticipantList";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { roomId } = useSelector((state) => state.room);
 
   const [currUser, setCurrUser] = useState("");
 
@@ -37,7 +38,7 @@ const Dashboard = () => {
         </div>
         {/* Create a username field and button here */}
         <RoomButton />
-        <Chat />
+        {roomId && <Chat />}
         <ParticipantList />
       </div>
     </div>
