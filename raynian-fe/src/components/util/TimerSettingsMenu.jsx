@@ -45,7 +45,7 @@ export default function TimerSettingsMenu(props) {
           className="py whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setWorkTime("60 min");
+            setWorkTime(60);
           }}
         >
           60 min
@@ -54,7 +54,7 @@ export default function TimerSettingsMenu(props) {
           className="dark:hover:bg-gray-600over:bg-gray-200 whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setWorkTime("45 min");
+            setWorkTime(45);
           }}
         >
           45 min
@@ -63,7 +63,7 @@ export default function TimerSettingsMenu(props) {
           className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setWorkTime("30 min");
+            setWorkTime(30);
           }}
         >
           30 min
@@ -78,7 +78,7 @@ export default function TimerSettingsMenu(props) {
           className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setBreakTime("15 min");
+            setBreakTime(15);
           }}
         >
           15 min
@@ -87,7 +87,7 @@ export default function TimerSettingsMenu(props) {
           className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setBreakTime("10 min");
+            setBreakTime(10);
           }}
         >
           10 min
@@ -96,7 +96,7 @@ export default function TimerSettingsMenu(props) {
           className="whitespace-nowrap px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={(e) => {
             e.stopPropagation();
-            setBreakTime("5 min");
+            setBreakTime(5);
           }}
         >
           5 min

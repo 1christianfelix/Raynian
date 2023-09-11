@@ -13,8 +13,8 @@ export const TimerProvider = ({ children }) => {
     minutes: 60,
     seconds: 0,
   });
-  const [workTime, setWorkTime] = useState("60 min");
-  const [breakTime, setBreakTime] = useState("15 min");
+  const [workTime, setWorkTime] = useState(60);
+  const [breakTime, setBreakTime] = useState(15);
   const [isBreak, setIsBreak] = useState(false);
   const [isWork, setIsWork] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
@@ -29,30 +29,44 @@ export const TimerProvider = ({ children }) => {
   };
 
   const stopTimer = () => {
-    if (workTime === "60 min")
+    console.log(workTime, breakTime, isRunning, isWork, isBreak);
+    if (isWork)
       setCountdown({
         hours: 0,
-        minutes: 60,
+        minutes: workTime,
         seconds: 0,
       });
-    if (workTime === "45 min")
+    if (isBreak)
       setCountdown({
         hours: 0,
-        minutes: 45,
-        seconds: 0,
-      });
-    if (workTime === "30 min")
-      setCountdown({
-        hours: 0,
-        minutes: 30,
+        minutes: breakTime,
         seconds: 0,
       });
     setIsRunning(false);
+    console.log(workTime, breakTime, isRunning, isWork, isBreak);
   };
 
   const pauseTimer = () => {
     setIsRunning(false);
   };
+
+  useEffect(() => {
+    if (!isRunning)
+      setCountdown({
+        hours: 0,
+        minutes: workTime,
+        seconds: 0,
+      });
+  }, [workTime]);
+
+  useEffect(() => {
+    if (!isRunning)
+      setCountdown({
+        hours: 0,
+        minutes: breakTime,
+        seconds: 0,
+      });
+  }, [breakTime]);
 
   useEffect(() => {
     let interval;
@@ -113,7 +127,7 @@ export const TimerProvider = ({ children }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [isRunning, isWork, workTime, breakTime, toggleAFK, playSound]);
+  }, [isRunning, isWork, isBreak, toggleAFK, playSound]);
 
   return (
     <TimerContext.Provider
