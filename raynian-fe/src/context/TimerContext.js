@@ -54,125 +54,66 @@ export const TimerProvider = ({ children }) => {
     setIsRunning(false);
   };
 
-  //Set break time
   useEffect(() => {
-    if (isBreak) {
-      if (breakTime === "15 min")
-        setCountdown({
-          hours: 0,
-          minutes: 15,
-          seconds: 0,
-        });
-      if (breakTime === "10 min")
-        setCountdown({
-          hours: 0,
-          minutes: 10,
-          seconds: 0,
-        });
-      if (breakTime === "5 min")
-        setCountdown({
-          hours: 0,
-          minutes: 0,
-          seconds: 1,
-        });
-    }
-  }, [isBreak, breakTime]);
+    let interval;
 
-  //Set work time
-  useEffect(() => {
-    if (isWork) {
-      if (workTime === "60 min")
-        setCountdown({
-          hours: 0,
-          minutes: 60,
-          seconds: 0,
-        });
-      if (workTime === "45 min")
-        setCountdown({
-          hours: 0,
-          minutes: 45,
-          seconds: 0,
-        });
-      if (workTime === "30 min")
-        setCountdown({
-          hours: 0,
-          minutes: 0,
-          seconds: 1,
-        });
-    }
-  }, [isWork, workTime]);
+    if (isRunning) {
+      interval = setInterval(() => {
+        setCountdown((prevCountdown) => {
+          const { hours, minutes, seconds } = prevCountdown;
 
-  //Switch from work to break time automatically
-  useEffect(() => {
-    const switchState = () => {
-      setIsWork(!isWork);
-      setIsBreak(!isBreak);
+          if (hours === 0 && minutes === 0 && seconds === 0) {
+            clearInterval(interval);
+            playSound();
+
+            if (isWork) {
+              setIsBreak(true);
+              setIsWork(false);
+              return {
+                hours: 0,
+                minutes: breakTime,
+                seconds: 0,
+              };
+            } else {
+              toggleAFK();
+              stopTimer();
+              setIsWork(true);
+              setIsBreak(false);
+              return {
+                hours: 0,
+                minutes: workTime,
+                seconds: 0,
+              };
+            }
+          }
+
+          if (minutes === 0 && seconds === 0) {
+            return {
+              hours: hours - 1,
+              minutes: 59,
+              seconds: 59,
+            };
+          } else if (seconds === 0) {
+            return {
+              hours,
+              minutes: minutes - 1,
+              seconds: 59,
+            };
+          } else {
+            return {
+              hours,
+              minutes,
+              seconds: seconds - 1,
+            };
+          }
+        });
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(interval);
     };
-    let timerID = null;
-    if (isWork && isRunning) {
-      timerID = setInterval(() => {
-        if (
-          countdown.hours === 0 &&
-          countdown.minutes === 0 &&
-          countdown.seconds === 0
-        ) {
-          clearInterval(timerID);
-          switchState();
-          playSound();
-        } else if (countdown.minutes === 0 && countdown.seconds === 0)
-          setCountdown({
-            hours: countdown.hours - 1,
-            minutes: 59,
-            seconds: 59,
-          });
-        else if (countdown.seconds === 0)
-          setCountdown({
-            hours: countdown.hours,
-            minutes: countdown.minutes - 1,
-            seconds: 59,
-          });
-        else
-          setCountdown({
-            hours: countdown.hours,
-            minutes: countdown.minutes,
-            seconds: countdown.seconds - 1,
-          });
-      }, 1000);
-    }
-    if (isBreak && isRunning) {
-      timerID = setInterval(() => {
-        if (
-          countdown.hours === 0 &&
-          countdown.minutes === 0 &&
-          countdown.seconds === 0
-        ) {
-          clearInterval(timerID);
-          toggleAFK();
-          stopTimer();
-          switchState();
-          playSound();
-        } else if (countdown.minutes === 0 && countdown.seconds === 0)
-          setCountdown({
-            hours: countdown.hours - 1,
-            minutes: 59,
-            seconds: 59,
-          });
-        else if (countdown.seconds === 0)
-          setCountdown({
-            hours: countdown.hours,
-            minutes: countdown.minutes - 1,
-            seconds: 59,
-          });
-        else
-          setCountdown({
-            hours: countdown.hours,
-            minutes: countdown.minutes,
-            seconds: countdown.seconds - 1,
-          });
-      }, 1000);
-    }
-    return () => clearInterval(timerID);
-  }, [countdown, isRunning, isBreak, isWork, toggleAFK]);
+  }, [isRunning, isWork, workTime, breakTime, toggleAFK, playSound]);
 
   return (
     <TimerContext.Provider
