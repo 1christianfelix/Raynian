@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ParticipantTimer from "./ParticipantTimer";
 
 const ParticipantListTest = () => {
@@ -14,6 +14,41 @@ const ParticipantListTest = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
+  const handleStartTimer = () => {
+    setIsRunning(true);
+    setIsPaused(false);
+  };
+
+  const handleStopTimer = () => {
+    setIsRunning(false);
+    setCountdown({
+      hours: 0,
+      minutes: workTime,
+      seconds: 0,
+    });
+  };
+
+  const handlePauseTimer = () => {
+    setIsPaused(true);
+    setIsRunning(false);
+  };
+
+  const subtract = () => {
+    setCountdown((prevCountdown) => {
+      const { hours, minutes, seconds } = prevCountdown;
+
+      return {
+        hours,
+        minutes,
+        seconds: seconds - 1,
+      };
+    });
+  };
+
+  useEffect(() => {
+    console.log("test");
+  }, [subtract]);
+
   return (
     <div className="">
       <div className="flex gap-3">
@@ -26,13 +61,12 @@ const ParticipantListTest = () => {
           isPaused={isPaused}
         />
       </div>
-      <button
-        onClick={() => {
-          setIsRunning((prev) => !prev);
-        }}
-      >
-        start guest timer
-      </button>
+      <div className="flex gap-2">
+        <button onClick={handleStartTimer}>StartTimer</button>
+        <button onClick={handleStopTimer}>StopTimer</button>
+        <button onClick={handlePauseTimer}>PauseTimer</button>
+        <button onClick={subtract}>subtracttest</button>
+      </div>
     </div>
   );
 };

@@ -3,9 +3,12 @@ import { RiPauseCircleLine, RiCircleFill, RiSquareFill } from "react-icons/ri";
 
 const ParticipantTimer = ({ timer, isRunning, isWork, isBreak, isPaused }) => {
   const [countdown, setCountdown] = useState(timer);
+
   useEffect(() => {
     let interval;
-
+    if (!isRunning && !isPaused) {
+      setCountdown(timer);
+    }
     if (isRunning) {
       interval = setInterval(() => {
         setCountdown((prevCountdown) => {
