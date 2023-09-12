@@ -10,6 +10,7 @@ import Chat from "../rooms/Chat";
 import RoomButton from "../rooms/RoomButton";
 import ParticipantList from "../rooms/ParticipantList";
 import TestTimer from "./TestTimer";
+import ParticipantListTest from "./ParticipantListTest";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -43,6 +44,7 @@ const Dashboard = () => {
         <ParticipantList />
       </div>
       <TestTimer />
+      <ParticipantListTest></ParticipantListTest>
     </div>
   );
 };

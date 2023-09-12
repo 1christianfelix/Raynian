@@ -41,7 +41,7 @@ const TestTimer = () => {
         setCurrentCountdown((prevCountdown) => {
           const { hours, minutes, seconds } = prevCountdown;
 
-          if (hours === 0 && minutes === 0 && seconds === 0) {
+          if (hours <= 0 && minutes === 0 && seconds === 0) {
             clearInterval(interval);
 
             if (timerState.isWork) {
