@@ -35,8 +35,8 @@ export const TimerProvider = ({ children }) => {
     if (isWork)
       setCountdown({
         hours: 0,
-        minutes: workTime,
-        seconds: 0,
+        minutes: 0,
+        seconds: 1,
       });
     if (isBreak)
       setCountdown({
