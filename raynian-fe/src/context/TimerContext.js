@@ -26,9 +26,6 @@ export const TimerProvider = ({ children }) => {
   const startTimer = () => {
     setIsPaused(false);
     if (!isRunning) {
-      setCountdown((prevCountdown) => ({
-        ...prevCountdown,
-      }));
       setIsRunning(true);
     }
   };
