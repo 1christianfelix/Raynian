@@ -1,10 +1,13 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import { ModalContext } from "./ModalContext";
 import { RoomContext } from "./RoomContext";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateTimer } from "../slices/timerSlice";
 export const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
+  const dispatch = useDispatch();
+
   const { toggleAFK } = useContext(ModalContext);
   const { playSound } = useContext(RoomContext);
 
@@ -18,8 +21,10 @@ export const TimerProvider = ({ children }) => {
   const [isBreak, setIsBreak] = useState(false);
   const [isWork, setIsWork] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const startTimer = () => {
+    setIsPaused(false);
     if (!isRunning) {
       setCountdown((prevCountdown) => ({
         ...prevCountdown,
@@ -48,6 +53,7 @@ export const TimerProvider = ({ children }) => {
 
   const pauseTimer = () => {
     setIsRunning(false);
+    setIsPaused(true);
   };
 
   useEffect(() => {
@@ -67,6 +73,21 @@ export const TimerProvider = ({ children }) => {
         seconds: 0,
       });
   }, [breakTime]);
+
+  // update user's Redux state
+  // useEffect(() => {
+  //   dispatch(
+  //     updateTimer({
+  //       countdown,
+  //       workTime,
+  //       breakTime,
+  //       isBreak,
+  //       isWork,
+  //       isRunning,
+  //       isPaused,
+  //     })
+  //   );
+  // }, [isRunning, isWork, isBreak, workTime, breakTime]);
 
   useEffect(() => {
     let interval;

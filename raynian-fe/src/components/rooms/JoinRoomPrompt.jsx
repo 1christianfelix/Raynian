@@ -50,6 +50,7 @@ const JoinRoomPrompt = () => {
         _id: userInfo.user._id,
         username: userInfo.user.username,
         profilePicture: userInfo.user.profilePicture,
+        timer: userInfo.user.timer,
       },
     });
   };
