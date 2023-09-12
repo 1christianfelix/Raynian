@@ -59,14 +59,6 @@ export const stopTimer = () => async (dispatch, getState) => {
   const state = getState().timer;
   const { isWork, isBreak, workTime, breakTime } = state;
 
-  dispatch(
-    updateCountdown({
-      hours: 0,
-      minutes: workTime,
-      seconds: 0,
-    })
-  );
-
   if (isBreak) {
     dispatch(setIsBreak(false));
   }
