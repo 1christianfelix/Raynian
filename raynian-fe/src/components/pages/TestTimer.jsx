@@ -23,7 +23,7 @@ const TestTimer = () => {
   };
 
   useEffect(() => {
-    if (!timerState.isRunning) {
+    if (!timerState.isRunning && !timerState.isPaused) {
       if (timerState.isWork) {
         setCurrentCountdown({
           hours: 0,
