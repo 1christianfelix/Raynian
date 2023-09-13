@@ -12,19 +12,11 @@ const ParticipantTimer = ({
 }) => {
   const [countdown, setCountdown] = useState(timer);
   useEffect(() => {
-    if (!isRunning) {
-      setCountdown(timer);
-    }
-
-    // if (!isRunning && countdown.minutes == workTime) {
-    //   setCountdown({
-    //     hours: 0,
-    //     minutes: workTime,
-    //     seconds: 0,
-    //   });
-    // }
+    setCountdown(timer);
   }, [timer, workTime, breakTime]);
+
   useEffect(() => {
+    console.log("timer:", timer);
     let interval;
     if (!isRunning && !isPaused) {
       if (isWork) {
@@ -83,19 +75,19 @@ const ParticipantTimer = ({
     if (isWork) {
       // setIsBreak(true);
       // setIsWork(false);
-      console.log("set to break");
+      console.log("set to work");
       setCountdown({
         hours: 0,
-        minutes: breakTime,
+        minutes: workTime,
         seconds: 0,
       });
     } else {
       // setIsWork(true);
       // setIsBreak(false);
-      console.log("set to work");
+      console.log("set to break");
       setCountdown({
         hours: 0,
-        minutes: workTime,
+        minutes: breakTime,
         seconds: 0,
       });
     }

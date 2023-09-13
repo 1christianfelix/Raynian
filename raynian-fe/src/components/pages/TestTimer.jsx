@@ -43,7 +43,7 @@ const TestTimer = () => {
               getTimerState();
               return {
                 hours: 0,
-                minutes: timerState.breakTime,
+                minutes: timerState.workTime,
                 seconds: 0,
               };
             } else {
@@ -84,6 +84,17 @@ const TestTimer = () => {
       clearInterval(interval);
     };
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
+
+  useEffect(() => {
+    dispatch(
+      timerActions.updateCountdown({
+        hours: currentCountdown.hours,
+        minutes: currentCountdown.minutes,
+        seconds: currentCountdown.seconds,
+      })
+    );
+    getTimerState();
+  }, [currentCountdown]);
 
   // update selected timer
   useEffect(() => {
