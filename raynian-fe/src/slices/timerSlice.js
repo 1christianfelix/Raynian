@@ -65,6 +65,7 @@ export const stopTimer = () => async (dispatch, getState) => {
   });
   if (isBreak) {
     dispatch(setIsBreak(false));
+    dispatch(setIsWork(true));
   }
   dispatch(setIsRunning(false));
   dispatch(setIsPaused(false));

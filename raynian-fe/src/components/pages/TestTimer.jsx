@@ -130,6 +130,13 @@ const TestTimer = () => {
     getTimerState();
   }, [roomId, timerState.isWork, timerState.isBreak]);
 
+  // useEffect(() => {
+  //   if (currentCountdown.seconds % 20 == 0) {
+  //     console.log("updating all!");
+  //     getCurrentCountdown();
+  //   }
+  // }, [currentCountdown]);
+
   const getTimerState = async () => {
     const timerData = await dispatch(timerActions.getTimerState());
     if (roomId != null) {
@@ -142,6 +149,24 @@ const TestTimer = () => {
         workTime: timerData.workTime,
         breakTime: timerData.breakTime,
       };
+
+      updateTimerStatus(updatedTimerData, roomId);
+    }
+  };
+
+  const getCurrentCountdown = async () => {
+    const timerData = await dispatch(timerActions.getTimerState());
+    if (roomId != null) {
+      const updatedTimerData = {
+        countdown: currentCountdown,
+        isRunning: timerData.isRunning,
+        isBreak: timerData.isBreak,
+        isWork: timerData.isWork,
+        isPaused: timerData.isPaused,
+        workTime: timerData.workTime,
+        breakTime: timerData.breakTime,
+      };
+      console.log("123", currentCountdown, updatedTimerData);
 
       updateTimerStatus(updatedTimerData, roomId);
     }
