@@ -11,10 +11,6 @@ let socket = null;
 export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
 
-  /*
-------------------------Room Sockets-----------------------------------
-*/
-
   ////////////////////////
   //     Recievers     //
   ///////////////////////
@@ -92,13 +88,6 @@ export const sendRoomChat = (data) => {
   console.log("send-room-chat");
   socket.emit("send-room-chat", data);
 };
-
-/*
-------------------------Timer Sockets--------------------------
-*/
-////////////////////////
-//     Recievers     //
-///////////////////////
 
 //////////////////////
 //     Senders     //

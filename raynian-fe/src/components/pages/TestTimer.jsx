@@ -18,35 +18,7 @@ const TestTimer = () => {
 
   // update the timer to current choice if not currently running or paused
   useEffect(() => {
-    if (!timerState.isRunning && !timerState.isPaused) {
-      if (timerState.isWork) {
-        setCurrentCountdown({
-          hours: 0,
-          minutes: timerState.workTime,
-          seconds: 0,
-        });
-        dispatch(
-          timerActions.updateCountdown({
-            hours: 0,
-            minutes: timerState.workTime,
-            seconds: 0,
-          })
-        );
-      } else if (timerState.isBreak) {
-        setCurrentCountdown({
-          hours: 0,
-          minutes: timerState.breakTime,
-          seconds: 0,
-        });
-        dispatch(
-          timerActions.updateCountdown({
-            hours: 0,
-            minutes: timerState.breakTime,
-            seconds: 0,
-          })
-        );
-      }
-    }
+    console.log("t");
   }, [
     timerState.workTime,
     timerState.breakTime,
@@ -125,6 +97,35 @@ const TestTimer = () => {
 
   // update socket listeners
   useEffect(() => {
+    if (!timerState.isRunning && !timerState.isPaused) {
+      if (timerState.isWork) {
+        setCurrentCountdown({
+          hours: 0,
+          minutes: timerState.workTime,
+          seconds: 0,
+        });
+        dispatch(
+          timerActions.updateCountdown({
+            hours: 0,
+            minutes: timerState.workTime,
+            seconds: 0,
+          })
+        );
+      } else if (timerState.isBreak) {
+        setCurrentCountdown({
+          hours: 0,
+          minutes: timerState.breakTime,
+          seconds: 0,
+        });
+        dispatch(
+          timerActions.updateCountdown({
+            hours: 0,
+            minutes: timerState.breakTime,
+            seconds: 0,
+          })
+        );
+      }
+    }
     const fetchData = async () => {
       const timerData = await getTimerState();
 
@@ -149,6 +150,8 @@ const TestTimer = () => {
     timerState.isBreak,
     timerState.isWork,
     timerState.isPaused,
+    timerState.workTime,
+    timerState.breakTime,
     timerState.workTime,
     timerState.breakTime,
   ]);
