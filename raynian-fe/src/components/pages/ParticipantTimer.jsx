@@ -1,13 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { RiPauseCircleLine, RiCircleFill, RiSquareFill } from "react-icons/ri";
 
-const ParticipantTimer = ({ timer, isRunning, isWork, isBreak, isPaused }) => {
+const ParticipantTimer = ({
+  timer,
+  isRunning,
+  isWork,
+  isBreak,
+  isPaused,
+  workTime,
+  breakTime,
+}) => {
   const [countdown, setCountdown] = useState(timer);
 
   useEffect(() => {
     let interval;
     if (!isRunning && !isPaused) {
-      setCountdown(timer);
+      if (isWork) {
+        setCountdown({
+          hours: 0,
+          minutes: workTime,
+          seconds: 0,
+        });
+      } else if (isBreak) {
+        setCountdown({
+          hours: 0,
+          minutes: breakTime,
+          seconds: 0,
+        });
+      }
     }
     if (isRunning) {
       interval = setInterval(() => {

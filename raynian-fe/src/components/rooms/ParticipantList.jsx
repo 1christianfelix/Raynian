@@ -5,6 +5,7 @@ import ParticipantTimer from "../pages/ParticipantTimer";
 
 const ParticipantList = () => {
   const { participants } = useSelector((state) => state.room);
+  const { roomId } = useSelector((state) => state.room);
   return (
     <div className="flex flex-col items-start justify-start gap-2">
       {participants.map((participant, index) => (
@@ -32,7 +33,17 @@ const ParticipantList = () => {
             </div>
           )}
           <div className="text-sm">{participant.username}</div>
-          {/* <ParticipantTimer /> */}
+          {participant.timerData && (
+            <ParticipantTimer
+              timer={participant.timerData.countdown}
+              isRunning={participant.timerData.isRunning}
+              isBreak={participant.timerData.isBreak}
+              isWork={participant.timerData.isWork}
+              isPaused={participant.timerData.isPaused}
+              workTime={participant.timerData.workTime}
+              breakTime={participant.timerData.breakTime}
+            />
+          )}
         </div>
       ))}
     </div>

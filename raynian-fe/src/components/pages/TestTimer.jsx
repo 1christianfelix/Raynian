@@ -134,6 +134,8 @@ const TestTimer = () => {
         isBreak: timerState.isBreak,
         isWork: timerState.isWork,
         isPaused: timerState.isPaused,
+        workTime: timerState.workTime,
+        breakTime: timerState.breakTime,
       };
 
       updateTimerStatus(timerData, roomId);
@@ -144,6 +146,8 @@ const TestTimer = () => {
     timerState.isBreak,
     timerState.isWork,
     timerState.isPaused,
+    timerState.workTime,
+    timerState.breakTime,
   ]);
 
   const handleWorkTimeChange = (e) => {
