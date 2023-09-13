@@ -92,9 +92,10 @@ export const sendRoomChat = (data) => {
 //////////////////////
 //     Senders     //
 /////////////////////
+
+// Send data when timer status updates from isRunning isBreak isWork isPaused
+// Send countdown if status change
 export const updateTimerStatus = (timerData, roomId) => {
-  // Send data when timer status updates from isRunning isBreak isWork isPaused
-  // Send countdown if status change
   const data = {
     timerData: timerData,
     roomId,

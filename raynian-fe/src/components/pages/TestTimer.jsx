@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
-import { updateTimerStatus } from "../socket/socketConnection";
+import {
+  updateTimerStatus,
+  sendCurrentTimerStatus,
+} from "../socket/socketConnection";
 
 const TestTimer = () => {
   // const [workTime, setWorkTime] = useState(60);
@@ -16,28 +19,8 @@ const TestTimer = () => {
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
 
-  // update the timer to current choice if not currently running or paused
-  useEffect(() => {
-    console.log("t");
-  }, [
-    timerState.workTime,
-    timerState.breakTime,
-    timerState.isRunning,
-    timerState.isPaused,
-  ]);
-
   useEffect(() => {
     let interval;
-
-    // if (!timerState.isRunning && !timerState.isPaused) {
-    //   dispatch(
-    //     timerActions.updateCountdown({
-    //       hours: 0,
-    //       minutes: timerState.workTime,
-    //       seconds: 0,
-    //     })
-    //   );
-    // }
 
     if (timerState.isRunning) {
       interval = setInterval(() => {
@@ -48,8 +31,16 @@ const TestTimer = () => {
             clearInterval(interval);
 
             if (timerState.isWork) {
+              dispatch(
+                timerActions.updateCountdown({
+                  hours: 0,
+                  minutes: timerState.breakTime,
+                  seconds: 0,
+                })
+              );
               dispatch(timerActions.setIsBreak(true));
               dispatch(timerActions.setIsWork(false));
+
               return {
                 hours: 0,
                 minutes: timerState.breakTime,
@@ -57,6 +48,13 @@ const TestTimer = () => {
               };
             } else {
               handleStopTimer();
+              dispatch(
+                timerActions.updateCountdown({
+                  hours: 0,
+                  minutes: timerState.workTime,
+                  seconds: 0,
+                })
+              );
               dispatch(timerActions.setIsWork(true));
               dispatch(timerActions.setIsBreak(false));
               return {
@@ -126,39 +124,27 @@ const TestTimer = () => {
         );
       }
     }
-    const fetchData = async () => {
-      const timerData = await getTimerState();
+  }, [timerState.isRunning, timerState.workTime, timerState.breakTime]);
 
-      if (roomId != null) {
-        const updatedTimerData = {
-          countdown: timerData.countdown,
-          isRunning: timerData.isRunning,
-          isBreak: timerData.isBreak,
-          isWork: timerData.isWork,
-          isPaused: timerData.isPaused,
-          workTime: timerData.workTime,
-          breakTime: timerData.breakTime,
-        };
-
-        updateTimerStatus(updatedTimerData, roomId);
-      }
-    };
-    fetchData();
-  }, [
-    roomId,
-    timerState.isRunning,
-    timerState.isBreak,
-    timerState.isWork,
-    timerState.isPaused,
-    timerState.workTime,
-    timerState.breakTime,
-    timerState.workTime,
-    timerState.breakTime,
-  ]);
+  useEffect(() => {
+    getTimerState();
+  }, [roomId, timerState.isWork, timerState.isBreak]);
 
   const getTimerState = async () => {
-    const data = await dispatch(timerActions.getTimerState());
-    return data;
+    const timerData = await dispatch(timerActions.getTimerState());
+    if (roomId != null) {
+      const updatedTimerData = {
+        countdown: timerData.countdown,
+        isRunning: timerData.isRunning,
+        isBreak: timerData.isBreak,
+        isWork: timerData.isWork,
+        isPaused: timerData.isPaused,
+        workTime: timerData.workTime,
+        breakTime: timerData.breakTime,
+      };
+
+      updateTimerStatus(updatedTimerData, roomId);
+    }
   };
 
   const handleWorkTimeChange = (e) => {
@@ -171,19 +157,17 @@ const TestTimer = () => {
 
   const handleStartTimer = () => {
     dispatch(timerActions.startTimer());
+    getTimerState();
   };
 
   const handleStopTimer = () => {
     dispatch(timerActions.stopTimer());
-    // setCurrentCountdown({
-    //   hours: 0,
-    //   minutes: timerState.workTime,
-    //   seconds: 0,
-    // });
+    getTimerState();
   };
 
   const handlePauseTimer = () => {
     dispatch(timerActions.pauseTimer(currentCountdown));
+    getTimerState();
   };
 
   const subtract = () => {
@@ -219,7 +203,7 @@ const TestTimer = () => {
           >
             <option value={60}>60 minutes</option>
             <option value={45}>45 minutes</option>
-            <option value={30}>30 minutes</option>
+            <option value={1}>30 minutes</option>
           </select>
 
           <label htmlFor="breakTime">Break Time:</label>

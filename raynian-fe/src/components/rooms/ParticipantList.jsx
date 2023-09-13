@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { LuDog, LuCat } from "react-icons/lu";
 import ParticipantTimer from "../pages/ParticipantTimer";
 
 const ParticipantList = () => {
-  const { participants } = useSelector((state) => state.room);
-  const { roomId } = useSelector((state) => state.room);
+  const { participants, roomId } = useSelector((state) => state.room);
+  const timerState = useSelector((state) => state.timer);
+
   return (
     <div className="flex flex-col items-start justify-start gap-2">
       {participants.map((participant, index) => (

@@ -11,9 +11,12 @@ const ParticipantTimer = ({
   breakTime,
 }) => {
   const [countdown, setCountdown] = useState(timer);
-
+  useEffect(() => {
+    setCountdown(timer);
+  }, [timer]);
   useEffect(() => {
     let interval;
+    console.log(isRunning, isPaused, "in here");
     if (!isRunning && !isPaused) {
       if (isWork) {
         console.log("changed");
