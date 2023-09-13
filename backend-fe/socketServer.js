@@ -57,7 +57,12 @@ const registerSocketServer = (server) => {
     socket.on("disconnectRequest", (roomId) => {
       console.log("User requested disconnection");
       socket.disconnect(); // Disconnect the socket
-      removeParticipantHandler(socket, roomId);
+      removeParticipantHandler(socket.id, roomId);
+    });
+
+    // Updating Timer Status
+    socket.on("update-timer-status", (data) => {
+      console.log("backend update timer status", socket.id, data);
     });
   });
 };

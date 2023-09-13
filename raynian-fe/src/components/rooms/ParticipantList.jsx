@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { LuDog, LuCat } from "react-icons/lu";
+import ParticipantTimer from "../pages/ParticipantTimer";
 
 const ParticipantList = () => {
   const { participants } = useSelector((state) => state.room);
@@ -31,6 +32,7 @@ const ParticipantList = () => {
             </div>
           )}
           <div className="text-sm">{participant.username}</div>
+          {/* <ParticipantTimer /> */}
         </div>
       ))}
     </div>

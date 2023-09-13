@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
+import { updateTimerStatus } from "../socket/socketConnection";
 
 const TestTimer = () => {
   // const [workTime, setWorkTime] = useState(60);
@@ -13,6 +14,7 @@ const TestTimer = () => {
 
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
+  const { roomId } = useSelector((state) => state.room);
 
   // update the timer to current choice if not currently running or paused
   useEffect(() => {
@@ -91,6 +93,27 @@ const TestTimer = () => {
       clearInterval(interval);
     };
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
+
+  useEffect(() => {
+    console.log("attempt to store timerdata");
+    if (roomId != null) {
+      console.log("storing");
+      const timerData = {
+        isRunning: timerState.isRunning,
+        isBreak: timerState.isBreak,
+        isWork: timerState.isWork,
+        isPaused: timerState.isPaused,
+      };
+
+      updateTimerStatus(timerData, roomId);
+    }
+  }, [
+    roomId,
+    timerState.isRunning,
+    timerState.isBreak,
+    timerState.isWork,
+    timerState.isPaused,
+  ]);
 
   const handleWorkTimeChange = (e) => {
     dispatch(timerActions.setWorkTime(parseInt(e.target.value)));
