@@ -26,10 +26,8 @@ const ParticipantTimer = ({
   }, [timer, workTime, breakTime]);
   useEffect(() => {
     let interval;
-    console.log(isRunning, isPaused, "in here");
     if (!isRunning && !isPaused) {
       if (isWork) {
-        console.log("changed");
         setCountdown({
           hours: 0,
           minutes: workTime,
@@ -45,29 +43,12 @@ const ParticipantTimer = ({
     }
     if (isRunning) {
       interval = setInterval(() => {
+        console.log("start interval", isWork);
         setCountdown((prevCountdown) => {
           const { hours, minutes, seconds } = prevCountdown;
 
           if (hours === 0 && minutes === 0 && seconds === 0) {
             clearInterval(interval);
-            if (isWork) {
-              // setIsBreak(true);
-              // setIsWork(false);
-
-              return {
-                hours: 0,
-                minutes: breakTime,
-                seconds: 0,
-              };
-            } else {
-              // setIsWork(true);
-              // setIsBreak(false);
-              return {
-                hours: 0,
-                minutes: timerState.workTime,
-                seconds: 0,
-              };
-            }
           }
           if (minutes === 0 && seconds === 0) {
             return {
@@ -93,9 +74,32 @@ const ParticipantTimer = ({
     }
 
     return () => {
+      console.log("clear");
       clearInterval(interval);
     };
-  }, [isRunning, isPaused, isWork, isBreak, workTime, breakTime]);
+  }, [isRunning, isPaused, workTime, breakTime]);
+
+  useEffect(() => {
+    if (isWork) {
+      // setIsBreak(true);
+      // setIsWork(false);
+      console.log("set to break");
+      setCountdown({
+        hours: 0,
+        minutes: breakTime,
+        seconds: 0,
+      });
+    } else {
+      // setIsWork(true);
+      // setIsBreak(false);
+      console.log("set to work");
+      setCountdown({
+        hours: 0,
+        minutes: workTime,
+        seconds: 0,
+      });
+    }
+  }, [isBreak, isWork]);
 
   const renderIcon = () => {
     if (isPaused) {

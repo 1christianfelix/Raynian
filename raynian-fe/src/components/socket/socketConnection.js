@@ -31,7 +31,6 @@ export const socketServerConnect = () => {
   socket.on("room-participants", (data) => {
     console.log("room-participants");
     store.dispatch(updateParticipants(data));
-    console.log(data, " joined");
   });
 
   /*
@@ -100,7 +99,7 @@ export const updateTimerStatus = (timerData, roomId) => {
     timerData: timerData,
     roomId,
   };
-  console.log("update-timer-status", data);
+  console.log("update-timer-status");
   socket.emit("update-timer-status", data);
 };
 

@@ -47,10 +47,6 @@ const ParticipantListTest = () => {
     });
   };
 
-  useEffect(() => {
-    console.log("test");
-  }, [subtract]);
-
   return (
     <div className="">
       <div className="flex gap-3">

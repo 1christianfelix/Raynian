@@ -40,7 +40,7 @@ const TestTimer = () => {
               );
               dispatch(timerActions.setIsBreak(true));
               dispatch(timerActions.setIsWork(false));
-
+              getTimerState();
               return {
                 hours: 0,
                 minutes: timerState.breakTime,
@@ -48,15 +48,7 @@ const TestTimer = () => {
               };
             } else {
               handleStopTimer();
-              dispatch(
-                timerActions.updateCountdown({
-                  hours: 0,
-                  minutes: timerState.workTime,
-                  seconds: 0,
-                })
-              );
-              dispatch(timerActions.setIsWork(true));
-              dispatch(timerActions.setIsBreak(false));
+
               return {
                 hours: 0,
                 minutes: timerState.workTime,
@@ -129,7 +121,7 @@ const TestTimer = () => {
   // update sockets
   useEffect(() => {
     getTimerState();
-  }, [roomId, timerState.isWork, timerState.isBreak]);
+  }, [roomId]);
 
   // useEffect(() => {
   //   if (currentCountdown.seconds % 20 == 0) {
