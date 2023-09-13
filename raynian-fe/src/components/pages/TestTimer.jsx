@@ -123,23 +123,26 @@ const TestTimer = () => {
     };
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
 
+  // update socket listeners
   useEffect(() => {
-    console.log("attempt to store timerdata", timerState.countdown);
+    const fetchData = async () => {
+      const timerData = await getTimerState();
 
-    if (roomId != null) {
-      console.log("storing");
-      const timerData = {
-        countdown: timerState.countdown,
-        isRunning: timerState.isRunning,
-        isBreak: timerState.isBreak,
-        isWork: timerState.isWork,
-        isPaused: timerState.isPaused,
-        workTime: timerState.workTime,
-        breakTime: timerState.breakTime,
-      };
+      if (roomId != null) {
+        const updatedTimerData = {
+          countdown: timerData.countdown,
+          isRunning: timerData.isRunning,
+          isBreak: timerData.isBreak,
+          isWork: timerData.isWork,
+          isPaused: timerData.isPaused,
+          workTime: timerData.workTime,
+          breakTime: timerData.breakTime,
+        };
 
-      updateTimerStatus(timerData, roomId);
-    }
+        updateTimerStatus(updatedTimerData, roomId);
+      }
+    };
+    fetchData();
   }, [
     roomId,
     timerState.isRunning,
@@ -149,6 +152,11 @@ const TestTimer = () => {
     timerState.workTime,
     timerState.breakTime,
   ]);
+
+  const getTimerState = async () => {
+    const data = await dispatch(timerActions.getTimerState());
+    return data;
+  };
 
   const handleWorkTimeChange = (e) => {
     dispatch(timerActions.setWorkTime(parseInt(e.target.value)));

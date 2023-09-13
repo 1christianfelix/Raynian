@@ -78,36 +78,9 @@ export const pauseTimer = (currentCountdown) => async (dispatch, getState) => {
   dispatch(setIsRunning(false));
 };
 
-export const timerCountdown = () => async (dispatch, getState) => {
+export const getTimerState = () => async (dispatch, getState) => {
   const state = getState().timer;
-  const {
-    countdown,
-    workTime,
-    breakTime,
-    isRunning,
-    isWork,
-    isBreak,
-    isPaused,
-  } = state;
-
-  if (!isRunning) {
-    // Start the timer
-    dispatch(startTimer());
-  }
-
-  // Your timer logic here...
-  // You can use the state and dispatch actions to update the timer.
-
-  // Example: Update countdown every second
-  const intervalId = setInterval(() => {
-    // Calculate new countdown values
-    // Dispatch an action to update the timer
-    // Check if it's time to switch from work to break or vice versa
-    // Handle pausing and stopping the timer
-  }, 1000);
-
-  // Clear the interval when the timer is stopped or paused
-  return () => clearInterval(intervalId);
+  return state;
 };
 
 export const {
