@@ -13,6 +13,7 @@ const initialState = {
   isWork: true,
   isBreak: false,
   isPaused: false,
+  syncedWithRoom: false,
 };
 
 const timerSlice = createSlice({

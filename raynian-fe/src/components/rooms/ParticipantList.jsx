@@ -45,6 +45,7 @@ const ParticipantList = () => {
               breakTime={participant.timerData.breakTime}
             />
           )}
+          <button>sync with room</button>
         </div>
       ))}
     </div>

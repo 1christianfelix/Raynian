@@ -86,14 +86,16 @@ const TestTimer = () => {
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
 
   useEffect(() => {
-    dispatch(
-      timerActions.updateCountdown({
-        hours: currentCountdown.hours,
-        minutes: currentCountdown.minutes,
-        seconds: currentCountdown.seconds,
-      })
-    );
-    getTimerState();
+    if (syncedWithRoom == true) {
+      dispatch(
+        timerActions.updateCountdown({
+          hours: currentCountdown.hours,
+          minutes: currentCountdown.minutes,
+          seconds: currentCountdown.seconds,
+        })
+      );
+      getTimerState();
+    }
   }, [currentCountdown]);
 
   // update selected timer
