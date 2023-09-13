@@ -93,7 +93,7 @@ const TestTimer = () => {
     };
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
 
-  // update socket listeners
+  // update selected timer
   useEffect(() => {
     if (!timerState.isRunning && !timerState.isPaused) {
       if (timerState.isWork) {
@@ -126,6 +126,7 @@ const TestTimer = () => {
     }
   }, [timerState.isRunning, timerState.workTime, timerState.breakTime]);
 
+  // update sockets
   useEffect(() => {
     getTimerState();
   }, [roomId, timerState.isWork, timerState.isBreak]);
@@ -174,10 +175,12 @@ const TestTimer = () => {
 
   const handleWorkTimeChange = (e) => {
     dispatch(timerActions.setWorkTime(parseInt(e.target.value)));
+    getTimerState();
   };
 
   const handleBreakTimeChange = (e) => {
     dispatch(timerActions.setBreakTime(parseInt(e.target.value)));
+    getTimerState();
   };
 
   const handleStartTimer = () => {
@@ -239,7 +242,7 @@ const TestTimer = () => {
           >
             <option value={15}>15 minutes</option>
             <option value={10}>10 minutes</option>
-            <option value={5}>5 minutes</option>
+            <option value={1}>5 minutes</option>
           </select>
         </div>
         <button onClick={handleStartTimer}>StartTimer</button>

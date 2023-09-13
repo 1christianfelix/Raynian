@@ -12,8 +12,18 @@ const ParticipantTimer = ({
 }) => {
   const [countdown, setCountdown] = useState(timer);
   useEffect(() => {
-    setCountdown(timer);
-  }, [timer]);
+    if (!isRunning) {
+      setCountdown(timer);
+    }
+
+    // if (!isRunning && countdown.minutes == workTime) {
+    //   setCountdown({
+    //     hours: 0,
+    //     minutes: workTime,
+    //     seconds: 0,
+    //   });
+    // }
+  }, [timer, workTime, breakTime]);
   useEffect(() => {
     let interval;
     console.log(isRunning, isPaused, "in here");
@@ -40,6 +50,24 @@ const ParticipantTimer = ({
 
           if (hours === 0 && minutes === 0 && seconds === 0) {
             clearInterval(interval);
+            if (isWork) {
+              // setIsBreak(true);
+              // setIsWork(false);
+
+              return {
+                hours: 0,
+                minutes: breakTime,
+                seconds: 0,
+              };
+            } else {
+              // setIsWork(true);
+              // setIsBreak(false);
+              return {
+                hours: 0,
+                minutes: timerState.workTime,
+                seconds: 0,
+              };
+            }
           }
           if (minutes === 0 && seconds === 0) {
             return {
@@ -67,7 +95,7 @@ const ParticipantTimer = ({
     return () => {
       clearInterval(interval);
     };
-  }, [isRunning, isWork, isBreak, isPaused, workTime, breakTime]);
+  }, [isRunning, isPaused, isWork, isBreak, workTime, breakTime]);
 
   const renderIcon = () => {
     if (isPaused) {
