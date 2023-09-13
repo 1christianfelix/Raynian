@@ -25,18 +25,47 @@ const TestTimer = () => {
           minutes: timerState.workTime,
           seconds: 0,
         });
+        dispatch(
+          timerActions.updateCountdown({
+            hours: 0,
+            minutes: timerState.workTime,
+            seconds: 0,
+          })
+        );
       } else if (timerState.isBreak) {
         setCurrentCountdown({
           hours: 0,
           minutes: timerState.breakTime,
           seconds: 0,
         });
+        dispatch(
+          timerActions.updateCountdown({
+            hours: 0,
+            minutes: timerState.breakTime,
+            seconds: 0,
+          })
+        );
       }
     }
-  }, [timerState.workTime, timerState.breakTime]);
+  }, [
+    timerState.workTime,
+    timerState.breakTime,
+    timerState.isRunning,
+    timerState.isPaused,
+  ]);
 
   useEffect(() => {
     let interval;
+
+    // if (!timerState.isRunning && !timerState.isPaused) {
+    //   dispatch(
+    //     timerActions.updateCountdown({
+    //       hours: 0,
+    //       minutes: timerState.workTime,
+    //       seconds: 0,
+    //     })
+    //   );
+    // }
 
     if (timerState.isRunning) {
       interval = setInterval(() => {
@@ -95,7 +124,8 @@ const TestTimer = () => {
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
 
   useEffect(() => {
-    console.log("attempt to store timerdata");
+    console.log("attempt to store timerdata", timerState.countdown);
+
     if (roomId != null) {
       console.log("storing");
       const timerData = {
@@ -130,11 +160,11 @@ const TestTimer = () => {
 
   const handleStopTimer = () => {
     dispatch(timerActions.stopTimer());
-    setCurrentCountdown({
-      hours: 0,
-      minutes: timerState.workTime,
-      seconds: 0,
-    });
+    // setCurrentCountdown({
+    //   hours: 0,
+    //   minutes: timerState.workTime,
+    //   seconds: 0,
+    // });
   };
 
   const handlePauseTimer = () => {

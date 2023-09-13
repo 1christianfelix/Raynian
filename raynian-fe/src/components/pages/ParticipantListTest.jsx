@@ -21,6 +21,8 @@ const ParticipantListTest = () => {
 
   const handleStopTimer = () => {
     setIsRunning(false);
+    setIsPaused(false);
+
     setCountdown({
       hours: 0,
       minutes: workTime,

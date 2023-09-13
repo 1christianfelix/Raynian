@@ -58,11 +58,16 @@ export const stopTimer = () => async (dispatch, getState) => {
   console.log("stopTimer");
   const state = getState().timer;
   const { isWork, isBreak, workTime, breakTime } = state;
-
+  updateCountdown({
+    hours: 0,
+    minutes: workTime,
+    seconds: 0,
+  });
   if (isBreak) {
     dispatch(setIsBreak(false));
   }
   dispatch(setIsRunning(false));
+  dispatch(setIsPaused(false));
 };
 
 export const pauseTimer = (currentCountdown) => async (dispatch, getState) => {
