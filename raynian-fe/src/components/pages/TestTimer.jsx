@@ -99,6 +99,7 @@ const TestTimer = () => {
     if (roomId != null) {
       console.log("storing");
       const timerData = {
+        countdown: timerState.countdown,
         isRunning: timerState.isRunning,
         isBreak: timerState.isBreak,
         isWork: timerState.isWork,

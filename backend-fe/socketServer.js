@@ -3,6 +3,7 @@ const { Server } = require("socket.io");
 const joinRoomHandler = require("./socketHandlers/joinRoomHandler");
 const sendRoomMessageHandler = require("./socketHandlers/sendRoomMessageHandler");
 const removeParticipantHandler = require("./socketHandlers/removeParticipantHandler");
+const updateParticipantTimerHandler = require("./socketHandlers/updateParticipantTimerHandler");
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
@@ -63,6 +64,7 @@ const registerSocketServer = (server) => {
     // Updating Timer Status
     socket.on("update-timer-status", (data) => {
       console.log("backend update timer status", socket.id, data);
+      updateParticipantTimerHandler(socket.id, data);
     });
   });
 };
