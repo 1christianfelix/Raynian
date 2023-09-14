@@ -43,8 +43,8 @@ const Dashboard = () => {
         {roomId && <Chat />}
         <ParticipantList />
       </div>
-      <TestTimer />
-      <ParticipantListTest></ParticipantListTest>
+      {/* <TestTimer />
+      <ParticipantListTest></ParticipantListTest> */}
     </div>
   );
 };
