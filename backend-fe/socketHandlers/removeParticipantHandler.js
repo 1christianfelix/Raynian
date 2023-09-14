@@ -27,11 +27,8 @@ const findRoomId = (socketId) => {
   }
 };
 
-const removeParticipantHandler = (socket, roomId) => {
+const removeParticipantHandler = (socketId, roomId) => {
   const io = socketStore.getSocketServerInstance();
-  const socketId = socket.id;
-
-  roomId = roomId || findRoomId(socketId);
 
   if (socketStore.roomsLive.roomsLive[roomId]) {
     socketStore.roomsLive.roomsLive[roomId].participants =

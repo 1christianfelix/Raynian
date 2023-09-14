@@ -11,11 +11,14 @@ let socket = null;
 export const socketServerConnect = () => {
   socket = io.connect("http://localhost:4001");
 
+  ////////////////////////
+  //     Recievers     //
+  ///////////////////////
   /*
     Recieves from:
     socketServer.js
 
-    serves indicator for connection. attaches as field to user field in reduc room state
+    serves indicator for connection. attaches as field to user field in redux room state
   */
   socket.on("socketId", (socketId) => {
     store.dispatch(updateSocketId(socketId));
@@ -28,7 +31,6 @@ export const socketServerConnect = () => {
   socket.on("room-participants", (data) => {
     console.log("room-participants");
     store.dispatch(updateParticipants(data));
-    console.log(data, " joined");
   });
 
   /*
@@ -40,6 +42,10 @@ export const socketServerConnect = () => {
     store.dispatch(updateChat(messages));
   });
 };
+
+/////////////////////
+//     Senders     //
+////////////////////
 
 /**
  * Joins a room by emitting a socket event.
@@ -80,6 +86,21 @@ export const disconnect = (data) => {
 export const sendRoomChat = (data) => {
   console.log("send-room-chat");
   socket.emit("send-room-chat", data);
+};
+
+//////////////////////
+//     Senders     //
+/////////////////////
+
+// Send data when timer status updates from isRunning isBreak isWork isPaused
+// Send countdown if status change
+export const updateTimerStatus = (timerData, roomId) => {
+  const data = {
+    timerData: timerData,
+    roomId,
+  };
+  console.log("update-timer-status");
+  socket.emit("update-timer-status", data);
 };
 
 export { socket };
