@@ -86,7 +86,7 @@ const TestTimer = () => {
   }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
 
   useEffect(() => {
-    if (syncedWithRoom == true) {
+    if (timerState.syncedWithRoom == true) {
       dispatch(
         timerActions.updateCountdown({
           hours: currentCountdown.hours,

@@ -11,6 +11,7 @@ import RoomButton from "../rooms/RoomButton";
 import ParticipantList from "../rooms/ParticipantList";
 import TestTimer from "./TestTimer";
 import ParticipantListTest from "./ParticipantListTest";
+import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -30,10 +31,10 @@ const Dashboard = () => {
 
   return (
     // BUG: adding relative to parent div breaks userdropdown
-    <div className="">
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex h-screen flex-col">
+      <Nav />
+      <div className="flex flex-grow flex-col items-center justify-center">
         <div className="text-center ">
-          <p className="text-3xl">You're doing great!</p>
           <TimerProvider>
             <Timer />
           </TimerProvider>
