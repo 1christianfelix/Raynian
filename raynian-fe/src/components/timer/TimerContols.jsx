@@ -39,8 +39,8 @@ const TimerContols = () => {
   };
 
   const handlePauseTimer = () => {
-    dispatch(timerActions.pauseTimer(currentCountdown));
-    getTimerState();
+    dispatch(timerActions.pauseTimer());
+    // getTimerState();
   };
 
   return (

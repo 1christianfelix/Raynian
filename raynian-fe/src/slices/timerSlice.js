@@ -113,10 +113,9 @@ export const stopTimer = () => async (dispatch, getState) => {
   dispatch(setIsPaused(false));
 };
 
-export const pauseTimer = (currentCountdown) => async (dispatch, getState) => {
+export const pauseTimer = () => async (dispatch, getState) => {
   console.log("pauseTimer");
   const state = getState().timer;
-  dispatch(updateCountdown(currentCountdown));
   dispatch(setIsPaused(true));
   dispatch(setIsRunning(false));
 };
