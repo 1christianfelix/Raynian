@@ -19,74 +19,88 @@ const TimerDisplay = () => {
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
 
+  // useEffect(() => {
+  //   let interval;
+
+  //   if (timerState.isRunning) {
+  //     interval = setInterval(() => {
+  //       setCurrentCountdown((prevCountdown) => {
+  //         const { hours, minutes, seconds } = prevCountdown;
+
+  //         if (hours <= 0 && minutes === 0 && seconds === 0) {
+  //           clearInterval(interval);
+
+  //           if (timerState.isWork) {
+  //             dispatch(
+  //               timerActions.updateCountdown({
+  //                 hours: 0,
+  //                 minutes: timerState.breakTime,
+  //                 seconds: 0,
+  //               })
+  //             );
+  //             dispatch(timerActions.setIsBreak(true));
+  //             dispatch(timerActions.setIsWork(false));
+  //             getTimerState();
+  //             return {
+  //               hours: 0,
+  //               minutes: timerState.workTime,
+  //               seconds: 0,
+  //             };
+  //           } else {
+  //             handleStopTimer();
+
+  //             return {
+  //               hours: 0,
+  //               minutes: timerState.workTime,
+  //               seconds: 0,
+  //             };
+  //           }
+  //         }
+
+  //         if (minutes === 0 && seconds === 0) {
+  //           return {
+  //             hours: hours - 1,
+  //             minutes: 59,
+  //             seconds: 59,
+  //           };
+  //         } else if (seconds === 0) {
+  //           return {
+  //             hours,
+  //             minutes: minutes - 1,
+  //             seconds: 59,
+  //           };
+  //         } else {
+  //           return {
+  //             hours,
+  //             minutes,
+  //             seconds: seconds - 1,
+  //           };
+  //         }
+  //       });
+  //     }, 1000);
+  //   }
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
+
   useEffect(() => {
     let interval;
 
     if (timerState.isRunning) {
       interval = setInterval(() => {
-        setCurrentCountdown((prevCountdown) => {
-          const { hours, minutes, seconds } = prevCountdown;
-
-          if (hours <= 0 && minutes === 0 && seconds === 0) {
-            clearInterval(interval);
-
-            if (timerState.isWork) {
-              dispatch(
-                timerActions.updateCountdown({
-                  hours: 0,
-                  minutes: timerState.breakTime,
-                  seconds: 0,
-                })
-              );
-              dispatch(timerActions.setIsBreak(true));
-              dispatch(timerActions.setIsWork(false));
-              getTimerState();
-              return {
-                hours: 0,
-                minutes: timerState.workTime,
-                seconds: 0,
-              };
-            } else {
-              handleStopTimer();
-
-              return {
-                hours: 0,
-                minutes: timerState.workTime,
-                seconds: 0,
-              };
-            }
-          }
-
-          if (minutes === 0 && seconds === 0) {
-            return {
-              hours: hours - 1,
-              minutes: 59,
-              seconds: 59,
-            };
-          } else if (seconds === 0) {
-            return {
-              hours,
-              minutes: minutes - 1,
-              seconds: 59,
-            };
-          } else {
-            return {
-              hours,
-              minutes,
-              seconds: seconds - 1,
-            };
-          }
-        });
+        dispatch(timerActions.decrementCountdown());
       }, 1000);
     }
 
     return () => {
       clearInterval(interval);
     };
-  }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
+  }, [dispatch, timerState.isRunning]);
 
   useEffect(() => {
-    if (timerState.syncedWithRoom == true) {
+    if (timerState.syncedWithRoom != true) {
       dispatch(
         timerActions.updateCountdown({
           hours: currentCountdown.hours,
@@ -102,31 +116,19 @@ const TimerDisplay = () => {
   useEffect(() => {
     if (!timerState.isRunning && !timerState.isPaused) {
       if (timerState.isWork) {
-        setCurrentCountdown({
-          hours: 0,
-          minutes: timerState.workTime,
-          seconds: 0,
-        });
-        dispatch(
-          timerActions.updateCountdown({
-            hours: 0,
-            minutes: timerState.workTime,
-            seconds: 0,
-          })
-        );
+        // setCurrentCountdown({
+        //   hours: 0,
+        //   minutes: timerState.workTime,
+        //   seconds: 0,
+        // });
+        dispatch(timerActions.updateCountdown(timerState.workTime));
       } else if (timerState.isBreak) {
-        setCurrentCountdown({
-          hours: 0,
-          minutes: timerState.breakTime,
-          seconds: 0,
-        });
-        dispatch(
-          timerActions.updateCountdown({
-            hours: 0,
-            minutes: timerState.breakTime,
-            seconds: 0,
-          })
-        );
+        // setCurrentCountdown({
+        //   hours: 0,
+        //   minutes: timerState.breakTime,
+        //   seconds: 0,
+        // });
+        dispatch(timerActions.updateCountdown(timerState.breakTime));
       }
     }
     getTimerState();
@@ -219,13 +221,13 @@ const TimerDisplay = () => {
   return (
     <div>
       <p className="text-[128px] leading-tight">
-        {currentCountdown.minutes < 10
-          ? `0${currentCountdown.minutes}`
-          : currentCountdown.minutes}
+        {timerState.countdown.minutes < 10
+          ? `0${timerState.countdown.minutes}`
+          : timerState.countdown.minutes}
         :
-        {currentCountdown.seconds < 10
-          ? `0${currentCountdown.seconds}`
-          : currentCountdown.seconds}
+        {timerState.countdown.seconds < 10
+          ? `0${timerState.countdown.seconds}`
+          : timerState.countdown.seconds}
       </p>
       {/* <div className="flex flex-col items-start">
         <div>

@@ -12,11 +12,21 @@ const TimerSettings = () => {
   const { roomId } = useSelector((state) => state.room);
 
   const handleWorkTimeChange = (e) => {
-    dispatch(timerActions.setWorkTime(parseInt(e.target.value)));
+    let timer = {
+      hours: 0,
+      minutes: 0,
+      seconds: 10,
+    };
+    dispatch(timerActions.setWorkTime(timer));
   };
 
   const handleBreakTimeChange = (e) => {
-    dispatch(timerActions.setBreakTime(parseInt(e.target.value)));
+    let timer = {
+      hours: 0,
+      minutes: 0,
+      seconds: 5,
+    };
+    dispatch(timerActions.setBreakTime(timer));
   };
 
   return (
