@@ -20,17 +20,9 @@ const ParticipantTimer = ({
     let interval;
     if (!isRunning && !isPaused) {
       if (isWork) {
-        setCountdown({
-          hours: 0,
-          minutes: workTime,
-          seconds: 0,
-        });
+        setCountdown(workTime);
       } else if (isBreak) {
-        setCountdown({
-          hours: 0,
-          minutes: breakTime,
-          seconds: 0,
-        });
+        setCountdown(breakTime);
       }
     }
     if (isRunning) {
@@ -76,20 +68,12 @@ const ParticipantTimer = ({
       // setIsBreak(true);
       // setIsWork(false);
       console.log("set to work");
-      setCountdown({
-        hours: 0,
-        minutes: workTime,
-        seconds: 0,
-      });
+      setCountdown(workTime);
     } else {
       // setIsWork(true);
       // setIsBreak(false);
       console.log("set to break");
-      setCountdown({
-        hours: 0,
-        minutes: breakTime,
-        seconds: 0,
-      });
+      setCountdown(breakTime);
     }
   }, [isBreak, isWork]);
 
