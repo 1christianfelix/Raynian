@@ -56,9 +56,9 @@ const TimerContols = () => {
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <button onClick={handleStartTimer}>StartTimer</button>
+      {/* <button onClick={handleStartTimer}>StartTimer</button>
       <button onClick={handleStopTimer}>StopTimer</button>
-      <button onClick={handlePauseTimer}>PauseTimer</button>
+      <button onClick={handlePauseTimer}>PauseTimer</button> */}
       {!timerState.isRunning && (
         <div
           className=""
@@ -138,6 +138,7 @@ const TimerContols = () => {
           padding: "4px",
           fontSize: "16px",
         }}
+        delayShow={100}
         delayHide={100}
       />
       <Tooltip
@@ -148,6 +149,7 @@ const TimerContols = () => {
           padding: "4px",
           fontSize: "16px",
         }}
+        delayShow={100}
         delayHide={100}
       />
       <Tooltip
@@ -158,6 +160,7 @@ const TimerContols = () => {
           padding: "4px",
           fontSize: "16px",
         }}
+        delayShow={100}
         delayHide={100}
       />
       <Tooltip
@@ -168,6 +171,7 @@ const TimerContols = () => {
           padding: "4px",
           fontSize: "16px",
         }}
+        delayShow={100}
         delayHide={100}
       />
     </div>

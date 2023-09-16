@@ -6,7 +6,7 @@ import TimerSettings from "./TimerSettings";
 const Timer2 = () => {
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <TimerDisplay />
         <TimerContols />
       </div>
