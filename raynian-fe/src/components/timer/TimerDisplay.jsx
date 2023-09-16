@@ -129,6 +129,7 @@ const TimerDisplay = () => {
         );
       }
     }
+    getTimerState();
   }, [timerState.isRunning, timerState.workTime, timerState.breakTime]);
 
   // update sockets

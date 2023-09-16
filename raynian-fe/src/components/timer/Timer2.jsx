@@ -1,6 +1,7 @@
 import React from "react";
 import TimerDisplay from "./TimerDisplay";
 import TimerContols from "./TimerContols";
+import TimerSettings from "./TimerSettings";
 
 const Timer2 = () => {
   return (
@@ -9,6 +10,7 @@ const Timer2 = () => {
         <TimerDisplay />
         <TimerContols />
       </div>
+      <TimerSettings />
     </div>
   );
 };
