@@ -6,7 +6,7 @@ import {
   sendCurrentTimerStatus,
 } from "../socket/socketConnection";
 
-const TestTimer = () => {
+const TimerDisplay = () => {
   // const [workTime, setWorkTime] = useState(60);
   // const [breakTime, setBreakTime] = useState(15);
   const [currentCountdown, setCurrentCountdown] = useState({
@@ -226,7 +226,7 @@ const TestTimer = () => {
           ? `0${currentCountdown.seconds}`
           : currentCountdown.seconds}
       </p>
-      <div className="flex flex-col items-start">
+      {/* <div className="flex flex-col items-start">
         <div>
           <label htmlFor="workTime">Work Time:</label>
           <select
@@ -254,9 +254,9 @@ const TestTimer = () => {
         <button onClick={handleStopTimer}>StopTimer</button>
         <button onClick={handlePauseTimer}>PauseTimer</button>
         <button onClick={subtract}>subtracttest</button>
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default TestTimer;
+export default TimerDisplay;
