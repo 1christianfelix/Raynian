@@ -14,7 +14,7 @@ const TimerSettings = () => {
   const handleWorkTimeChange = (e) => {
     let timer = {
       hours: 0,
-      minutes: 120,
+      minutes: parseInt(e.target.value),
       seconds: 0,
     };
     dispatch(timerActions.setWorkTime(timer));
@@ -40,7 +40,7 @@ const TimerSettings = () => {
         >
           <option value={60}>60 minutes</option>
           <option value={45}>45 minutes</option>
-          <option value={1}>30 minutes</option>
+          <option value={30}>30 minutes</option>
         </select>
 
         <label htmlFor="breakTime">Break Time:</label>
@@ -51,7 +51,7 @@ const TimerSettings = () => {
         >
           <option value={15}>15 minutes</option>
           <option value={10}>10 minutes</option>
-          <option value={1}>5 minutes</option>
+          <option value={5}>5 minutes</option>
         </select>
       </div>
     </div>

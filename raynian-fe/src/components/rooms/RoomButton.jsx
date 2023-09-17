@@ -27,7 +27,7 @@ const RoomButton = () => {
       {roomId != null && (
         <button
           onClick={toggleLeaveRoomPrompt}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white"
+          className="rounded-md bg-red-500 px-4 py-2 text-white"
         >
           Leave room
         </button>
