@@ -36,14 +36,12 @@ const Dashboard = () => {
       <div className=" mx-16 mb-12 flex-grow">
         <div className="grid h-[100%] grid-cols-3">
           <div>
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex h-[100%] flex-col justify-between">
               <div className="flex w-[480px] flex-col justify-center">
                 <Timer2 />
                 <ParticipantList />
               </div>
-
-              {/* Create a username field and button here */}
-              {roomId && <Chat />}
+              <div className=""> {roomId && <Chat />}</div>
             </div>
           </div>
           <div className="col-span-2 border">
