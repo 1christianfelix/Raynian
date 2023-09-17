@@ -15,7 +15,7 @@ const TimerSettings = () => {
     let timer = {
       hours: 0,
       minutes: 120,
-      seconds: 10,
+      seconds: 0,
     };
     dispatch(timerActions.setWorkTime(timer));
   };
@@ -23,15 +23,15 @@ const TimerSettings = () => {
   const handleBreakTimeChange = (e) => {
     let timer = {
       hours: 0,
-      minutes: 0,
-      seconds: 5,
+      minutes: parseInt(e.target.value),
+      seconds: 0,
     };
     dispatch(timerActions.setBreakTime(timer));
   };
 
   return (
     <div>
-      <div>
+      <div className="inline-block">
         <label htmlFor="workTime">Work Time:</label>
         <select
           id="workTime"

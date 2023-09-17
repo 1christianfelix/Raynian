@@ -34,13 +34,35 @@ const Dashboard = () => {
     <div className="flex h-screen flex-col">
       <Nav />
       <div className=" mx-16 mb-12 flex-grow">
-        <div className="flex flex-col ">
-          <Timer2 />
-          <RoomButton />
+        <div className="grid grid-cols-3 h-[100%]">
+          <div>
+            <div className="col-span-1 flex flex-col">
+              <div className="flex w-[480px] flex-col justify-center">
+                <Timer2 />
+                <ParticipantList />
+              </div>
 
-          {/* Create a username field and button here */}
-          {roomId && <Chat />}
-          <ParticipantList />
+              <RoomButton />
+
+              {/* Create a username field and button here */}
+              {roomId && <Chat />}
+            </div>
+          </div>
+          <div className="col-span-2 border">
+            <div className="grid grid-cols-4 l grid-flow-row place-items-center p-10 gap-4">
+              <div className="h-56 w-56 bg-green-300"></div>
+              <div className="h-56 w-56 bg-red-300"></div>
+              <div className="h-56 w-56 bg-pink-300"></div>
+              <div className="h-56 w-56 bg-blue-300"></div>
+              <div className="h-56 w-56 bg-purple-300"></div>
+              <div className="h-56 w-56 bg-green-300"></div>
+              <div className="h-56 w-56 bg-yellow-300"></div>
+              <div className="h-56 w-56 bg-orange-300"></div>
+              <div className="h-56 w-56 bg-emerald-300"></div>
+              <div className="h-56 w-56 bg-amber-300"></div>
+              <div className="h-56 w-56 bg-indigo-300"></div>
+            </div>
+          </div>
         </div>
 
         {/* <ParticipantListTest></ParticipantListTest> */}

@@ -153,8 +153,8 @@ const TimerDisplay = () => {
   };
 
   return (
-    <div>
-      <p className="text-[128px] leading-tight">
+    <div className="">
+      <p className="text-9xl">
         {timerState.countdown.minutes < 10
           ? `0${timerState.countdown.minutes}`
           : timerState.countdown.minutes}
