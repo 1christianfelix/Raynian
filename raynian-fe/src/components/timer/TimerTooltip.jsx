@@ -73,7 +73,7 @@ const TimerTooltip = ({ type, container, text }) => {
     <AnimatePresence>
       {isHovered && (
         <motion.div
-          className={`tooltip-right ${background}`}
+          className={`tooltip-right ${background} select-none`}
           {...tooltipAnimation}
         >
           <motion.p

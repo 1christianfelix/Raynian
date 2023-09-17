@@ -34,7 +34,7 @@ const Dashboard = () => {
     <div className="flex h-screen flex-col">
       <Nav />
       <div className=" mx-16 mb-12 flex-grow">
-        <div className="grid grid-cols-3 h-[100%]">
+        <div className="grid h-[100%] grid-cols-3">
           <div>
             <div className="col-span-1 flex flex-col">
               <div className="flex w-[480px] flex-col justify-center">
@@ -42,14 +42,12 @@ const Dashboard = () => {
                 <ParticipantList />
               </div>
 
-              <RoomButton />
-
               {/* Create a username field and button here */}
               {roomId && <Chat />}
             </div>
           </div>
           <div className="col-span-2 border">
-            <div className="grid grid-cols-4 l grid-flow-row place-items-center p-10 gap-4">
+            <div className="l grid grid-flow-row grid-cols-4 place-items-center gap-4 p-10">
               <div className="h-56 w-56 bg-green-300"></div>
               <div className="h-56 w-56 bg-red-300"></div>
               <div className="h-56 w-56 bg-pink-300"></div>

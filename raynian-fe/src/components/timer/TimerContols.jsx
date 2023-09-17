@@ -49,7 +49,7 @@ const TimerContols = () => {
         >
           <IoPlayOutline
             size={20}
-            className="timer-button cursor-pointer text-green-700"
+            className="timer-button cursor-pointer select-none text-green-700"
           />
           <TimerTooltip
             type={"start"}
@@ -61,13 +61,13 @@ const TimerContols = () => {
 
       {timerState.isRunning && (
         <div
-          className="group relative flex items-center justify-center gap-2"
+          className="group relative flex items-center justify-center gap-2 "
           onClick={handlePauseTimer}
           ref={pauseRef}
         >
           <PiPauseLight
             size={20}
-            className="timer-button cursor-pointer text-blue-600 dark:text-white"
+            className="timer-button cursor-pointer select-none text-blue-600 dark:text-white"
           />
           <TimerTooltip
             type={"pause"}
@@ -84,7 +84,7 @@ const TimerContols = () => {
         >
           <IoStopOutline
             size={20}
-            className="timer-button cursor-pointer text-red-700"
+            className="timer-button cursor-pointer select-none text-red-700"
           />
           <TimerTooltip type={"stop"} container={stopRef} text={"Stop Timer"} />
         </div>
@@ -97,7 +97,7 @@ const TimerContols = () => {
         >
           <IoPlaySkipForwardOutline
             size={20}
-            className="timer-button cursor-pointer text-yellow-500"
+            className="timer-button cursor-pointer select-none text-yellow-500"
           />
           <TimerTooltip type={"skip"} container={skipRef} text={"Skip Break"} />
         </div>
