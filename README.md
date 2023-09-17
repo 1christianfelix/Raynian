@@ -6,11 +6,14 @@ Raynian is a social pomodoro application designed to enhance productivity and co
 
 https://youtu.be/A7pDKVrKAfU
 
-![ChatRoom Feature](media/8-13%20%20chat%20room%20connection.gif)
 
-## Synchronized Async timers update 9/16/23
+### Synchronized Async timers update 9/16/23
 
 ![Async chat synchronization + dashboard restructured](media/9-16-update.gif)
+
+### Chat websocket update 8/16/23
+
+![ChatRoom Feature](media/8-13%20%20chat%20room%20connection.gif)
 
 ## Features (Work in Progress)
 
