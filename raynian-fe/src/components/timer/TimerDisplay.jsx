@@ -66,7 +66,12 @@ const TimerDisplay = () => {
       }
     }
     getTimerState();
-  }, [timerState.isRunning, timerState.workTime, timerState.breakTime]);
+  }, [
+    timerState.isRunning,
+    timerState.isPaused,
+    timerState.workTime,
+    timerState.breakTime,
+  ]);
 
   // update sockets
   useEffect(() => {
