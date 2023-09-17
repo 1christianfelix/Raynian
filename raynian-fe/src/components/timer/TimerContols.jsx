@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
 import {
@@ -14,6 +14,7 @@ import {
 import { PiPauseLight } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tooltip } from "react-tooltip";
+import TimerTooltip from "./TimerTooltip";
 
 const TimerContols = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const TimerContols = () => {
   const [pauseHovered, setPauseHovered] = useState(false);
   const [stopHovered, setStopHovered] = useState(false);
   const [skipHovered, setSkipHovered] = useState(false);
+  const skipRef = useRef(null);
+  const stopRef = useRef(null);
+  const pauseRef = useRef(null);
+  const startRef = useRef(null);
 
   const tooltipAnimation = {
     initial: { width: 0, opacity: 0 },
@@ -61,76 +66,73 @@ const TimerContols = () => {
       <button onClick={handlePauseTimer}>PauseTimer</button> */}
       {!timerState.isRunning && (
         <div
-          className=""
+          className="group relative flex items-center justify-center gap-2"
           onClick={handleStartTimer}
-          data-tooltip-id="start"
-          data-tooltip-content="Start Timer"
-          data-tooltip-place="right"
+          ref={startRef}
         >
           <IoPlayOutline
             size={20}
             className="timer-button cursor-pointer text-green-700"
           />
+          <TimerTooltip
+            type={"start"}
+            container={startRef}
+            text={"Start Timer"}
+          />
         </div>
       )}
+
       {timerState.isRunning && (
         <div
-          className=""
+          className="group relative flex items-center justify-center gap-2"
           onClick={handlePauseTimer}
-          data-tooltip-id="pause"
-          data-tooltip-content="Pause Timer"
-          data-tooltip-place="right"
+          ref={pauseRef}
         >
           <PiPauseLight
             size={20}
             className="timer-button cursor-pointer text-blue-600 dark:text-white"
           />
+          <TimerTooltip
+            type={"pause"}
+            container={pauseRef}
+            text={"Pause Timer"}
+          />
         </div>
       )}
       {timerState.isWork && (
         <div
-          className=""
+          className="group relative flex items-center justify-center gap-2"
           onClick={handleStopTimer}
-          data-tooltip-id="stop"
-          data-tooltip-content="Stop Timer"
-          data-tooltip-place="right"
+          ref={stopRef}
         >
           <IoStopOutline
             size={20}
             className="timer-button cursor-pointer text-red-700"
           />
+          <TimerTooltip type={"stop"} container={stopRef} text={"Stop Timer"} />
         </div>
       )}
       {timerState.isBreak && (
         <div
-          className=""
+          className="group relative flex items-center justify-center gap-2"
           onClick={handleStopTimer}
-          data-tooltip-id="skip"
-          data-tooltip-content="Skip Break"
-          data-tooltip-place="right"
+          ref={skipRef}
         >
           <IoPlaySkipForwardOutline
             size={20}
             className="timer-button cursor-pointer text-yellow-500"
-            onClick={() => {
-              handleStopTimer();
+            onMouseEnter={() => {
+              setSkipHovered(true);
+            }}
+            onMouseLeave={() => {
+              setSkipHovered(false);
             }}
           />
-          <AnimatePresence>
-            {skipHovered && (
-              <motion.div className="tooltip" {...tooltipAnimation}>
-                <motion.p
-                  className="align whitespace-nowrap text-xs text-white"
-                  {...tooltipTextAnimation}
-                >
-                  Skip Break
-                </motion.p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <TimerTooltip type={"skip"} container={skipRef} text={"Skip Break"} />
         </div>
       )}
-      <Tooltip
+
+      {/* <Tooltip
         id="start"
         noArrow
         style={{
@@ -140,6 +142,7 @@ const TimerContols = () => {
         }}
         delayShow={100}
         delayHide={100}
+        middlewares={[]}
       />
       <Tooltip
         id="stop"
@@ -173,7 +176,7 @@ const TimerContols = () => {
         }}
         delayShow={100}
         delayHide={100}
-      />
+      /> */}
     </div>
   );
 };

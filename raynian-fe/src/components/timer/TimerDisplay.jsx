@@ -137,7 +137,7 @@ const TimerDisplay = () => {
   // update sockets
   useEffect(() => {
     getTimerState();
-  }, [roomId, timerState.isWork, timerState.isBreak]);
+  }, [roomId, timerState.isWork, timerState.isBreak, timerState.countdown]);
 
   // useEffect(() => {
   //   if (currentCountdown.seconds % 20 == 0) {
