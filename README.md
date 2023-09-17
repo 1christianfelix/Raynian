@@ -2,7 +2,9 @@
 
 Raynian is a social pomodoro application designed to enhance productivity and collaboration among users. The application follows the Pomodoro Technique, a time management method that encourages users to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Additionally, Raynian adds a social element, allowing users to connect, share progress, and motivate each other.
 
-## Current Demo - 8/13/23
+## Current Demo - 9/1/23
+https://youtu.be/A7pDKVrKAfU
+
 ![ChatRoom Feature](media/8-13%20%20chat%20room%20connection.gif)
 
 ## Features (Work in Progress)
