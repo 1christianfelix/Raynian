@@ -8,11 +8,11 @@ const RoomButton = () => {
     useContext(ModalContext);
 
   return (
-    <div className="mt-4">
+    <div className="flex gap-2">
       {roomId == null && (
         <button
           onClick={toggleOpenRoomPrompt}
-          className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+          className="rounded-md bg-blue-500 px-4 py-2 text-white"
         >
           Open your room
         </button>
@@ -20,14 +20,14 @@ const RoomButton = () => {
 
       <button
         onClick={toggleJoinRoomPrompt}
-        className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+        className="rounded-md bg-blue-500 px-4 py-2 text-white"
       >
         Join a room
       </button>
       {roomId != null && (
         <button
           onClick={toggleLeaveRoomPrompt}
-          className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
+          className="rounded-md bg-blue-500 px-4 py-2 text-white"
         >
           Leave room
         </button>

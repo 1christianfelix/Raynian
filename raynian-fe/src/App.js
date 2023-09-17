@@ -30,7 +30,7 @@ function App() {
             style={{ background: bg }}
           >
             <Modal />
-            <Nav />
+
             <Routes>
               <Route path="/" element={<Dashboard />}></Route>
               <Route path="/PageNotFound" element={<PageNotFound />}></Route>

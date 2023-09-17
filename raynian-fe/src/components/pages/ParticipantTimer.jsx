@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RiPauseCircleLine, RiCircleFill, RiSquareFill } from "react-icons/ri";
+import { PiPauseLight } from "react-icons/pi";
 
 const ParticipantTimer = ({
   timer,
@@ -20,17 +21,9 @@ const ParticipantTimer = ({
     let interval;
     if (!isRunning && !isPaused) {
       if (isWork) {
-        setCountdown({
-          hours: 0,
-          minutes: workTime,
-          seconds: 0,
-        });
+        setCountdown(workTime);
       } else if (isBreak) {
-        setCountdown({
-          hours: 0,
-          minutes: breakTime,
-          seconds: 0,
-        });
+        setCountdown(breakTime);
       }
     }
     if (isRunning) {
@@ -76,26 +69,18 @@ const ParticipantTimer = ({
       // setIsBreak(true);
       // setIsWork(false);
       console.log("set to work");
-      setCountdown({
-        hours: 0,
-        minutes: workTime,
-        seconds: 0,
-      });
+      setCountdown(workTime);
     } else {
       // setIsWork(true);
       // setIsBreak(false);
       console.log("set to break");
-      setCountdown({
-        hours: 0,
-        minutes: breakTime,
-        seconds: 0,
-      });
+      setCountdown(breakTime);
     }
   }, [isBreak, isWork]);
 
   const renderIcon = () => {
     if (isPaused) {
-      return <RiPauseCircleLine color="black" />;
+      return <PiPauseLight color="blue" />;
     } else if (!isRunning && !isPaused) {
       return <RiSquareFill color="red" />;
     } else if (isWork) {
@@ -106,7 +91,7 @@ const ParticipantTimer = ({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex min-w-[76px] select-none items-center gap-2">
       {renderIcon()}
       {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}:
       {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}

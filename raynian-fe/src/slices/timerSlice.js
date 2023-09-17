@@ -7,8 +7,16 @@ const initialState = {
     minutes: 60,
     seconds: 0,
   },
-  workTime: 60,
-  breakTime: 15,
+  workTime: {
+    hours: 0,
+    minutes: 60,
+    seconds: 0,
+  },
+  breakTime: {
+    hours: 0,
+    minutes: 15,
+    seconds: 0,
+  },
   isRunning: false,
   isWork: true,
   isBreak: false,
@@ -42,6 +50,43 @@ const timerSlice = createSlice({
     setBreakTime: (state, action) => {
       state.breakTime = action.payload;
     },
+    decrementCountdown: (state) => {
+      const { hours, minutes, seconds } = state.countdown;
+      if (hours <= 0 && minutes === 0 && seconds === 0) {
+        if (state.isWork == true) {
+          state.isBreak = true;
+          state.isWork = false;
+          state.countdown = state.breakTime;
+          return;
+        } else {
+          state.isBreak = false;
+          state.isWork = true;
+          state.countdown = state.workTime;
+          state.isRunning = false;
+          return;
+        }
+      }
+
+      if (minutes === 0 && seconds === 0) {
+        state.countdown = {
+          hours: hours - 1,
+          minutes: 59,
+          seconds: 59,
+        };
+      } else if (seconds === 0) {
+        state.countdown = {
+          hours,
+          minutes: minutes - 1,
+          seconds: 59,
+        };
+      } else {
+        state.countdown = {
+          hours,
+          minutes,
+          seconds: seconds - 1,
+        };
+      }
+    },
   },
 });
 
@@ -59,11 +104,7 @@ export const stopTimer = () => async (dispatch, getState) => {
   console.log("stopTimer");
   const state = getState().timer;
   const { isWork, isBreak, workTime, breakTime } = state;
-  updateCountdown({
-    hours: 0,
-    minutes: workTime,
-    seconds: 0,
-  });
+  updateCountdown({ ...workTime });
   if (isBreak) {
     dispatch(setIsBreak(false));
     dispatch(setIsWork(true));
@@ -72,10 +113,9 @@ export const stopTimer = () => async (dispatch, getState) => {
   dispatch(setIsPaused(false));
 };
 
-export const pauseTimer = (currentCountdown) => async (dispatch, getState) => {
+export const pauseTimer = () => async (dispatch, getState) => {
   console.log("pauseTimer");
   const state = getState().timer;
-  dispatch(updateCountdown(currentCountdown));
   dispatch(setIsPaused(true));
   dispatch(setIsRunning(false));
 };
@@ -93,5 +133,6 @@ export const {
   setIsPaused,
   setWorkTime,
   setBreakTime,
+  decrementCountdown,
 } = timerSlice.actions;
 export default timerSlice.reducer;
