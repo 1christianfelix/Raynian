@@ -98,12 +98,6 @@ const TimerContols = () => {
           <IoPlaySkipForwardOutline
             size={20}
             className="timer-button cursor-pointer text-yellow-500"
-            onMouseEnter={() => {
-              setSkipHovered(true);
-            }}
-            onMouseLeave={() => {
-              setSkipHovered(false);
-            }}
           />
           <TimerTooltip type={"skip"} container={skipRef} text={"Skip Break"} />
         </div>

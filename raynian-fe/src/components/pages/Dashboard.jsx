@@ -33,19 +33,16 @@ const Dashboard = () => {
     // BUG: adding relative to parent div breaks userdropdown
     <div className="flex h-screen flex-col">
       <Nav />
-      <div className=" flex-grow ">
-        <div className="flex flex-col items-center justify-center">
-          <div className="text-center ">
-            <TimerProvider>
-              <Timer />
-            </TimerProvider>
-          </div>
-          {/* Create a username field and button here */}
+      <div className=" mx-16 mb-12 flex-grow">
+        <div className="flex flex-col ">
+          <Timer2 />
           <RoomButton />
+
+          {/* Create a username field and button here */}
           {roomId && <Chat />}
           <ParticipantList />
         </div>
-        <Timer2 />
+
         {/* <ParticipantListTest></ParticipantListTest> */}
       </div>
     </div>

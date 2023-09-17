@@ -19,72 +19,6 @@ const TimerDisplay = () => {
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
 
-  // useEffect(() => {
-  //   let interval;
-
-  //   if (timerState.isRunning) {
-  //     interval = setInterval(() => {
-  //       setCurrentCountdown((prevCountdown) => {
-  //         const { hours, minutes, seconds } = prevCountdown;
-
-  //         if (hours <= 0 && minutes === 0 && seconds === 0) {
-  //           clearInterval(interval);
-
-  //           if (timerState.isWork) {
-  //             dispatch(
-  //               timerActions.updateCountdown({
-  //                 hours: 0,
-  //                 minutes: timerState.breakTime,
-  //                 seconds: 0,
-  //               })
-  //             );
-  //             dispatch(timerActions.setIsBreak(true));
-  //             dispatch(timerActions.setIsWork(false));
-  //             getTimerState();
-  //             return {
-  //               hours: 0,
-  //               minutes: timerState.workTime,
-  //               seconds: 0,
-  //             };
-  //           } else {
-  //             handleStopTimer();
-
-  //             return {
-  //               hours: 0,
-  //               minutes: timerState.workTime,
-  //               seconds: 0,
-  //             };
-  //           }
-  //         }
-
-  //         if (minutes === 0 && seconds === 0) {
-  //           return {
-  //             hours: hours - 1,
-  //             minutes: 59,
-  //             seconds: 59,
-  //           };
-  //         } else if (seconds === 0) {
-  //           return {
-  //             hours,
-  //             minutes: minutes - 1,
-  //             seconds: 59,
-  //           };
-  //         } else {
-  //           return {
-  //             hours,
-  //             minutes,
-  //             seconds: seconds - 1,
-  //           };
-  //         }
-  //       });
-  //     }, 1000);
-  //   }
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [timerState.isRunning, timerState.isWork, timerState.isBreak]);
-
   useEffect(() => {
     let interval;
 
@@ -229,35 +163,6 @@ const TimerDisplay = () => {
           ? `0${timerState.countdown.seconds}`
           : timerState.countdown.seconds}
       </p>
-      {/* <div className="flex flex-col items-start">
-        <div>
-          <label htmlFor="workTime">Work Time:</label>
-          <select
-            id="workTime"
-            value={timerState.workTime}
-            onChange={handleWorkTimeChange}
-          >
-            <option value={60}>60 minutes</option>
-            <option value={45}>45 minutes</option>
-            <option value={1}>30 minutes</option>
-          </select>
-
-          <label htmlFor="breakTime">Break Time:</label>
-          <select
-            id="breakTime"
-            value={timerState.breakTime}
-            onChange={handleBreakTimeChange}
-          >
-            <option value={15}>15 minutes</option>
-            <option value={10}>10 minutes</option>
-            <option value={1}>5 minutes</option>
-          </select>
-        </div>
-        <button onClick={handleStartTimer}>StartTimer</button>
-        <button onClick={handleStopTimer}>StopTimer</button>
-        <button onClick={handlePauseTimer}>PauseTimer</button>
-        <button onClick={subtract}>subtracttest</button>
-      </div> */}
     </div>
   );
 };

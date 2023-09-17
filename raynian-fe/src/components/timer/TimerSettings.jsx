@@ -14,7 +14,7 @@ const TimerSettings = () => {
   const handleWorkTimeChange = (e) => {
     let timer = {
       hours: 0,
-      minutes: 0,
+      minutes: 120,
       seconds: 10,
     };
     dispatch(timerActions.setWorkTime(timer));
