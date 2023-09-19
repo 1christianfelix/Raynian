@@ -102,6 +102,30 @@ const TimerContols = () => {
           <TimerTooltip type={"skip"} container={skipRef} text={"Skip Break"} />
         </div>
       )}
+      <div
+        className={`group relative flex items-center justify-center gap-2 transition-all duration-200 ${
+          timerState.isRunning || timerState.isPaused
+            ? "text-gray-300"
+            : "cursor-pointer text-gray-500"
+        }`}
+        onClick={timerState.isRunning ? null : handleStopTimer} // Make it non-clickable when timer is running
+        ref={skipRef}
+      >
+        <IoSettingsOutline size={20} className="timer-button select-none" />
+        {timerState.isRunning || timerState.isPaused ? (
+          <TimerTooltip
+            type={"settings"}
+            container={skipRef}
+            text={"Settings unavailable while session is running"}
+          />
+        ) : (
+          <TimerTooltip
+            type={"settings"}
+            container={skipRef}
+            text={"Timer Settings"}
+          />
+        )}
+      </div>
     </div>
   );
 };
