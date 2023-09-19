@@ -40,7 +40,9 @@ const Dashboard = () => {
               <Timer2 />
               <ParticipantList />
             </div>
-            <div className="mt-auto"> {roomId && <Chat />}</div>
+            <div className="mt-auto">
+              <Chat />
+            </div>
           </div>
 
           {/* <div className="col-span-2 border">

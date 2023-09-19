@@ -7,6 +7,10 @@ const ParticipantList = () => {
   const { participants, roomId } = useSelector((state) => state.room);
   const timerState = useSelector((state) => state.timer);
 
+  if (roomId == null) {
+    return null;
+  }
+
   return (
     <div className="flex w-[100%] flex-col items-start justify-start gap-4 rounded-lg border border-gray-300 py-5">
       {participants.map((participant, index) => (

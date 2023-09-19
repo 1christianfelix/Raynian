@@ -10,6 +10,10 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const chatBoxRef = useRef(null);
 
+  if (roomId == null) {
+    return null;
+  }
+
   const handleInputChange = (event) => {
     setNewMessage(event.target.value);
   };
