@@ -40,7 +40,7 @@ const TimerContols = () => {
   };
 
   return (
-    <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-start gap-2 m-2">
       {!timerState.isRunning && (
         <div
           className="group relative flex items-center justify-center gap-2"

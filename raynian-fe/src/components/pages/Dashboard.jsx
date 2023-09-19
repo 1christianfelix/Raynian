@@ -34,17 +34,16 @@ const Dashboard = () => {
     <div className="flex h-screen flex-col">
       <Nav />
       <div className=" mx-16 mb-12 flex-grow">
-        <div className="grid h-[100%] grid-cols-3">
-          <div>
-            <div className="col-span-1 flex h-[100%] flex-col justify-between">
-              <div className="flex w-[480px] flex-col justify-center">
-                <Timer2 />
-                <ParticipantList />
-              </div>
-              <div className=""> {roomId && <Chat />}</div>
+        <div className="h-[100%]">
+          <div className="inline-flex h-[100%] flex-col justify-between ">
+            <div className="flex flex-col justify-center">
+              <Timer2 />
+              <ParticipantList />
             </div>
+            <div className="mt-auto"> {roomId && <Chat />}</div>
           </div>
-          <div className="col-span-2 border">
+
+          {/* <div className="col-span-2 border">
             <div className="l grid grid-flow-row grid-cols-4 place-items-center gap-4 p-10">
               <div className="h-56 w-56 bg-green-300"></div>
               <div className="h-56 w-56 bg-red-300"></div>
@@ -58,7 +57,7 @@ const Dashboard = () => {
               <div className="h-56 w-56 bg-amber-300"></div>
               <div className="h-56 w-56 bg-indigo-300"></div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* <ParticipantListTest></ParticipantListTest> */}

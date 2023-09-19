@@ -8,7 +8,7 @@ const ParticipantList = () => {
   const timerState = useSelector((state) => state.timer);
 
   return (
-    <div className="flex flex-col items-start justify-start gap-4 rounded-lg border border-gray-300 py-5">
+    <div className="flex w-[100%] flex-col items-start justify-start gap-4 rounded-lg border border-gray-300 py-5">
       {participants.map((participant, index) => (
         <div
           key={index}

@@ -45,7 +45,7 @@ const Chat = () => {
 
   return (
     // <Draggable>
-    <div className="h-64 w-96">
+    <div className="h-64 w-[100%]">
       <div className="flex h-[100%] w-[100%] flex-col rounded-md border border-gray-300">
         <div className="flex h-8 w-[100%] items-center justify-end rounded-t-md bg-black bg-opacity-10">
           <div className="mr-2 cursor-pointer transition-all hover:scale-[110%]">
