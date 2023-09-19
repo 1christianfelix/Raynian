@@ -58,6 +58,7 @@ const timerSlice = createSlice({
           state.isBreak = true;
           state.isWork = false;
           state.countdown = state.breakTime;
+          state.sessionStreak += 1;
           return;
         } else {
           state.isBreak = false;

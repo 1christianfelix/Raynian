@@ -96,6 +96,7 @@ const TimerDisplay = () => {
         isPaused: timerData.isPaused,
         workTime: timerData.workTime,
         breakTime: timerData.breakTime,
+        sessionStreak: timerData.sessionStreak,
       };
 
       updateTimerStatus(updatedTimerData, roomId);
@@ -113,6 +114,7 @@ const TimerDisplay = () => {
         isPaused: timerData.isPaused,
         workTime: timerData.workTime,
         breakTime: timerData.breakTime,
+        sessionStreak: timerData.sessionStreak,
       };
       console.log("123", currentCountdown, updatedTimerData);
 
