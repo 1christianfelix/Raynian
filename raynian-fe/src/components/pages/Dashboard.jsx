@@ -6,7 +6,7 @@ import { setRoomUser } from "../../slices/roomSlice";
 import { TimerProvider } from "../../context/TimerContext";
 import Timer from "../util/Timer";
 
-import Chat from "../rooms/Chat";
+import Chat from "../chat/ChatDisplay";
 import RoomButton from "../rooms/RoomButton";
 import ParticipantList from "../rooms/ParticipantList";
 import Timer2 from "../timer/Timer2";
@@ -33,14 +33,14 @@ const Dashboard = () => {
     // BUG: adding relative to parent div breaks userdropdown
     <div className="flex h-screen flex-col">
       <Nav />
-      <div className=" mx-16 mb-12 flex-grow">
-        <div className="h-[100%]">
-          <div className="inline-flex h-[100%] flex-col justify-between ">
-            <div className="flex flex-col justify-center">
-              <Timer2 />
-              {roomId && <ParticipantList />}
-            </div>
-            <div className="mt-auto">{roomId && <Chat />}</div>
+      <div className=" mx-16 mb-12 flex-grow h-[100%] overflow-hidden">
+        <div className="inline-flex h-[100%] flex-col justify-between">
+          <div className="flex flex-col justify-center">
+            <Timer2 />
+            {roomId && <ParticipantList />}
+          </div>
+          <div className="flex-grow  overflow-auto p-4">
+            {roomId && <Chat />}
           </div>
 
           {/* <div className="col-span-2 border">
