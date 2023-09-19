@@ -11,8 +11,8 @@ const TimerDisplay = () => {
   // const [breakTime, setBreakTime] = useState(15);
   const [currentCountdown, setCurrentCountdown] = useState({
     hours: 0,
-    minutes: 11,
-    seconds: 0,
+    minutes: 0,
+    seconds: 5,
   });
 
   const dispatch = useDispatch();
@@ -158,8 +158,13 @@ const TimerDisplay = () => {
   };
 
   return (
-    <div className="">
-      <p className="text-9xl">
+    <div className="text-neutral-800">
+      <p
+        className={`text-9xl transition-all duration-200
+        ${timerState.isPaused && "text-neutral-400"}
+        ${timerState.isBreak && "text-blue-500"}
+        `}
+      >
         {timerState.countdown.minutes < 10
           ? `0${timerState.countdown.minutes}`
           : timerState.countdown.minutes}
