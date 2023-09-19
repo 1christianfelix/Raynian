@@ -21,6 +21,7 @@ const initialState = {
   isWork: true,
   isBreak: false,
   isPaused: false,
+  sessionStreak: 0,
   syncedWithRoom: false,
 };
 

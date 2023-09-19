@@ -11,8 +11,8 @@ const TimerDisplay = () => {
   // const [breakTime, setBreakTime] = useState(15);
   const [currentCountdown, setCurrentCountdown] = useState({
     hours: 0,
-    minutes: 0,
-    seconds: 5,
+    minutes: 120,
+    seconds: 0,
   });
 
   const dispatch = useDispatch();

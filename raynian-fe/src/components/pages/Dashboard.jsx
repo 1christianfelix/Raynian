@@ -38,11 +38,9 @@ const Dashboard = () => {
           <div className="inline-flex h-[100%] flex-col justify-between ">
             <div className="flex flex-col justify-center">
               <Timer2 />
-              <ParticipantList />
+              {roomId && <ParticipantList />}
             </div>
-            <div className="mt-auto">
-              <Chat />
-            </div>
+            <div className="mt-auto">{roomId && <Chat />}</div>
           </div>
 
           {/* <div className="col-span-2 border">

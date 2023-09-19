@@ -16,31 +16,25 @@ export default function Nav() {
   useEffect(() => {}, [openDropdown]);
 
   return (
-    <div className="select-none px-[25px] py-[20px]">
-      <div className="Header flex ">
-        <div className="flex items-center gap-1">
-          <img src={thick_logo} alt="logo" className="h-[3rem] dark:invert" />
-          <p className="text-2xl">raynian</p>
-        </div>
-        <div className="ml-auto flex gap-2">
-          <RoomButton />
-          <div
-            className="relative"
-            ref={navRef}
+    <div className="flex h-16 select-none px-[25px]">
+      <div className="flex items-center gap-1">
+        <img src={thick_logo} alt="logo" className="h-[3rem] dark:invert" />
+        <p className="text-3xl ">raynian</p>
+      </div>
+      <div className="ml-auto flex items-center gap-2">
+        <RoomButton />
+        <div className="relative" ref={navRef} onClick={() => toggleDropdown()}>
+          <CiUser
+            size={45}
+            className="cursor-pointer"
             onClick={() => toggleDropdown()}
-          >
-            <CiUser
-              size={50}
-              className="cursor-pointer"
-              onClick={() => toggleDropdown()}
-            />
-            <UserDropdown
-              openDropdown={openDropdown}
-              toggleDropdown={toggleDropdown}
-              setToggleDropdown={setToggleDropdown}
-              navRef={navRef}
-            />
-          </div>
+          />
+          <UserDropdown
+            openDropdown={openDropdown}
+            toggleDropdown={toggleDropdown}
+            setToggleDropdown={setToggleDropdown}
+            navRef={navRef}
+          />
         </div>
       </div>
     </div>
