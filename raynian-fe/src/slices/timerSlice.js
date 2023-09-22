@@ -23,6 +23,12 @@ const initialState = {
   isPaused: false,
   sessionStreak: 0,
   syncedWithRoom: false,
+  longBreakFrequency: 3,
+  longBreakTime: {
+    hours: 0,
+    minutes: 30,
+    seconds: 0,
+  },
 };
 
 const timerSlice = createSlice({
@@ -51,13 +57,22 @@ const timerSlice = createSlice({
     setBreakTime: (state, action) => {
       state.breakTime = action.payload;
     },
+    setLongBreakTime: (state, action) => {
+      state.longBreakTime = action.payload;
+    },
+    setLongBreakFrequency: (state, action) => {
+      state.longBreakFrequency = action.payload;
+    },
     decrementCountdown: (state) => {
       const { hours, minutes, seconds } = state.countdown;
       if (hours <= 0 && minutes === 0 && seconds === 0) {
         if (state.isWork == true) {
           state.isBreak = true;
           state.isWork = false;
-          state.countdown = state.breakTime;
+          state.countdown =
+            state.longBreakFrequency == state.sessionStreak
+              ? state.longBreakTime
+              : state.breakTime;
           state.sessionStreak += 1;
           return;
         } else {
@@ -135,6 +150,8 @@ export const {
   setIsPaused,
   setWorkTime,
   setBreakTime,
+  setLongBreakTime,
+  setLongBreakFrequency,
   decrementCountdown,
 } = timerSlice.actions;
 export default timerSlice.reducer;

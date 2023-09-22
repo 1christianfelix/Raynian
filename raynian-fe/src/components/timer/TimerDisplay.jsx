@@ -7,8 +7,6 @@ import {
 } from "../socket/socketConnection";
 
 const TimerDisplay = () => {
-  // const [workTime, setWorkTime] = useState(60);
-  // const [breakTime, setBreakTime] = useState(15);
   const [currentCountdown, setCurrentCountdown] = useState({
     hours: 0,
     minutes: 120,
