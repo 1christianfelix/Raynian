@@ -20,68 +20,57 @@ const TimerSettings = () => {
     useState(timerState.longBreakFrequency);
 
   const handleWorkTimeChange = (e) => {
-    const newValue = parseInt(e.target.value, 10);
-
-    // Check if the input is empty or a valid integer within the desired range
-    if (e.target.value === "" || (newValue >= 0 && newValue <= 999)) {
-      setWorkTimerInput(newValue);
-    }
+    setWorkTimerInput(e.target.value);
   };
 
   useEffect(() => {
+    const minutes = parseInt(workTimerInput);
     let timer = {
       hours: 0,
-      minutes: workTimerInput,
+      minutes: minutes && minutes >= 0 ? minutes : 1,
       seconds: 0,
     };
+
     dispatch(timerActions.setWorkTime(timer));
   }, [workTimerInput]);
 
   const handleBreakTimeChange = (e) => {
-    const newValue = parseInt(e.target.value, 10);
-
-    // Check if the input is empty or a valid integer within the desired range
-    if (e.target.value === "" || (newValue >= 0 && newValue <= 999)) {
-      setBreakTimerInput(newValue);
-    }
+    setWorkTimerInput(e.target.value);
   };
 
   useEffect(() => {
+    const minutes = parseInt(breakTimerInput);
     let timer = {
       hours: 0,
-      minutes: breakTimerInput,
+      minutes: minutes && minutes >= 0 ? minutes : 1,
       seconds: 0,
     };
     dispatch(timerActions.setBreakTime(timer));
   }, [breakTimerInput]);
 
   const handleLongBreakFrequencyChange = (e) => {
-    const newValue = parseInt(e.target.value, 10);
-
-    // Check if the input is empty or a valid integer within the desired range
-    if (e.target.value === "" || newValue >= 0) {
-      setLongBreakTimerFrequencyInput(newValue);
-      dispatch(timerActions.setLongBreakFrequency(newValue));
-    }
+    setLongBreakTimerFrequencyInput(e.target.value);
   };
 
   const handleLongBreakTimeChange = (e) => {
-    const newValue = parseInt(e.target.value, 10);
-
-    // Check if the input is empty or a valid integer within the desired range
-    if (e.target.value === "" || (newValue >= 0 && newValue <= 999)) {
-      setLongBreakTimerInput(newValue);
-    }
+    setLongBreakTimerInput(e.target.value);
   };
 
   useEffect(() => {
+    const minutes = parseInt(longBreakTimerInput);
+    const frequency =
+      parseInt(longBreakTimerFrequencyInput) &&
+      parseInt(longBreakTimerFrequencyInput) > 0
+        ? parseInt(longBreakTimerFrequencyInput)
+        : 0;
     let timer = {
       hours: 0,
-      minutes: longBreakTimerInput,
+      minutes: minutes && minutes >= 0 ? minutes : 1,
       seconds: 0,
     };
+    dispatch(timerActions.setLongBreakFrequency(frequency));
     dispatch(timerActions.setLongBreakTime(timer));
-  }, [longBreakTimerInput]);
+  }, [longBreakTimerInput, longBreakTimerFrequencyInput]);
 
   return (
     <div className="flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
@@ -174,10 +163,10 @@ const TimerSettings = () => {
               </button>
               <input
                 className="w-full bg-transparent text-center outline-none"
-                id="breakTime"
+                id="longBreakFrequency"
                 type="number" // Set the input type to number
                 value={longBreakTimerFrequencyInput}
-                onChange={handleBreakTimeChange}
+                onChange={handleLongBreakFrequencyChange}
               />
               <button
                 className="w-20 hover:bg-black/5"
@@ -209,10 +198,10 @@ const TimerSettings = () => {
               </button>
               <input
                 className="w-full bg-transparent text-center outline-none"
-                id="breakTime"
+                id="longBreakTime"
                 type="number" // Set the input type to number
                 value={longBreakTimerInput}
-                onChange={handleBreakTimeChange}
+                onChange={handleLongBreakTimeChange}
               />
               <button
                 className="w-20 hover:bg-black/5"

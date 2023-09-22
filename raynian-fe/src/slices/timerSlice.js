@@ -69,11 +69,11 @@ const timerSlice = createSlice({
         if (state.isWork == true) {
           state.isBreak = true;
           state.isWork = false;
+          state.sessionStreak += 1;
           state.countdown =
             state.longBreakFrequency == state.sessionStreak
               ? state.longBreakTime
               : state.breakTime;
-          state.sessionStreak += 1;
           return;
         } else {
           state.isBreak = false;
