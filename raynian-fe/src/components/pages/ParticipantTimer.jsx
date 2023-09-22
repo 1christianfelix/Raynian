@@ -91,7 +91,7 @@ const ParticipantTimer = ({
   };
 
   return (
-    <div className="flex min-w-[76px] select-none items-center gap-2">
+    <div className="flex min-w-[72px] select-none items-center gap-2 text-sm">
       {renderIcon()}
       {countdown.minutes < 10 ? `0${countdown.minutes}` : countdown.minutes}:
       {countdown.seconds < 10 ? `0${countdown.seconds}` : countdown.seconds}

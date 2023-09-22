@@ -19,6 +19,9 @@ const TimerTooltip = ({ type, container, text }) => {
       case "pause":
         backgroundColor = "bg-blue-500";
         break;
+      case "settings":
+        backgroundColor = "bg-neutral-400";
+        break;
       // Add more cases for other types if needed
 
       default:

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
 import {
@@ -14,8 +14,10 @@ import {
 import { PiPauseLight } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
 import TimerTooltip from "./TimerTooltip";
+import { ModalContext } from "../../context/ModalContext";
 
 const TimerContols = () => {
+  const { toggleTimerSettings } = useContext(ModalContext);
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -40,7 +42,7 @@ const TimerContols = () => {
   };
 
   return (
-    <div className="flex flex-col items-start gap-2">
+    <div className="m-2 flex flex-col items-start gap-2">
       {!timerState.isRunning && (
         <div
           className="group relative flex items-center justify-center gap-2"
@@ -102,6 +104,30 @@ const TimerContols = () => {
           <TimerTooltip type={"skip"} container={skipRef} text={"Skip Break"} />
         </div>
       )}
+      <div
+        className={`group relative flex items-center justify-center gap-2 transition-all duration-200 ${
+          timerState.isRunning || timerState.isPaused
+            ? "text-gray-300"
+            : "cursor-pointer text-gray-500"
+        }`}
+        onClick={timerState.isRunning ? null : toggleTimerSettings} // Make it non-clickable when timer is running
+        ref={skipRef}
+      >
+        <IoSettingsOutline size={20} className="timer-button select-none" />
+        {timerState.isRunning || timerState.isPaused ? (
+          <TimerTooltip
+            type={"settings"}
+            container={skipRef}
+            text={"Settings unavailable while session is running"}
+          />
+        ) : (
+          <TimerTooltip
+            type={"settings"}
+            container={skipRef}
+            text={"Timer Settings"}
+          />
+        )}
+      </div>
     </div>
   );
 };

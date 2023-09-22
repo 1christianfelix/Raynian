@@ -11,7 +11,7 @@ const TimerDisplay = () => {
   // const [breakTime, setBreakTime] = useState(15);
   const [currentCountdown, setCurrentCountdown] = useState({
     hours: 0,
-    minutes: 11,
+    minutes: 120,
     seconds: 0,
   });
 
@@ -96,6 +96,7 @@ const TimerDisplay = () => {
         isPaused: timerData.isPaused,
         workTime: timerData.workTime,
         breakTime: timerData.breakTime,
+        sessionStreak: timerData.sessionStreak,
       };
 
       updateTimerStatus(updatedTimerData, roomId);
@@ -113,6 +114,7 @@ const TimerDisplay = () => {
         isPaused: timerData.isPaused,
         workTime: timerData.workTime,
         breakTime: timerData.breakTime,
+        sessionStreak: timerData.sessionStreak,
       };
       console.log("123", currentCountdown, updatedTimerData);
 
@@ -158,8 +160,13 @@ const TimerDisplay = () => {
   };
 
   return (
-    <div className="">
-      <p className="text-9xl">
+    <div className="text-neutral-800">
+      <p
+        className={`text-9xl transition-all duration-200
+        ${timerState.isPaused && "text-neutral-400"}
+        ${timerState.isBreak && "text-blue-500"}
+        `}
+      >
         {timerState.countdown.minutes < 10
           ? `0${timerState.countdown.minutes}`
           : timerState.countdown.minutes}

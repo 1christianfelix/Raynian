@@ -58,7 +58,7 @@ const OpenRoomPrompt = () => {
   };
 
   return (
-    <div className="flex w-[450px] flex-col rounded-3xl bg-white px-[30px] py-10">
+    <div className="flex w-[450px] flex-col rounded-3xl bg-neutral-50 px-[30px] py-10">
       <div className="mb-4">
         <div className="text-center text-2xl">
           Open up your room for others to join!

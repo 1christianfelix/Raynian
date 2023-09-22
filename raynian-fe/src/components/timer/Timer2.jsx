@@ -5,12 +5,11 @@ import TimerSettings from "./TimerSettings";
 
 const Timer2 = () => {
   return (
-    <div className="w-[100%]">
-      <div className="inline-flex items-center gap-2">
+    <div className="w-[100%] px-4">
+      <div className="inline-flex items-center">
         <TimerDisplay />
         <TimerContols />
       </div>
-      <TimerSettings />
     </div>
   );
 };
