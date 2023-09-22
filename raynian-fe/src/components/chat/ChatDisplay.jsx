@@ -91,7 +91,7 @@ const ChatDisplay = () => {
           </div>
         )}
         <form
-          className="border-b border-gray-300 mt-auto"
+          className="mt-auto border-b border-gray-300"
           onSubmit={handleSubmit}
         >
           <input

@@ -44,7 +44,7 @@ const Dashboard = () => {
         alt=""
       /> */}
       <Nav />
-      <div className=" mx-16 mb-12 flex-grow h-[100%] overflow-hidden">
+      <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
           <div className="flex flex-col justify-center">
             <Timer2 />
