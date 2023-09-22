@@ -58,9 +58,9 @@ const TimerSettings = () => {
     <div className="flex w-[450px] flex-col rounded-3xl bg-neutral-50 px-[30px] py-10">
       <div className="flex flex-row ">
         <div className="font-normal w-1/2 ">
-          <div className="mx-auto w-32 border-b border-neutral-300 focus-within:border-blue-500 focus-within:border">
+          <div className="mx-auto w-32 flex flex-col gap-1">
             <label className="text-xs ">Work Time:</label>
-            <div className="flex flex-row w-full">
+            <div className="flex flex-row w-full border-b border-neutral-300 focus-within:border-blue-500 focus-within:border">
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
@@ -93,9 +93,9 @@ const TimerSettings = () => {
         </div>
 
         <div className="font-normal  w-1/2 ">
-          <div className="mx-auto w-32 border-b border-neutral-300 focus-within:border-blue-500 focus-within:border">
+          <div className="mx-auto w-32 flex flex-col gap-1">
             <label className="text-xs ">Break Time:</label>
-            <div className="flex flex-row w-full">
+            <div className="flex flex-row w-full border-b border-neutral-300 focus-within:border-blue-500 focus-within:border">
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
