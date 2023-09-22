@@ -10,7 +10,6 @@ const Timer2 = () => {
         <TimerDisplay />
         <TimerContols />
       </div>
-      {/* <TimerSettings /> */}
     </div>
   );
 };

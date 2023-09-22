@@ -31,7 +31,18 @@ const Dashboard = () => {
 
   return (
     // BUG: adding relative to parent div breaks userdropdown
-    <div className="flex h-screen flex-col">
+    <div
+      className="flex h-screen flex-col"
+      style={{
+        // backgroundImage: "url(https://wallpapercave.com/wp/wp6486565.jpg)",
+        backgroundSize: "cover",
+      }}
+    >
+      {/* <img
+        className=" absolute -z-10"
+        src="https://wallpapercave.com/wp/wp6486565.jpg"
+        alt=""
+      /> */}
       <Nav />
       <div className=" mx-16 mb-12 flex-grow h-[100%] overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">

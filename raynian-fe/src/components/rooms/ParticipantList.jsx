@@ -51,7 +51,7 @@ const ParticipantList = () => {
                   </div>
                 )}
                 <div className="flex-grow text-sm font-normal">
-                  <p className="relative inline-flex gap-1">
+                  <p className="relative inline-flex items-center justify-center gap-1">
                     <div>{participant.username}</div>
                     {participant.timerData &&
                       participant.timerData.sessionStreak > 2 && (
@@ -59,7 +59,7 @@ const ParticipantList = () => {
                           <span className="absolute -right-4 -top-1 text-[10px]">
                             {participant.timerData.sessionStreak}x
                           </span>
-                          <span>🔥</span>
+                          <span className="text-xs">🔥</span>
                         </div>
                       )}
                   </p>
