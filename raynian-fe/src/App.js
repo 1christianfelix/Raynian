@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ModalProvider } from "./context/ModalContext";
 import { DarkLightProvider } from "./context/DarkLightContext";
 import { RoomProvider } from "./context/RoomContext";
+import { WallpaperProvider } from "./context/WallpaperContex";
 
 import Nav from "./components/navigation/Nav";
 import "./index.css";
@@ -25,24 +26,23 @@ function App() {
     <DarkLightProvider>
       <RoomProvider>
         <ModalProvider>
-          <div
-            className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
-            style={{ background: bg }}
-          >
-            <div className="absolute bottom-52 left-48">
-              <BgCustomizerMenu></BgCustomizerMenu>
-            </div>
-            <Modal />
+          <WallpaperProvider>
+            <div
+              className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
+              style={{ background: bg }}
+            >
+              <Modal />
 
-            <Routes>
-              <Route path="/" element={<Dashboard />}></Route>
-              <Route path="/PageNotFound" element={<PageNotFound />}></Route>
-              <Route
-                path="auth/login/success"
-                element={<OAuthLoginSuccess />}
-              ></Route>
-            </Routes>
-          </div>
+              <Routes>
+                <Route path="/" element={<Dashboard />}></Route>
+                <Route path="/PageNotFound" element={<PageNotFound />}></Route>
+                <Route
+                  path="auth/login/success"
+                  element={<OAuthLoginSuccess />}
+                ></Route>
+              </Routes>
+            </div>
+          </WallpaperProvider>
         </ModalProvider>
       </RoomProvider>
     </DarkLightProvider>

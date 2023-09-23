@@ -10,8 +10,10 @@ export const WallpaperProvider = ({ children }) => {
 
   const [colorAccents, setColorAccents] = useState({});
 
+  const { data, loading, error } = usePalette(selectedImage);
+
   useEffect(() => {
-    const { data, loading, error } = usePalette(selectedImage);
+    console.log(data);
     setColorAccents(data);
   }, [selectedImage]);
 

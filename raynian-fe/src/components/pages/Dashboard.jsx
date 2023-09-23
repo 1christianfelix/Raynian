@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { generateGuestCredentials } from "../../slices/authSlice";
 import { setRoomUser } from "../../slices/roomSlice";
+import { usePalette } from "react-palette";
 import { TimerProvider } from "../../context/TimerContext";
+import { WallpaperContext } from "../..//context/WallpaperContex";
+
 import Timer from "../util/Timer";
 
 import Chat from "../chat/ChatDisplay";
@@ -13,14 +16,15 @@ import Timer2 from "../timer/Timer2";
 import ParticipantListTest from "./ParticipantListTest";
 import Nav from "../navigation/Nav";
 
-import { usePalette } from "react-palette";
-
 const Dashboard = () => {
-  const [selectedImage, setSelectedImage] = useState(
-    "/images/backgrounds/lofi1-pikisuperstar.jpg"
-  );
-  const { data, loading, error } = usePalette(selectedImage);
-  useEffect(() => {}, [data]);
+  const { selectedImage, setSelectedImage, colorAccents } =
+    useContext(WallpaperContext);
+
+  // const [selectedImage, setSelectedImage] = useState(
+  //   "/images/backgrounds/lofi1-pikisuperstar.jpg"
+  // );
+  // const { data, loading, error } = usePalette(selectedImage);
+  // useEffect(() => {}, [data]);
 
   const { userInfo } = useSelector((state) => state.auth);
   const { roomId } = useSelector((state) => state.room);
@@ -44,13 +48,13 @@ const Dashboard = () => {
   return (
     <div
       className="flex h-screen w-screen flex-col"
-      // style={{
-      //   backgroundImage: `url(${selectedImage})`,
-      //   backgroundSize: "100% 100%",
-      //   backgroundRepeat: "no-repeat",
-      // }}
+      style={{
+        backgroundImage: `url(${selectedImage})`,
+        backgroundSize: "100% auto",
+        backgroundPosition: "center",
+      }}
     >
-      <img
+      {/* <img
         className="absolute -z-10 h-full w-full object-cover"
         src={selectedImage}
       ></img>
@@ -60,7 +64,7 @@ const Dashboard = () => {
         autoPlay
         muted
         loop
-      ></video>
+      ></video> */}
       <input
         className="absolute"
         type="file"
@@ -84,7 +88,7 @@ const Dashboard = () => {
             className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm"
             style={{
               backgroundColor: "#FFFFFF" + "D0",
-              boxShadow: `8px 8px 1px ${data["lightMuted"]}`,
+              boxShadow: `8px 8px 1px ${colorAccents["lightMuted"]}`,
             }}
           >
             <Timer2 />
