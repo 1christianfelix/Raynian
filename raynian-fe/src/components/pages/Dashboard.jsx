@@ -20,9 +20,7 @@ const Dashboard = () => {
     "/images/backgrounds/lofi1-pikisuperstar.jpg"
   );
   const { data, loading, error } = usePalette(selectedImage);
-  useEffect(() => {
-    console.log(data, selectedImage);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const { userInfo } = useSelector((state) => state.auth);
   const { roomId } = useSelector((state) => state.room);
@@ -53,7 +51,7 @@ const Dashboard = () => {
       // }}
     >
       <img
-        className="absolute -z-10 h-full w-full object-fill"
+        className="absolute -z-10 h-full w-full object-cover"
         src={selectedImage}
       ></img>
       <video

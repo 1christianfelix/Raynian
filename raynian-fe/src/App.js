@@ -11,7 +11,7 @@ import SignupPage from "./components/pages/SignupPage";
 import OAuthLoginSuccess from "./components/pages/OAuthLoginSuccess";
 import ProfilePage from "./components/pages/ProfilePage";
 import Modal from "./components/util/Modal";
-import ColorSelection from "./components/ui/background-customizer/ColorSelection";
+import BgCustomizerMenu from "./components/ui/background-customizer/BgCustomizerMenu";
 
 import Dashboard from "./components/pages/Dashboard";
 import { PageNotFound } from "./components/pages/PageNotFound";
@@ -27,8 +27,11 @@ function App() {
         <ModalProvider>
           <div
             className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
-            // style={{ background: bg }}
+            style={{ background: bg }}
           >
+            <div className="absolute bottom-52 left-48">
+              <BgCustomizerMenu></BgCustomizerMenu>
+            </div>
             <Modal />
 
             <Routes>
