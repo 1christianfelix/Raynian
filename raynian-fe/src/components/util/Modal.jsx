@@ -7,6 +7,7 @@ import JoinRoomPrompt from "../rooms/JoinRoomPrompt";
 import OpenRoomPrompt from "../rooms/OpenRoomPrompt";
 import LeaveRoomPrompt from "../rooms/LeaveRoomPrompt";
 import TimerSettings from "../timer/TimerSettings";
+import BackgroundSettings from "../ui/background-customizer/BackgroundSettings";
 
 import { RxCross1 } from "react-icons/rx";
 
@@ -35,6 +36,7 @@ export default function Modal(props) {
           {type === "openRoomPrompt" && <OpenRoomPrompt />}
           {type === "leaveRoomPrompt" && <LeaveRoomPrompt />}
           {type === "timerSettings" && <TimerSettings />}
+          {type === "backgroundSettings" && <BackgroundSettings />}
         </div>
         <div
           className="absolute z-50 h-screen w-screen backdrop-blur-sm"
