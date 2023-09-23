@@ -4,6 +4,7 @@ import { CiUser } from "react-icons/ci";
 import UserDropdown from "../util/UserDropdown";
 import thick_logo from "../../assets/thick_logo.svg";
 import RoomButton from "../rooms/RoomButton";
+import { PiImagesSquareThin } from "react-icons/pi";
 
 export default function Nav() {
   const [openDropdown, setToggleDropdown] = useState(false);
@@ -21,12 +22,19 @@ export default function Nav() {
         <img src={thick_logo} alt="logo" className="h-[3rem] dark:invert" />
         <p className="text-3xl ">raynian</p>
       </div>
-      <div className="ml-auto flex items-center gap-2">
+
+      <div className="ml-auto flex items-center gap-2 bg-white/10 px-4 backdrop-blur-md">
         <RoomButton />
+        <div>
+          <PiImagesSquareThin
+            size={45}
+            className="transition-all hover:text-white dark:hover:text-neutral-900 cursor-pointer"
+          />
+        </div>
         <div className="relative" ref={navRef} onClick={() => toggleDropdown()}>
           <CiUser
             size={45}
-            className="cursor-pointer"
+            className="transition-all hover:text-white dark:hover:text-neutral-900 cursor-pointer"
             onClick={() => toggleDropdown()}
           />
           <UserDropdown

@@ -83,9 +83,9 @@ const Dashboard = () => {
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
           <div
-            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-lg"
+            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm"
             style={{
-              backgroundColor: "#ffffff" + "BF",
+              backgroundColor: "#FFFFFF" + "D0",
               boxShadow: `8px 8px 1px ${data["lightMuted"]}`,
             }}
           >
