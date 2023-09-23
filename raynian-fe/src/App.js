@@ -27,10 +27,7 @@ function App() {
       <RoomProvider>
         <ModalProvider>
           <WallpaperProvider>
-            <div
-              className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
-              style={{ background: bg }}
-            >
+            <div className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
               <Modal />
 
               <Routes>

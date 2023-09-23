@@ -5,7 +5,8 @@ import { generateGuestCredentials } from "../../slices/authSlice";
 import { setRoomUser } from "../../slices/roomSlice";
 import { usePalette } from "react-palette";
 import { TimerProvider } from "../../context/TimerContext";
-import { WallpaperContext } from "../..//context/WallpaperContex";
+import { WallpaperContext } from "../../context/WallpaperContex";
+import { BGCustomContext } from "../../context/BGCustomContext";
 
 import Timer from "../util/Timer";
 
@@ -17,7 +18,8 @@ import ParticipantListTest from "./ParticipantListTest";
 import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
-  const { selectedImage, setSelectedImage, colorAccents } =
+  const { bg } = useContext(BGCustomContext);
+  const { wallpaper, colorAccents, selectedImage } =
     useContext(WallpaperContext);
 
   // const [selectedImage, setSelectedImage] = useState(
@@ -46,25 +48,9 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div
-      className="flex h-screen w-screen flex-col"
-      style={{
-        backgroundImage: `url(${selectedImage})`,
-        backgroundSize: "100% auto",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* <img
-        className="absolute -z-10 h-full w-full object-cover"
-        src={selectedImage}
-      ></img>
-      <video
-        className="absolute -z-10 h-full w-full object-fill"
-        src={selectedImage}
-        autoPlay
-        muted
-        loop
-      ></video> */}
+    <div className="flex h-screen w-screen flex-col" style={{ background: bg }}>
+      {wallpaper}
+
       <input
         className="absolute"
         type="file"

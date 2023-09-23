@@ -1,14 +1,19 @@
 import React, { useContext } from "react";
 import wp1 from "../background-customizer/wallpapers/panda_newlife_1.png";
 import wp2 from "../background-customizer/wallpapers/4910935.png";
-import wp3 from "../background-customizer/wallpapers/anime street dark.jpg";
+import wp3 from "../background-customizer/wallpapers/anime_street_dark.jpg";
 import wp4 from "../background-customizer/wallpapers/pikisuperstar_1.jpg";
 import { IoIosAdd } from "react-icons/io";
 
 import { WallpaperContext } from "../../../context/WallpaperContex";
 
 const BackgroundSettings = () => {
-  const { setSelectedImage } = useContext(WallpaperContext);
+  const {
+    selectedImage,
+    setSelectedImage,
+    selectedGradient,
+    setSelectedGradient,
+  } = useContext(WallpaperContext);
 
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
@@ -20,14 +25,24 @@ const BackgroundSettings = () => {
             <img
               key={index}
               src={wp}
-              className="h-20 w-20 outline-blue-500 hover:cursor-pointer hover:outline"
+              className={`h-20 w-20 outline-blue-500 hover:cursor-pointer hover:outline ${
+                wp == selectedImage && !selectedGradient && "outline"
+              }`}
               onClick={() => {
+                setSelectedGradient(false);
                 setSelectedImage(wp);
               }}
             ></img>
           );
         })}
-        <div className="flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline">
+        <div
+          className={`flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline ${
+            selectedGradient && "outline"
+          }`}
+          onClick={() => {
+            setSelectedGradient(true);
+          }}
+        >
           <img
             className="h-[50%]"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Color_circle_%28RGB%29.png/600px-Color_circle_%28RGB%29.png"
