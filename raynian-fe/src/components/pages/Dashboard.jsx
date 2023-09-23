@@ -13,13 +13,27 @@ import Timer2 from "../timer/Timer2";
 import ParticipantListTest from "./ParticipantListTest";
 import Nav from "../navigation/Nav";
 
+import { usePalette } from "react-palette";
+
 const Dashboard = () => {
+  const [selectedImage, setSelectedImage] = useState(
+    "/images/backgrounds/lofi1-pikisuperstar.jpg"
+  );
+  const { data, loading, error } = usePalette(selectedImage);
+  useEffect(() => {
+    console.log(data, selectedImage);
+  }, [data]);
+
   const { userInfo } = useSelector((state) => state.auth);
   const { roomId } = useSelector((state) => state.room);
 
-  const [currUser, setCurrUser] = useState("");
-
   const dispatch = useDispatch();
+
+  // Handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
 
   // handle guest info
   useEffect(() => {
@@ -30,23 +44,51 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    // BUG: adding relative to parent div breaks userdropdown
     <div
-      className="flex h-screen flex-col"
-      style={{
-        // backgroundImage: "url(https://wallpapercave.com/wp/wp6486565.jpg)",
-        backgroundSize: "cover",
-      }}
+      className="flex h-screen w-screen flex-col"
+      // style={{
+      //   backgroundImage: `url(${selectedImage})`,
+      //   backgroundSize: "100% 100%",
+      //   backgroundRepeat: "no-repeat",
+      // }}
     >
-      {/* <img
-        className=" absolute -z-10"
-        src="https://wallpapercave.com/wp/wp6486565.jpg"
-        alt=""
-      /> */}
+      <img
+        className="absolute -z-10 h-full w-full object-fill"
+        src={selectedImage}
+      ></img>
+      <video
+        className="absolute -z-10 h-full w-full object-fill"
+        src={selectedImage}
+        autoPlay
+        muted
+        loop
+      ></video>
+      <input
+        className="absolute"
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+      {/* {Object.keys(data).map((color) => {
+        return (
+          <div
+            className="h-10px w-10px"
+            style={{ backgroundColor: data[color] }}
+          >
+            {color}
+          </div>
+        );
+      })} */}
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
-          <div className="flex flex-col justify-center">
+          <div
+            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-lg"
+            style={{
+              backgroundColor: "#ffffff" + "BF",
+              boxShadow: `8px 8px 1px ${data["lightMuted"]}`,
+            }}
+          >
             <Timer2 />
             {roomId && <ParticipantList />}
           </div>

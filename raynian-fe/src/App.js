@@ -26,8 +26,8 @@ function App() {
       <RoomProvider>
         <ModalProvider>
           <div
-            className="h-screen w-screen bg-gradient-to-b from-slate-100 to-rose-100 font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
-            style={{ background: bg }}
+            className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white"
+            // style={{ background: bg }}
           >
             <Modal />
 
