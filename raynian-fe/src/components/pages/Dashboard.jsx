@@ -19,8 +19,7 @@ import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
   const { bg } = useContext(BGCustomContext);
-  const { wallpaper, colorAccents, selectedImage, theme } =
-    useContext(WallpaperContext);
+  const { wallpaper, selectedGradient, theme } = useContext(WallpaperContext);
 
   // const [selectedImage, setSelectedImage] = useState(
   //   "/images/backgrounds/lofi1-pikisuperstar.jpg"
@@ -48,7 +47,10 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div
+      className="flex h-screen w-screen flex-col"
+      style={{ background: selectedGradient ? bg : "" }}
+    >
       {wallpaper}
 
       <Nav />
@@ -57,8 +59,8 @@ const Dashboard = () => {
           <div
             className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
             style={{
-              backgroundColor: theme[0] || "#ffffffD0",
-              boxShadow: `8px 8px 1px ${theme[1] || "#ffffff00"}`,
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
             }}
           >
             <Timer2 />

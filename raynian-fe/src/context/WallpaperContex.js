@@ -22,7 +22,7 @@ export const WallpaperProvider = ({ children }) => {
   const [wallpaper, setWallpaper] = useState("");
 
   useEffect(() => {
-    if (!selectedGradient) {
+    if (selectedImage) {
       setWallpaper(
         <img
           className="absolute -z-10 h-full w-full object-cover"
@@ -30,17 +30,10 @@ export const WallpaperProvider = ({ children }) => {
         ></img>
       );
     } else {
-      setWallpaper(
-        <div
-          style={{
-            position: "absolute",
-            zIndex: "-10",
-            height: "100%",
-            width: "100%",
-            background: bg,
-          }}
-        ></div>
-      );
+      setWallpaper(<div></div>);
+      setColorAccents({ white: "#ffffffD0" });
+      setPalette([]);
+      setTheme([]);
     }
   }, [selectedImage, selectedGradient]);
 
@@ -65,7 +58,7 @@ export const WallpaperProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    colorPaletteBuilder();
+    if (selectedImage) colorPaletteBuilder();
     // console.log(colorPalette());
   }, [colorAccents]);
 

@@ -6,12 +6,12 @@ import wp4 from "../background-customizer/wallpapers/pikisuperstar_1.jpg";
 import { IoIosAdd } from "react-icons/io";
 
 import { WallpaperContext } from "../../../context/WallpaperContex";
-// import { BGCustomContext } from "../../../context/BGCustomContext";
+import { BGCustomContext } from "../../../context/BGCustomContext";
 
 import BgCustomizerMenu from "./BgCustomizerMenu";
 
 const BackgroundSettings = () => {
-  // const { bg } = useContext(BGCustomContext);
+  const { bg } = useContext(BGCustomContext);
   const {
     selectedImage,
     setSelectedImage,
@@ -22,6 +22,7 @@ const BackgroundSettings = () => {
     setPalette,
     theme,
     setTheme,
+    wallpaper,
   } = useContext(WallpaperContext);
 
   const handleImageUpload = (event) => {
@@ -31,17 +32,12 @@ const BackgroundSettings = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (palette) {
-  //     setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
-  //   }
-  //   console.log(theme);
-  // }, [palette]);
+  useEffect(() => {}, [bg]);
 
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
     <div className="relative">
-      <div className="flex flex-col gap-6 w-[700px] rounded-3xl bg-neutral-50 px-[30px] py-10">
+      <div className="flex w-[700px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-normal">Wallpapers</div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-7">
@@ -54,25 +50,27 @@ const BackgroundSettings = () => {
                     wp == selectedImage && !selectedGradient && "outline"
                   }`}
                   onClick={() => {
-                    setSelectedGradient(false);
                     setSelectedImage(wp);
                   }}
                 ></img>
               );
             })}
-            <div
-              className={`flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline ${
-                selectedGradient && "outline"
-              }`}
-              onClick={() => {
-                setSelectedGradient(true);
-              }}
-            >
-              <img
-                className="h-[50%]"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Color_circle_%28RGB%29.png/600px-Color_circle_%28RGB%29.png"
-                alt="Color Wheel"
-              />
+
+            <div>
+              <div
+                className={`flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline ${
+                  selectedGradient && "outline"
+                }`}
+                onClick={() => {
+                  setSelectedImage("");
+                }}
+              >
+                <img
+                  className="h-[50%]"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/ProhibitionSign.svg/1024px-ProhibitionSign.svg.png"
+                  alt="Remove Background"
+                />
+              </div>
             </div>
             <label
               htmlFor="fileInput"
@@ -118,25 +116,33 @@ const BackgroundSettings = () => {
             })}
           </div>
         </div>
-      </div>
-      {/* <BgCustomizerMenu /> */}
-      <div className="absolute -right-[28rem] bottom-[50%] translate-y-[50%]">
         <div
-          className="flex h-64 w-96 items-center justify-center transition-all duration-[700ms]"
-          style={{
-            backgroundImage: `url(${selectedImage})`,
-            backgroundSize: "cover",
+          className="mx-auto hover:cursor-pointer hover:scale-110 transition-all"
+          onClick={() => {
+            setSelectedGradient((prev) => !prev);
           }}
         >
-          <div
-            className="flex h-44 w-64 items-center justify-center text-lg font-bold transition-all duration-[700ms]"
-            style={{
-              backgroundColor: theme[0],
-              boxShadow: `8px 8px 1px ${theme[1]}`,
-            }}
-          >
-            Example panel
-          </div>
+          <img
+            className="h-10 w-10 "
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Color_circle_%28RGB%29.png/600px-Color_circle_%28RGB%29.png"
+            alt="Color Wheel"
+          />
+        </div>
+      </div>
+      <div className="mt-2">{selectedGradient && <BgCustomizerMenu />}</div>
+      <div
+        className="absolute -right-[28rem] bottom-[25%] flex h-64 w-96 items-center justify-center"
+        style={{ background: selectedGradient ? bg : "" }}
+      >
+        {wallpaper}
+        <div
+          className="flex h-44 w-64 items-center justify-center text-lg font-bold transition-all duration-[700ms]"
+          style={{
+            backgroundColor: theme[0] || "#fafafaB4",
+            boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+          }}
+        >
+          Example panel
         </div>
       </div>
     </div>
