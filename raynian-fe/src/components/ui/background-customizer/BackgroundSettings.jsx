@@ -15,6 +15,11 @@ const BackgroundSettings = () => {
     setSelectedGradient,
   } = useContext(WallpaperContext);
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
+
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
     <div className="w-[700px] rounded-3xl bg-neutral-50 px-[30px] py-10">
@@ -49,9 +54,19 @@ const BackgroundSettings = () => {
             alt="Color Wheel"
           />
         </div>
-        <div className="hover:cursor-pointer hover:text-gray-500">
+        <label
+          htmlFor="fileInput"
+          className="hover:cursor-pointer hover:text-gray-500"
+        >
           <IoIosAdd size={50} />
-        </div>
+        </label>
+        <input
+          id="fileInput"
+          className="absolute hidden"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
       </div>
       <div className="text-lg font-normal">Accents</div>
     </div>
