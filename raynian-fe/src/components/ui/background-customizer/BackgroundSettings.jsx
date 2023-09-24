@@ -6,8 +6,12 @@ import wp4 from "../background-customizer/wallpapers/pikisuperstar_1.jpg";
 import { IoIosAdd } from "react-icons/io";
 
 import { WallpaperContext } from "../../../context/WallpaperContex";
+// import { BGCustomContext } from "../../../context/BGCustomContext";
+
+import BgCustomizerMenu from "./BgCustomizerMenu";
 
 const BackgroundSettings = () => {
+  // const { bg } = useContext(BGCustomContext);
   const {
     selectedImage,
     setSelectedImage,
@@ -27,36 +31,12 @@ const BackgroundSettings = () => {
     }
   };
 
-  const colorPalettes = () => {
-    const colorKeys = Object.keys(colorAccents);
-    const pairs = [];
-
-    for (let color of colorKeys) {
-      if (color != "white") pairs.push(["white", color]);
-    }
-
-    for (let i = 0; i < colorKeys.length; i++) {
-      if (colorKeys[i] == "white") continue;
-      for (let j = 0; j < colorKeys.length; j++) {
-        if (colorKeys[j] == "white") continue;
-        if (!colorKeys[i].includes("dark") && colorKeys[i] != colorKeys[j]) {
-          pairs.push([colorKeys[i], colorKeys[j]]);
-        }
-      }
-    }
-
-    return pairs;
-  };
-
-  useEffect(() => {
-    setPalette(colorPalettes());
-    console.log(colorPalettes());
-  }, [colorAccents]);
-
-  useEffect(() => {
-    setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
-    console.log(theme);
-  }, [palette]);
+  // useEffect(() => {
+  //   if (palette) {
+  //     setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
+  //   }
+  //   console.log(theme);
+  // }, [palette]);
 
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
@@ -139,16 +119,17 @@ const BackgroundSettings = () => {
           </div>
         </div>
       </div>
+      {/* <BgCustomizerMenu /> */}
       <div className="absolute -right-[28rem] bottom-[50%] translate-y-[50%]">
         <div
-          className="flex h-64 w-96 items-center justify-center "
+          className="flex h-64 w-96 items-center justify-center transition-all duration-[700ms]"
           style={{
             backgroundImage: `url(${selectedImage})`,
             backgroundSize: "cover",
           }}
         >
           <div
-            className="flex h-44 w-64 items-center justify-center text-lg font-bold"
+            className="flex h-44 w-64 items-center justify-center text-lg font-bold transition-all duration-[700ms]"
             style={{
               backgroundColor: theme[0],
               boxShadow: `8px 8px 1px ${theme[1]}`,

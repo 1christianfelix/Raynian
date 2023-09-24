@@ -44,6 +44,37 @@ export const WallpaperProvider = ({ children }) => {
     }
   }, [selectedImage, selectedGradient]);
 
+  const colorPaletteBuilder = () => {
+    const colorKeys = Object.keys(colorAccents);
+    const pairs = [];
+
+    for (let color of colorKeys) {
+      if (color != "white") pairs.push(["white", color]);
+    }
+
+    for (let i = 0; i < colorKeys.length; i++) {
+      if (colorKeys[i] == "white") continue;
+      for (let j = 0; j < colorKeys.length; j++) {
+        if (colorKeys[j] == "white") continue;
+        if (!colorKeys[i].includes("dark") && colorKeys[i] != colorKeys[j]) {
+          pairs.push([colorKeys[i], colorKeys[j]]);
+        }
+      }
+    }
+    setPalette(pairs);
+  };
+
+  useEffect(() => {
+    colorPaletteBuilder();
+    // console.log(colorPalette());
+  }, [colorAccents]);
+
+  useEffect(() => {
+    if (palette.length > 0) {
+      setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
+    }
+  }, [palette]);
+
   useEffect(() => {
     console.log(data);
     setColorAccents((prev) => {

@@ -48,7 +48,7 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    <div className="flex h-screen w-screen flex-col" style={{ background: bg }}>
+    <div className="flex h-screen w-screen flex-col">
       {wallpaper}
 
       <input
@@ -71,10 +71,10 @@ const Dashboard = () => {
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
           <div
-            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm"
+            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
             style={{
-              backgroundColor: theme[0],
-              boxShadow: `8px 8px 1px ${theme[1]}`,
+              backgroundColor: theme[0] || "#ffffffD0",
+              boxShadow: `8px 8px 1px ${theme[1] || "#ffffff00"}`,
             }}
           >
             <Timer2 />
