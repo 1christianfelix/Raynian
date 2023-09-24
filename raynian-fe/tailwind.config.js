@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         inter: ['"Inter"'],
       },
+      boxShadow: {
+        panel: "8px 8px 1px",
+      },
       // fontSize: {
       //   popup: "1rem",
       // },

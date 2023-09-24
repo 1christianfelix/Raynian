@@ -142,14 +142,14 @@ const BgCustomizerMenu = () => {
   return (
     <ColorPickerStatusProvider>
       <div
-        className="absolute flex items-center justify-center"
+        className="flex items-center justify-center"
         style={
           {
             // background: bg,
           }
         }
       >
-        <div className="flex flex-col rounded-3xl bg-yellow-200 bg-opacity-70 p-4  pt-8 shadow-[rgba(0,0,0,.5)]">
+        <div className="w-[100%] flex flex-col rounded-3xl bg-slate-50  p-4  shadow-[rgba(0,0,0,.5)]">
           <div className="flex items-center justify-center gap-5">
             <GradientSlider
               bgProperties={bgProperties}
@@ -162,7 +162,7 @@ const BgCustomizerMenu = () => {
             />
           </div>
 
-          <motion.div
+          {/* <motion.div
             className="mt-4 flex justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -179,9 +179,9 @@ const BgCustomizerMenu = () => {
                 {showForm ? <FaAngleUp /> : <FaAngleDown />}
               </motion.span>
             </button>
-          </motion.div>
+          </motion.div> */}
 
-          <motion.div
+          {/* <motion.div
             initial={{ height: 0 }}
             animate={{ height: showForm ? "auto" : 0 }}
             transition={{ duration: 0.5 }}
@@ -287,7 +287,7 @@ const BgCustomizerMenu = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+                  </motion.div> */}
         </div>
       </div>
     </ColorPickerStatusProvider>

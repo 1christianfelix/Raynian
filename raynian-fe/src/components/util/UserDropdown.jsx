@@ -18,9 +18,9 @@ export default function UserDropdown(props) {
   const dispatch = useDispatch();
 
   const handleClickOutside = (event) => {
-    if (navRef.current && navRef.current.contains(event.target)) {
-      return;
-    }
+    // if (navRef.current && navRef.current.contains(event.target)) {
+    //   return;
+    // }
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setToggleDropdown(false);
     }

@@ -34,7 +34,7 @@
 }
 
 .tooltip-slider {
-  visibility: hidden;
+  /* visibility: hidden; */
   background-color: black;
   color: #fff;
   text-align: center;
@@ -49,7 +49,7 @@
   transition: opacity 0.3s;
 }
 
-.handle:hover .tooltip {
+.handle:hover .tooltip-slider {
   visibility: visible;
   opacity: 1;
 }

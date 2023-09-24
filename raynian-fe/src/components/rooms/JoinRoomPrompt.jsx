@@ -67,9 +67,10 @@ const JoinRoomPrompt = () => {
           <div className="text-center text-sm italic">
             {userInfo.user._id === "guest" ? (
               <div className="flex flex-col items-center justify-center gap-2">
-                <div>
-                  (<span className="">You are not signed in. </span>Joining as{" "}
-                  <span className="text-sm font-medium italic text-blue-700">
+                <div className="select-none">
+                  (<span className="select-text">You are not signed in. </span>
+                  Joining as{" "}
+                  <span className="text-sm font-medium italic text-blue-700 select-text">
                     {userInfo.user.username}
                   </span>
                   )

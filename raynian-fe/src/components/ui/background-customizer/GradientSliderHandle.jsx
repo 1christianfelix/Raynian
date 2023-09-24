@@ -29,8 +29,12 @@ const GradientSliderHandle = ({ id }) => {
   const colorStyle = {
     backgroundColor:
       id === "handle1"
-        ? `rgba(${bgProperties.color1.r}, ${bgProperties.color1.g}, ${bgProperties.color1.b}, ${bgProperties.color1.a})`
-        : `rgba(${bgProperties.color2.r}, ${bgProperties.color2.g}, ${bgProperties.color2.b}, ${bgProperties.color2.a})`,
+        ? `rgba(${bgProperties.color1.r}, ${bgProperties.color1.g}, ${
+            bgProperties.color1.b
+          }, ${bgProperties.color1.a > 0.5 ? bgProperties.color1.a : 0.5})`
+        : `rgba(${bgProperties.color2.r}, ${bgProperties.color2.g}, ${
+            bgProperties.color2.b
+          }, ${bgProperties.color2.a > 0.5 ? bgProperties.color2.a : 0.5})`,
   };
 
   const handleDrag = (e, ui) => {
@@ -123,16 +127,19 @@ const GradientSliderHandle = ({ id }) => {
           )}
         </div>
         <div
-          className={`handle flex h-5 w-5 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
-            isDragging && "scale-110"
-          } ${active && "scale-110"}`}
+          className={`handle flex h-8 w-8 -translate-y-[.35rem] items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
+            isDragging && "scale-125"
+          } ${active && "scale-125"}`}
           style={{
             // left: `${position}px`,
             ...colorStyle,
           }}
           onClick={handleClick}
         >
-          <div className="tooltip-slider">{stopPercent}%</div>
+          <div className="tooltip-slider tooltip w-44 flex flex-col">
+            <div>{colorStyle.backgroundColor}</div>
+            <div>{stopPercent}%</div>
+          </div>
         </div>
       </div>
     </Draggable>

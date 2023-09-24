@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RxCross1 } from "react-icons/rx";
 import * as timerActions from "../../slices/timerSlice";
 
-const TimerSettings = () => {
+const TimerSettings = (props) => {
+  const { handleToggleTimerSettings } = props;
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -73,7 +75,12 @@ const TimerSettings = () => {
   }, [longBreakTimerInput, longBreakTimerFrequencyInput]);
 
   return (
-    <div className="flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
+    <div className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
+      <div className="absolute right-4 top-4">
+        <div onClick={handleToggleTimerSettings} className="cursor-pointer">
+          <RxCross1 />
+        </div>
+      </div>
       <div className="flex flex-row ">
         <div className="w-1/2 font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">

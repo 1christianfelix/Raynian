@@ -15,9 +15,10 @@ import { PiPauseLight } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
 import TimerTooltip from "./TimerTooltip";
 import { ModalContext } from "../../context/ModalContext";
+import TimerSettings from "../timer/TimerSettings";
 
 const TimerContols = () => {
-  const { toggleTimerSettings } = useContext(ModalContext);
+  // const { toggleTimerSettings } = useContext(ModalContext);
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -26,12 +27,24 @@ const TimerContols = () => {
   const pauseRef = useRef(null);
   const startRef = useRef(null);
 
+  const [toggleTimerSettings, setToggleTimerSettings] = useState(false);
+
+  const closeAllMenus = () => {
+    setToggleTimerSettings(false);
+  };
+
+  const handleToggleTimerSettings = () => {
+    setToggleTimerSettings((prev) => !prev);
+  };
+
   const handleStartTimer = () => {
+    closeAllMenus();
     dispatch(timerActions.startTimer());
     // getTimerState();
   };
 
   const handleStopTimer = () => {
+    closeAllMenus();
     dispatch(timerActions.stopTimer());
     // getTimerState();
   };
@@ -110,7 +123,11 @@ const TimerContols = () => {
             ? "text-gray-300"
             : "cursor-pointer text-gray-500"
         }`}
-        onClick={timerState.isRunning ? null : toggleTimerSettings} // Make it non-clickable when timer is running
+        onClick={
+          !timerState.isRunning && !timerState.isPaused
+            ? handleToggleTimerSettings
+            : null
+        } // Make it non-clickable when timer is running
         ref={skipRef}
       >
         <IoSettingsOutline size={20} className="timer-button select-none" />
@@ -121,11 +138,23 @@ const TimerContols = () => {
             text={"Settings unavailable while session is running"}
           />
         ) : (
-          <TimerTooltip
-            type={"settings"}
-            container={skipRef}
-            text={"Timer Settings"}
-          />
+          !toggleTimerSettings && (
+            <TimerTooltip
+              type={"settings"}
+              container={skipRef}
+              text={"Timer Settings"}
+            />
+          )
+        )}
+        {toggleTimerSettings && (
+          <div
+            className="absolute z-10 left-20 cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <TimerSettings
+              handleToggleTimerSettings={handleToggleTimerSettings}
+            />
+          </div>
         )}
       </div>
     </div>

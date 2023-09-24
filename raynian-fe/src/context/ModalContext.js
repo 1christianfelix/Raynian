@@ -35,6 +35,10 @@ export const ModalProvider = ({ children }) => {
     setType("timerSettings");
   };
 
+  const toggleBackgroundSettings = () => {
+    setType("backgroundSettings");
+  };
+
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -62,6 +66,7 @@ export const ModalProvider = ({ children }) => {
         toggleOpenRoomPrompt,
         toggleLeaveRoomPrompt,
         toggleTimerSettings,
+        toggleBackgroundSettings,
         setType,
       }}
     >

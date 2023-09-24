@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { generateUniqueUserNoCheck } from "../../helpers/generateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { generateGuestCredentials } from "../../slices/authSlice";
 import { setRoomUser } from "../../slices/roomSlice";
+import { usePalette } from "react-palette";
 import { TimerProvider } from "../../context/TimerContext";
+import { WallpaperContext } from "../../context/WallpaperContex";
+import { BGCustomContext } from "../../context/BGCustomContext";
+
 import Timer from "../util/Timer";
 
 import Chat from "../chat/ChatDisplay";
@@ -14,12 +18,25 @@ import ParticipantListTest from "./ParticipantListTest";
 import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
+  const { bg } = useContext(BGCustomContext);
+  const { wallpaper, selectedGradient, theme } = useContext(WallpaperContext);
+
+  // const [selectedImage, setSelectedImage] = useState(
+  //   "/images/backgrounds/lofi1-pikisuperstar.jpg"
+  // );
+  // const { data, loading, error } = usePalette(selectedImage);
+  // useEffect(() => {}, [data]);
+
   const { userInfo } = useSelector((state) => state.auth);
   const { roomId } = useSelector((state) => state.room);
 
-  const [currUser, setCurrUser] = useState("");
-
   const dispatch = useDispatch();
+
+  // Handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
 
   // handle guest info
   useEffect(() => {
@@ -30,23 +47,22 @@ const Dashboard = () => {
   }, [userInfo]);
 
   return (
-    // BUG: adding relative to parent div breaks userdropdown
     <div
-      className="flex h-screen flex-col"
-      style={{
-        // backgroundImage: "url(https://wallpapercave.com/wp/wp6486565.jpg)",
-        backgroundSize: "cover",
-      }}
+      className="flex h-screen w-screen flex-col"
+      style={{ background: selectedGradient ? bg : "" }}
     >
-      {/* <img
-        className=" absolute -z-10"
-        src="https://wallpapercave.com/wp/wp6486565.jpg"
-        alt=""
-      /> */}
+      {wallpaper}
+
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
-          <div className="flex flex-col justify-center">
+          <div
+            className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+            style={{
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+            }}
+          >
             <Timer2 />
             {roomId && <ParticipantList />}
           </div>
