@@ -123,7 +123,7 @@ const GradientSliderHandle = ({ id }) => {
           )}
         </div>
         <div
-          className={`handle flex h-5 w-5 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
+          className={`handle flex h-8 w-8 -translate-y-1 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
             isDragging && "scale-110"
           } ${active && "scale-110"}`}
           style={{
@@ -132,7 +132,7 @@ const GradientSliderHandle = ({ id }) => {
           }}
           onClick={handleClick}
         >
-          <div className="tooltip-slider">{stopPercent}%</div>
+          <div className="tooltip-slider tooltip">{stopPercent}%</div>
         </div>
       </div>
     </Draggable>
