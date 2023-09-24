@@ -19,7 +19,7 @@ import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
   const { bg } = useContext(BGCustomContext);
-  const { wallpaper, colorAccents, selectedImage } =
+  const { wallpaper, colorAccents, selectedImage, theme } =
     useContext(WallpaperContext);
 
   // const [selectedImage, setSelectedImage] = useState(
@@ -73,8 +73,8 @@ const Dashboard = () => {
           <div
             className="shadow-panel m-4 flex flex-col justify-center p-4 backdrop-blur-sm"
             style={{
-              backgroundColor: "#FFFFFF" + "D0",
-              boxShadow: `8px 8px 1px ${colorAccents["lightMuted"]}`,
+              backgroundColor: theme[0],
+              boxShadow: `8px 8px 1px ${theme[1]}`,
             }}
           >
             <Timer2 />

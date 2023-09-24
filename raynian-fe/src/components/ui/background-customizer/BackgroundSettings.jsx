@@ -16,6 +16,8 @@ const BackgroundSettings = () => {
     colorAccents,
     palette,
     setPalette,
+    theme,
+    setTheme,
   } = useContext(WallpaperContext);
 
   const handleImageUpload = (event) => {
@@ -50,6 +52,11 @@ const BackgroundSettings = () => {
     setPalette(colorPalettes());
     console.log(colorPalettes());
   }, [colorAccents]);
+
+  useEffect(() => {
+    setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
+    console.log(theme);
+  }, [palette]);
 
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
@@ -103,11 +110,21 @@ const BackgroundSettings = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-normal">Accents</div>
-          <div className="text-lg font-normal grid  grid-cols-6 gap-3">
+          <div className="text-lg font-normal">Themes</div>
+          <div className="text-lg font-normal grid  grid-cols-6 gap-3 place-items-center">
             {palette.map((color, index) => {
               return (
-                <div key={index} className="flex hover:cursor-pointer">
+                <div
+                  key={index}
+                  className={`flex outline-blue-500 drop-shadow-lg hover:cursor-pointer hover:outline ${
+                    theme[0] == colorAccents[color[0]] &&
+                    theme[1] == colorAccents[color[1]] &&
+                    "outline"
+                  }`}
+                  onClick={() => {
+                    setTheme([colorAccents[color[0]], colorAccents[color[1]]]);
+                  }}
+                >
                   <div
                     className="h-10 w-10"
                     style={{ backgroundColor: colorAccents[color[0]] }}
@@ -119,6 +136,25 @@ const BackgroundSettings = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </div>
+      <div className="absolute -right-[28rem] bottom-[50%] translate-y-[50%]">
+        <div
+          className="flex h-64 w-96 items-center justify-center "
+          style={{
+            backgroundImage: `url(${selectedImage})`,
+            backgroundSize: "cover",
+          }}
+        >
+          <div
+            className="flex h-44 w-64 items-center justify-center text-lg font-bold"
+            style={{
+              backgroundColor: theme[0],
+              boxShadow: `8px 8px 1px ${theme[1]}`,
+            }}
+          >
+            Example panel
           </div>
         </div>
       </div>

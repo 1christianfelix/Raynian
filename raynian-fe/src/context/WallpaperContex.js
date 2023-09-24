@@ -15,7 +15,7 @@ export const WallpaperProvider = ({ children }) => {
 
   const [palette, setPalette] = useState([]);
 
-  const [theme, setTheme] = useState({});
+  const [theme, setTheme] = useState([]);
 
   const { data, loading, error } = usePalette(selectedImage);
 
