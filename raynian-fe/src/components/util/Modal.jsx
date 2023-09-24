@@ -24,7 +24,7 @@ export default function Modal(props) {
     content = (
       <div className="absolute flex h-screen w-[100%] items-center justify-center">
         <div className="relative z-[60] ">
-          <div className="absolute right-4 top-4">
+          <div className="absolute right-4 top-4 z-[100]">
             <div onClick={handleContent} className="cursor-pointer">
               <RxCross1 />
             </div>

@@ -11,7 +11,9 @@ export const WallpaperProvider = ({ children }) => {
   );
   const [selectedGradient, setSelectedGradient] = useState(false);
 
-  const [colorAccents, setColorAccents] = useState({});
+  const [colorAccents, setColorAccents] = useState({ white: "#ffffffD0" });
+
+  const [palette, setPalette] = useState([]);
 
   const [theme, setTheme] = useState({});
 
@@ -44,7 +46,9 @@ export const WallpaperProvider = ({ children }) => {
 
   useEffect(() => {
     console.log(data);
-    setColorAccents(data);
+    setColorAccents((prev) => {
+      return { ...prev, ...data };
+    });
   }, [selectedImage, data]);
 
   return (
@@ -58,6 +62,8 @@ export const WallpaperProvider = ({ children }) => {
         theme,
         setTheme,
         wallpaper,
+        palette,
+        setPalette,
       }}
     >
       {children}
