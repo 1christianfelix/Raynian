@@ -51,22 +51,6 @@ const Dashboard = () => {
     <div className="flex h-screen w-screen flex-col">
       {wallpaper}
 
-      <input
-        className="absolute"
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-      />
-      {/* {Object.keys(data).map((color) => {
-        return (
-          <div
-            className="h-10px w-10px"
-            style={{ backgroundColor: data[color] }}
-          >
-            {color}
-          </div>
-        );
-      })} */}
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] flex-col justify-between">
