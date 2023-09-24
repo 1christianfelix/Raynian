@@ -127,9 +127,9 @@ const GradientSliderHandle = ({ id }) => {
           )}
         </div>
         <div
-          className={`handle flex h-8 w-8 -translate-y-1 items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
-            isDragging && "scale-110"
-          } ${active && "scale-110"}`}
+          className={`handle flex h-8 w-8 -translate-y-[.35rem] items-center justify-center rounded-full border border-white bg-red-500 drop-shadow-sm ${
+            isDragging && "scale-125"
+          } ${active && "scale-125"}`}
           style={{
             // left: `${position}px`,
             ...colorStyle,
