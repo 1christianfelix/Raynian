@@ -47,7 +47,7 @@ const BackgroundSettings = () => {
                   key={index}
                   src={wp}
                   className={`h-20 w-20 outline-blue-500 hover:cursor-pointer hover:outline ${
-                    wp == selectedImage && !selectedGradient && "outline"
+                    wp == selectedImage && "outline"
                   }`}
                   onClick={() => {
                     setSelectedImage(wp);
@@ -59,7 +59,7 @@ const BackgroundSettings = () => {
             <div>
               <div
                 className={`flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline ${
-                  selectedGradient && "outline"
+                  selectedImage == "" && "outline"
                 }`}
                 onClick={() => {
                   setSelectedImage("");
