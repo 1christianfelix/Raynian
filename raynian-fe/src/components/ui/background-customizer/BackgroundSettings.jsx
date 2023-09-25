@@ -27,6 +27,7 @@ const BackgroundSettings = () => {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    event.target.value = null;
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     }
