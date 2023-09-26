@@ -10,8 +10,9 @@ export const WallpaperProvider = ({ children }) => {
     "/images/backgrounds/lofi1-pikisuperstar.jpg"
   );
   const [selectedGradient, setSelectedGradient] = useState(false);
+  const [glassMode, setGlassMode] = useState(false);
 
-  const [colorAccents, setColorAccents] = useState({ white: "#ffffffD0" });
+  const [colorAccents, setColorAccents] = useState({ white: "#ffffff" });
 
   const [palette, setPalette] = useState([]);
 
@@ -20,6 +21,7 @@ export const WallpaperProvider = ({ children }) => {
   const { data, loading, error } = usePalette(selectedImage);
 
   const [wallpaper, setWallpaper] = useState("");
+  const [wpStyle, setWpStyle] = useState({});
 
   useEffect(() => {
     if (selectedImage) {
@@ -31,7 +33,7 @@ export const WallpaperProvider = ({ children }) => {
       );
     } else {
       setWallpaper(<div></div>);
-      setColorAccents({ white: "#ffffffD0" });
+      setColorAccents({ white: "#ffffff" });
       setPalette([]);
       setTheme([]);
     }
@@ -69,6 +71,18 @@ export const WallpaperProvider = ({ children }) => {
   }, [palette]);
 
   useEffect(() => {
+    let solid = theme[0];
+    if (solid.slice(-2) === "B4") {
+      solid = solid.slice(0, -2);
+    }
+    const style = {
+      backgroundColor: solid || "#fafafa",
+      boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+    };
+    setWpStyle(style);
+  }, [theme]);
+
+  useEffect(() => {
     console.log(data);
     setColorAccents((prev) => {
       return { ...prev, ...data };
@@ -88,6 +102,9 @@ export const WallpaperProvider = ({ children }) => {
         wallpaper,
         palette,
         setPalette,
+        wpStyle,
+        setGlassMode,
+        glassMode,
       }}
     >
       {children}

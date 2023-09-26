@@ -55,28 +55,32 @@ const TimerContols = () => {
     // getTimerState();
   };
 
+  // Testing Purposes
   const [adminTestTools, setAdminTestTools] = useState(false);
-
   useEffect(() => {
-    if (userInfo.user.email == "1christianfelix@gmail.com") {
-      console.log("admin on");
-      setAdminTestTools(true);
-    }
+    if (userInfo) {
+      if (userInfo.user.email == "1christianfelix@gmail.com") {
+        console.log("admin skip button enabled");
+        setAdminTestTools(true);
+      }
+    } else setAdminTestTools(false);
   }, [userInfo]);
 
   return (
     <div className="m-2 flex flex-col items-start gap-2">
+      {/* Testing Purposes */}
       {adminTestTools && (
         <button
           onClick={() =>
             dispatch(
-              timerActions.updateCountdown({ hours: 0, minutes: 0, seconds: 2 })
+              timerActions.updateCountdown({ hours: 0, minutes: 0, seconds: 1 })
             )
           }
         >
           Admin Skip
         </button>
       )}
+
       {!timerState.isRunning && (
         <div
           className="group relative flex items-center justify-center gap-2"
@@ -169,7 +173,7 @@ const TimerContols = () => {
         )}
         {toggleTimerSettings && (
           <div
-            className="absolute z-10 left-20 -top-4 h-full cursor-default "
+            className="absolute z-[100] left-20 -top-4 h-full cursor-default "
             onClick={(e) => e.stopPropagation()}
           >
             <TimerSettings

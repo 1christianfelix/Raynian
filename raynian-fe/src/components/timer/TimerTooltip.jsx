@@ -47,12 +47,10 @@ const TimerTooltip = ({ type, container, text }) => {
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    console.log("enter");
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    console.log("leave");
   };
 
   useEffect(() => {

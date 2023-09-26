@@ -30,6 +30,7 @@ const initialState = {
     minutes: 30,
     seconds: 0,
   },
+  sessionElapsedTime: 0,
 };
 
 const timerSlice = createSlice({
@@ -69,6 +70,9 @@ const timerSlice = createSlice({
     },
     decrementCountdown: (state) => {
       const { hours, minutes, seconds } = state.countdown;
+      if (state.isWork) {
+        state.sessionElapsedTime += 1;
+      }
       if (hours <= 0 && minutes === 0 && seconds === 0) {
         if (state.isWork == true) {
           state.isBreak = true;
