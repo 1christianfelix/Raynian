@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
 import { GoTriangleLeft } from "react-icons/go";
 import * as timerActions from "../../slices/timerSlice";
+import { WallpaperContext } from "../../context/WallpaperContex";
 
 const TimerSettings = (props) => {
   const { handleToggleTimerSettings } = props;
+  const { wpStyle } = useContext(WallpaperContext);
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -118,7 +120,10 @@ const TimerSettings = (props) => {
   }, [longBreakTimerInput, longBreakTimerFrequencyInput]);
 
   return (
-    <div className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
+    <div
+      className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10"
+      style={{ ...wpStyle, boxShadow: "" }}
+    >
       {workTimerInput < 30 && (
         <span className="mx-auto text-red-600 font-bold text-sm">
           Streaks Disabled! (Minimum work time of 30 minutes needed)

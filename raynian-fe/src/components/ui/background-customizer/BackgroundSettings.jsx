@@ -136,10 +136,12 @@ const BackgroundSettings = () => {
               ]);
             }}
           >
-            <MdOutlineOpacity
-              color={theme[0].includes("#ffffff") ? "#9e9e9e" : theme[0]}
-              size={44}
-            />
+            {theme[0] && (
+              <MdOutlineOpacity
+                color={theme[0].includes("#ffffff") ? "#9e9e9e" : theme[0]}
+                size={44}
+              />
+            )}
           </div>
           <div
             className="hover:cursor-pointer hover:scale-110 transition-all"
