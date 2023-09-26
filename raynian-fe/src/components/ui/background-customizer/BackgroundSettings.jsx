@@ -10,6 +10,7 @@ import { WallpaperContext } from "../../../context/WallpaperContex";
 import { BGCustomContext } from "../../../context/BGCustomContext";
 
 import BgCustomizerMenu from "./BgCustomizerMenu";
+import CloseModalButton from "../../util/CloseModalButton";
 
 const BackgroundSettings = () => {
   const { bg } = useContext(BGCustomContext);
@@ -41,6 +42,7 @@ const BackgroundSettings = () => {
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
     <div className="relative" onClick={(event) => event.stopPropagation()}>
+      <CloseModalButton />
       <div className="flex w-[700px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-normal">Wallpapers</div>
