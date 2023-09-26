@@ -1,20 +1,23 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { WallpaperContext } from "../../context/WallpaperContex";
+import { ModalContext } from "../../context/ModalContext";
 import { TbCalendarStats } from "react-icons/tb";
 import { LuTally5, LuTimer } from "react-icons/lu";
 
 import moment from "moment";
 import "moment-duration-format";
 
+import UserStats from "./UserStats";
+
 import { Tooltip } from "react-tooltip";
 
 const SessionStatsDisplay = () => {
   const { wpStyle, theme } = useContext(WallpaperContext);
+  const { toggleUserStatsModal } = useContext(ModalContext);
   const timerState = useSelector((state) => state.timer);
 
   const [duration, setDuration] = useState();
-
   const [format, setFormat] = useState("m [mins]");
   const [listFormats, setListFormats] = useState(false);
 
@@ -93,6 +96,7 @@ const SessionStatsDisplay = () => {
         data-tooltip-id="stats"
         data-tooltip-content="see more stats"
         data-tooltip-place="right"
+        onClick={toggleUserStatsModal}
       >
         <TbCalendarStats />
       </div>

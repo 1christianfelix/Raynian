@@ -102,7 +102,10 @@ function LoginPage() {
     : "";
 
   return (
-    <div className="flex w-[475px] flex-row rounded-3xl bg-white py-10">
+    <div
+      className="flex w-[475px] flex-row rounded-3xl bg-white py-10"
+      onClick={(event) => event.stopPropagation()}
+    >
       <div className="mx-auto mb-0 flex h-[400px] w-full items-center  overflow-visible px-[60px]">
         <div className="mx-auto my-0 w-full max-w-[960px]">
           <div className="flex flex-col items-center">

@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className="flex h-screen w-screen flex-col"
+      className="relative flex h-screen w-screen flex-col"
       style={{ background: selectedGradient ? bg : "" }}
     >
       {wallpaper}
@@ -80,7 +80,7 @@ const Dashboard = () => {
           )}
 
           <div
-            className="shadow-panel relative mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+            className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
             style={{
               backgroundColor: theme[0] || "#fafafaB4",
               boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,

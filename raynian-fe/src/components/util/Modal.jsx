@@ -8,6 +8,7 @@ import OpenRoomPrompt from "../rooms/OpenRoomPrompt";
 import LeaveRoomPrompt from "../rooms/LeaveRoomPrompt";
 import TimerSettings from "../timer/TimerSettings";
 import BackgroundSettings from "../ui/background-customizer/BackgroundSettings";
+import UserStats from "../stats/UserStats";
 
 import { RxCross1 } from "react-icons/rx";
 
@@ -23,12 +24,15 @@ export default function Modal(props) {
   if (type) {
     content = (
       <div className="absolute flex h-screen w-[100%] items-center justify-center">
-        <div className="relative z-[60] ">
-          <div className="absolute right-4 top-4 z-[100]">
-            <div onClick={handleContent} className="cursor-pointer">
-              <RxCross1 />
-            </div>
+        {/* <div className="absolute right-4 top-4 z-[100]">
+          <div onClick={handleContent} className="cursor-pointer">
+            <RxCross1 />
           </div>
+        </div> */}
+        <div
+          className="relative h-[100%] w-[100%] z-[60]  flex items-center justify-center"
+          onClick={handleContent}
+        >
           {type === "login" && <LoginPage />}
           {type === "signup" && <SignupPage />}
           {type === "afk" && <AfkCheckPage />}
@@ -37,11 +41,9 @@ export default function Modal(props) {
           {type === "leaveRoomPrompt" && <LeaveRoomPrompt />}
           {type === "timerSettings" && <TimerSettings />}
           {type === "backgroundSettings" && <BackgroundSettings />}
+          {type === "userStats" && <UserStats />}
         </div>
-        <div
-          className="absolute z-50 h-screen w-screen backdrop-blur-sm"
-          onClick={handleContent}
-        ></div>
+        <div className="absolute z-[50] h-screen w-screen backdrop-blur-sm"></div>
       </div>
     );
   }
