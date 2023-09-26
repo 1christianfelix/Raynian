@@ -25,17 +25,17 @@ const SessionStatsDisplay = () => {
         trim: false,
       });
     setDuration(hhmmssFormat);
-  }, [timerState.sessionElapsedTime]);
+  }, [timerState.sessionElapsedTime, listFormats]);
 
   return (
-    <div className="font-normal text-xs flex items-center w-[100%]">
+    <div className="flex w-[100%] items-center text-xs font-normal">
       <div className="flex flex-grow">
-        <div className="w-1/2 flex items-center gap-1">
+        <div className="flex w-1/2 items-center gap-1">
           <LuTally5 />
           <p>Sessions Completed: {timerState.sessionStreak}</p>
         </div>
         <div
-          className="relative w-1/2 hover:cursor-pointer hover:bg-black/20 flex items-center gap-1"
+          className="relative flex w-1/2 items-center gap-1 hover:cursor-pointer hover:bg-black/20"
           onClick={() => {
             setListFormats((prev) => !prev);
           }}
@@ -47,14 +47,14 @@ const SessionStatsDisplay = () => {
               {duration}
               {listFormats && (
                 <div
-                  className="w-20 absolute flex flex-col gap-3 mt-3 left-0 bg-neutral-50 items-center py-3"
+                  className="absolute left-0 mt-3 flex w-20 flex-col items-center gap-3 bg-neutral-50 py-3"
                   style={{ ...wpStyle, boxShadow: "" }}
                 >
                   <div
                     onClick={() => {
                       setFormat("hh:mm:ss");
                     }}
-                    className="hover:outline outline-blue-500 w-[100%] text-center cursor-pointer"
+                    className="w-[100%] cursor-pointer text-center outline-blue-500 hover:outline"
                   >
                     <button>hh:mm:ss</button>
                   </div>
@@ -62,7 +62,7 @@ const SessionStatsDisplay = () => {
                     onClick={() => {
                       setFormat("h [hr] m [min]");
                     }}
-                    className="hover:outline outline-blue-500 w-[100%] text-center cursor-pointer"
+                    className="w-[100%] cursor-pointer text-center outline-blue-500 hover:outline"
                   >
                     <button>h m</button>
                   </div>
@@ -70,7 +70,7 @@ const SessionStatsDisplay = () => {
                     onClick={() => {
                       setFormat("m [min]");
                     }}
-                    className="hover:outline outline-blue-500 w-[100%] text-center cursor-pointer"
+                    className="w-[100%] cursor-pointer text-center outline-blue-500 hover:outline"
                   >
                     <button>mins</button>
                   </div>
@@ -78,7 +78,7 @@ const SessionStatsDisplay = () => {
                     onClick={() => {
                       setFormat("s [sec]");
                     }}
-                    className="hover:outline outline-blue-500 w-[100%] text-center cursor-pointer"
+                    className="w-[100%] cursor-pointer text-center outline-blue-500 hover:outline"
                   >
                     <button>secs</button>
                   </div>
@@ -89,7 +89,7 @@ const SessionStatsDisplay = () => {
         </div>
       </div>
       <div
-        className="text-base cursor-pointer"
+        className="cursor-pointer text-base"
         data-tooltip-id="stats"
         data-tooltip-content="see more stats"
         data-tooltip-place="right"
