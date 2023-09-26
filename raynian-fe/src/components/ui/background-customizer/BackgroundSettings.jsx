@@ -38,10 +38,6 @@ const BackgroundSettings = () => {
 
   useEffect(() => {}, [bg]);
 
-  useEffect(() => {
-    setTheme([glassMode ? theme[0] + "B4" : theme[0].slice(0, -2), theme[1]]);
-  }, [glassMode]);
-
   const wallpapers = [wp1, wp2, wp3, wp4];
   return (
     <div className="relative">
@@ -134,13 +130,16 @@ const BackgroundSettings = () => {
             style={{ color: theme[0] == "#ffffffB4" ? "#9e9e9e" : theme[0] }}
             onClick={() => {
               setGlassMode((prev) => !prev);
+              setTheme([
+                theme[0].length <= 7 ? theme[0] + "B4" : theme[0].slice(0, -2),
+                theme[1],
+              ]);
             }}
           >
-            {glassMode ? (
-              <MdOutlineOpacity size={44} />
-            ) : (
-              <MdOutlineOpacity color="black" size={44} />
-            )}
+            <MdOutlineOpacity
+              color={theme[0].includes("#ffffff") ? "#9e9e9e" : theme[0]}
+              size={44}
+            />
           </div>
           <div
             className="hover:cursor-pointer hover:scale-110 transition-all"

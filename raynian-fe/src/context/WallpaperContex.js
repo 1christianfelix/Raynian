@@ -66,13 +66,18 @@ export const WallpaperProvider = ({ children }) => {
 
   useEffect(() => {
     if (palette.length > 0) {
-      setTheme([colorAccents[palette[0][0]], colorAccents[palette[0][1]]]);
+      setTheme([
+        glassMode
+          ? colorAccents[palette[0][0]] + "B4"
+          : colorAccents[palette[0][0]],
+        colorAccents[palette[0][1]],
+      ]);
     }
   }, [palette]);
 
   useEffect(() => {
     let solid = theme[0];
-    if (solid.slice(-2) === "B4") {
+    if (solid && solid.slice(-2) === "B4") {
       solid = solid.slice(0, -2);
     }
     const style = {
