@@ -7,12 +7,6 @@ import {
 } from "../socket/socketConnection";
 
 const TimerDisplay = () => {
-  const [currentCountdown, setCurrentCountdown] = useState({
-    hours: 0,
-    minutes: 120,
-    seconds: 0,
-  });
-
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -30,19 +24,6 @@ const TimerDisplay = () => {
       clearInterval(interval);
     };
   }, [dispatch, timerState.isRunning]);
-
-  // useEffect(() => {
-  //   if (timerState.syncedWithRoom != true) {
-  //     dispatch(
-  //       timerActions.updateCountdown({
-  //         hours: currentCountdown.hours,
-  //         minutes: currentCountdown.minutes,
-  //         seconds: currentCountdown.seconds,
-  //       })
-  //     );
-  //     getTimerState();
-  //   }
-  // }, [currentCountdown]);
 
   // update selected timer
   useEffect(() => {
@@ -65,6 +46,7 @@ const TimerDisplay = () => {
   useEffect(() => {
     getTimerState();
 
+    // updating tab title
     let minutes =
       timerState.countdown.minutes < 10
         ? `0${timerState.countdown.minutes}`
@@ -77,6 +59,10 @@ const TimerDisplay = () => {
       ? minutes + ":" + seconds + " | Raynian"
       : "Raynian";
   }, [roomId, timerState.isWork, timerState.isBreak, timerState.countdown]);
+
+  // useEffect(() => {
+  //   if(timerState.isWork && timerState.countdown == countdown)
+  // }, [timerState.isWork, timerState.isBreak]);
 
   const getTimerState = async () => {
     const timerData = await dispatch(timerActions.getTimerState());
@@ -94,31 +80,6 @@ const TimerDisplay = () => {
 
       updateTimerStatus(updatedTimerData, roomId);
     }
-  };
-
-  const handleWorkTimeChange = (e) => {
-    dispatch(timerActions.setWorkTime(parseInt(e.target.value)));
-    getTimerState();
-  };
-
-  const handleBreakTimeChange = (e) => {
-    dispatch(timerActions.setBreakTime(parseInt(e.target.value)));
-    getTimerState();
-  };
-
-  const handleStartTimer = () => {
-    dispatch(timerActions.startTimer());
-    getTimerState();
-  };
-
-  const handleStopTimer = () => {
-    dispatch(timerActions.stopTimer());
-    getTimerState();
-  };
-
-  const handlePauseTimer = () => {
-    dispatch(timerActions.pauseTimer(currentCountdown));
-    getTimerState();
   };
 
   return (

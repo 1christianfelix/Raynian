@@ -23,10 +23,10 @@ const TimerSettings = (props) => {
     useState(timerState.longBreakFrequency);
 
   const handleWorkTimeChange = (e) => {
-    const input = e?.target?.value || e || 0;
-    const value = parseInt(input) || 0;
-    if (value < 0) {
-      setWorkTimerInput(0);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setWorkTimerInput(1);
       return;
     }
     if (value > 999) {
@@ -49,10 +49,10 @@ const TimerSettings = (props) => {
   }, [workTimerInput]);
 
   const handleBreakTimeChange = (e) => {
-    const input = e?.target?.value || e || 0;
-    const value = parseInt(input) || 0;
-    if (value < 0) {
-      setBreakTimerInput(0);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setBreakTimerInput(1);
       return;
     }
     if (value > 999) {
@@ -84,10 +84,10 @@ const TimerSettings = (props) => {
   };
 
   const handleLongBreakTimeChange = (e) => {
-    const input = e?.target?.value || e || 0;
-    const value = parseInt(input) || 0;
-    if (value < 0) {
-      setLongBreakTimerInput(0);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setLongBreakTimerInput(1);
       return;
     }
     if (value > 999) {
@@ -119,6 +119,11 @@ const TimerSettings = (props) => {
 
   return (
     <div className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
+      {workTimerInput < 30 && (
+        <span className="mx-auto text-red-600 font-bold text-sm">
+          Streaks Disabled! (Minimum work time of 30 minutes needed)
+        </span>
+      )}
       <div className="absolute right-4 top-4">
         <div onClick={handleToggleTimerSettings} className="cursor-pointer">
           <RxCross1 />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
 import {
@@ -22,6 +22,7 @@ const TimerContols = () => {
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
+  const { userInfo } = useSelector((state) => state.auth);
   const skipRef = useRef(null);
   const stopRef = useRef(null);
   const pauseRef = useRef(null);
@@ -53,6 +54,10 @@ const TimerContols = () => {
     dispatch(timerActions.pauseTimer());
     // getTimerState();
   };
+
+  const [adminTestTools, setAdminTestTools] = useState(false);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="m-2 flex flex-col items-start gap-2">
