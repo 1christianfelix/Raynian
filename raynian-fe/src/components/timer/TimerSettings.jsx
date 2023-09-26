@@ -23,14 +23,25 @@ const TimerSettings = (props) => {
     useState(timerState.longBreakFrequency);
 
   const handleWorkTimeChange = (e) => {
-    setWorkTimerInput(e.target.value);
+    const input = e?.target?.value || e || 0;
+    const value = parseInt(input) || 0;
+    if (value < 0) {
+      setWorkTimerInput(0);
+      return;
+    }
+    if (value > 999) {
+      setWorkTimerInput(999);
+      return;
+    }
+    setWorkTimerInput(value);
   };
 
   useEffect(() => {
-    const minutes = parseInt(workTimerInput);
+    let minutes = workTimerInput;
+
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
 
@@ -38,25 +49,52 @@ const TimerSettings = (props) => {
   }, [workTimerInput]);
 
   const handleBreakTimeChange = (e) => {
-    setBreakTimerInput(e.target.value);
+    const input = e?.target?.value || e || 0;
+    const value = parseInt(input) || 0;
+    if (value < 0) {
+      setBreakTimerInput(0);
+      return;
+    }
+    if (value > 999) {
+      setBreakTimerInput(999);
+      return;
+    }
+    setBreakTimerInput(value);
   };
 
   useEffect(() => {
-    const minutes = parseInt(breakTimerInput);
+    let minutes = breakTimerInput;
+
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
     dispatch(timerActions.setBreakTime(timer));
   }, [breakTimerInput]);
 
   const handleLongBreakFrequencyChange = (e) => {
-    setLongBreakTimerFrequencyInput(e.target.value);
+    const input = e?.target?.value || e;
+    const value = parseInt(input) || 0;
+    if (value < 0) {
+      setLongBreakTimerFrequencyInput(0);
+      return;
+    }
+    setLongBreakTimerFrequencyInput(value);
   };
 
   const handleLongBreakTimeChange = (e) => {
-    setLongBreakTimerInput(e.target.value);
+    const input = e?.target?.value || e || 0;
+    const value = parseInt(input) || 0;
+    if (value < 0) {
+      setLongBreakTimerInput(0);
+      return;
+    }
+    if (value > 999) {
+      setLongBreakTimerInput(999);
+      return;
+    }
+    setLongBreakTimerInput(value);
   };
 
   const handleAutoStart = (e) => {
@@ -64,7 +102,7 @@ const TimerSettings = (props) => {
   };
 
   useEffect(() => {
-    const minutes = parseInt(longBreakTimerInput);
+    const minutes = longBreakTimerInput;
     const frequency =
       parseInt(longBreakTimerFrequencyInput) &&
       parseInt(longBreakTimerFrequencyInput) > 0
@@ -72,7 +110,7 @@ const TimerSettings = (props) => {
         : 0;
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
     dispatch(timerActions.setLongBreakFrequency(frequency));
@@ -94,9 +132,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5 "
                 onClick={() => {
-                  setWorkTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleWorkTimeChange(workTimerInput - 1);
                 }}
               >
                 -
@@ -111,9 +147,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setWorkTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleWorkTimeChange(workTimerInput + 1);
                 }}
               >
                 +
@@ -129,9 +163,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setBreakTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleBreakTimeChange(breakTimerInput - 1);
                 }}
               >
                 -
@@ -146,9 +178,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setBreakTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleBreakTimeChange(breakTimerInput + 1);
                 }}
               >
                 +
@@ -166,9 +196,9 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerFrequencyInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleLongBreakFrequencyChange(
+                    longBreakTimerFrequencyInput - 1
+                  );
                 }}
               >
                 -
@@ -183,9 +213,9 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerFrequencyInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleLongBreakFrequencyChange(
+                    longBreakTimerFrequencyInput + 1
+                  );
                 }}
               >
                 +
@@ -201,9 +231,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleLongBreakTimeChange(longBreakTimerInput - 1);
                 }}
               >
                 -
@@ -218,9 +246,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleLongBreakTimeChange(longBreakTimerInput + 1);
                 }}
               >
                 +
