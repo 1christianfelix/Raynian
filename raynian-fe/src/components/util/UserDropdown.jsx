@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../../slices/usersApi";
 import { removeCredentials } from "../../slices/authSlice";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function UserDropdown(props) {
   const { toggleLogin, toggleSignup } = useContext(ModalContext);
@@ -69,7 +70,7 @@ export default function UserDropdown(props) {
           onClick={toggleDropdown}
           {...dropdownTextAnimation}
         >
-          Profile
+          <Link to={`user/${userInfo.user._id}`}>Profile</Link>
         </motion.button>
         <motion.button
           className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
@@ -78,13 +79,7 @@ export default function UserDropdown(props) {
         >
           Settings
         </motion.button>
-        <motion.button
-          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
-          onClick={toggleDropdown}
-          {...dropdownTextAnimation}
-        >
-          Stats
-        </motion.button>
+
         <motion.button
           className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={logoutHandler}

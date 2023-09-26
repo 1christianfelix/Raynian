@@ -15,7 +15,8 @@ import { Tooltip } from "react-tooltip";
 
 const SessionStatsDisplay = () => {
   const { wpStyle, theme } = useContext(WallpaperContext);
-  const { toggleUserStatsModal } = useContext(ModalContext);
+  const { toggleUserStatsModal, setUserStatsParams } = useContext(ModalContext);
+  const { userInfo } = useSelector((state) => state.auth);
   const timerState = useSelector((state) => state.timer);
 
   const [duration, setDuration] = useState();
@@ -37,7 +38,10 @@ const SessionStatsDisplay = () => {
         <p className="font-normal text-sm">Current Session Stats</p>
         <div
           className="hover:scale-90 hover:border-blue-500 transition-all p-1 border-2 border-transparent rounded-full cursor-pointer "
-          onClick={toggleUserStatsModal}
+          onClick={() => {
+            toggleUserStatsModal();
+            setUserStatsParams({ id: userInfo.user._id });
+          }}
         >
           <div
             className="text-base"

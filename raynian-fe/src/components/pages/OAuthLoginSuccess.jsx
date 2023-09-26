@@ -7,7 +7,7 @@ const OAuthLoginSuccess = () => {
     }, 1000);
   }, []);
 
-  return <div>Login Successful</div>;
+  return <div className="h-screen w-screen bg-white">Login Successful</div>;
 };
 
 export default OAuthLoginSuccess;

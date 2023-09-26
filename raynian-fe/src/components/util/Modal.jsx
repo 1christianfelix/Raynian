@@ -13,7 +13,7 @@ import UserStats from "../stats/UserStats";
 import { RxCross1 } from "react-icons/rx";
 
 export default function Modal(props) {
-  const { type, setType } = useContext(ModalContext);
+  const { type, setType, userStatsParams } = useContext(ModalContext);
 
   let content = null;
 
@@ -41,7 +41,7 @@ export default function Modal(props) {
           {type === "leaveRoomPrompt" && <LeaveRoomPrompt />}
           {type === "timerSettings" && <TimerSettings />}
           {type === "backgroundSettings" && <BackgroundSettings />}
-          {type === "userStats" && <UserStats />}
+          {type === "userStats" && <UserStats {...userStatsParams} />}
         </div>
         <div className="absolute z-[50] h-screen w-screen backdrop-blur-sm"></div>
       </div>

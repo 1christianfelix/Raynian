@@ -6,6 +6,7 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
+  const [userStatsParams, setUserStatsParams] = useState({ id: "" });
 
   const toggleLogin = () => {
     setType("login");
@@ -72,6 +73,8 @@ export const ModalProvider = ({ children }) => {
         toggleTimerSettings,
         toggleBackgroundSettings,
         toggleUserStatsModal,
+        userStatsParams,
+        setUserStatsParams,
         setType,
       }}
     >
