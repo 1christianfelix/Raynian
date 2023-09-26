@@ -4,6 +4,7 @@ import { WallpaperContext } from "../../context/WallpaperContex";
 import { ModalContext } from "../../context/ModalContext";
 import { TbCalendarStats } from "react-icons/tb";
 import { LuTally5, LuTimer } from "react-icons/lu";
+import { AiOutlineFire } from "react-icons/ai";
 
 import moment from "moment";
 import "moment-duration-format";
@@ -31,21 +32,39 @@ const SessionStatsDisplay = () => {
   }, [timerState.sessionElapsedTime, listFormats]);
 
   return (
-    <div className="flex w-[100%] items-center text-xs font-normal">
-      <div className="flex flex-grow">
-        <div className="flex w-1/2 items-center gap-1">
+    <div className="relative flex flex-col gap-2 w-[100%] text-xs font-normal">
+      <div className=" flex justify-between items-center">
+        <p className="font-normal text-sm">Current Session Stats</p>
+        <div className="hover:scale-125 hover:border-transparent transition-all p-1 border-2 border-black rounded-full">
+          <div
+            className="cursor-pointer text-base"
+            data-tooltip-id="stats"
+            data-tooltip-content="see more stats"
+            data-tooltip-place="right"
+            onClick={toggleUserStatsModal}
+          >
+            <TbCalendarStats />
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex items-center gap-1">
           <LuTally5 />
-          <p>Sessions Completed: {timerState.sessionStreak}</p>
+          <p>Completed: {timerState.sessionsCompleted}</p>
+        </div>
+        <div className="flex  items-center gap-1">
+          <AiOutlineFire />
+          <p>Streak: {timerState.sessionStreak}</p>
         </div>
         <div
-          className="relative flex w-1/2 items-center gap-1 hover:cursor-pointer hover:bg-black/20"
+          className="relative flex  items-center gap-1 hover:cursor-pointer hover:bg-black/20"
           onClick={() => {
             setListFormats((prev) => !prev);
           }}
         >
           <LuTimer />
           <p>
-            Session Time:{" "}
+            Elapsed Time:{" "}
             <div className="relative inline text-xs">
               {duration}
               {listFormats && (
@@ -91,15 +110,7 @@ const SessionStatsDisplay = () => {
           </p>
         </div>
       </div>
-      <div
-        className="cursor-pointer text-base"
-        data-tooltip-id="stats"
-        data-tooltip-content="see more stats"
-        data-tooltip-place="right"
-        onClick={toggleUserStatsModal}
-      >
-        <TbCalendarStats />
-      </div>
+
       <Tooltip
         id="stats"
         noArrow

@@ -22,6 +22,7 @@ const initialState = {
   isBreak: false,
   isPaused: false,
   sessionStreak: 0,
+  sessionsCompleted: 0,
   syncedWithRoom: false,
   autoStart: false,
   longBreakFrequency: 3,
@@ -68,6 +69,9 @@ const timerSlice = createSlice({
     setAutoStart: (state, action) => {
       state.autoStart = action.payload;
     },
+    resetSessionStreak: (state) => {
+      state.sessionStreak = 0;
+    },
     decrementCountdown: (state) => {
       const { hours, minutes, seconds } = state.countdown;
       if (state.isWork) {
@@ -77,6 +81,7 @@ const timerSlice = createSlice({
         if (state.isWork == true) {
           state.isBreak = true;
           state.isWork = false;
+          state.sessionsCompleted += 1;
           state.sessionStreak =
             state.workTime.minutes >= 30 ? state.sessionStreak + 1 : 0;
           state.countdown =
@@ -129,11 +134,14 @@ export const startTimer = () => async (dispatch, getState) => {
 export const stopTimer = () => async (dispatch, getState) => {
   console.log("stopTimer");
   const state = getState().timer;
-  const { isWork, isBreak, workTime, breakTime } = state;
+  const { isWork, isBreak, workTime, breakTime, sessionsCompleted } = state;
   updateCountdown({ ...workTime });
   if (isBreak) {
     dispatch(setIsBreak(false));
     dispatch(setIsWork(true));
+  }
+  if (isWork) {
+    dispatch(resetSessionStreak());
   }
   dispatch(setIsRunning(false));
   dispatch(setIsPaused(false));
@@ -162,6 +170,7 @@ export const {
   setLongBreakTime,
   setLongBreakFrequency,
   setAutoStart,
+  resetSessionStreak,
   decrementCountdown,
 } = timerSlice.actions;
 export default timerSlice.reducer;
