@@ -57,10 +57,26 @@ const TimerContols = () => {
 
   const [adminTestTools, setAdminTestTools] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (userInfo.user.email == "1christianfelix@gmail.com") {
+      console.log("admin on");
+      setAdminTestTools(true);
+    }
+  }, [userInfo]);
 
   return (
     <div className="m-2 flex flex-col items-start gap-2">
+      {adminTestTools && (
+        <button
+          onClick={() =>
+            dispatch(
+              timerActions.updateCountdown({ hours: 0, minutes: 0, seconds: 2 })
+            )
+          }
+        >
+          Admin Skip
+        </button>
+      )}
       {!timerState.isRunning && (
         <div
           className="group relative flex items-center justify-center gap-2"

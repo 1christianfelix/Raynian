@@ -6,6 +6,10 @@ import {
   sendCurrentTimerStatus,
 } from "../socket/socketConnection";
 
+import { Howl } from "howler";
+import start_1 from "../../assets/sounds/start_1.mp3";
+import session_complete_1 from "../../assets/sounds/session_complete_1.mp3";
+
 const TimerDisplay = () => {
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
@@ -60,9 +64,24 @@ const TimerDisplay = () => {
       : "Raynian";
   }, [roomId, timerState.isWork, timerState.isBreak, timerState.countdown]);
 
-  // useEffect(() => {
-  //   if(timerState.isWork && timerState.countdown == countdown)
-  // }, [timerState.isWork, timerState.isBreak]);
+  useEffect(() => {
+    if (timerState.isRunning && timerState.isBreak) {
+      const sound = new Howl({
+        src: session_complete_1,
+        html5: true,
+        volume: 0.7,
+      });
+      sound.play();
+    }
+    if (timerState.isRunning && timerState.isWork) {
+      const sound = new Howl({
+        src: start_1,
+        html5: true,
+        volume: 0.7,
+      });
+      sound.play();
+    }
+  }, [timerState.isWork, timerState.isBreak]);
 
   const getTimerState = async () => {
     const timerData = await dispatch(timerActions.getTimerState());
