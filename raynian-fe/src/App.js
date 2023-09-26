@@ -18,6 +18,7 @@ import Dashboard from "./components/pages/Dashboard";
 import { PageNotFound } from "./components/pages/PageNotFound";
 
 import { BGCustomContext } from "./context/BGCustomContext";
+import UserStatsModalURL from "./components/stats/UserStatsModalURL";
 // import Chat from "./components/socket-testing/Chat";
 
 function App() {
@@ -29,10 +30,11 @@ function App() {
           <WallpaperProvider>
             <div className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
               <Modal />
-
+              <Dashboard />
               <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+                <Route path="/" element={<></>}></Route>
                 <Route path="/PageNotFound" element={<PageNotFound />}></Route>
+                <Route path="/user/:data" element={<UserStatsModalURL />} />
                 <Route
                   path="auth/login/success"
                   element={<OAuthLoginSuccess />}
