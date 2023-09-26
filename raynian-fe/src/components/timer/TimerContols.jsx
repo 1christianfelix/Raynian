@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as timerActions from "../../slices/timerSlice";
 import {
@@ -22,6 +22,7 @@ const TimerContols = () => {
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
+  const { userInfo } = useSelector((state) => state.auth);
   const skipRef = useRef(null);
   const stopRef = useRef(null);
   const pauseRef = useRef(null);
@@ -54,8 +55,32 @@ const TimerContols = () => {
     // getTimerState();
   };
 
+  // Testing Purposes
+  const [adminTestTools, setAdminTestTools] = useState(false);
+  useEffect(() => {
+    if (userInfo) {
+      if (userInfo.user.email == "1christianfelix@gmail.com") {
+        console.log("admin skip button enabled");
+        setAdminTestTools(true);
+      }
+    } else setAdminTestTools(false);
+  }, [userInfo]);
+
   return (
     <div className="m-2 flex flex-col items-start gap-2">
+      {/* Testing Purposes */}
+      {adminTestTools && (
+        <button
+          onClick={() =>
+            dispatch(
+              timerActions.updateCountdown({ hours: 0, minutes: 0, seconds: 1 })
+            )
+          }
+        >
+          Admin Skip
+        </button>
+      )}
+
       {!timerState.isRunning && (
         <div
           className="group relative flex items-center justify-center gap-2"
@@ -148,7 +173,7 @@ const TimerContols = () => {
         )}
         {toggleTimerSettings && (
           <div
-            className="absolute z-10 left-20 cursor-default"
+            className="absolute z-[100] left-20 -top-4 h-full cursor-default "
             onClick={(e) => e.stopPropagation()}
           >
             <TimerSettings

@@ -4,6 +4,7 @@ import wp2 from "../background-customizer/wallpapers/4910935.png";
 import wp3 from "../background-customizer/wallpapers/anime_street_dark.jpg";
 import wp4 from "../background-customizer/wallpapers/pikisuperstar_1.jpg";
 import { IoIosAdd } from "react-icons/io";
+import { MdOutlineOpacity } from "react-icons/md";
 
 import { WallpaperContext } from "../../../context/WallpaperContex";
 import { BGCustomContext } from "../../../context/BGCustomContext";
@@ -23,10 +24,13 @@ const BackgroundSettings = () => {
     theme,
     setTheme,
     wallpaper,
+    glassMode,
+    setGlassMode,
   } = useContext(WallpaperContext);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    event.target.value = null;
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     }
@@ -47,7 +51,7 @@ const BackgroundSettings = () => {
                   key={index}
                   src={wp}
                   className={`h-20 w-20 outline-blue-500 hover:cursor-pointer hover:outline ${
-                    wp == selectedImage && !selectedGradient && "outline"
+                    wp == selectedImage && "outline"
                   }`}
                   onClick={() => {
                     setSelectedImage(wp);
@@ -59,7 +63,7 @@ const BackgroundSettings = () => {
             <div>
               <div
                 className={`flex h-20 w-20 items-center justify-center bg-white outline-blue-500 hover:cursor-pointer hover:outline ${
-                  selectedGradient && "outline"
+                  selectedImage == "" && "outline"
                 }`}
                 onClick={() => {
                   setSelectedImage("");
@@ -100,7 +104,10 @@ const BackgroundSettings = () => {
                     "outline"
                   }`}
                   onClick={() => {
-                    setTheme([colorAccents[color[0]], colorAccents[color[1]]]);
+                    setTheme([
+                      colorAccents[color[0]] + (glassMode ? "B4" : ""),
+                      colorAccents[color[1]],
+                    ]);
                   }}
                 >
                   <div
@@ -116,17 +123,38 @@ const BackgroundSettings = () => {
             })}
           </div>
         </div>
-        <div
-          className="mx-auto hover:cursor-pointer hover:scale-110 transition-all"
-          onClick={() => {
-            setSelectedGradient((prev) => !prev);
-          }}
-        >
-          <img
-            className="h-10 w-10 "
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Color_circle_%28RGB%29.png/600px-Color_circle_%28RGB%29.png"
-            alt="Color Wheel"
-          />
+
+        <div className="flex items-center justify-center gap-2">
+          <div
+            className="hover:cursor-pointer hover:scale-110 transition-all"
+            style={{ color: theme[0] == "#ffffffB4" ? "#9e9e9e" : theme[0] }}
+            onClick={() => {
+              setGlassMode((prev) => !prev);
+              setTheme([
+                theme[0].length <= 7 ? theme[0] + "B4" : theme[0].slice(0, -2),
+                theme[1],
+              ]);
+            }}
+          >
+            {theme[0] && (
+              <MdOutlineOpacity
+                color={theme[0].includes("#ffffff") ? "#9e9e9e" : theme[0]}
+                size={44}
+              />
+            )}
+          </div>
+          <div
+            className="hover:cursor-pointer hover:scale-110 transition-all"
+            onClick={() => {
+              setSelectedGradient((prev) => !prev);
+            }}
+          >
+            <img
+              className="h-10 w-10 "
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Color_circle_%28RGB%29.png/600px-Color_circle_%28RGB%29.png"
+              alt="Color Wheel"
+            />
+          </div>
         </div>
       </div>
       <div className="mt-2">{selectedGradient && <BgCustomizerMenu />}</div>

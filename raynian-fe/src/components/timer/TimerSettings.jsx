@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
+import { GoTriangleLeft } from "react-icons/go";
 import * as timerActions from "../../slices/timerSlice";
+import { WallpaperContext } from "../../context/WallpaperContex";
 
 const TimerSettings = (props) => {
   const { handleToggleTimerSettings } = props;
+  const { wpStyle } = useContext(WallpaperContext);
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
@@ -22,14 +25,25 @@ const TimerSettings = (props) => {
     useState(timerState.longBreakFrequency);
 
   const handleWorkTimeChange = (e) => {
-    setWorkTimerInput(e.target.value);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setWorkTimerInput(1);
+      return;
+    }
+    if (value > 999) {
+      setWorkTimerInput(999);
+      return;
+    }
+    setWorkTimerInput(value);
   };
 
   useEffect(() => {
-    const minutes = parseInt(workTimerInput);
+    let minutes = workTimerInput;
+
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
 
@@ -37,29 +51,60 @@ const TimerSettings = (props) => {
   }, [workTimerInput]);
 
   const handleBreakTimeChange = (e) => {
-    setWorkTimerInput(e.target.value);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setBreakTimerInput(1);
+      return;
+    }
+    if (value > 999) {
+      setBreakTimerInput(999);
+      return;
+    }
+    setBreakTimerInput(value);
   };
 
   useEffect(() => {
-    const minutes = parseInt(breakTimerInput);
+    let minutes = breakTimerInput;
+
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
     dispatch(timerActions.setBreakTime(timer));
   }, [breakTimerInput]);
 
   const handleLongBreakFrequencyChange = (e) => {
-    setLongBreakTimerFrequencyInput(e.target.value);
+    const input = e?.target?.value || e;
+    const value = parseInt(input) || 0;
+    if (value < 0) {
+      setLongBreakTimerFrequencyInput(0);
+      return;
+    }
+    setLongBreakTimerFrequencyInput(value);
   };
 
   const handleLongBreakTimeChange = (e) => {
-    setLongBreakTimerInput(e.target.value);
+    const input = e?.target?.value || e || 1;
+    const value = parseInt(input) || 1;
+    if (value < 1) {
+      setLongBreakTimerInput(1);
+      return;
+    }
+    if (value > 999) {
+      setLongBreakTimerInput(999);
+      return;
+    }
+    setLongBreakTimerInput(value);
+  };
+
+  const handleAutoStart = (e) => {
+    dispatch(timerActions.setAutoStart(e.target.checked));
   };
 
   useEffect(() => {
-    const minutes = parseInt(longBreakTimerInput);
+    const minutes = longBreakTimerInput;
     const frequency =
       parseInt(longBreakTimerFrequencyInput) &&
       parseInt(longBreakTimerFrequencyInput) > 0
@@ -67,7 +112,7 @@ const TimerSettings = (props) => {
         : 0;
     let timer = {
       hours: 0,
-      minutes: minutes && minutes >= 0 ? minutes : 1,
+      minutes: minutes,
       seconds: 0,
     };
     dispatch(timerActions.setLongBreakFrequency(frequency));
@@ -75,7 +120,15 @@ const TimerSettings = (props) => {
   }, [longBreakTimerInput, longBreakTimerFrequencyInput]);
 
   return (
-    <div className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10">
+    <div
+      className="relative flex w-[450px] flex-col gap-6 rounded-3xl bg-neutral-50 px-[30px] py-10"
+      style={{ ...wpStyle, boxShadow: "" }}
+    >
+      {workTimerInput < 30 && (
+        <span className="mx-auto text-red-600 font-bold text-sm">
+          Streaks Disabled! (Minimum work time of 30 minutes needed)
+        </span>
+      )}
       <div className="absolute right-4 top-4">
         <div onClick={handleToggleTimerSettings} className="cursor-pointer">
           <RxCross1 />
@@ -89,9 +142,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5 "
                 onClick={() => {
-                  setWorkTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleWorkTimeChange(workTimerInput - 1);
                 }}
               >
                 -
@@ -106,9 +157,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setWorkTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleWorkTimeChange(workTimerInput + 1);
                 }}
               >
                 +
@@ -124,9 +173,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setBreakTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleBreakTimeChange(breakTimerInput - 1);
                 }}
               >
                 -
@@ -141,9 +188,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setBreakTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleBreakTimeChange(breakTimerInput + 1);
                 }}
               >
                 +
@@ -153,7 +198,7 @@ const TimerSettings = (props) => {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row items-center">
         <div className="w-1/2  font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Long Break Frequency:</label>
@@ -161,9 +206,9 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerFrequencyInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleLongBreakFrequencyChange(
+                    longBreakTimerFrequencyInput - 1
+                  );
                 }}
               >
                 -
@@ -178,9 +223,9 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerFrequencyInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleLongBreakFrequencyChange(
+                    longBreakTimerFrequencyInput + 1
+                  );
                 }}
               >
                 +
@@ -196,9 +241,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerInput((prev) => {
-                    return prev - 1;
-                  });
+                  handleLongBreakTimeChange(longBreakTimerInput - 1);
                 }}
               >
                 -
@@ -213,9 +256,7 @@ const TimerSettings = (props) => {
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
-                  setLongBreakTimerInput((prev) => {
-                    return prev + 1;
-                  });
+                  handleLongBreakTimeChange(longBreakTimerInput + 1);
                 }}
               >
                 +
@@ -223,6 +264,22 @@ const TimerSettings = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full border border-b"></div>
+      <div className="flex flex-row items-center text-xs font-normal">
+        <div className="w-full mx-8">
+          <div className="flex flex-row items-center justify-between">
+            <div>Automatically Start Next Session After Breaks</div>
+            <input
+              type="checkbox"
+              checked={timerState.autoStart}
+              onChange={handleAutoStart}
+            ></input>
+          </div>
+        </div>
+      </div>
+      <div className="absolute top-1 -left-6 text-neutral-50">
+        <GoTriangleLeft size={44} />
       </div>
     </div>
   );

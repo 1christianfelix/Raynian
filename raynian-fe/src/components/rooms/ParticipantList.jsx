@@ -22,10 +22,10 @@ const ParticipantList = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex w-[100%]">
       {toggleList ? (
         <>
-          <div className="flex w-[100%] flex-col items-start justify-start gap-2 rounded-lg border border-gray-300 py-5">
+          <div className="flex w-[100%] flex-col items-start justify-start gap-2 rounded-lg py-5">
             {participants.map((participant, index) => (
               <div
                 key={index}
