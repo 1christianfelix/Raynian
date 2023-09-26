@@ -71,8 +71,7 @@ const Dashboard = () => {
             <div
               className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
               style={{
-                backgroundColor:
-                  theme[0] + (glassMode ? "B4" : "") || "#fafafaB4",
+                backgroundColor: theme[0] || "#fafafaB4",
                 boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
               }}
             >
