@@ -23,6 +23,7 @@ const initialState = {
   isPaused: false,
   sessionStreak: 0,
   syncedWithRoom: false,
+  autoStart: false,
   longBreakFrequency: 3,
   longBreakTime: {
     hours: 0,
@@ -63,6 +64,9 @@ const timerSlice = createSlice({
     setLongBreakFrequency: (state, action) => {
       state.longBreakFrequency = action.payload;
     },
+    setAutoStart: (state, action) => {
+      state.autoStart = action.payload;
+    },
     decrementCountdown: (state) => {
       const { hours, minutes, seconds } = state.countdown;
       if (hours <= 0 && minutes === 0 && seconds === 0) {
@@ -79,7 +83,7 @@ const timerSlice = createSlice({
           state.isBreak = false;
           state.isWork = true;
           state.countdown = state.workTime;
-          state.isRunning = false;
+          state.isRunning = state.autoStart ? true : false;
           return;
         }
       }
@@ -152,6 +156,7 @@ export const {
   setBreakTime,
   setLongBreakTime,
   setLongBreakFrequency,
+  setAutoStart,
   decrementCountdown,
 } = timerSlice.actions;
 export default timerSlice.reducer;

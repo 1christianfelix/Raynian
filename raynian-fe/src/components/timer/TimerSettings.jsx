@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
+import { GoTriangleLeft } from "react-icons/go";
 import * as timerActions from "../../slices/timerSlice";
 
 const TimerSettings = (props) => {
@@ -37,7 +38,7 @@ const TimerSettings = (props) => {
   }, [workTimerInput]);
 
   const handleBreakTimeChange = (e) => {
-    setWorkTimerInput(e.target.value);
+    setBreakTimerInput(e.target.value);
   };
 
   useEffect(() => {
@@ -56,6 +57,10 @@ const TimerSettings = (props) => {
 
   const handleLongBreakTimeChange = (e) => {
     setLongBreakTimerInput(e.target.value);
+  };
+
+  const handleAutoStart = (e) => {
+    dispatch(timerActions.setAutoStart(e.target.checked));
   };
 
   useEffect(() => {
@@ -153,7 +158,7 @@ const TimerSettings = (props) => {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row items-center">
         <div className="w-1/2  font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Long Break Frequency:</label>
@@ -223,6 +228,22 @@ const TimerSettings = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full border border-b"></div>
+      <div className="flex flex-row items-center text-xs font-normal">
+        <div className="w-full mx-8">
+          <div className="flex flex-row items-center justify-between">
+            <div>Automatically Start Next Session After Breaks</div>
+            <input
+              type="checkbox"
+              checked={timerState.autoStart}
+              onChange={handleAutoStart}
+            ></input>
+          </div>
+        </div>
+      </div>
+      <div className="absolute top-1 -left-6 text-neutral-50">
+        <GoTriangleLeft size={44} />
       </div>
     </div>
   );
