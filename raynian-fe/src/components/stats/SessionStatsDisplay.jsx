@@ -35,13 +35,15 @@ const SessionStatsDisplay = () => {
     <div className="relative flex flex-col gap-2 w-[100%] text-xs font-normal">
       <div className=" flex justify-between items-center">
         <p className="font-normal text-sm">Current Session Stats</p>
-        <div className="hover:scale-125 hover:border-transparent transition-all p-1 border-2 border-black rounded-full">
+        <div
+          className="hover:scale-90 hover:border-blue-500 transition-all p-1 border-2 border-transparent rounded-full cursor-pointer "
+          onClick={toggleUserStatsModal}
+        >
           <div
-            className="cursor-pointer text-base"
+            className="text-base"
             data-tooltip-id="stats"
             data-tooltip-content="see more stats"
             data-tooltip-place="right"
-            onClick={toggleUserStatsModal}
           >
             <TbCalendarStats />
           </div>
