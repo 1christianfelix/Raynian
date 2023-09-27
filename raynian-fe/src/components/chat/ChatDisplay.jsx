@@ -3,6 +3,7 @@ import { LiaWindowMinimizeSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import { sendRoomChat } from "../socket/socketConnection";
 import Draggable from "react-draggable";
+import { BiExpandAlt, BiCollapseAlt } from "react-icons/bi";
 
 const ChatDisplay = () => {
   const { chat, roomId, user } = useSelector((state) => state.room);
@@ -10,6 +11,7 @@ const ChatDisplay = () => {
   const [newMessage, setNewMessage] = useState("");
   const chatBoxRef = useRef(null);
   const [chatView, setChatView] = useState(true);
+  const [pin, setPin] = useState(false);
 
   if (roomId == null) {
     return null;
@@ -93,18 +95,40 @@ const ChatDisplay = () => {
           </div>
         )}
         <form
-          className="mt-auto bg-black/20 border-b text-white border-gray-300"
+          className="mt-auto w-full  bg-black/20 border-b text-white border-gray-300 relative flex items-center justify-between"
           onSubmit={handleSubmit}
         >
           <input
             type="text"
-            className="w-full rounded-md border-b bg-transparent p-2 focus:outline-none"
+            className=" w-full border-b bg-transparent p-2 focus:outline-none"
             placeholder="Type your message..."
             value={newMessage}
             onChange={handleInputChange}
             onFocus={() => setChatView(true)}
-            onBlur={() => setChatView(false)}
+            onBlur={!pin ? () => setChatView(false) : null}
           />
+          <div className=" border-b bg-transparent h-full flex items-center p-2">
+            {!pin ? (
+              <div
+                onClick={() => {
+                  setPin(true);
+                }}
+              >
+                <BiExpandAlt />
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setPin(false);
+                  if (chatView) {
+                    setChatView(false);
+                  }
+                }}
+              >
+                <BiCollapseAlt />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>
