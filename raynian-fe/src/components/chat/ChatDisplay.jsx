@@ -47,7 +47,7 @@ const ChatDisplay = () => {
 
   // Scroll the chat box to the bottom when a new message is added
   useEffect(() => {
-    // chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
 
     if (pin === false && chatView === false) {
       console.log("test");
