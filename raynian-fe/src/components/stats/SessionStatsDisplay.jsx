@@ -47,7 +47,17 @@ const SessionStatsDisplay = () => {
   const updateTotalStudyTime = async (totalStudyTimeMins) => {
     const data = { studyTime: totalStudyTimeMins };
     const res = await updateStudyTime({ id: userInfo.user._id, data });
+    if (res) {
+      setUserStatsParams({
+        user: userInfo.user,
+      });
+    }
   };
+
+  useEffect(() => {
+    updateTotalStudyTime(timerState.totalStudyTimeMins);
+  }, []);
+
   useEffect(() => {
     if (timerState.sessionElapsedTime % 60 == 0) {
       dispatch(
@@ -139,11 +149,8 @@ const SessionStatsDisplay = () => {
           onClick={
             userInfo?.user._id != "guest"
               ? () => {
-                  toggleUserStatsModal();
-                  setUserStatsParams({
-                    user: userInfo.user,
-                  });
                   updateTotalStudyTime(timerState.totalStudyTimeMins);
+                  toggleUserStatsModal();
                 }
               : null
           }

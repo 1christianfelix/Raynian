@@ -9,7 +9,6 @@ import { WallpaperContext } from "../../context/WallpaperContex";
 
 const UserStats = ({ user }) => {
   const { theme } = useContext(WallpaperContext);
-  const { data } = useGetStatsQuery(user._id);
   const [updateStudyTime] = useUpdateStudyTimeMutation();
   const { userInfo } = useSelector((state) => state.auth);
   const timerState = useSelector((state) => state.timer);
