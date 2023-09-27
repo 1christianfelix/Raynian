@@ -9,6 +9,7 @@ import * as timerActions from "../../slices/timerSlice";
 import {
   useUpdateStudyTimeMutation,
   useUpdateLongestStreakMutation,
+  useUpdateSessionsCompletedMutation,
 } from "../../slices/statsApi";
 
 import moment from "moment";
@@ -31,6 +32,7 @@ const SessionStatsDisplay = () => {
   const [longestStreak, setLongestStreak] = useState(null);
 
   const [updateStudyTime] = useUpdateStudyTimeMutation();
+  const [updateSessionsCompleted] = useUpdateSessionsCompletedMutation();
   const [updateLongestStreak] = useUpdateLongestStreakMutation();
 
   useEffect(() => {
@@ -42,7 +44,6 @@ const SessionStatsDisplay = () => {
     setDuration(hhmmssFormat);
   }, [timerState.sessionElapsedTime, listFormats]);
 
-  //update studytime
   const updateTotalStudyTime = async (totalStudyTimeMins) => {
     const data = { studyTime: totalStudyTimeMins };
     const res = await updateStudyTime({ id: userInfo.user._id, data });
@@ -63,6 +64,23 @@ const SessionStatsDisplay = () => {
       updateTotalStudyTime(timerState.totalStudyTimeMins);
     }
   }, [timerState.sessionElapsedTime]);
+
+  // update sessions Completed
+
+  useEffect(() => {
+    const update = async () => {
+      if (userInfo?.user && userInfo.user._id !== "guest") {
+        const data = {
+          sessionsCompleted: 1,
+        };
+        const res = await updateSessionsCompleted({
+          id: userInfo.user._id,
+          data,
+        });
+      }
+    };
+    update();
+  }, [timerState.sessionsCompleted]);
 
   //update longeststreak
   // Get initial longestStreak

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CloseModalButton from "../util/CloseModalButton";
 import {
   useGetStatsQuery,
   useUpdateStudyTimeMutation,
 } from "../../slices/statsApi";
 import { useDispatch, useSelector } from "react-redux";
+import { WallpaperContext } from "../../context/WallpaperContex";
 
 const UserStats = ({ user }) => {
-  const { data } = useGetStatsQuery(user.id);
+  const { theme } = useContext(WallpaperContext);
+  const { data } = useGetStatsQuery(user._id);
   const [updateStudyTime] = useUpdateStudyTimeMutation();
   const { userInfo } = useSelector((state) => state.auth);
   const timerState = useSelector((state) => state.timer);
-  const [userState, setUserStats] = useState(null);
+  const [stats, setStats] = useState(null);
 
   // const updateTotalStudyTime = async (totalStudyTimeMins) => {
   //   const data = { studyTime: totalStudyTimeMins };
@@ -28,15 +30,16 @@ const UserStats = ({ user }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (user.id != "guest") {
+        if (user._id != "guest") {
           const response = await fetch(
-            `http://localhost:4000/api/user/${user.id}`
+            `http://localhost:4000/api/user/${user._id}/stats`
           );
 
           if (!response.ok) {
             throw new Error("Failed to fetch stats");
           } else {
             const data = await response.json();
+            setStats(data[0]);
           }
         }
       } catch (e) {
@@ -48,12 +51,38 @@ const UserStats = ({ user }) => {
 
   return (
     <div
-      className="relative flex h-[60%] w-[80%] flex-col gap-6 rounded-3xl bg-neutral-50 p-4 px-[30px] py-10"
+      className="relative h-[70%] w-[80%] rounded-3xl bg-neutral-50 px-4 py-10 shadow-modal"
       onClick={(event) => event.stopPropagation()}
     >
       <CloseModalButton />
-      <div className="text-2xl font-bold">{user.username}</div>
-      <div className=""></div>
+      {stats && (
+        <div className="m-4 flex flex-col gap-5 h-full">
+          <div
+            className="flex w-full flex-col gap-5 items-center justify-center py-5"
+            style={{ backgroundColor: theme[1] + "19" }}
+          >
+            <img
+              className="h-40 w-40 rounded-full"
+              src={user.profilePicture}
+              alt=""
+            />
+            <div className="text-3xl font-bold">{user.username}</div>
+          </div>
+
+          <div className="h-[40%] grid grid-cols-5 gap-10">
+            <div className=" flex flex-col gap-2 items-center justify-center bg-[#FAEDCB]">
+              <p className="font-bold text-2xl text-center">
+                Time Spent Working
+              </p>
+              <p className="font-bold text-2xl">{stats.studyTime} Minutes</p>
+            </div>
+            <div className="h-[80%] w-full bg-black">Total Break Time</div>
+            <div className="">Sessions Completed</div>
+            <div className="">Dailies Completed</div>
+            <div className="">Longest Streak</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

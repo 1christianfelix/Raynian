@@ -67,6 +67,15 @@ const Dashboard = () => {
             <Timer2 />
           </div>
 
+          <div
+            className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+            style={{
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+            }}
+          >
+            <SessionStatsDisplay />
+          </div>
           {roomId && (
             <div
               className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
@@ -79,15 +88,6 @@ const Dashboard = () => {
             </div>
           )}
 
-          <div
-            className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
-            style={{
-              backgroundColor: theme[0] || "#fafafaB4",
-              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
-            }}
-          >
-            <SessionStatsDisplay />
-          </div>
           <div className="flex-grow  overflow-auto p-4">
             {roomId && <Chat />}
           </div>
