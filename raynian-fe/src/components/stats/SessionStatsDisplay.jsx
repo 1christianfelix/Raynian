@@ -6,7 +6,10 @@ import { TbCalendarStats } from "react-icons/tb";
 import { LuTally5, LuTimer } from "react-icons/lu";
 import { AiOutlineFire } from "react-icons/ai";
 import * as timerActions from "../../slices/timerSlice";
-import { useUpdateStudyTimeMutation } from "../../slices/statsApi";
+import {
+  useUpdateStudyTimeMutation,
+  useUpdateLongestStreakMutation,
+} from "../../slices/statsApi";
 
 import moment from "moment";
 import "moment-duration-format";
@@ -25,13 +28,10 @@ const SessionStatsDisplay = () => {
   const [duration, setDuration] = useState();
   const [format, setFormat] = useState("m [mins]");
   const [listFormats, setListFormats] = useState(false);
+  const [longestStreak, setLongestStreak] = useState(null);
 
   const [updateStudyTime] = useUpdateStudyTimeMutation();
-
-  const updateTotalStudyTime = async (totalStudyTimeMins) => {
-    const data = { studyTime: totalStudyTimeMins };
-    const res = await updateStudyTime({ id: userInfo.user._id, data });
-  };
+  const [updateLongestStreak] = useUpdateLongestStreakMutation();
 
   useEffect(() => {
     const hhmmssFormat = moment
@@ -42,6 +42,11 @@ const SessionStatsDisplay = () => {
     setDuration(hhmmssFormat);
   }, [timerState.sessionElapsedTime, listFormats]);
 
+  //update studytime
+  const updateTotalStudyTime = async (totalStudyTimeMins) => {
+    const data = { studyTime: totalStudyTimeMins };
+    const res = await updateStudyTime({ id: userInfo.user._id, data });
+  };
   useEffect(() => {
     if (timerState.sessionElapsedTime % 60 == 0) {
       dispatch(
@@ -58,6 +63,50 @@ const SessionStatsDisplay = () => {
       updateTotalStudyTime(timerState.totalStudyTimeMins);
     }
   }, [timerState.sessionElapsedTime]);
+
+  //update longeststreak
+  // Get initial longestStreak
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userInfo?.user?._id && userInfo?.user?._id !== "guest") {
+          const response = await fetch(
+            `http://localhost:4000/api/user/${userInfo.user._id}/stats`
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch stats");
+          }
+
+          const data = await response.json();
+          setLongestStreak(data[0].longestStreak);
+          return data;
+        }
+      } catch (error) {
+        console.error("Error fetching stats:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const update = async () => {
+      if (
+        longestStreak != null &&
+        timerState.sessionStreak > longestStreak.streak
+      ) {
+        const data = {
+          longestStreak: {
+            workTime: timerState.workTime.minutes,
+            breakTime: timerState.breakTime.minutes,
+            streak: timerState.sessionStreak,
+          },
+        };
+        const res = await updateLongestStreak({ id: userInfo.user._id, data });
+      }
+    };
+    update();
+  }, [timerState.sessionStreak]);
 
   return (
     <div className="relative flex flex-col gap-2 w-[100%] text-xs font-normal">
