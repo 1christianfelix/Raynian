@@ -66,8 +66,8 @@ const Dashboard = () => {
 
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
-        <div className="inline-flex h-[100%] w-1/4 flex-col justify-between first:mt-4">
-          <div className="flex flex-col gap-6">
+        <div className="inline-flex h-[100%] w-1/4 flex-col justify-between  first:mt-4">
+          <div className="h-3/5 flex flex-col gap-4">
             <div
               className={`shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] ${
                 !timerPanel ? "hidden" : ""
@@ -92,7 +92,7 @@ const Dashboard = () => {
             </div>
             {participantsPanel && roomId && (
               <div
-                className={`shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-[40%] overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black ${
+                className={`shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-full overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black ${
                   !participantsPanel ? "hidden" : ""
                 }`}
                 style={{
