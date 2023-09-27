@@ -54,7 +54,7 @@ const ChatDisplay = () => {
 
   return (
     // <Draggable>
-    <div className="h-[100%] w-[100%] ">
+    <div className="h-[100%] w-[100%]  text-neutral-100">
       <div className="flex h-[100%] w-[100%] flex-col">
         {/* <div className="flex h-8 w-[100%] items-center justify-end rounded-t-md bg-black bg-opacity-10">
           <div className="mr-2 cursor-pointer transition-all hover:scale-[110%]">
@@ -64,25 +64,27 @@ const ChatDisplay = () => {
         {true && (
           <div
             ref={chatBoxRef}
-            className=" scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-thumb-rounded-full flex-1 overflow-y-scroll p-4"
+            className={` scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-thumb-rounded-full flex-1 overflow-y-scroll p-4 opacity-0 select-none backdrop-blur-sm bg-transparent transition ${
+              chatView && "bg-black/40 opacity-100"
+            }`}
           >
             {chat.map((chat, index) => (
               <div key={index} className="mb-2">
                 {!chat.username ? (
-                  <div className="bg-green-400 bg-opacity-20 font-bold">
-                    <span className="text-gray-600">{chat.message}</span>
+                  <div className="bg-green-400 bg-opacity-20 font-semibold">
+                    <span className="text-neutral-100">{chat.message}</span>
                   </div>
                 ) : (
                   <div className="flex flex-col justify-between">
                     <div>
-                      <span className="mr-1 text-xs text-gray-800">
+                      <span className="mr-1 text-xs text-neutral-100">
                         {chat.timestamp}
                       </span>
                       <span className="font-normal">{chat.username}: </span>
                     </div>
                     <div>
                       {" "}
-                      <span className="text-black">{chat.message}</span>
+                      <span className="text-neutral-100">{chat.message}</span>
                     </div>
                   </div>
                 )}
@@ -91,7 +93,7 @@ const ChatDisplay = () => {
           </div>
         )}
         <form
-          className="mt-auto border-b border-gray-300"
+          className="mt-auto bg-black/20 border-b text-white border-gray-300"
           onSubmit={handleSubmit}
         >
           <input

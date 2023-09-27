@@ -56,6 +56,16 @@ const SessionStatsDisplay = () => {
     toggleUserStatsModal();
   };
 
+  const updateTotalStudyTimeNoModal = async (totalStudyTimeMins) => {
+    const data = { studyTime: totalStudyTimeMins };
+    const res = await updateStudyTime({ id: userInfo.user._id, data });
+    if (res) {
+      setUserStatsParams({
+        user: userInfo.user,
+      });
+    }
+  };
+
   // useEffect(() => {
   //   updateTotalStudyTime(timerState.totalStudyTimeMins);
   // }, [userInfo]);
@@ -77,7 +87,7 @@ const SessionStatsDisplay = () => {
       timerState.sessionElapsedTime != 0 &&
       timerState.sessionElapsedTime % 600 == 0
     ) {
-      updateTotalStudyTime(timerState.totalStudyTimeMins);
+      updateTotalStudyTimeNoModal(timerState.totalStudyTimeMins);
     }
   }, [timerState.sessionElapsedTime]);
 
