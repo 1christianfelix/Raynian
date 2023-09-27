@@ -70,16 +70,43 @@ const UserStats = ({ user }) => {
           </div>
 
           <div className="h-[40%] grid grid-cols-5 gap-10">
-            <div className=" flex flex-col gap-2 items-center justify-center bg-[#FAEDCB]">
-              <p className="font-bold text-2xl text-center">
-                Time Spent Working
+            <div className=" flex flex-col gap-2 items-center justify-center bg-[#FAEDCB] p-4">
+              <p className="font-semibold text-lg text-center">
+                Spent{" "}
+                <span className="font-bold text-2xl underline">
+                  {stats.studyTime}
+                </span>{" "}
+                minutes being productive!
               </p>
-              <p className="font-bold text-2xl">{stats.studyTime} Minutes</p>
             </div>
-            <div className="h-[80%] w-full bg-black">Total Break Time</div>
-            <div className="">Sessions Completed</div>
+            <div className="">Total Break Time</div>
+            <div className=" flex flex-col gap-2 items-center justify-center bg-[#c9E4De] p-4">
+              <p className="font-semibold text-lg text-center">
+                Completed{" "}
+                <span className="font-bold text-2xl underline">
+                  {stats.sessionsCompleted}
+                </span>{" "}
+                sessions!
+              </p>
+            </div>
             <div className="">Dailies Completed</div>
-            <div className="">Longest Streak</div>
+            <div className="flex flex-col gap-2 items-center justify-center bg-[#C6DEF1] p-4">
+              <p className="text-center font-semibold">
+                Longest Streak of{" "}
+                <span className="font-bold text-2xl underline">
+                  {stats.longestStreak.streak}
+                </span>{" "}
+                achieved with a work timer of{" "}
+                <span className="font-bold text-2xl underline">
+                  {stats.longestStreak.workTime}
+                </span>{" "}
+                and break timer of{" "}
+                <span className="font-bold text-2xl underline">
+                  {stats.longestStreak.breakTime}
+                </span>
+                !
+              </p>
+            </div>
           </div>
         </div>
       )}
