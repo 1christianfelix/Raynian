@@ -1,9 +1,13 @@
 import React from "react";
 import CloseModalButton from "../util/CloseModalButton";
-import { useGetStatsQuery } from "../../slices/statsApi";
+import {
+  useGetStatsQuery,
+  useUpdateStudyTimeQuery,
+} from "../../slices/statsApi";
 
 const UserStats = (props) => {
   const { data } = useGetStatsQuery(props.id);
+  const { useUpdateStudyTimeQuery } = useUpdateStudyTimeQuery();
   console.log(data);
   // console.log(props);
   return (
