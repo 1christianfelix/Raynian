@@ -101,9 +101,33 @@ const updateLongestStreak = async (req, res) => {
   }
 };
 
+const updateStudyTime = async (req, res) => {
+  const { id } = req.params;
+  const { studyTime } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  try {
+    const updatedStats = await Stats.findOneAndUpdate(
+      { user: id },
+      { studyTime },
+      { new: true }
+    );
+    if (!updatedStats) {
+      return res.status(404).json({ error: "User stats not found" });
+    }
+    res.status(200).json(updatedStats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getUserStats,
   updateTasksCompleted,
   updateSessionsCompleted,
   updateLongestStreak,
+  updateStudyTime,
 };
