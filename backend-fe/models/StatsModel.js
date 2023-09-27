@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const longesetStreakSchema = new Schema(
   {
-    workTme: {
+    workTime: {
       type: Number,
       default: 45,
     },

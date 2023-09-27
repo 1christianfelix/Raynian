@@ -10,6 +10,7 @@ const {
   getUserStats,
   updateTasksCompleted,
   updateSessionsCompleted,
+  updateLongestStreak,
 } = require("../controllers/StatsController");
 
 const router = express.Router();
@@ -56,5 +57,11 @@ router.put("/:id/stats/tasks", updateTasksCompleted);
  * PUT /api/user/:id/stats/sessions
  */
 router.put("/:id/stats/sessions", updateSessionsCompleted);
+
+/**
+ * Update user longest streak
+ * PUT /api/user/:id/stats/longeststreak
+ */
+router.put("/:id/stats/longeststreak", updateLongestStreak);
 
 module.exports = router;

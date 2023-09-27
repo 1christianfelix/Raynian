@@ -78,8 +78,32 @@ const updateSessionsCompleted = async (req, res) => {
   }
 };
 
+const updateLongestStreak = async (req, res) => {
+  const { id } = req.params;
+  const { longestStreak } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  try {
+    const updatedStats = await Stats.findOneAndUpdate(
+      { user: id },
+      { longestStreak },
+      { new: true }
+    );
+    if (!updatedStats) {
+      return res.status(404).json({ error: "User stats not found" });
+    }
+    res.status(200).json(updatedStats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getUserStats,
   updateTasksCompleted,
   updateSessionsCompleted,
+  updateLongestStreak,
 };
