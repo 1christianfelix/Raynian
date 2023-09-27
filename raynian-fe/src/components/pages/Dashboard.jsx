@@ -12,10 +12,9 @@ import Timer from "../util/Timer";
 
 import Chat from "../chat/ChatDisplay";
 import RoomButton from "../rooms/RoomButton";
-import ParticipantList from "../rooms/ParticipantList";
+import ParticipantList from "../participants/ParticipantList";
 import Timer2 from "../timer/Timer2";
 import SessionStatsDisplay from "../stats/SessionStatsDisplay";
-import ParticipantListTest from "./ParticipantListTest";
 import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
@@ -108,8 +107,6 @@ const Dashboard = () => {
             </div>
           </div> */}
         </div>
-
-        {/* <ParticipantListTest></ParticipantListTest> */}
       </div>
     </div>
   );

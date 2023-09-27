@@ -6,7 +6,7 @@ import {
   AiOutlinePlusSquare,
   AiOutlineLineChart,
 } from "react-icons/ai";
-import ParticipantTimer from "../pages/ParticipantTimer";
+import ParticipantTimer from "./ParticipantTimer";
 
 const ParticipantList = () => {
   const { participants, roomId } = useSelector((state) => state.room);
