@@ -2,6 +2,24 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const longesetStreakSchema = new Schema(
+  {
+    workTime: {
+      type: Number,
+      default: 45,
+    },
+    breakTime: {
+      type: Number,
+      default: 10,
+    },
+    streak: {
+      type: Number,
+      default: 0,
+    },
+  },
+  { _id: false }
+);
+
 const statsSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -9,13 +27,21 @@ const statsSchema = new Schema({
     required: true,
     unique: true,
   },
-  points: {
+  tasksCompleted: {
     type: Number,
     default: 0,
   },
   studyTime: {
     type: Number,
     default: 0,
+  },
+  sessionsCompleted: {
+    type: Number,
+    default: 0,
+  },
+  longestStreak: {
+    type: longesetStreakSchema,
+    default: {},
   },
 });
 

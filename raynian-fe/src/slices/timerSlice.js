@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
+  totalStudyTimeMins: 0,
   countdown: {
     hours: 0,
     minutes: 60,
@@ -22,6 +23,7 @@ const initialState = {
   isBreak: false,
   isPaused: false,
   sessionStreak: 0,
+  sessionsCompleted: 0,
   syncedWithRoom: false,
   autoStart: false,
   longBreakFrequency: 3,
@@ -37,6 +39,9 @@ const timerSlice = createSlice({
   name: "timer",
   initialState,
   reducers: {
+    setTotalStudyTimeMins: (state, action) => {
+      state.totalStudyTimeMins = action.payload;
+    },
     updateCountdown: (state, action) => {
       state.countdown = action.payload;
     },
@@ -68,15 +73,22 @@ const timerSlice = createSlice({
     setAutoStart: (state, action) => {
       state.autoStart = action.payload;
     },
+    resetSessionStreak: (state) => {
+      state.sessionStreak = 0;
+    },
     decrementCountdown: (state) => {
       const { hours, minutes, seconds } = state.countdown;
       if (state.isWork) {
         state.sessionElapsedTime += 1;
       }
+      // if (state.sessionElapsedTime != 0 && state.sessionElapsedTime % 60 == 0) {
+      //   state.totalStudyTimeMins += 1;
+      // }
       if (hours <= 0 && minutes === 0 && seconds === 0) {
         if (state.isWork == true) {
           state.isBreak = true;
           state.isWork = false;
+          state.sessionsCompleted += 1;
           state.sessionStreak =
             state.workTime.minutes >= 30 ? state.sessionStreak + 1 : 0;
           state.countdown =
@@ -129,11 +141,14 @@ export const startTimer = () => async (dispatch, getState) => {
 export const stopTimer = () => async (dispatch, getState) => {
   console.log("stopTimer");
   const state = getState().timer;
-  const { isWork, isBreak, workTime, breakTime } = state;
+  const { isWork, isBreak, workTime, breakTime, sessionsCompleted } = state;
   updateCountdown({ ...workTime });
   if (isBreak) {
     dispatch(setIsBreak(false));
     dispatch(setIsWork(true));
+  }
+  if (isWork) {
+    dispatch(resetSessionStreak());
   }
   dispatch(setIsRunning(false));
   dispatch(setIsPaused(false));
@@ -152,6 +167,7 @@ export const getTimerState = () => async (dispatch, getState) => {
 };
 
 export const {
+  setTotalStudyTimeMins,
   updateCountdown,
   setIsWork,
   setIsBreak,
@@ -162,6 +178,7 @@ export const {
   setLongBreakTime,
   setLongBreakFrequency,
   setAutoStart,
+  resetSessionStreak,
   decrementCountdown,
 } = timerSlice.actions;
 export default timerSlice.reducer;

@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 /* Stats Fetching Operations */
 // Fetch stats for a specific user
-const getuserstats = async (req, res) => {
+const getUserStats = async (req, res) => {
   const { id } = req.params;
 
   // Verify the id is a valid MongoDB ObjectId
@@ -22,33 +22,102 @@ const getuserstats = async (req, res) => {
 
 /* Stats Updating Operations */
 // Update the stats for a specific user
-const updateuserstats = async (req, res) => {
+const updateTasksCompleted = async (req, res) => {
   const { id } = req.params;
-  let { points, studyTime } = req.body;
+  let { tasksCompleted } = req.body;
 
   // Verify the id is a valid MongoDB ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "User does not exist" });
   }
 
-  // Default points and studyTime to 0 if they're not provided
-  points = points || 0;
-  studyTime = studyTime || 0;
+  tasksCompleted = tasksCompleted || 0;
 
   try {
-    // Update the user's stats in the database
     const updatedStats = await Stats.findOneAndUpdate(
       { user: id },
-      { $inc: { points, studyTime } },
+      { $inc: { tasksCompleted } },
       { new: true }
     );
 
-    // If stats for the user could not be found, return an error
     if (!updatedStats) {
       return res.status(404).json({ error: "User stats not found" });
     }
 
-    // Return the updated stats
+    res.status(200).json(updatedStats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateSessionsCompleted = async (req, res) => {
+  const { id } = req.params;
+  let { sessionsCompleted } = req.body;
+
+  // Verify the id is a valid MongoDB ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  sessionsCompleted = sessionsCompleted || 0;
+
+  try {
+    const updatedStats = await Stats.findOneAndUpdate(
+      { user: id },
+      { $inc: { sessionsCompleted } },
+      { new: true }
+    );
+
+    if (!updatedStats) {
+      return res.status(404).json({ error: "User stats not found" });
+    }
+
+    res.status(200).json(updatedStats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateLongestStreak = async (req, res) => {
+  const { id } = req.params;
+  const { longestStreak } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  try {
+    const updatedStats = await Stats.findOneAndUpdate(
+      { user: id },
+      { longestStreak },
+      { new: true }
+    );
+    if (!updatedStats) {
+      return res.status(404).json({ error: "User stats not found" });
+    }
+    res.status(200).json(updatedStats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateStudyTime = async (req, res) => {
+  const { id } = req.params;
+  const { studyTime } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  try {
+    const updatedStats = await Stats.findOneAndUpdate(
+      { user: id },
+      { studyTime },
+      { new: true }
+    );
+    if (!updatedStats) {
+      return res.status(404).json({ error: "User stats not found" });
+    }
     res.status(200).json(updatedStats);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -56,6 +125,9 @@ const updateuserstats = async (req, res) => {
 };
 
 module.exports = {
-  getuserstats,
-  updateuserstats,
+  getUserStats,
+  updateTasksCompleted,
+  updateSessionsCompleted,
+  updateLongestStreak,
+  updateStudyTime,
 };

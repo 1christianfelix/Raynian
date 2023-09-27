@@ -12,6 +12,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { generateUniqueUser } from "../../helpers/generateUser";
 import { checkUsernameDuplicate } from "../../helpers/usernameDuplicate";
 import { checkEmailDuplicate } from "../../helpers/emailDuplicate";
+import CloseModalButton from "../util/CloseModalButton";
 
 // Others
 import { motion } from "framer-motion";
@@ -170,7 +171,11 @@ function SignupPage() {
   }
 
   return (
-    <div className="flex w-[475px] flex-row rounded-3xl bg-white py-10">
+    <div
+      className="relative flex w-[475px] flex-row rounded-3xl bg-white py-10"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <CloseModalButton />
       <div className="mx-auto mb-0 w-full overflow-visible px-[60px]">
         <div className="w-full">
           <div className="mx-auto my-0 w-full max-w-[960px]">

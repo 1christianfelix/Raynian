@@ -1,7 +1,18 @@
 const express = require("express");
-const { getuser, getusers, usernameChecker, emailChecker } = require("../controllers/UserController");
+const {
+  getuser,
+  getusers,
+  usernameChecker,
+  emailChecker,
+} = require("../controllers/UserController");
 const { protect } = require("../middleware/authMiddleware");
-const { getuserstats, updateuserstats } = require("../controllers/StatsController");
+const {
+  getUserStats,
+  updateTasksCompleted,
+  updateSessionsCompleted,
+  updateLongestStreak,
+  updateStudyTime,
+} = require("../controllers/StatsController");
 
 const router = express.Router();
 
@@ -16,7 +27,7 @@ router.get("/", getusers);
  * GET /api/user/:id
  * Protected route: Requires authentication
  */
-router.get("/:id", protect, getuser);
+router.get("/:id", getuser);
 
 /**
  * Check email availability
@@ -34,12 +45,30 @@ router.post("/check/username", usernameChecker);
  * Get user stats
  * GET /api/user/:id/stats
  */
-router.get("/:id/stats", getuserstats);
+router.get("/:id/stats", getUserStats);
 
 /**
- * Update user stats
- * PUT /api/user/:id/stats
+ * Update user task stats
+ * PUT /api/user/:id/stats/tasks
  */
-router.put("/:id/stats", updateuserstats);
+router.put("/:id/stats/tasks", updateTasksCompleted);
+
+/**
+ * Update user session stats
+ * PUT /api/user/:id/stats/sessions
+ */
+router.put("/:id/stats/sessions", updateSessionsCompleted);
+
+/**
+ * Update user longest streak
+ * PUT /api/user/:id/stats/longeststreak
+ */
+router.put("/:id/stats/longeststreak", updateLongestStreak);
+
+/**
+ * Update user study time
+ * PUT /api/user/:id/stats/studytime
+ */
+router.put("/:id/stats/studytime", updateStudyTime);
 
 module.exports = router;

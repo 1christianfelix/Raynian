@@ -5,6 +5,7 @@ import { connectToRoom } from "../../slices/roomSlice";
 import { joinRoom, leaveRoom } from "../socket/socketConnection";
 import { FiRefreshCcw } from "react-icons/fi";
 import { generateGuestCredentials } from "../../slices/authSlice";
+import CloseModalButton from "../util/CloseModalButton";
 
 const JoinRoomPrompt = () => {
   const [room, setRoom] = useState("");
@@ -60,7 +61,11 @@ const JoinRoomPrompt = () => {
   };
 
   return (
-    <div className="flex w-[450px] flex-col rounded-3xl bg-neutral-50 px-[30px] py-10">
+    <div
+      className="relative flex w-[450px] flex-col rounded-3xl bg-neutral-50 px-[30px] py-10"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <CloseModalButton />
       <div className="mb-4">
         <div className="text-center text-2xl">Join a room!</div>
         <div>

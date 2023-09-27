@@ -6,6 +6,9 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
+  const [userStatsParams, setUserStatsParams] = useState({
+    user: {},
+  });
 
   const toggleLogin = () => {
     setType("login");
@@ -39,6 +42,10 @@ export const ModalProvider = ({ children }) => {
     setType("backgroundSettings");
   };
 
+  const toggleUserStatsModal = () => {
+    setType("userStats");
+  };
+
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -67,6 +74,9 @@ export const ModalProvider = ({ children }) => {
         toggleLeaveRoomPrompt,
         toggleTimerSettings,
         toggleBackgroundSettings,
+        toggleUserStatsModal,
+        userStatsParams,
+        setUserStatsParams,
         setType,
       }}
     >

@@ -8,6 +8,7 @@ module.exports = {
       },
       boxShadow: {
         panel: "8px 8px 1px",
+        modal: "8px 8px 10px rgba(0, 0, 0, 0.5)",
       },
       // fontSize: {
       //   popup: "1rem",

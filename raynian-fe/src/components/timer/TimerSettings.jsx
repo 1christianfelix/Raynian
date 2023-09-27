@@ -125,7 +125,7 @@ const TimerSettings = (props) => {
       style={{ ...wpStyle, boxShadow: "" }}
     >
       {workTimerInput < 30 && (
-        <span className="mx-auto text-red-600 font-bold text-sm">
+        <span className="mx-auto text-sm font-bold text-red-600">
           Streaks Disabled! (Minimum work time of 30 minutes needed)
         </span>
       )}
@@ -138,7 +138,7 @@ const TimerSettings = (props) => {
         <div className="w-1/2 font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Work Timer:</label>
-            <div className="flex h-8 w-full flex-row border-b border-neutral-300  focus-within:border-blue-500 focus-within:border-b-2 transition-all duration-100">
+            <div className="flex h-8 w-full flex-row border-b border-neutral-300  transition-all duration-100 focus-within:border-b-2 focus-within:border-blue-500">
               <button
                 className="w-20 hover:bg-black/5 "
                 onClick={() => {
@@ -169,7 +169,7 @@ const TimerSettings = (props) => {
         <div className="w-1/2  font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Break Timer:</label>
-            <div className="flex h-8 w-full flex-row border-b border-neutral-300  focus-within:border-blue-500 focus-within:border-b-2 transition-all duration-100">
+            <div className="flex h-8 w-full flex-row border-b border-neutral-300  transition-all duration-100 focus-within:border-b-2 focus-within:border-blue-500">
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
@@ -202,7 +202,7 @@ const TimerSettings = (props) => {
         <div className="w-1/2  font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Long Break Frequency:</label>
-            <div className="flex h-8 w-full flex-row border-b border-neutral-300  focus-within:border-blue-500 focus-within:border-b-2 transition-all duration-100 ">
+            <div className="flex h-8 w-full flex-row border-b border-neutral-300  transition-all duration-100 focus-within:border-b-2 focus-within:border-blue-500 ">
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
@@ -237,7 +237,7 @@ const TimerSettings = (props) => {
         <div className="w-1/2  font-normal ">
           <div className="mx-auto flex w-32 flex-col gap-1">
             <label className="text-xs ">Long Break Timer:</label>
-            <div className="flex h-8 w-full flex-row border-b border-neutral-300  focus-within:border-blue-500 focus-within:border-b-2 transition-all duration-100">
+            <div className="flex h-8 w-full flex-row border-b border-neutral-300  transition-all duration-100 focus-within:border-b-2 focus-within:border-blue-500">
               <button
                 className="w-20 hover:bg-black/5"
                 onClick={() => {
@@ -265,9 +265,9 @@ const TimerSettings = (props) => {
           </div>
         </div>
       </div>
-      <div className="w-full border border-b"></div>
+      <div className="w-full border"></div>
       <div className="flex flex-row items-center text-xs font-normal">
-        <div className="w-full mx-8">
+        <div className="mx-8 w-full">
           <div className="flex flex-row items-center justify-between">
             <div>Automatically Start Next Session After Breaks</div>
             <input
@@ -278,7 +278,7 @@ const TimerSettings = (props) => {
           </div>
         </div>
       </div>
-      <div className="absolute top-1 -left-6 text-neutral-50">
+      <div className="absolute -z-[100] -left-6 top-1 text-neutral-50">
         <GoTriangleLeft size={44} />
       </div>
     </div>

@@ -173,7 +173,7 @@ const TimerContols = () => {
         )}
         {toggleTimerSettings && (
           <div
-            className="absolute z-[100] left-20 -top-4 h-full cursor-default "
+            className="absolute -top-4 left-20 z-[999] h-full cursor-default "
             onClick={(e) => e.stopPropagation()}
           >
             <TimerSettings

@@ -1,5 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./models/UserModel");
+const Stats = require("./models/StatsModel");
 const { usernameGeneration } = require("./util/usernameGen");
 
 function configurePassport(passport) {
@@ -28,6 +29,29 @@ function configurePassport(passport) {
         }
         if (!user) {
           user = await User.create(defaultUser);
+          pfpRandomizer = Math.floor(Math.random() * 3) + 1;
+          switch (pfpRandomizer) {
+            case 1:
+              user.profilePicture =
+                "https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg";
+              break;
+            case 2:
+              user.profilePicture =
+                "https://i.pinimg.com/736x/ef/26/df/ef26df0ce4f41d74cb48a4f139504619.jpg";
+              break;
+            case 3:
+              user.profilePicture =
+                "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
+              break;
+            default:
+              user.profilePicture =
+                "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
+              break;
+          }
+          const stats = new Stats({ user: user._id });
+          await stats.save();
+          user.stats = stats._id;
+          await user.save();
         }
         return callback(null, user);
       }
@@ -35,13 +59,13 @@ function configurePassport(passport) {
   );
 
   passport.serializeUser((user, callback) => {
-    console.log("serial", user);
+    // console.log("serial", user);
     callback(null, user._id);
   });
 
   passport.deserializeUser(async (_id, callback) => {
     const user = await User.findById({ _id });
-    console.log("deserial", _id, user);
+    // console.log("deserial", _id, user);
     callback(null, user);
   });
 }

@@ -4,6 +4,7 @@ import { ModalProvider } from "./context/ModalContext";
 import { DarkLightProvider } from "./context/DarkLightContext";
 import { RoomProvider } from "./context/RoomContext";
 import { WallpaperProvider } from "./context/WallpaperContex";
+import { PanelProvider } from "./context/PanelContext";
 
 import Nav from "./components/navigation/Nav";
 import "./index.css";
@@ -18,30 +19,39 @@ import Dashboard from "./components/pages/Dashboard";
 import { PageNotFound } from "./components/pages/PageNotFound";
 
 import { BGCustomContext } from "./context/BGCustomContext";
+import UserStatsModalURL from "./components/stats/UserStatsModalURL";
 // import Chat from "./components/socket-testing/Chat";
 
 function App() {
   const { bg } = useContext(BGCustomContext);
   return (
     <DarkLightProvider>
-      <RoomProvider>
-        <ModalProvider>
-          <WallpaperProvider>
-            <div className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
-              <Modal />
-
-              <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
-                <Route path="/PageNotFound" element={<PageNotFound />}></Route>
-                <Route
-                  path="auth/login/success"
-                  element={<OAuthLoginSuccess />}
-                ></Route>
-              </Routes>
-            </div>
-          </WallpaperProvider>
-        </ModalProvider>
-      </RoomProvider>
+      <PanelProvider>
+        <RoomProvider>
+          <ModalProvider>
+            <WallpaperProvider>
+              <div className="h-screen w-screen font-thin text-neutral-900 dark:bg-gradient-to-b dark:from-slate-700 dark:to-slate-800 dark:text-white">
+                <Modal />
+                <Routes>
+                  <Route
+                    path="auth/login/success"
+                    element={<OAuthLoginSuccess />}
+                  ></Route>
+                </Routes>
+                <Dashboard />
+                <Routes>
+                  <Route path="/" element={<></>}></Route>
+                  <Route
+                    path="/PageNotFound"
+                    element={<PageNotFound />}
+                  ></Route>
+                  <Route path="/user/:data" element={<UserStatsModalURL />} />
+                </Routes>
+              </div>
+            </WallpaperProvider>
+          </ModalProvider>
+        </RoomProvider>
+      </PanelProvider>
     </DarkLightProvider>
   );
 }
