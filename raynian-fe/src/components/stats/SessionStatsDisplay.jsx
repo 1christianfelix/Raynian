@@ -52,6 +52,7 @@ const SessionStatsDisplay = () => {
         user: userInfo.user,
       });
     }
+    toggleUserStatsModal();
   };
 
   useEffect(() => {
@@ -150,7 +151,6 @@ const SessionStatsDisplay = () => {
             userInfo?.user._id != "guest"
               ? () => {
                   updateTotalStudyTime(timerState.totalStudyTimeMins);
-                  toggleUserStatsModal();
                 }
               : null
           }
