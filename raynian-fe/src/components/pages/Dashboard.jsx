@@ -67,31 +67,33 @@ const Dashboard = () => {
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
         <div className="inline-flex h-[100%] w-1/4 flex-col justify-between gap-6 first:mt-4">
-          {timerPanel && (
-            <div
-              className=" shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
-              style={{
-                backgroundColor: theme[0] || "#fafafaB4",
-                boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
-              }}
-            >
-              <Timer2 />
-            </div>
-          )}
-          {sessionStatsPanel && (
-            <div
-              className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
-              style={{
-                backgroundColor: theme[0] || "#fafafaB4",
-                boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
-              }}
-            >
-              <SessionStatsDisplay />
-            </div>
-          )}
+          <div
+            className={`shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] ${
+              !timerPanel ? "hidden" : ""
+            }`}
+            style={{
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+            }}
+          >
+            <Timer2 />
+          </div>
+          <div
+            className={`shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] ${
+              !sessionStatsPanel ? "hidden" : ""
+            }`}
+            style={{
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+            }}
+          >
+            <SessionStatsDisplay />
+          </div>
           {participantsPanel && roomId && (
             <div
-              className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-[25%] overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black"
+              className={`shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-[25%] overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black ${
+                !participantsPanel ? "hidden" : ""
+              }`}
               style={{
                 backgroundColor: theme[0] || "#fafafaB4",
                 boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
@@ -100,7 +102,11 @@ const Dashboard = () => {
               <ParticipantList />
             </div>
           )}
-          <div className="flex-grow  overflow-auto p-4">
+          <div
+            className={`flex-grow overflow-auto p-4 ${
+              !chatPanel ? "invisible" : ""
+            }`}
+          >
             {chatPanel && roomId && <Chat />}
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { WallpaperContext } from "../../context/WallpaperContex";
 import { ModalContext } from "../../context/ModalContext";
 import { TbCalendarStats } from "react-icons/tb";
+import { GoTriangleLeft } from "react-icons/go";
 import { LuTally5, LuTimer } from "react-icons/lu";
 import { AiOutlineFire, AiOutlineLineChart } from "react-icons/ai";
 import * as timerActions from "../../slices/timerSlice";
@@ -191,7 +192,7 @@ const SessionStatsDisplay = () => {
               {duration}
               {listFormats && (
                 <div
-                  className="absolute left-0 mt-3 flex w-20 flex-col items-center gap-3 bg-neutral-50 py-3"
+                  className="absolute left-16 -top-4 mt-3 flex w-20 flex-col items-center gap-3 bg-neutral-50 py-3"
                   style={{ ...wpStyle, boxShadow: "" }}
                 >
                   <div

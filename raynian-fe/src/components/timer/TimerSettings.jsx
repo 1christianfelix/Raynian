@@ -278,7 +278,7 @@ const TimerSettings = (props) => {
           </div>
         </div>
       </div>
-      <div className="absolute -left-6 top-1 text-neutral-50">
+      <div className="absolute -z-[100] -left-6 top-1 text-neutral-50">
         <GoTriangleLeft size={44} />
       </div>
     </div>
