@@ -19,13 +19,16 @@ const getusers = async (req, res) => {
 
 // Get a specific user by ID from the database
 const getuser = async (req, res) => {
-  const { user } = req.params;
+  const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "user does not exist" });
   }
+  const user = await User.findById(id);
   if (!user) {
     return res.status(404).json({ error: "No such user" });
   }
+  await user.populate("stats");
+
   res.status(200).json(user);
 };
 
@@ -71,6 +74,8 @@ const signup = async (req, res) => {
 
   try {
     const user = await User.signup(email, username, password);
+    const token = createToken(user._id);
+
     // adding default pfp
     pfpRandomizer = Math.floor(Math.random() * 3) + 1;
     switch (pfpRandomizer) {
@@ -92,16 +97,14 @@ const signup = async (req, res) => {
         break;
     }
 
-    user.save();
-
-    const token = createToken(user._id);
-
     // Create stats for user and update user's stats reference
     const stats = new Stats({ user: user._id });
+    console.log(stats);
     await stats.save();
+    console.log(stats);
     user.stats = stats._id;
     await user.save();
-    await user.populate("stats");
+    await user.populate("stats").execPopulate();
 
     // Set jwt in the cookie
     res.cookie("jwt", token, {

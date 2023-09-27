@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
+  totalStudyTime: 0,
   countdown: {
     hours: 0,
     minutes: 60,

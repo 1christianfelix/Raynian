@@ -27,7 +27,7 @@ router.get("/", getusers);
  * GET /api/user/:id
  * Protected route: Requires authentication
  */
-router.get("/:id", protect, getuser);
+router.get("/:id", getuser);
 
 /**
  * Check email availability
