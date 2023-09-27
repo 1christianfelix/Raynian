@@ -11,35 +11,35 @@ export const statsApi = createApi({
     getStats: builder.query({
       query: (id) => `/${id}/stats`,
     }),
-    updateTasksCompleted: builder.query({
+    updateTasksCompleted: builder.mutation({
       query: ({ id, data }) => ({
         url: `/${id}/stats/tasks`,
         body: data,
-        method: put,
+        method: "put",
       }),
       invalidatesTags: ["Stats"],
     }),
-    updateSessionsCompleted: builder.query({
+    updateSessionsCompleted: builder.mutation({
       query: ({ id, data }) => ({
         url: `/${id}/stats/sessions`,
         body: data,
-        method: put,
+        method: "put",
       }),
       invalidatesTags: ["Stats"],
     }),
-    updateStudyTime: builder.query({
+    updateStudyTime: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/${id}/stats/studytimer`,
+        url: `/${id}/stats/studytime`,
         body: data,
-        method: put,
+        method: "put",
       }),
       invalidatesTags: ["Stats"],
     }),
-    updateLongestStreak: builder.query({
+    updateLongestStreak: builder.mutation({
       query: ({ id, data }) => ({
         url: `/${id}/stats/longeststreak`,
         body: data,
-        method: put,
+        method: "put",
       }),
       invalidatesTags: ["Stats"],
     }),
@@ -48,8 +48,8 @@ export const statsApi = createApi({
 
 export const {
   useGetStatsQuery,
-  useUpdateTasksCompletedQuery,
-  useUpdateSessionsCompletedQuery,
-  useUpdateStudyTimeQuery,
-  useUpdateLongestStreakQuery,
+  useUpdateTasksCompletedMutation,
+  useUpdateSessionsCompletedMutation,
+  useUpdateStudyTimeMutation,
+  useUpdateLongestStreakMutation,
 } = statsApi;

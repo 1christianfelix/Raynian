@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  totalStudyTime: 0,
+  totalStudyTimeMins: 0,
   countdown: {
     hours: 0,
     minutes: 60,
@@ -39,6 +39,9 @@ const timerSlice = createSlice({
   name: "timer",
   initialState,
   reducers: {
+    setTotalStudyTimeMins: (state, action) => {
+      state.totalStudyTimeMins = action.payload;
+    },
     updateCountdown: (state, action) => {
       state.countdown = action.payload;
     },
@@ -78,6 +81,9 @@ const timerSlice = createSlice({
       if (state.isWork) {
         state.sessionElapsedTime += 1;
       }
+      // if (state.sessionElapsedTime != 0 && state.sessionElapsedTime % 60 == 0) {
+      //   state.totalStudyTimeMins += 1;
+      // }
       if (hours <= 0 && minutes === 0 && seconds === 0) {
         if (state.isWork == true) {
           state.isBreak = true;
@@ -161,6 +167,7 @@ export const getTimerState = () => async (dispatch, getState) => {
 };
 
 export const {
+  setTotalStudyTimeMins,
   updateCountdown,
   setIsWork,
   setIsBreak,

@@ -6,6 +6,8 @@ import {
   sendCurrentTimerStatus,
 } from "../socket/socketConnection";
 
+// import { useGetStatsQuery } from "../../slices/statsApi";
+
 import { Howl } from "howler";
 import start_1 from "../../assets/sounds/start_1.mp3";
 import session_complete_1 from "../../assets/sounds/session_complete_1.mp3";
@@ -14,6 +16,37 @@ const TimerDisplay = () => {
   const dispatch = useDispatch();
   const timerState = useSelector((state) => state.timer);
   const { roomId } = useSelector((state) => state.room);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const getTotalStudyTime = async () => {
+    try {
+      if (userInfo?.user?._id && userInfo?.user?._id !== "guest") {
+        const response = await fetch(
+          `http://localhost:4000/api/user/${userInfo.user._id}/stats`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch stats");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        return data;
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userInfo?.user && userInfo.user._id != "guest") {
+        const data = await getTotalStudyTime();
+        dispatch(timerActions.setTotalStudyTimeMins(data[0].studyTime));
+      } else dispatch(timerActions.setTotalStudyTimeMins(0));
+    };
+    fetchData();
+  }, [userInfo]);
 
   useEffect(() => {
     let interval;

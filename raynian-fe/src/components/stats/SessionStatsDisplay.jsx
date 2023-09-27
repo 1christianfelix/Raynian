@@ -5,6 +5,8 @@ import { ModalContext } from "../../context/ModalContext";
 import { TbCalendarStats } from "react-icons/tb";
 import { LuTally5, LuTimer } from "react-icons/lu";
 import { AiOutlineFire } from "react-icons/ai";
+import * as timerActions from "../../slices/timerSlice";
+import { useUpdateStudyTimeMutation } from "../../slices/statsApi";
 
 import moment from "moment";
 import "moment-duration-format";
@@ -14,6 +16,7 @@ import UserStats from "./UserStats";
 import { Tooltip } from "react-tooltip";
 
 const SessionStatsDisplay = () => {
+  const dispatch = useDispatch();
   const { wpStyle, theme } = useContext(WallpaperContext);
   const { toggleUserStatsModal, setUserStatsParams } = useContext(ModalContext);
   const { userInfo } = useSelector((state) => state.auth);
@@ -23,6 +26,14 @@ const SessionStatsDisplay = () => {
   const [format, setFormat] = useState("m [mins]");
   const [listFormats, setListFormats] = useState(false);
 
+  const [updateStudyTime] = useUpdateStudyTimeMutation();
+
+  const updateTotalStudyTime = async (totalStudyTimeMins) => {
+    const data = { studyTime: totalStudyTimeMins };
+    const res = await updateStudyTime({ id: props.id, data });
+    if (res) console.log(res);
+  };
+
   useEffect(() => {
     const hhmmssFormat = moment
       .duration(timerState.sessionElapsedTime, "seconds")
@@ -30,6 +41,20 @@ const SessionStatsDisplay = () => {
         trim: false,
       });
     setDuration(hhmmssFormat);
+
+    if (timerState.sessionElapsedTime % 60 == 0) {
+      dispatch(
+        timerActions.setTotalStudyTimeMins(timerState.totalStudyTimeMins + 1)
+      );
+    }
+
+    if (
+      userInfo?.user &&
+      userInfo.user._id != "guest" &&
+      timerState.sessionElapsedTime % 600 == 0
+    ) {
+      dispatch(updateTotalStudyTime());
+    }
   }, [timerState.sessionElapsedTime, listFormats]);
 
   return (
