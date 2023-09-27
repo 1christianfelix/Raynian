@@ -6,6 +6,7 @@ import { setRoomUser } from "../../slices/roomSlice";
 import { usePalette } from "react-palette";
 import { TimerProvider } from "../../context/TimerContext";
 import { WallpaperContext } from "../../context/WallpaperContex";
+import { PanelContext } from "../../context/PanelContext";
 import { BGCustomContext } from "../../context/BGCustomContext";
 
 import Timer from "../util/Timer";
@@ -18,6 +19,16 @@ import SessionStatsDisplay from "../stats/SessionStatsDisplay";
 import Nav from "../navigation/Nav";
 
 const Dashboard = () => {
+  const {
+    chatPanel,
+    setChatPanel,
+    timerPanel,
+    setTimerPanel,
+    sessionStatsPanel,
+    setSessionStatsPanel,
+    participantsPanel,
+    setParticipantsPanel,
+  } = useContext(PanelContext);
   const { bg } = useContext(BGCustomContext);
   const { wallpaper, selectedGradient, theme } = useContext(WallpaperContext);
 
@@ -55,27 +66,30 @@ const Dashboard = () => {
 
       <Nav />
       <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
-        <div className="inline-flex h-[100%] flex-col justify-between gap-6 first:mt-4">
-          <div
-            className="shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
-            style={{
-              backgroundColor: theme[0] || "#fafafaB4",
-              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
-            }}
-          >
-            <Timer2 />
-          </div>
-
-          <div
-            className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
-            style={{
-              backgroundColor: theme[0] || "#fafafaB4",
-              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
-            }}
-          >
-            <SessionStatsDisplay />
-          </div>
-          {roomId && (
+        <div className="inline-flex h-[100%] w-1/4 flex-col justify-between gap-6 first:mt-4">
+          {timerPanel && (
+            <div
+              className=" shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+              style={{
+                backgroundColor: theme[0] || "#fafafaB4",
+                boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+              }}
+            >
+              <Timer2 />
+            </div>
+          )}
+          {sessionStatsPanel && (
+            <div
+              className="shadow-panel  mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+              style={{
+                backgroundColor: theme[0] || "#fafafaB4",
+                boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+              }}
+            >
+              <SessionStatsDisplay />
+            </div>
+          )}
+          {participantsPanel && roomId && (
             <div
               className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-[25%] overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black"
               style={{
@@ -86,26 +100,9 @@ const Dashboard = () => {
               <ParticipantList />
             </div>
           )}
-
           <div className="flex-grow  overflow-auto p-4">
-            {roomId && <Chat />}
+            {chatPanel && roomId && <Chat />}
           </div>
-
-          {/* <div className="col-span-2 border">
-            <div className="l grid grid-flow-row grid-cols-4 place-items-center gap-4 p-10">
-              <div className="h-56 w-56 bg-green-300"></div>
-              <div className="h-56 w-56 bg-red-300"></div>
-              <div className="h-56 w-56 bg-pink-300"></div>
-              <div className="h-56 w-56 bg-blue-300"></div>
-              <div className="h-56 w-56 bg-purple-300"></div>
-              <div className="h-56 w-56 bg-green-300"></div>
-              <div className="h-56 w-56 bg-yellow-300"></div>
-              <div className="h-56 w-56 bg-orange-300"></div>
-              <div className="h-56 w-56 bg-emerald-300"></div>
-              <div className="h-56 w-56 bg-amber-300"></div>
-              <div className="h-56 w-56 bg-indigo-300"></div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>

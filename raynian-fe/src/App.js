@@ -4,7 +4,7 @@ import { ModalProvider } from "./context/ModalContext";
 import { DarkLightProvider } from "./context/DarkLightContext";
 import { RoomProvider } from "./context/RoomContext";
 import { WallpaperProvider } from "./context/WallpaperContex";
-import { PanelProvider } from "./context/PanelVisibilityContext";
+import { PanelProvider } from "./context/PanelContext";
 
 import Nav from "./components/navigation/Nav";
 import "./index.css";
