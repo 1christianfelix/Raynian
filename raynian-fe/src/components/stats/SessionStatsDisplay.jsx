@@ -31,7 +31,6 @@ const SessionStatsDisplay = () => {
   const updateTotalStudyTime = async (totalStudyTimeMins) => {
     const data = { studyTime: totalStudyTimeMins };
     const res = await updateStudyTime({ id: userInfo.user._id, data });
-    if (res) console.log(res);
   };
 
   useEffect(() => {
