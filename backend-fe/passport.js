@@ -1,5 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./models/UserModel");
+const Stats = require("./models/StatsModel");
 const { usernameGeneration } = require("./util/usernameGen");
 
 function configurePassport(passport) {
@@ -28,6 +29,10 @@ function configurePassport(passport) {
         }
         if (!user) {
           user = await User.create(defaultUser);
+          const stats = new Stats({ user: user._id });
+          await stats.save();
+          user.stats = stats._id;
+          await user.save();
         }
         return callback(null, user);
       }

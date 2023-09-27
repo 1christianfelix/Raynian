@@ -99,12 +99,10 @@ const signup = async (req, res) => {
 
     // Create stats for user and update user's stats reference
     const stats = new Stats({ user: user._id });
-    console.log(stats);
     await stats.save();
-    console.log(stats);
     user.stats = stats._id;
     await user.save();
-    await user.populate("stats").execPopulate();
+    await user.populate("stats");
 
     // Set jwt in the cookie
     res.cookie("jwt", token, {
