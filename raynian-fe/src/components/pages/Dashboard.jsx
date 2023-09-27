@@ -103,7 +103,7 @@ const Dashboard = () => {
             </div>
           )}
           <div
-            className={`flex-grow overflow-auto p-4 ${
+            className={`h-3/4 overflow-auto p-4 ${
               !chatPanel ? "invisible" : ""
             }`}
           >

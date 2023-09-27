@@ -3,7 +3,7 @@ import { LiaWindowMinimizeSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import { sendRoomChat } from "../socket/socketConnection";
 import Draggable from "react-draggable";
-import { BiExpandAlt, BiCollapseAlt } from "react-icons/bi";
+import { AiFillPushpin } from "react-icons/ai";
 
 const ChatDisplay = () => {
   const { chat, roomId, user } = useSelector((state) => state.room);
@@ -11,7 +11,7 @@ const ChatDisplay = () => {
   const [newMessage, setNewMessage] = useState("");
   const chatBoxRef = useRef(null);
   const [chatView, setChatView] = useState(true);
-  const [pin, setPin] = useState(false);
+  const [pin, setPin] = useState(true);
 
   if (roomId == null) {
     return null;
@@ -47,11 +47,13 @@ const ChatDisplay = () => {
 
   // Scroll the chat box to the bottom when a new message is added
   useEffect(() => {
-    if (
-      chatView &&
-      chatBoxRef.current.scrollTop == chatBoxRef.current.scrollHeight
-    )
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    // chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+
+    if (pin === false && chatView === false) {
+      console.log("test");
+      setChatView(true);
+      setTimeout(() => setChatView(false), 1500);
+    }
   }, [chat]);
 
   return (
@@ -110,14 +112,16 @@ const ChatDisplay = () => {
           <div className=" border-b bg-transparent h-full flex items-center p-2">
             {!pin ? (
               <div
+                className="text-gray-400"
                 onClick={() => {
                   setPin(true);
                 }}
               >
-                <BiExpandAlt />
+                <AiFillPushpin />
               </div>
             ) : (
               <div
+                className="text-white"
                 onClick={() => {
                   setPin(false);
                   if (chatView) {
@@ -125,7 +129,7 @@ const ChatDisplay = () => {
                   }
                 }}
               >
-                <BiCollapseAlt />
+                <AiFillPushpin />
               </div>
             )}
           </div>
