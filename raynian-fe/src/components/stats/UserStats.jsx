@@ -27,6 +27,7 @@ const UserStats = ({ user }) => {
 
   // Get User name
   useEffect(() => {
+    console.log(user);
     const fetchData = async () => {
       try {
         if (user._id != "guest") {

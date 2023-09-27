@@ -4,7 +4,7 @@ import { WallpaperContext } from "../../context/WallpaperContex";
 import { ModalContext } from "../../context/ModalContext";
 import { TbCalendarStats } from "react-icons/tb";
 import { LuTally5, LuTimer } from "react-icons/lu";
-import { AiOutlineFire } from "react-icons/ai";
+import { AiOutlineFire, AiOutlineLineChart } from "react-icons/ai";
 import * as timerActions from "../../slices/timerSlice";
 import {
   useUpdateStudyTimeMutation,
@@ -162,7 +162,7 @@ const SessionStatsDisplay = () => {
           }
           data-tooltip-place="right"
         >
-          <TbCalendarStats />
+          <AiOutlineLineChart />
         </div>
       </div>
       <div className="flex flex-row items-center justify-between">

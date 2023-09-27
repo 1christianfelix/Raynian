@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { LuDog, LuCat } from "react-icons/lu";
 import {
@@ -7,8 +7,12 @@ import {
   AiOutlineLineChart,
 } from "react-icons/ai";
 import ParticipantTimer from "./ParticipantTimer";
+import UserStats from "../stats/UserStats";
+import { ModalContext } from "../../context/ModalContext";
 
 const ParticipantList = () => {
+  const { toggleUserStatsModal, setUserStatsParams, userStatsParams } =
+    useContext(ModalContext);
   const { participants, roomId } = useSelector((state) => state.room);
   const timerState = useSelector((state) => state.timer);
   const [toggleList, setToggleList] = useState(true);
@@ -16,6 +20,10 @@ const ParticipantList = () => {
   // if (roomId == null) {
   //   return null;
   // }
+
+  // useEffect(() => {
+  //   toggleUserStatsModal();
+  // }, [userStatsParams]);
 
   const toggleParticipantList = () => {
     setToggleList((prev) => !prev);
@@ -64,8 +72,19 @@ const ParticipantList = () => {
                       )}
                   </p>
                 </div>
-                <div className="hover:cursor-pointer">
-                  <AiOutlineLineChart />
+                <div className={`hover:cursor-pointer`}>
+                  {participant._id != "guest" && (
+                    <button
+                      on
+                      onClick={() => {
+                        setUserStatsParams({ user: participant });
+
+                        toggleUserStatsModal();
+                      }}
+                    >
+                      <AiOutlineLineChart />
+                    </button>
+                  )}
                 </div>
                 {participant.timerData && (
                   <div className="">
