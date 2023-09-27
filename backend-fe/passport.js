@@ -29,11 +29,6 @@ function configurePassport(passport) {
         }
         if (!user) {
           user = await User.create(defaultUser);
-          const stats = new Stats({ user: user._id });
-          await stats.save();
-          user.stats = stats._id;
-          await user.save();
-
           pfpRandomizer = Math.floor(Math.random() * 3) + 1;
           switch (pfpRandomizer) {
             case 1:
@@ -53,6 +48,10 @@ function configurePassport(passport) {
                 "https://img.freepik.com/free-vector/cute-dinosaur-playing-guitar-music-cartoon-vector-icon-illustration-animal-technology-icon-isolated_138676-4729.jpg";
               break;
           }
+          const stats = new Stats({ user: user._id });
+          await stats.save();
+          user.stats = stats._id;
+          await user.save();
         }
         return callback(null, user);
       }
