@@ -1,7 +1,16 @@
 const express = require("express");
-const { getuser, getusers, usernameChecker, emailChecker } = require("../controllers/UserController");
+const {
+  getuser,
+  getusers,
+  usernameChecker,
+  emailChecker,
+} = require("../controllers/UserController");
 const { protect } = require("../middleware/authMiddleware");
-const { getuserstats, updateuserstats } = require("../controllers/StatsController");
+const {
+  getUserStats,
+  updateTasksCompleted,
+  updateSessionsCompleted,
+} = require("../controllers/StatsController");
 
 const router = express.Router();
 
@@ -34,12 +43,18 @@ router.post("/check/username", usernameChecker);
  * Get user stats
  * GET /api/user/:id/stats
  */
-router.get("/:id/stats", getuserstats);
+router.get("/:id/stats", getUserStats);
 
 /**
- * Update user stats
- * PUT /api/user/:id/stats
+ * Update user task stats
+ * PUT /api/user/:id/stats/tasks
  */
-router.put("/:id/stats", updateuserstats);
+router.put("/:id/stats/tasks", updateTasksCompleted);
+
+/**
+ * Update user session stats
+ * PUT /api/user/:id/stats/sessions
+ */
+router.put("/:id/stats/sessions", updateSessionsCompleted);
 
 module.exports = router;
