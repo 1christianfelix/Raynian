@@ -30,7 +30,7 @@ const SessionStatsDisplay = () => {
 
   const updateTotalStudyTime = async (totalStudyTimeMins) => {
     const data = { studyTime: totalStudyTimeMins };
-    const res = await updateStudyTime({ id: props.id, data });
+    const res = await updateStudyTime({ id: userInfo.user._id, data });
     if (res) console.log(res);
   };
 
@@ -41,21 +41,24 @@ const SessionStatsDisplay = () => {
         trim: false,
       });
     setDuration(hhmmssFormat);
+  }, [timerState.sessionElapsedTime, listFormats]);
 
+  useEffect(() => {
     if (timerState.sessionElapsedTime % 60 == 0) {
       dispatch(
         timerActions.setTotalStudyTimeMins(timerState.totalStudyTimeMins + 1)
       );
     }
 
+    // update database every 10 minutes of active studying if user is logged in
     if (
       userInfo?.user &&
       userInfo.user._id != "guest" &&
       timerState.sessionElapsedTime % 600 == 0
     ) {
-      dispatch(updateTotalStudyTime());
+      updateTotalStudyTime(timerState.totalStudyTimeMins);
     }
-  }, [timerState.sessionElapsedTime, listFormats]);
+  }, [timerState.sessionElapsedTime]);
 
   return (
     <div className="relative flex flex-col gap-2 w-[100%] text-xs font-normal">
