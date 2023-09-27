@@ -77,7 +77,7 @@ const Dashboard = () => {
           </div>
           {roomId && (
             <div
-              className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms]"
+              className="shadow-panel mx-4 flex justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] max-h-[25%] overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black"
               style={{
                 backgroundColor: theme[0] || "#fafafaB4",
                 boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,

@@ -55,12 +55,15 @@ const SessionStatsDisplay = () => {
     toggleUserStatsModal();
   };
 
-  useEffect(() => {
-    updateTotalStudyTime(timerState.totalStudyTimeMins);
-  }, []);
+  // useEffect(() => {
+  //   updateTotalStudyTime(timerState.totalStudyTimeMins);
+  // }, [userInfo]);
 
   useEffect(() => {
-    if (timerState.sessionElapsedTime % 60 == 0) {
+    if (
+      timerState.sessionElapsedTime != 0 &&
+      timerState.sessionElapsedTime % 60 == 0
+    ) {
       dispatch(
         timerActions.setTotalStudyTimeMins(timerState.totalStudyTimeMins + 1)
       );
@@ -70,6 +73,7 @@ const SessionStatsDisplay = () => {
     if (
       userInfo?.user &&
       userInfo.user._id != "guest" &&
+      timerState.sessionElapsedTime != 0 &&
       timerState.sessionElapsedTime % 600 == 0
     ) {
       updateTotalStudyTime(timerState.totalStudyTimeMins);
