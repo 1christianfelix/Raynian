@@ -113,21 +113,31 @@ const SessionStatsDisplay = () => {
       <div className=" flex justify-between items-center">
         <p className="font-normal text-sm">Current Session Stats</p>
         <div
-          className="hover:scale-90 hover:border-blue-500 transition-all p-1 border-2 border-transparent rounded-full cursor-pointer "
-          onClick={() => {
-            toggleUserStatsModal();
-            setUserStatsParams({ id: userInfo.user._id });
-            updateTotalStudyTime(timerState.totalStudyTimeMins);
-          }}
+          className={`p-1 border-2 rounded-full cursor-pointer text-base ${
+            userInfo?.user._id == "guest"
+              ? "text-gray-500"
+              : "hover:scale-90 hover:border-blue-500 transition-all"
+          }`}
+          onClick={
+            userInfo?.user._id != "guest"
+              ? () => {
+                  toggleUserStatsModal();
+                  setUserStatsParams({
+                    user: userInfo.user,
+                  });
+                  updateTotalStudyTime(timerState.totalStudyTimeMins);
+                }
+              : null
+          }
+          data-tooltip-id="stats"
+          data-tooltip-content={
+            userInfo?.user._id == "guest"
+              ? "Sign in to view more stats"
+              : "See more stats"
+          }
+          data-tooltip-place="right"
         >
-          <div
-            className="text-base"
-            data-tooltip-id="stats"
-            data-tooltip-content="see more stats"
-            data-tooltip-place="right"
-          >
-            <TbCalendarStats />
-          </div>
+          <TbCalendarStats />
         </div>
       </div>
       <div className="flex flex-row items-center justify-between">

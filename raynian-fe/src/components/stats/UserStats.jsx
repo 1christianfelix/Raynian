@@ -6,12 +6,12 @@ import {
 } from "../../slices/statsApi";
 import { useDispatch, useSelector } from "react-redux";
 
-const UserStats = (props) => {
-  const { data } = useGetStatsQuery(props.id);
+const UserStats = ({ user }) => {
+  const { data } = useGetStatsQuery(user.id);
   const [updateStudyTime] = useUpdateStudyTimeMutation();
   const { userInfo } = useSelector((state) => state.auth);
   const timerState = useSelector((state) => state.timer);
-  const [user, setUser] = useState({});
+  const [userState, setUserStats] = useState(null);
 
   // const updateTotalStudyTime = async (totalStudyTimeMins) => {
   //   const data = { studyTime: totalStudyTimeMins };
@@ -24,19 +24,19 @@ const UserStats = (props) => {
   //   }
   // }, []);
 
+  // Get User name
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (props.id != "guest") {
+        if (user.id != "guest") {
           const response = await fetch(
-            `http://localhost:4000/api/user/${props.id}`
+            `http://localhost:4000/api/user/${user.id}`
           );
 
           if (!response.ok) {
             throw new Error("Failed to fetch stats");
           } else {
             const data = await response.json();
-            setUser(data.username);
           }
         }
       } catch (e) {
@@ -52,7 +52,7 @@ const UserStats = (props) => {
       onClick={(event) => event.stopPropagation()}
     >
       <CloseModalButton />
-      <div className="text-2xl font-bold">{user}</div>
+      <div className="text-2xl font-bold">{user.username}</div>
       <div className=""></div>
     </div>
   );

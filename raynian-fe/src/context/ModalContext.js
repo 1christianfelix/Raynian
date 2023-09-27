@@ -6,7 +6,9 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState(null);
-  const [userStatsParams, setUserStatsParams] = useState({ id: "" });
+  const [userStatsParams, setUserStatsParams] = useState({
+    user: {},
+  });
 
   const toggleLogin = () => {
     setType("login");
