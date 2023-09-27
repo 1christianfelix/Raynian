@@ -117,6 +117,7 @@ const SessionStatsDisplay = () => {
           onClick={() => {
             toggleUserStatsModal();
             setUserStatsParams({ id: userInfo.user._id });
+            updateTotalStudyTime(timerState.totalStudyTimeMins);
           }}
         >
           <div
