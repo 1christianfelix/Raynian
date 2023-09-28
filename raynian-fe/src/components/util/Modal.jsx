@@ -11,6 +11,7 @@ import BackgroundSettings from "../ui/background-customizer/BackgroundSettings";
 import UserStats from "../stats/UserStats";
 
 import { RxCross1 } from "react-icons/rx";
+import DailiesDashboard from "../dailies/DailiesDashboard";
 
 export default function Modal(props) {
   const { type, setType, userStatsParams } = useContext(ModalContext);
@@ -42,6 +43,7 @@ export default function Modal(props) {
           {type === "timerSettings" && <TimerSettings />}
           {type === "backgroundSettings" && <BackgroundSettings />}
           {type === "userStats" && <UserStats {...userStatsParams} />}
+          {type === "dailiesDashboard" && <DailiesDashboard />}
         </div>
         <div className="absolute z-[50] h-screen w-screen backdrop-blur-sm"></div>
       </div>

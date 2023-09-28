@@ -8,7 +8,7 @@ const CloseModalButton = () => {
     setType(null);
   };
   return (
-    <div className="absolute right-4 top-4 z-[100]">
+    <div className="absolute right-4 top-4 z-[100] ">
       <div onClick={handleContent} className="cursor-pointer">
         <RxCross1 />
       </div>

@@ -46,6 +46,10 @@ export const ModalProvider = ({ children }) => {
     setType("userStats");
   };
 
+  const toggleDailiesDashboard = () => {
+    setType("dailiesDashboard");
+  };
+
   // close login or sign up modals if user signs in (userInfo is not null in auth slice)
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -77,6 +81,7 @@ export const ModalProvider = ({ children }) => {
         toggleUserStatsModal,
         userStatsParams,
         setUserStatsParams,
+        toggleDailiesDashboard,
         setType,
       }}
     >

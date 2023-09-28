@@ -17,6 +17,7 @@ import ParticipantList from "../participants/ParticipantList";
 import Timer2 from "../timer/Timer2";
 import SessionStatsDisplay from "../stats/SessionStatsDisplay";
 import Nav from "../navigation/Nav";
+import TempTaskSystem from "./TempTaskSystem";
 
 const Dashboard = () => {
   const {
@@ -65,8 +66,8 @@ const Dashboard = () => {
       {wallpaper}
 
       <Nav />
-      <div className=" mx-16 mb-12 h-[100%] flex-grow overflow-hidden">
-        <div className="inline-flex h-[100%] w-1/4 flex-col justify-between  first:mt-4">
+      <div className=" mx-16 mb-12 h-[100%] flex flex-grow overflow-hidden">
+        <div className="inline-flex h-[100%] min-w-content flex-col justify-between  first:mt-4">
           <div className="h-3/5 flex flex-col gap-4">
             <div
               className={`shadow-panel mx-4 flex flex-col justify-center p-4 backdrop-blur-sm transition-all duration-[700ms] ${
@@ -110,6 +111,17 @@ const Dashboard = () => {
             }`}
           >
             {chatPanel && roomId && <Chat />}
+          </div>
+        </div>
+        <div className="justify-end p-4">
+          <div
+            className=" min-w-content"
+            style={{
+              backgroundColor: theme[0] || "#fafafaB4",
+              boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,
+            }}
+          >
+            <TempTaskSystem></TempTaskSystem>
           </div>
         </div>
       </div>

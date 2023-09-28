@@ -68,7 +68,7 @@ const ChatDisplay = () => {
         {true && (
           <div
             ref={chatBoxRef}
-            className={` scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-thumb-rounded-full flex-1 overflow-y-scroll p-4 opacity-0 select-none backdrop-blur-sm bg-transparent transition ${
+            className={` scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-thumb-rounded-full flex-1 overflow-y-scroll p-4 opacity-0 select-none backdrop-blur-sm transition ${
               chatView && "bg-black/40 opacity-100"
             }`}
           >

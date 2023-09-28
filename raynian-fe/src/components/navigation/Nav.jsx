@@ -6,16 +6,18 @@ import thick_logo from "../../assets/thick_logo.svg";
 import RoomButton from "../rooms/RoomButton";
 import { useDispatch, useSelector } from "react-redux";
 
-import { PiImagesSquareThin } from "react-icons/pi";
+import { PiImagesSquareThin, PiNotePencilThin } from "react-icons/pi";
 import { BsFillChatSquareTextFill } from "react-icons/bs";
 import { IoIosStats } from "react-icons/io";
 import { IoTime } from "react-icons/io5";
+import { BsPencilSquare } from "react-icons/bs";
 import { HiUserGroup } from "react-icons/hi";
 import { PanelContext } from "../../context/PanelContext";
 import { ModalContext } from "../../context/ModalContext";
 
 export default function Nav() {
-  const { toggleBackgroundSettings } = useContext(ModalContext);
+  const { toggleBackgroundSettings, toggleDailiesDashboard } =
+    useContext(ModalContext);
   const {
     chatPanel,
     setChatPanel,
@@ -78,6 +80,12 @@ export default function Nav() {
         </div>
         <div className="flex items-center gap-2 bg-white/10 px-4 backdrop-blur-md">
           <RoomButton />
+          <div onClick={toggleDailiesDashboard}>
+            <PiNotePencilThin
+              size={45}
+              className="transition-all hover:text-white dark:hover:text-neutral-900 cursor-pointer"
+            />
+          </div>
           <div onClick={toggleBackgroundSettings}>
             <PiImagesSquareThin
               size={45}
