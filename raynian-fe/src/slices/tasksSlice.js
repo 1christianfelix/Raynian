@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   name: "tasks",
-  items: [{ id: "1", content: "hello" }],
+  items: [{ id: "1", content: "Hello! What do you have to do this session?" }],
 };
 
 const tasksSlice = createSlice({
