@@ -4,6 +4,8 @@ import TaskCard from "./TaskCard";
 import * as tasksActions from "../../slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { AiOutlinePlus } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
 
 const itemsFromBackend = [
   { id: "1", content: "first task" },
@@ -98,7 +100,7 @@ const TempTaskSystem = () => {
                             {(provided, snapshot) => {
                               return (
                                 <div
-                                  className="relative"
+                                  className="relative font-normal text-xs"
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
@@ -109,8 +111,8 @@ const TempTaskSystem = () => {
                                     minHeight: "50px",
                                     backgroundColor: snapshot.isDragging
                                       ? "#263B4a"
-                                      : "#456c86",
-                                    color: "white",
+                                      : "#fafafa",
+                                    color: "black",
                                     boxShadow: "6px 6px 3px rgba(0, 0, 0, 0.4)",
                                     ...provided.draggableProps.style,
                                   }}
@@ -118,12 +120,12 @@ const TempTaskSystem = () => {
                                   {/* {item.content} */}
                                   <TaskCard content={item.content}></TaskCard>
                                   <div
-                                    className="absolute right-2 top-0 cursor-pointer"
+                                    className="absolute right-1 top-1 cursor-pointer"
                                     onClick={() => {
                                       removeItem(index);
                                     }}
                                   >
-                                    x
+                                    <RxCross2 />
                                   </div>
                                 </div>
                               );
@@ -140,9 +142,9 @@ const TempTaskSystem = () => {
           })}
         </DragDropContext>
       )}
-      <div className="text-center">
+      <div className="flex items-center justify-center">
         <p className="inline  cursor-pointer" onClick={newItem}>
-          +
+          <AiOutlinePlus />
         </p>
       </div>
     </div>

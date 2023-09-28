@@ -14,6 +14,7 @@ const TaskCard = (props) => {
         type="text"
         value={inputValue}
         onChange={handleInputChange}
+        style={{ wordWrap: "break-word" }}
       />
     </div>
   );
