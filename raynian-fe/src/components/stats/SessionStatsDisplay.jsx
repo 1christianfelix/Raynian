@@ -196,7 +196,7 @@ const SessionStatsDisplay = () => {
           }}
         >
           <LuTimer />
-          <p>
+          <div>
             Elapsed Time:{" "}
             <div className="relative inline text-xs">
               {duration}
@@ -240,7 +240,7 @@ const SessionStatsDisplay = () => {
                 </div>
               )}
             </div>
-          </p>
+          </div>
         </div>
       </div>
 

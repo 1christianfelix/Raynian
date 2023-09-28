@@ -113,9 +113,9 @@ const Dashboard = () => {
             {chatPanel && roomId && <Chat />}
           </div>
         </div>
-        <div className="justify-end p-4">
+        <div className="p-4 h-1/3">
           <div
-            className=" min-w-content"
+            className="max-h-full overflow-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-black"
             style={{
               backgroundColor: theme[0] || "#fafafaB4",
               boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,

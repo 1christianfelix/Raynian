@@ -8,9 +8,9 @@ const TaskCard = (props) => {
   };
 
   return (
-    <div className="">
+    <div className=" p-1 flex justify-between ">
       <input
-        className="bg-transparent"
+        className="bg-transparent w-11/12 border-b outline-none"
         type="text"
         value={inputValue}
         onChange={handleInputChange}

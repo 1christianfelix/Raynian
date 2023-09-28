@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TaskCard from "./TaskCard";
+import * as tasksActions from "../../slices/tasksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 const itemsFromBackend = [
   { id: "1", content: "first task" },
@@ -49,69 +52,99 @@ const onDragEnd = (result, columns, setColumns) => {
 };
 
 const TempTaskSystem = () => {
-  const [columns, setColumns] = useState(columnsFromBackend);
+  const dispatch = useDispatch();
+  const { name, items } = useSelector((state) => state.tasks);
+  const [columns, setColumns] = useState(null);
+
+  const newItem = () => {
+    console.log(columns);
+    dispatch(tasksActions.addItem({ id: uuidv4(), content: "" }));
+  };
+
+  const removeItem = (index) => {
+    dispatch(tasksActions.removeItem(index));
+  };
+
+  useEffect(() => {
+    setColumns({ tasksCol: { name: name, items: items } });
+  }, [items]);
 
   return (
-    <div className="p-4">
-      <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-      >
-        {Object.entries(columns).map(([id, column]) => {
-          return (
-            <Droppable droppableId={id} key={id}>
-              {(provided, snapshot) => {
-                return (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    style={{
-                      background: snapshot.isDraggingOver ? "lightblue" : "",
-                      padding: 4,
-                    }}
-                  >
-                    {column.items.map((item, index) => {
-                      return (
-                        <Draggable
-                          key={item.id}
-                          draggableId={item.id}
-                          index={index}
-                        >
-                          {(provided, snapshot) => {
-                            return (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={{
-                                  width: "400px",
-                                  userSelect: "none",
-                                  padding: 16,
-                                  margin: "0 0 8px 0",
-                                  minHeight: "50px",
-                                  backgroundColor: snapshot.isDragging
-                                    ? "#263B4a"
-                                    : "#456c86",
-                                  color: "white",
-                                  ...provided.draggableProps.style,
-                                }}
-                              >
-                                {/* {item.content} */}
-                                <TaskCard content={item.content}></TaskCard>
-                              </div>
-                            );
-                          }}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </div>
-                );
-              }}
-            </Droppable>
-          );
-        })}
-      </DragDropContext>
-      <div className="text-center">+</div>
+    <div className="p-4 w-[400px]">
+      {columns && (
+        <DragDropContext
+          onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        >
+          {Object.entries(columns).map(([id, column]) => {
+            return (
+              <Droppable droppableId={id} key={id}>
+                {(provided, snapshot) => {
+                  return (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={{
+                        background: snapshot.isDraggingOver ? "lightblue" : "",
+                        padding: 4,
+                      }}
+                    >
+                      {column.items.map((item, index) => {
+                        return (
+                          <Draggable
+                            key={item.id}
+                            draggableId={item.id}
+                            index={index}
+                          >
+                            {(provided, snapshot) => {
+                              return (
+                                <div
+                                  className="relative"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={{
+                                    userSelect: "none",
+                                    padding: 8,
+                                    margin: "0 0 12px 0",
+                                    minHeight: "50px",
+                                    backgroundColor: snapshot.isDragging
+                                      ? "#263B4a"
+                                      : "#456c86",
+                                    color: "white",
+                                    boxShadow: "6px 6px 3px rgba(0, 0, 0, 0.4)",
+                                    ...provided.draggableProps.style,
+                                  }}
+                                >
+                                  {/* {item.content} */}
+                                  <TaskCard content={item.content}></TaskCard>
+                                  <div
+                                    className="absolute right-2 top-0 cursor-pointer"
+                                    onClick={() => {
+                                      removeItem(index);
+                                    }}
+                                  >
+                                    x
+                                  </div>
+                                </div>
+                              );
+                            }}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+            );
+          })}
+        </DragDropContext>
+      )}
+      <div className="text-center">
+        <p className="inline  cursor-pointer" onClick={newItem}>
+          +
+        </p>
+      </div>
     </div>
   );
 };

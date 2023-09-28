@@ -2,11 +2,27 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: {},
-  host: {},
-  roomId: null,
-  chat: [],
-  participants: [],
-  roomSettings: {},
-  public: true,
+  name: "tasks",
+  items: [{ id: "1", content: "hello" }],
 };
+
+const tasksSlice = createSlice({
+  name: "tasks",
+  initialState,
+  reducers: {
+    // Connect to room
+    addItem: (state, action) => {
+      const newArr = state.items;
+      newArr.push(action.payload);
+      state.items = newArr;
+    },
+    removeItem: (state, action) => {
+      const newArr = state.items;
+      newArr.splice(action.payload, 1);
+      state.items = newArr;
+    },
+  },
+});
+
+export const { addItem, removeItem } = tasksSlice.actions;
+export default tasksSlice.reducer;
