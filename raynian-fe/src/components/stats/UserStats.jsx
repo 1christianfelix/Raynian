@@ -51,18 +51,18 @@ const UserStats = ({ user }) => {
 
   return (
     <div
-      className="relative h-[70%] w-[80%] rounded-3xl bg-neutral-50 px-4 py-10 shadow-modal"
+      className="relative h-[60%] w-[70%] rounded-3xl bg-neutral-50 px-4 py-10 shadow-modal "
       onClick={(event) => event.stopPropagation()}
     >
       <CloseModalButton />
       {stats && (
-        <div className="m-4 flex flex-col gap-5 h-full">
+        <div className="m-4 flex flex-col gap-5 h-full ">
           <div
-            className="flex w-full flex-col gap-5 items-center justify-center py-5"
+            className="flex w-full flex-col gap-5 items-center justify-center py-5 shadow-md"
             style={{ backgroundColor: theme[1] + "19" }}
           >
             <img
-              className="h-40 w-40 rounded-full"
+              className="h-32 w-32 rounded-full"
               src={user.profilePicture}
               alt=""
             />
@@ -70,7 +70,7 @@ const UserStats = ({ user }) => {
           </div>
 
           <div className="h-[40%] grid grid-cols-5 gap-10">
-            <div className=" flex flex-col gap-2 items-center justify-center bg-[#FAEDCB] p-4">
+            <div className=" flex flex-col gap-2 items-center justify-center bg-[#FAEDCB] p-4 shadow-xl">
               <p className="font-semibold text-lg text-center">
                 Spent{" "}
                 <span className="font-bold text-2xl underline">
@@ -79,8 +79,8 @@ const UserStats = ({ user }) => {
                 minutes being productive!
               </p>
             </div>
-            <div className="">Total Break Time</div>
-            <div className=" flex flex-col gap-2 items-center justify-center bg-[#c9E4De] p-4">
+            {/* <div className="">Total Break Time</div> */}
+            <div className=" flex flex-col gap-2 items-center justify-center bg-[#c9E4De] p-4 shadow-xl">
               <p className="font-semibold text-lg text-center">
                 Completed{" "}
                 <span className="font-bold text-2xl underline">
@@ -89,8 +89,8 @@ const UserStats = ({ user }) => {
                 sessions!
               </p>
             </div>
-            <div className="">Dailies Completed</div>
-            <div className="flex flex-col gap-2 items-center justify-center bg-[#C6DEF1] p-4">
+            {/* <div className="">Dailies Completed</div> */}
+            <div className="flex flex-col gap-2 items-center justify-center bg-[#C6DEF1] p-4 shadow-xl">
               <p className="text-center font-semibold">
                 Longest Streak of{" "}
                 <span className="font-bold text-2xl underline">

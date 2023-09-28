@@ -56,6 +56,16 @@ const SessionStatsDisplay = () => {
     toggleUserStatsModal();
   };
 
+  const updateTotalStudyTimeNoModal = async (totalStudyTimeMins) => {
+    const data = { studyTime: totalStudyTimeMins };
+    const res = await updateStudyTime({ id: userInfo.user._id, data });
+    if (res) {
+      setUserStatsParams({
+        user: userInfo.user,
+      });
+    }
+  };
+
   // useEffect(() => {
   //   updateTotalStudyTime(timerState.totalStudyTimeMins);
   // }, [userInfo]);
@@ -77,7 +87,7 @@ const SessionStatsDisplay = () => {
       timerState.sessionElapsedTime != 0 &&
       timerState.sessionElapsedTime % 600 == 0
     ) {
-      updateTotalStudyTime(timerState.totalStudyTimeMins);
+      updateTotalStudyTimeNoModal(timerState.totalStudyTimeMins);
     }
   }, [timerState.sessionElapsedTime]);
 
@@ -186,7 +196,7 @@ const SessionStatsDisplay = () => {
           }}
         >
           <LuTimer />
-          <p>
+          <div>
             Elapsed Time:{" "}
             <div className="relative inline text-xs">
               {duration}
@@ -230,7 +240,7 @@ const SessionStatsDisplay = () => {
                 </div>
               )}
             </div>
-          </p>
+          </div>
         </div>
       </div>
 
