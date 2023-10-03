@@ -161,12 +161,12 @@ const BackgroundSettings = () => {
       </div>
       <div className="mt-2">{selectedGradient && <BgCustomizerMenu />}</div>
       <div
-        className="absolute -right-[28rem] bottom-[25%] flex h-64 w-96 items-center justify-center"
+        className="absolute -right-[28rem] bottom-[25%] flex h-64 w-96 items-center justify-center "
         style={{ background: selectedGradient ? bg : "" }}
       >
         {wallpaper}
         <div
-          className="flex h-44 w-64 items-center justify-center text-lg font-bold transition-all duration-[700ms]"
+          className="flex h-44 w-64 items-center justify-center text-lg font-bold transition-all duration-[700ms] backdrop-blur-sm"
           style={{
             backgroundColor: theme[0] || "#fafafaB4",
             boxShadow: `8px 8px 1px ${theme[1] || "#8080807F"}`,

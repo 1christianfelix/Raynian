@@ -79,6 +79,9 @@ export default function Nav() {
           </button>
         </div>
         <div className="flex items-center gap-2 bg-white/10 px-4 backdrop-blur-md">
+          {roomId && (
+            <div className="select-text text-white">room: {roomId}</div>
+          )}
           <RoomButton />
           <div onClick={toggleDailiesDashboard}>
             <PiNotePencilThin

@@ -77,7 +77,7 @@ const TimerContols = () => {
             )
           }
         >
-          Admin Skip
+          x
         </button>
       )}
 
