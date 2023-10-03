@@ -6,6 +6,9 @@ Raynian is a social pomodoro application designed to enhance productivity and co
 
 **outdated**https://youtu.be/A7pDKVrKAfU
 
+### Customizable Dashboard + Stat tracking 9/28/23
+
+![Dashboard customizability + stat tracking](media/9-28-update.gif)
 
 ### Synchronized Async timers update 9/16/23
 
