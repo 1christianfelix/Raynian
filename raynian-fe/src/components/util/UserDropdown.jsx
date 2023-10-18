@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export default function UserDropdown(props) {
-  const { toggleLogin, toggleSignup } = useContext(ModalContext);
+  const { toggleLogin, toggleSignup, toggleProfileModal } = useContext(ModalContext);
   const { theme, toggleDark } = useContext(DarkLightContext);
   const dropdownRef = useRef(null);
   const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
@@ -65,12 +65,20 @@ export default function UserDropdown(props) {
   if (userInfo !== null && userInfo.user._id !== "guest") {
     content = (
       <>
+      <motion.button
+          className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
+          onClick={()=>{toggleDropdown(); toggleProfileModal()}}
+          {...dropdownTextAnimation}
+        >
+          Profile
+          {/* <Link to={`/profile/${userInfo.user._id}`}>Profile</Link> */}
+        </motion.button>
         <motion.button
           className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"
           onClick={toggleDropdown}
           {...dropdownTextAnimation}
         >
-          <Link to={`user/${userInfo.user._id}`}>Profile</Link>
+          <Link to={`/user/${userInfo.user._id}`}>Stats</Link>
         </motion.button>
         <motion.button
           className="px-[20px] py-[5px] hover:bg-gray-200 dark:hover:bg-gray-600"

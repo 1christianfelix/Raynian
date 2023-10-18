@@ -9,9 +9,8 @@ import LeaveRoomPrompt from "../rooms/LeaveRoomPrompt";
 import TimerSettings from "../timer/TimerSettings";
 import BackgroundSettings from "../ui/background-customizer/BackgroundSettings";
 import UserStats from "../stats/UserStats";
-
-import { RxCross1 } from "react-icons/rx";
 import DailiesDashboard from "../dailies/DailiesDashboard";
+import ProfilePage from "../profile/ProfilePage";
 
 export default function Modal(props) {
   const { type, setType, userStatsParams } = useContext(ModalContext);
@@ -44,6 +43,7 @@ export default function Modal(props) {
           {type === "backgroundSettings" && <BackgroundSettings />}
           {type === "userStats" && <UserStats {...userStatsParams} />}
           {type === "dailiesDashboard" && <DailiesDashboard />}
+          {type === "profile" && <ProfilePage />}
         </div>
         <div className="absolute z-[50] h-screen w-screen backdrop-blur-sm"></div>
       </div>

@@ -11,7 +11,7 @@ import "./index.css";
 import LoginPage from "./components/pages/LoginPage";
 import SignupPage from "./components/pages/SignupPage";
 import OAuthLoginSuccess from "./components/pages/OAuthLoginSuccess";
-import ProfilePage from "./components/pages/ProfilePage";
+import ProfilePage from "./components/profile/ProfilePage";
 import Modal from "./components/util/Modal";
 import BgCustomizerMenu from "./components/ui/background-customizer/BgCustomizerMenu";
 
@@ -45,7 +45,8 @@ function App() {
                     path="/PageNotFound"
                     element={<PageNotFound />}
                   ></Route>
-                  <Route path="/user/:data" element={<UserStatsModalURL />} />
+                  {/* <Route exact path="/profile/:data" element={<ProfilePage/>}/> */}
+                  <Route exact path="/user/:data" element={<UserStatsModalURL />}/>
                 </Routes>
               </div>
             </WallpaperProvider>
